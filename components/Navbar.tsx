@@ -79,7 +79,7 @@ export default function Navbar() {
     setOpenMobileAccordion((prev) => (prev === key ? null : key));
   };
 
-  const springConfig = { type: "spring", bounce: 0, duration: 0.4 };
+  const springConfig = { type: "spring" as const, bounce: 0, duration: 0.4 };
 
   // Menüye göre sağ tarafta çıkacak görseli belirleyen dinamik fonksiyon
   const getDropdownImage = (key: string) => {
