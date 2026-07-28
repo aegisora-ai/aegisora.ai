@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -11,13 +11,13 @@ import {
   TerminalSquare,
   AlertTriangle,
   PlayCircle,
+  Loader2,
 } from "lucide-react";
 
-export default function LiveMonitorPage() {
+function LiveMonitorContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // URL'den gelen agent bilgilerini oku
   const connectedAgentId = searchParams.get("agentId");
   const connectedAgentName = searchParams.get("name") || "Unknown Agent";
 
@@ -30,7 +30,6 @@ export default function LiveMonitorPage() {
   const transcriptRef = useRef<HTMLDivElement>(null);
   const traceRef = useRef<HTMLDivElement>(null);
 
-  // Ekranda yeni veri geldikçe aşağı kaydırma
   useEffect(() => {
     transcriptRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -39,13 +38,10 @@ export default function LiveMonitorPage() {
     traceRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [traceLogs]);
 
-  // Canlı Yayın Simülasyonunu Başlat
   useEffect(() => {
-    // SADECE URL'de AgentId varsa canlı yayına geç
     if (connectedAgentId) {
       setIsStreaming(true);
 
-      // Simülasyon Senaryosu: Yavaş yavaş akan loglar
       const timeout1 = setTimeout(
         () =>
           setTraceLogs((prev) => [
@@ -135,10 +131,9 @@ export default function LiveMonitorPage() {
 
   const handleEndSession = () => {
     setIsStreaming(false);
-    router.push("/dashboard/agents"); // Geri dön
+    router.push("/dashboard/agents");
   };
 
-  // BAĞLANTI YOKSA (Boş Ekran)
   if (!connectedAgentId) {
     return (
       <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full h-[calc(100vh-80px)] flex flex-col items-center justify-center">
@@ -162,10 +157,8 @@ export default function LiveMonitorPage() {
     );
   }
 
-  // BAĞLANTI VARSA (Canlı İzleme Ekranı)
   return (
     <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-6">
-      {/* ÜST DURUM BARI */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
         <div className="flex items-center gap-4">
           <div className="relative">
@@ -200,7 +193,6 @@ export default function LiveMonitorPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* SOL: TRANSCRIPT */}
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className="bg-[#121215] border border-gray-800/80 rounded-2xl flex flex-col shadow-xl min-h-[400px]">
             <div className="px-6 py-4 border-b border-gray-800 flex items-center justify-between bg-[#19191d]/30">
@@ -251,7 +243,6 @@ export default function LiveMonitorPage() {
           </div>
         </div>
 
-        {/* SAĞ: TELEMETRY VE RAG TRACE */}
         <div className="flex flex-col gap-6">
           <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col justify-center">
             <h3 className="text-sm font-medium text-white flex items-center gap-2 mb-4">
@@ -288,5 +279,20 @@ export default function LiveMonitorPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// SUSPENSE İLE SARMALANMIŞ ANA SAYFA BİLEŞENİ (Next.js 16 Build Hatasını Çözer)
+export default function LiveMonitorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-[60vh] text-gray-500">
+          <Loader2 className="w-8 h-8 animate-spin text-[#0066EE]" />
+        </div>
+      }
+    >
+      <LiveMonitorContent />
+    </Suspense>
   );
 }
