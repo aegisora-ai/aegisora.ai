@@ -25,37 +25,11 @@ export default function PricingSection() {
           "AI Agent Monitoring",
           "Runtime Logs",
           "Prompt History",
-          "Tool Usage",
-          "Decision Timeline",
         ],
-        Security: [
-          "Zero-Trust Proxy",
-          "PII Masking",
-          "Runtime Policy Enforcement",
-          "Neural Firewall",
-          "Risk Detection",
-        ],
-        Governance: [
-          "Audit Logs",
-          "Compliance Reports",
-          "Approval Workflows",
-          "RBAC",
-          "Policy Library",
-        ],
-        Analytics: [
-          "AI Trust Score",
-          "Agent Analytics",
-          "Cost Analytics",
-          "Behavioral Insights",
-        ],
-        Integrations: [
-          "OpenAI",
-          "Anthropic",
-          "Azure OpenAI",
-          "Slack",
-          "GitHub",
-          "Jira",
-        ],
+        Security: ["Zero-Trust Proxy", "PII Masking", "Basic Risk Detection"],
+        Governance: ["Standard Audit Logs", "Basic Policy Library"],
+        Analytics: ["AI Trust Score", "Agent Analytics"],
+        Integrations: ["OpenAI", "Anthropic", "Slack"],
       },
     },
     {
@@ -80,14 +54,14 @@ export default function PricingSection() {
           "PII Masking",
           "Runtime Policy Enforcement",
           "Neural Firewall",
-          "Risk Detection",
+          "Advanced Risk Detection",
         ],
         Governance: [
-          "Audit Logs",
-          "Compliance Reports",
+          "Advanced Audit Logs",
+          "Compliance Reports (SOC 2, ISO)",
           "Approval Workflows",
-          "RBAC",
-          "Policy Library",
+          "RBAC (Role-Based Access)",
+          "Dynamic Policy Library",
         ],
         Analytics: [
           "AI Trust Score",
@@ -116,39 +90,38 @@ export default function PricingSection() {
       href: "http://localhost:3000/contact/sales",
       features: {
         "AI Visibility": [
-          "AI Agent Monitoring",
-          "Runtime Logs",
-          "Prompt History",
-          "Tool Usage",
-          "Decision Timeline",
+          "Unlimited AI Agent Monitoring",
+          "Real-time Enterprise Runtime Logs",
+          "Unlimited Prompt History",
+          "Advanced Tool Usage Auditing",
+          "Granular Decision Timeline",
         ],
         Security: [
-          "Zero-Trust Proxy",
-          "PII Masking",
-          "Runtime Policy Enforcement",
-          "Neural Firewall",
-          "Risk Detection",
+          "Dedicated Zero-Trust Proxy Cluster",
+          "Advanced Enterprise PII Masking",
+          "Custom Runtime Policy Enforcement",
+          "Enterprise Neural Firewall",
+          "Real-time Threat & Jailbreak Defense",
         ],
         Governance: [
-          "Audit Logs",
-          "Compliance Reports",
-          "Approval Workflows",
-          "RBAC",
-          "Policy Library",
+          "Tamper-Proof Immutable Audit Logs",
+          "Automated Regulatory Compliance Suite",
+          "Multi-tier Approval Workflows",
+          "Enterprise RBAC & SSO (SAML)",
+          "Custom Policy Constitutions",
         ],
         Analytics: [
-          "AI Trust Score",
-          "Agent Analytics",
-          "Cost Analytics",
-          "Behavioral Insights",
+          "Enterprise AI Trust Score",
+          "Deep Swarm & Agent Analytics",
+          "Granular Cost & Token Analytics",
+          "Predictive Behavioral Insights",
         ],
         Integrations: [
-          "OpenAI",
-          "Anthropic",
-          "Azure OpenAI",
-          "Slack",
-          "GitHub",
-          "Jira",
+          "All LLM Providers (Custom & Open Source)",
+          "Azure OpenAI & AWS Bedrock",
+          "Enterprise Slack & Teams",
+          "GitHub, GitLab & CI/CD Pipelines",
+          "Custom Webhooks & SIEM Integration",
         ],
       },
     },
@@ -274,36 +247,43 @@ export default function PricingSection() {
 
                 {/* Features Categorization */}
                 <div className="space-y-6 mb-10">
-                  {categories.map((category, catIdx) => (
-                    <div key={catIdx} className="space-y-2.5">
-                      <h4
-                        className={`font-mono text-[11px] uppercase tracking-wider font-semibold ${isBusiness ? "text-blue-400" : "text-[#0066EE]"}`}
-                      >
-                        {category}
-                      </h4>
-                      <ul className="space-y-2">
-                        {plan.features[
-                          category as keyof typeof plan.features
-                        ].map((feat, featIdx) => (
-                          <li
-                            key={featIdx}
-                            className="flex items-start gap-2.5 text-xs font-mono"
-                          >
-                            <Check
-                              className={`w-4 h-4 shrink-0 mt-0.5 ${isBusiness ? "text-blue-400" : "text-[#0066EE]"}`}
-                            />
-                            <span
-                              className={
-                                isBusiness ? "text-slate-300" : "text-slate-700"
-                              }
+                  {categories.map((category, catIdx) => {
+                    const categoryFeatures =
+                      plan.features[category as keyof typeof plan.features];
+                    if (!categoryFeatures || categoryFeatures.length === 0)
+                      return null;
+
+                    return (
+                      <div key={catIdx} className="space-y-2.5">
+                        <h4
+                          className={`font-mono text-[11px] uppercase tracking-wider font-semibold ${isBusiness ? "text-blue-400" : "text-[#0066EE]"}`}
+                        >
+                          {category}
+                        </h4>
+                        <ul className="space-y-2">
+                          {categoryFeatures.map((feat, featIdx) => (
+                            <li
+                              key={featIdx}
+                              className="flex items-start gap-2.5 text-xs font-mono"
                             >
-                              {feat}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                              <Check
+                                className={`w-4 h-4 shrink-0 mt-0.5 ${isBusiness ? "text-blue-400" : "text-[#0066EE]"}`}
+                              />
+                              <span
+                                className={
+                                  isBusiness
+                                    ? "text-slate-300"
+                                    : "text-slate-700"
+                                }
+                              >
+                                {feat}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
