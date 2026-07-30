@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
 export async function POST(req: Request) {
   try {
@@ -10,6 +11,39 @@ export async function POST(req: Request) {
         { error: "Groq API key is not configured on the server." },
         { status: 500 },
       );
+    }
+
+    // 🚀 Server-side Supabase Client (Gerçek Veritabanı Bağlamı İçin)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+    const supabaseKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      "";
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // 📊 Veritabanından Anlık Enterprise Telemetri Verilerini Çekelim
+    let dbContextSummary = "No active database context available.";
+    try {
+      const [{ data: agents }, { data: incidents }, { data: policies }] =
+        await Promise.all([
+          supabase.from("agents").select("id, name, model, risk_level, status"),
+          supabase
+            .from("incidents")
+            .select("id, threat_type, severity, status, agent_name")
+            .order("created_at", { ascending: false })
+            .limit(5),
+          supabase.from("policy_rules").select("policy_key, is_enabled"),
+        ]);
+
+      dbContextSummary = `
+REAL-TIME DATABASE TELEMETRY & STATE:
+- Total Deployed Agents: ${agents?.length || 0}
+- Agent Fleet Details: ${JSON.stringify(agents || [])}
+- Recent Security Incidents: ${JSON.stringify(incidents || [])}
+- Active Security Policies: ${JSON.stringify(policies || [])}
+`;
+    } catch (dbErr) {
+      console.error("Failed to fetch DB context for AI:", dbErr);
     }
 
     const response = await fetch(
@@ -25,14 +59,21 @@ export async function POST(req: Request) {
           messages: [
             {
               role: "system",
-              content: `You are Aegisora Intelligence Core, an expert enterprise AI security and governance assistant. 
-If you need clarification or want to give the user quick choices to narrow down their request (like Claude Artifacts / interactive options), you MUST include a JSON block at the very end of your response formatted exactly like this:
+              content: `You are Aegisora Intelligence Core, an expert enterprise AI security, governance, and runtime protection assistant.
+You have direct, real-time access to the organization's PostgreSQL database telemetry.
+
+${dbContextSummary}
+
+Guidelines:
+- Always base your security answers, analytics, and diagnostics on the real database telemetry provided above. Never invent fake agent names or mock incident IDs if real ones exist.
+- If the user asks about the fleet, incidents, or security rules, quote the actual data from the telemetry above.
+- If you need clarification or want to give the user quick choices to narrow down their request (like Claude Artifacts / interactive options), you MUST include a JSON block at the very end of your response formatted exactly like this:
 \`\`\`json
 {
   "options": ["Option 1", "Option 2", "Option 3"]
 }
 \`\`\`
-If no choices are needed, do not include this json block. Be professional, technical, and precise.`,
+If no choices are needed, do not include this json block. Be professional, technical, precise, and authoritative.`,
             },
             ...messages,
           ],
@@ -53,7 +94,6 @@ If no choices are needed, do not include this json block. Be professional, techn
     const rawContent =
       data.choices[0]?.message?.content || "No response generated.";
 
-    // JSON seçeneklerini ve metni birbirinden ayıralım
     let options: string[] = [];
     let cleanContent = rawContent;
 
@@ -66,7 +106,7 @@ If no choices are needed, do not include this json block. Be professional, techn
         }
         cleanContent = rawContent.replace(jsonMatch[0], "").trim();
       } catch (e) {
-        // Parse hatası olursa sessizce geç
+        // Parse hatası olursa yut
       }
     }
 

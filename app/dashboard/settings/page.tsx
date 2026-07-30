@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Key,
@@ -18,13 +18,13 @@ import {
   Loader2,
   Clock,
 } from "lucide-react";
+import { createClient } from "@/utils/supabase/client";
 
 export default function SettingsPage() {
+  const supabase = createClient();
   const [activeTab, setActiveTab] = useState<"api" | "team" | "general">("api");
 
-  // --- STATE YÖNETİMİ (ETKİLEŞİM İÇİN) ---
-
-  // 1. API Keys State
+  // --- STATE YÖNETİMİ ---
   const [apiKeys, setApiKeys] = useState([
     {
       id: 1,
@@ -36,36 +36,117 @@ export default function SettingsPage() {
   const [isGeneratingKey, setIsGeneratingKey] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  // 2. Team Members State
-  const [teamMembers, setTeamMembers] = useState([
-    {
-      id: 1,
-      name: "Eray Özer",
-      email: "eray@aegisora.ai",
-      role: "Owner",
-      type: "owner",
-      initials: "EÖ",
-    },
-    {
-      id: 2,
-      name: "Security AI",
-      email: "system@aegisora.ai",
-      role: "Automated Analyst",
-      type: "ai",
-      initials: "SA",
-    },
-  ]);
+  // 🚀 GERÇEK VERİTABANI İÇİN TEAM STATE'LERİ
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [isLoadingMembers, setIsLoadingMembers] = useState(true);
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRole, setInviteRole] = useState("Security Analyst");
   const [isInviting, setIsInviting] = useState(false);
 
-  // 3. General Settings State
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [workspaceName, setWorkspaceName] = useState("Aegisora Enterprise");
   const [retention, setRetention] = useState("30 Days (Compliance Minimum)");
 
-  // --- FONKSİYONLAR ---
+  // 1. SUPABASE'DEN TAKIM ÜYELERİNİ ÇEKME
+  useEffect(() => {
+    async function fetchMembers() {
+      setIsLoadingMembers(true);
+      const { data, error } = await supabase
+        .from("team_members")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+      if (data && !error) {
+        const formattedData = data.map((m) => ({
+          id: m.id,
+          name: m.name || "Pending Invite",
+          email: m.email,
+          role: m.role,
+          type:
+            m.status === "pending"
+              ? "pending"
+              : m.role === "Owner"
+                ? "owner"
+                : m.role.includes("AI") || m.role.includes("Analyst")
+                  ? "ai"
+                  : "user",
+          initials: (m.name || m.email || "U").substring(0, 2).toUpperCase(),
+          status: m.status,
+        }));
+        setTeamMembers(formattedData);
+      }
+      setIsLoadingMembers(false);
+    }
+
+    if (activeTab === "team") {
+      fetchMembers();
+    }
+  }, [activeTab, supabase]);
+
+  // 2. YENİ ÜYE DAVET ETME (VERİTABANINA YAZMA)
+  const handleInvite = async () => {
+    if (!inviteEmail) return;
+    setIsInviting(true);
+
+    const newMemberData = {
+      email: inviteEmail,
+      role: inviteRole,
+      status: "pending",
+      name: "Pending Invite",
+    };
+
+    try {
+      // Supabase'e ekle ve eklenen satırın verisini geri al (UUID id'si için)
+      const { data, error } = await supabase
+        .from("team_members")
+        .insert([newMemberData])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        // UI'ı anında güncelle
+        const formattedNewMember = {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          role: data.role,
+          type: "pending",
+          initials: data.email.charAt(0).toUpperCase(),
+          status: data.status,
+        };
+        setTeamMembers((prev) => [...prev, formattedNewMember]);
+      }
+    } catch (error) {
+      console.error("Error inviting member:", error);
+      alert("Failed to invite member. Make sure the table exists.");
+    } finally {
+      setIsInviting(false);
+      setInviteEmail("");
+    }
+  };
+
+  // 3. ÜYE SİLME (VERİTABANINDAN SİLME - ASİLME TUŞU)
+  const handleDeleteMember = async (id: string) => {
+    // Ekranda hızlıca silinmiş gibi göstermek için (Optimistic Update)
+    const previousMembers = [...teamMembers];
+    setTeamMembers((prev) => prev.filter((m) => m.id !== id));
+
+    try {
+      const { error } = await supabase
+        .from("team_members")
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error deleting member:", error);
+      // Eğer veritabanında hata olursa üyeyi geri getir
+      setTeamMembers(previousMembers);
+      alert("Failed to delete member.");
+    }
+  };
 
   // API Key Kopyalama
   const handleCopy = (keyText: string) => {
@@ -93,25 +174,6 @@ export default function SettingsPage() {
       };
       setApiKeys([newKey, ...apiKeys]);
       setIsGeneratingKey(false);
-    }, 800);
-  };
-
-  // Yeni Kullanıcı Davet Etme Simülasyonu
-  const handleInvite = () => {
-    if (!inviteEmail) return;
-    setIsInviting(true);
-    setTimeout(() => {
-      const newMember = {
-        id: Date.now(),
-        name: "Pending Invite",
-        email: inviteEmail,
-        role: inviteRole,
-        type: "pending",
-        initials: inviteEmail.charAt(0).toUpperCase(),
-      };
-      setTeamMembers([...teamMembers, newMember]);
-      setInviteEmail("");
-      setIsInviting(false);
     }, 800);
   };
 
@@ -332,7 +394,7 @@ export default function SettingsPage() {
               </motion.div>
             )}
 
-            {/* --- TEAM MANAGEMENT SEKMESİ --- */}
+            {/* --- TEAM MANAGEMENT SEKMESİ (GERÇEK VERİ & AKTİF BUTONLAR) --- */}
             {activeTab === "team" && (
               <motion.div
                 key="team"
@@ -390,75 +452,99 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Üye Listesi */}
-                  <div className="border border-gray-800 rounded-xl overflow-hidden divide-y divide-gray-800">
-                    {teamMembers.map((member) => (
-                      <motion.div
-                        layout
-                        key={member.id}
-                        className="flex items-center justify-between p-4 bg-[#0a0a0c] hover:bg-[#19191d]/50 transition-colors"
-                      >
-                        <div className="flex items-center gap-3">
-                          {/* Avatar Render */}
-                          {member.type === "owner" && (
-                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0066EE] to-purple-600 flex items-center justify-center text-white font-serif font-bold text-xs">
-                              {member.initials}
-                            </div>
-                          )}
-                          {member.type === "ai" && (
-                            <div className="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-500 font-serif font-bold text-xs">
-                              {member.initials}
-                            </div>
-                          )}
-                          {member.type === "pending" && (
-                            <div className="w-9 h-9 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-gray-400 font-serif font-bold text-xs">
-                              {member.initials}
-                            </div>
-                          )}
-
-                          <div>
-                            <p className="text-sm font-medium text-white">
-                              {member.name}
-                              {member.type === "owner" && (
-                                <span className="text-[10px] bg-gray-800 text-gray-300 px-2 py-0.5 rounded ml-2">
-                                  You
-                                </span>
-                              )}
-                              {member.type === "pending" && (
-                                <span className="text-[10px] bg-amber-500/20 text-amber-500 border border-amber-500/30 px-2 py-0.5 rounded ml-2">
-                                  Pending
-                                </span>
-                              )}
-                            </p>
-                            <p className="text-xs font-mono text-gray-500">
-                              {member.email}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-4">
-                          {member.type === "ai" ? (
-                            <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 hidden sm:flex">
-                              <ShieldCheck className="w-3 h-3" /> {member.role}
-                            </span>
-                          ) : member.type === "pending" ? (
-                            <span className="flex items-center gap-1 text-[10px] font-mono text-gray-400 hidden sm:flex">
-                              <Clock className="w-3 h-3" /> Awaiting
-                            </span>
-                          ) : (
-                            <span className="text-xs font-mono text-gray-400 hidden sm:block">
-                              {member.role}
-                            </span>
-                          )}
-                          <button className="text-gray-600 hover:text-white transition-colors cursor-pointer">
-                            {member.type === "pending" ? (
-                              <Trash2 className="w-4 h-4 hover:text-red-400" />
-                            ) : (
-                              <MoreVertical className="w-4 h-4" />
+                  <div className="border border-gray-800 rounded-xl overflow-hidden divide-y divide-gray-800 min-h-[100px] relative">
+                    {isLoadingMembers ? (
+                      <div className="flex justify-center items-center py-10">
+                        <Loader2 className="w-6 h-6 animate-spin text-[#0066EE]" />
+                      </div>
+                    ) : (
+                      teamMembers.map((member) => (
+                        <motion.div
+                          layout
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          key={member.id}
+                          className="flex items-center justify-between p-4 bg-[#0a0a0c] hover:bg-[#19191d]/50 transition-colors"
+                        >
+                          <div className="flex items-center gap-3">
+                            {/* Avatar Render */}
+                            {member.type === "owner" && (
+                              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0066EE] to-purple-600 flex items-center justify-center text-white font-serif font-bold text-xs">
+                                {member.initials}
+                              </div>
                             )}
-                          </button>
-                        </div>
-                      </motion.div>
-                    ))}
+                            {member.type === "ai" && (
+                              <div className="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-500 font-serif font-bold text-xs">
+                                {member.initials}
+                              </div>
+                            )}
+                            {member.type === "pending" && (
+                              <div className="w-9 h-9 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-gray-400 font-serif font-bold text-xs">
+                                {member.initials}
+                              </div>
+                            )}
+                            {member.type === "user" && (
+                              <div className="w-9 h-9 rounded-full bg-[#0066EE]/20 border border-[#0066EE]/30 flex items-center justify-center text-[#0066EE] font-serif font-bold text-xs">
+                                {member.initials}
+                              </div>
+                            )}
+
+                            <div>
+                              <p className="text-sm font-medium text-white">
+                                {member.name}
+                                {member.type === "owner" && (
+                                  <span className="text-[10px] bg-gray-800 text-gray-300 px-2 py-0.5 rounded ml-2">
+                                    You
+                                  </span>
+                                )}
+                                {member.type === "pending" && (
+                                  <span className="text-[10px] bg-amber-500/20 text-amber-500 border border-amber-500/30 px-2 py-0.5 rounded ml-2">
+                                    Pending
+                                  </span>
+                                )}
+                              </p>
+                              <p className="text-xs font-mono text-gray-500">
+                                {member.email}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-4">
+                            {member.type === "ai" ? (
+                              <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20 hidden sm:flex">
+                                <ShieldCheck className="w-3 h-3" />{" "}
+                                {member.role}
+                              </span>
+                            ) : member.type === "pending" ? (
+                              <span className="flex items-center gap-1 text-[10px] font-mono text-gray-400 hidden sm:flex">
+                                <Clock className="w-3 h-3" /> Awaiting
+                              </span>
+                            ) : (
+                              <span className="text-xs font-mono text-gray-400 hidden sm:block">
+                                {member.role}
+                              </span>
+                            )}
+
+                            {/* 🚨 SİLME / AKSİYON BUTONU (ASİLME TUŞU) */}
+                            {member.type === "pending" ||
+                            member.type === "user" ? (
+                              <button
+                                onClick={() => handleDeleteMember(member.id)}
+                                className="text-gray-600 hover:text-red-400 transition-colors cursor-pointer p-1 rounded hover:bg-red-500/10"
+                                title="Remove member"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            ) : (
+                              <button className="text-gray-600 hover:text-white transition-colors cursor-pointer">
+                                <MoreVertical className="w-4 h-4" />
+                              </button>
+                            )}
+                          </div>
+                        </motion.div>
+                      ))
+                    )}
                   </div>
                 </div>
               </motion.div>

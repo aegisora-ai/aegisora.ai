@@ -13,11 +13,14 @@ import {
   AlertTriangle,
   Loader2,
   X,
+  ChevronRight,
+  Sliders,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
 interface Agent {
   id: string;
+  organization_id?: string;
   workspace_id?: string;
   name: string;
   model: string;
@@ -27,69 +30,73 @@ interface Agent {
   created_at: string;
 }
 
-export default function AgentsPage() {
+export default function AgentsFleetPage() {
   const router = useRouter();
   const supabase = createClient();
   const [agents, setAgents] = useState<Agent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [workspaceId, setWorkspaceId] = useState<string | null>(null);
 
-  // Modal State'leri
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null); // Hangi ajanın silindiğini takip etmek için
 
-  // Kullanıcı Form Girdileri
   const [formData, setFormData] = useState({
     name: "",
     model: "gpt-4o-realtime",
     risk_level: "Low",
   });
 
-  useEffect(() => {
-    async function fetchAgents() {
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (!user) return setIsLoading(false);
+  // 🚀 GERÇEK VERİTABANINDAN AJANLARI ÇEKME
+  const fetchRealAgents = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("agents")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-        const { data: ws } = await supabase
-          .from("workspaces")
-          .select("id")
-          .eq("owner_id", user.id)
-          .single();
-
-        if (ws) {
-          setWorkspaceId(ws.id);
-          const { data: agentsData } = await supabase
-            .from("agents")
-            .select("*")
-            .eq("workspace_id", ws.id)
-            .order("created_at", { ascending: false });
-
-          if (agentsData) setAgents(agentsData);
-        }
-      } catch (error) {
-        console.error("Error fetching agents:", error);
-      } finally {
-        setIsLoading(false);
+      if (error) {
+        console.error("Error fetching agents:", error.message);
+      } else if (data) {
+        setAgents(data);
       }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+    } finally {
+      setIsLoading(false);
     }
-    fetchAgents();
+  };
+
+  useEffect(() => {
+    fetchRealAgents();
+
+    // ⚡ REALTIME SUBSCRIPTION
+    const channel = supabase
+      .channel("agents-realtime-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "agents" },
+        () => {
+          fetchRealAgents(); // Veritabanında her değişiklik olduğunda listeyi tazele
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [supabase]);
 
-  // KULLANICI GİRDİSİ İLE GERÇEK KAYIT OLUŞTURMA
+  // 📝 AJAN OLUŞTURMA (YÜKLENİYOR GÖRSELİ İLE)
   const handleDeployAgent = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !workspaceId) return;
+    if (!formData.name.trim() || isDeploying) return;
 
     setIsDeploying(true);
 
     const newId = `AGT-${Math.floor(Math.random() * 9000) + 1000}`;
-    const newAgent: Agent = {
+    const newAgent = {
       id: newId,
-      workspace_id: workspaceId,
-      name: formData.name,
+      name: formData.name.trim(),
       model: formData.model,
       risk_level: formData.risk_level,
       total_requests: 0,
@@ -99,40 +106,49 @@ export default function AgentsPage() {
           : formData.risk_level === "Medium"
             ? "SECURED"
             : "ACTIVE",
-      created_at: new Date().toISOString(),
     };
 
-    // Ekranda anında göster (Optimistic UI)
-    setAgents((prev) => [newAgent, ...prev]);
-    setIsModalOpen(false); // Modalı Kapat
-    setFormData({ name: "", model: "gpt-4o-realtime", risk_level: "Low" }); // Formu sıfırla
-    setIsDeploying(false);
-
-    // Veritabanına Yaz
     try {
-      const { error } = await supabase.from("agents").insert([
-        {
-          id: newAgent.id,
-          workspace_id: newAgent.workspace_id,
-          name: newAgent.name,
-          model: newAgent.model,
-          risk_level: newAgent.risk_level,
-          total_requests: newAgent.total_requests,
-          status: newAgent.status,
-        },
-      ]);
-      if (error) console.error("DB Insert Error:", error.message);
-    } catch (err) {
-      console.error("Failed to write to DB:", err);
+      const { error } = await supabase.from("agents").insert([newAgent]);
+      if (error) {
+        alert(`Failed to deploy agent: ${error.message}`);
+      } else {
+        setIsModalOpen(false);
+        setFormData({ name: "", model: "gpt-4o-realtime", risk_level: "Low" });
+        await fetchRealAgents(); // Listeyi hemen güncelle
+      }
+    } catch (err: any) {
+      alert(`Error: ${err.message}`);
+    } finally {
+      setIsDeploying(false);
     }
   };
 
+  // 🗑️ VERİTABANINDAN ANINDA SİLME (GÖRSEL LOADING İLE)
   const handleDelete = async (agentId: string) => {
-    setAgents((prev) => prev.filter((a) => a.id !== agentId));
-    await supabase.from("agents").delete().eq("id", agentId);
+    if (deletingId) return;
+    setDeletingId(agentId);
+
+    try {
+      // Önce UI'dan kaldır (Optimistic Update)
+      setAgents((prev) => prev.filter((a) => a.id !== agentId));
+
+      const { error } = await supabase
+        .from("agents")
+        .delete()
+        .eq("id", agentId);
+      if (error) {
+        console.error("Delete error:", error.message);
+        await fetchRealAgents(); // Hata olursa listeyi geri getir
+      }
+    } catch (err) {
+      console.error("Failed to delete agent:", err);
+      await fetchRealAgents();
+    } finally {
+      setDeletingId(null);
+    }
   };
 
-  // Ajana bağlanıp Live Monitor sayfasına yönlendirme
   const handleConnectStream = (agentId: string, agentName: string) => {
     router.push(
       `/dashboard/live-monitor?agentId=${agentId}&name=${encodeURIComponent(agentName)}`,
@@ -141,15 +157,13 @@ export default function AgentsPage() {
 
   return (
     <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8 relative">
-      {/* BAŞLIK VE BUTON */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-800 pb-6">
         <div>
           <h1 className="text-2xl font-serif text-white tracking-tight flex items-center gap-2">
             AI Agent Fleet
           </h1>
           <p className="text-xs font-mono text-gray-400 mt-1">
-            Deploy, govern, and monitor autonomous AI agents under zero-trust
-            rules.
+            Production-grade autonomous AI governance connected to PostgreSQL.
           </p>
         </div>
         <button
@@ -160,11 +174,12 @@ export default function AgentsPage() {
         </button>
       </div>
 
-      {/* YÜKLENİYOR / BOŞ DURUM / LİSTE */}
       {isLoading ? (
         <div className="flex flex-col items-center justify-center min-h-[40vh] text-gray-500">
           <Loader2 className="w-8 h-8 animate-spin text-[#0066EE] mb-4" />
-          <p className="text-xs font-mono">Syncing with Aegisora Core...</p>
+          <p className="text-xs font-mono">
+            Syncing with PostgreSQL database...
+          </p>
         </div>
       ) : agents.length === 0 ? (
         <motion.div
@@ -175,18 +190,16 @@ export default function AgentsPage() {
           <div className="w-16 h-16 rounded-2xl bg-[#0066EE]/10 border border-[#0066EE]/20 flex items-center justify-center mb-6">
             <Cpu className="w-8 h-8 text-[#0066EE]" />
           </div>
-          <h2 className="text-xl font-serif text-white mb-2">
-            No AI Agents Deployed
-          </h2>
+          <h2 className="text-xl font-serif text-white mb-2">No AI Agents</h2>
           <p className="text-xs font-mono text-gray-500 max-w-md leading-relaxed mb-8">
-            Your enterprise fleet is currently empty. Deploy your first
-            autonomous agent manually to begin monitoring.
+            Your enterprise fleet database is currently empty. Deploy your first
+            autonomous agent to begin telemetry tracking.
           </p>
           <button
             onClick={() => setIsModalOpen(true)}
             className="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-xl text-xs font-medium transition-colors shadow-sm cursor-pointer min-w-[180px] justify-center"
           >
-            <Plus className="w-4 h-4" /> Initialize First Agent
+            <Plus className="w-4 h-4" /> Deploy First Agent
           </button>
         </motion.div>
       ) : (
@@ -199,26 +212,39 @@ export default function AgentsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 key={agent.id}
-                className="bg-[#121215] border border-gray-800 rounded-2xl p-6 shadow-xl flex flex-col group relative"
+                className="bg-[#121215] border border-gray-800 hover:border-gray-700 rounded-2xl p-6 shadow-xl flex flex-col group relative transition-all"
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-[#0066EE]/10 border border-[#0066EE]/20 flex items-center justify-center text-[#0066EE]">
+                  <div className="w-12 h-12 rounded-xl bg-[#0066EE]/10 border border-[#0066EE]/20 flex items-center justify-center text-[#0066EE] group-hover:scale-105 transition-transform">
                     <Cpu className="w-6 h-6" />
                   </div>
                   <div className="flex items-center gap-3">
                     <span
-                      className={`px-3 py-1 text-[10px] font-mono uppercase tracking-widest rounded-full border ${agent.status === "SECURED" ? "bg-blue-500/10 text-blue-400 border-blue-500/20" : agent.status === "WARNING" ? "bg-amber-500/10 text-amber-500 border-amber-500/20" : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"}`}
+                      className={`px-3 py-1 text-[10px] font-mono uppercase tracking-widest rounded-full border ${
+                        agent.status === "SECURED"
+                          ? "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                          : agent.status === "WARNING"
+                            ? "bg-amber-500/10 text-amber-500 border-amber-500/20"
+                            : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                      }`}
                     >
                       {agent.status || "ACTIVE"}
                     </span>
                     <button
                       onClick={() => handleDelete(agent.id)}
-                      className="w-8 h-8 rounded-full bg-white/5 hover:bg-red-500/20 text-gray-500 hover:text-red-400 flex items-center justify-center transition-colors cursor-pointer"
+                      disabled={deletingId === agent.id}
+                      className="w-8 h-8 rounded-full bg-white/5 hover:bg-red-500/20 text-gray-500 hover:text-red-400 flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50"
+                      title="Delete Agent"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      {deletingId === agent.id ? (
+                        <Loader2 className="w-4 h-4 animate-spin text-red-400" />
+                      ) : (
+                        <Trash2 className="w-4 h-4" />
+                      )}
                     </button>
                   </div>
                 </div>
+
                 <div>
                   <h3 className="text-lg font-serif font-medium text-white mb-1 truncate">
                     {agent.name}
@@ -227,6 +253,7 @@ export default function AgentsPage() {
                     {agent.id} • {agent.model}
                   </p>
                 </div>
+
                 <div className="grid grid-cols-2 gap-4 border-t border-gray-800/80 pt-5 pb-6">
                   <div>
                     <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-1">
@@ -241,7 +268,13 @@ export default function AgentsPage() {
                       Risk Level
                     </p>
                     <p
-                      className={`text-[13px] font-medium flex items-center gap-1.5 mt-1.5 ${agent.risk_level === "High" ? "text-red-400" : agent.risk_level === "Medium" ? "text-amber-400" : "text-emerald-400"}`}
+                      className={`text-[13px] font-medium flex items-center gap-1.5 mt-1.5 ${
+                        agent.risk_level === "High"
+                          ? "text-red-400"
+                          : agent.risk_level === "Medium"
+                            ? "text-amber-400"
+                            : "text-emerald-400"
+                      }`}
                     >
                       {agent.risk_level === "High" && (
                         <AlertTriangle className="w-3.5 h-3.5" />
@@ -256,16 +289,21 @@ export default function AgentsPage() {
                     </p>
                   </div>
                 </div>
-                <div className="mt-auto flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-gray-500">
-                    Active Since Deployment
-                  </span>
+
+                <div className="mt-auto pt-4 border-t border-gray-800/80 flex items-center justify-between">
+                  <button
+                    onClick={() => router.push("/dashboard/risk-center")}
+                    className="text-[11px] font-mono text-gray-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                  >
+                    <Sliders className="w-3.5 h-3.5 text-[#0066EE]" /> Policies
+                  </button>
+
                   <button
                     onClick={() => handleConnectStream(agent.id, agent.name)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-mono text-emerald-400 transition-colors cursor-pointer"
+                    className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-mono text-emerald-400 transition-colors cursor-pointer shadow-sm"
                   >
                     <Radio className="w-3.5 h-3.5 animate-pulse" /> Connect
-                    Stream
+                    Stream <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </motion.div>
@@ -274,7 +312,7 @@ export default function AgentsPage() {
         </div>
       )}
 
-      {/* DEPLOY MODAL (KULLANICI GİRDİSİ İÇİN) */}
+      {/* DEPLOY MODAL (YÜKLENİYOR ANİMASYONLU) */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -356,7 +394,10 @@ export default function AgentsPage() {
                   className="w-full bg-[#0066EE] hover:bg-[#005bb5] disabled:bg-[#0066EE]/50 text-white font-medium text-sm py-3.5 rounded-xl transition-colors mt-4 flex justify-center items-center gap-2 cursor-pointer"
                 >
                   {isDeploying ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" /> Deploying to
+                      PostgreSQL...
+                    </>
                   ) : (
                     "Deploy Agent"
                   )}

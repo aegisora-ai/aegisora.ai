@@ -75,7 +75,7 @@ export default function Hero() {
   }, [currentText, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 bg-transparent overflow-visible font-sans">
+    <section className="relative w-full min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflow-visible font-sans">
       {/* HAREKETLİ MESH GRADIENT */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <motion.div
@@ -107,16 +107,16 @@ export default function Hero() {
         />
       </div>
 
-      {/* Ana İçerik Konteyneri */}
-      <div className="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center z-10 mx-auto">
+      {/* Ana İçerik Konteyneri: %100 ekranda yan yana kusursuz durması ve mobilde uyumlu olması için max-w ve gap optimize edildi */}
+      <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center z-10 mx-auto">
         {/* Sol Sütun: Tipografi ve Giriş Kutusu */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-          <h1 className="text-4xl sm:text-5xl lg:text-[4.2rem] font-serif text-[#111111] leading-[1.08] tracking-tight mb-6">
+        <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
+          <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-serif text-[#111111] leading-[1.08] tracking-tight mb-6">
             Every AI agent.
             <br />
             Under control.
           </h1>
-          <p className="text-slate-600 font-mono text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-8 max-w-md">
+          <p className="text-slate-600 font-mono text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-8 max-w-lg">
             The enterprise governance layer for autonomous systems. We secure
             your AI infrastructure from prompt injections, shadow models, and
             data leaks.
@@ -175,8 +175,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Sağ Sütun: Özel Görsel Alanı */}
-        <div className="relative w-full max-w-[440px] lg:max-w-[460px] mx-auto aspect-square lg:aspect-[4/4.5] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,102,238,0.15)] bg-black">
+        {/* Sağ Sütun: Özel Görsel Alanı (%100 ve mobilde kusursuz ölçeklenme) */}
+        <div className="lg:col-span-6 relative w-full max-w-[480px] lg:max-w-none mx-auto aspect-square lg:aspect-[4/4.5] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,102,238,0.15)] bg-black">
           <Image
             src="/hero-visual.png"
             alt="Aegisora Platform Preview"

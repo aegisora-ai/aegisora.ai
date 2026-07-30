@@ -22,7 +22,7 @@ export default function SecureByDefault() {
           <span>SOC2</span>
         </div>
       ),
-      title: "SOC 2",
+      title: "SOC 2 Type II",
       sub: "(Certification in progress)",
     },
     {
@@ -38,7 +38,7 @@ export default function SecureByDefault() {
     },
     {
       icon: <Shield className="w-5 h-5 text-[#0066EE]" />,
-      title: "Rest Encryption",
+      title: "Encryption at Rest",
     },
     {
       icon: (
@@ -55,55 +55,54 @@ export default function SecureByDefault() {
           <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
         </svg>
       ),
-      title: "Transit Encryption",
+      title: "Encryption in Transit",
     },
     {
       icon: <Cloud className="w-5 h-5 text-[#0066EE]" />,
-      title: "Data Backups",
+      title: "Zero-Data Retention",
     },
     {
       icon: <Network className="w-5 h-5 text-[#0066EE]" />,
-      title: "Role-based Access",
+      title: "Swarm-Level Access",
     },
     {
       icon: <UserCheck className="w-5 h-5 text-[#0066EE]" />,
-      title: "User Permissions",
+      title: "Agent Permissions",
     },
     {
       icon: <FileText className="w-5 h-5 text-[#0066EE]" />,
-      title: "Audit logging",
+      title: "Immutable Audit Logs",
     },
   ];
 
   return (
     <section className="relative w-full flex justify-center px-6 py-28 bg-transparent font-sans z-10">
-      {/* Gönderdiğin Görseldeki O Özel Renk Tonu (bg-[#ededef]) ve Belirgin Yapı */}
-      <div className="w-full max-w-[1200px] bg-[#ededef]/95 backdrop-blur-3xl rounded-[2.5rem] p-10 lg:p-16 flex flex-col lg:flex-row gap-16 lg:gap-12 items-center lg:items-start border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+      {/* Koyu Tema Premium Enterprise Kartı (Vercel/Stripe Tarzı) */}
+      <div className="w-full max-w-[1200px] bg-[#0a0a0a] rounded-[2.5rem] p-10 lg:p-16 flex flex-col lg:flex-row gap-16 lg:gap-12 items-center lg:items-start border border-white/10 shadow-2xl">
         {/* Sol Taraf: Tipografi ve Buton */}
         <div className="w-full lg:w-[35%] flex flex-col items-start gap-6">
-          <h2 className="text-4xl lg:text-[3.2rem] font-serif text-[#111111] leading-[1.1] tracking-tight">
+          <h2 className="text-4xl lg:text-[3.2rem] font-serif text-white leading-[1.1] tracking-tight">
             Secure by default.
           </h2>
-
-          <p className="font-mono text-gray-700 text-[13.5px] leading-relaxed max-w-sm font-medium">
-            Encryption in transit and at rest, access controls, and compliant
-            infrastructure — your data is protected at every stage.
+          <p className="font-mono text-gray-400 text-[13.5px] leading-relaxed max-w-sm font-medium">
+            Aegisora encrypts every reasoning trace and agentic tool call at
+            rest and in transit, securing your autonomous ecosystem under strict
+            SOC 2 and ISO standards.
           </p>
-
           <button className="bg-[#0066EE] hover:bg-[#005bb5] cursor-pointer text-white font-mono text-[11px] px-6 py-3.5 rounded-full transition-colors mt-2 shadow-md">
-            Read More
+            View Trust Center
           </button>
         </div>
 
-        {/* Sağ Taraf: Özellikler Grid Yapısı (Net ve Belirgin İkon Kutuları) */}
+        {/* Sağ Taraf: Özellikler Grid Yapısı (Premium Koyu İkon Kutuları) */}
         <div className="w-full lg:w-[65%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 lg:pt-2">
           {securityFeatures.map((feature, idx) => (
             <div key={idx} className="flex items-center gap-4 group">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-[0_4px_15px_rgba(0,0,0,0.06)] border border-white/80 group-hover:scale-105 transition-transform">
+              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center flex-shrink-0 border border-white/10 group-hover:bg-white/10 group-hover:scale-105 transition-all duration-300">
                 {feature.icon}
               </div>
               <div className="flex flex-col">
-                <span className="text-[14.5px] font-semibold text-gray-900 leading-tight">
+                <span className="text-[14.5px] font-semibold text-gray-200 leading-tight">
                   {feature.title}
                 </span>
                 {feature.sub && (

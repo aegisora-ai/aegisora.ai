@@ -14,6 +14,8 @@ import {
   Bell,
   Search,
   ChevronRight,
+  FileText,
+  CreditCard,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
@@ -35,6 +37,16 @@ const MENU_GROUPS = [
         name: "Risk Center",
         href: "/dashboard/risk-center",
         icon: ShieldAlert,
+      },
+      {
+        name: "Compliance Reports",
+        href: "/dashboard/reports",
+        icon: FileText,
+      },
+      {
+        name: "Billing & Plans",
+        href: "/dashboard/billing",
+        icon: CreditCard,
       },
     ],
   },

@@ -16,6 +16,10 @@ import {
   Download,
   Globe,
   Check,
+  ShieldAlert,
+  Radio,
+  Layers,
+  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -186,7 +190,8 @@ export default function AiChatPage() {
       queryText.toLowerCase().includes("chart") ||
       queryText.toLowerCase().includes("rapor") ||
       queryText.toLowerCase().includes("bar chart") ||
-      queryText.toLowerCase().includes("istatistik");
+      queryText.toLowerCase().includes("istatistik") ||
+      queryText.toLowerCase().includes("analyze");
 
     try {
       const apiMessages = newMessages
@@ -407,19 +412,21 @@ export default function AiChatPage() {
 
       {/* SOHBET ALANI */}
       <div className="flex-1 flex flex-col h-full relative z-10">
-        <header className="h-16 flex items-center px-6 border-b border-white/10 bg-[#0e0f14]/50 backdrop-blur-2xl z-10 shadow-xs">
-          <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer shadow-xs border border-white/10"
-          >
-            {isSidebarOpen ? (
-              <PanelLeftClose className="w-5 h-5" />
-            ) : (
-              <PanelLeft className="w-5 h-5" />
-            )}
-          </button>
+        <header className="h-16 flex items-center px-6 border-b border-white/10 bg-[#0e0f14]/50 backdrop-blur-2xl z-10 shadow-xs justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer shadow-xs border border-white/10"
+            >
+              {isSidebarOpen ? (
+                <PanelLeftClose className="w-5 h-5" />
+              ) : (
+                <PanelLeft className="w-5 h-5" />
+              )}
+            </button>
+          </div>
 
-          <div className="flex-1 flex justify-center">
+          <div className="flex justify-center">
             <span className="text-[14px] font-medium text-gray-200 flex items-center gap-2 bg-white/5 px-4 py-1.5 rounded-full border border-white/10 shadow-xs">
               Aegisora{" "}
               <span className="text-[#0066EE] font-semibold">
@@ -427,7 +434,21 @@ export default function AiChatPage() {
               </span>
             </span>
           </div>
-          <div className="w-9"></div>
+
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard/agents"
+              className="text-xs font-mono text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 transition-all flex items-center gap-1.5"
+            >
+              <Layers className="w-3.5 h-3.5 text-[#0066EE]" /> Fleet
+            </Link>
+            <Link
+              href="/dashboard/risk-center"
+              className="text-xs font-mono text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 transition-all flex items-center gap-1.5"
+            >
+              <ShieldAlert className="w-3.5 h-3.5 text-red-400" /> Risks
+            </Link>
+          </div>
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-8 scroll-smooth">
@@ -443,6 +464,48 @@ export default function AiChatPage() {
                 <p className="text-sm text-gray-400 mb-10 font-mono tracking-wide">
                   Autonomous zero-trust threat detection & privacy suite.
                 </p>
+
+                {/* HIZLI BAŞLANGIÇ TETİKLEYİCİLERİ */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl">
+                  <button
+                    onClick={() =>
+                      handleSend("Analyze today's critical security incidents")
+                    }
+                    className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                  >
+                    <span>Analyze today's critical security incidents</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleSend("Generate enterprise compliance report")
+                    }
+                    className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                  >
+                    <span>Generate enterprise compliance report</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleSend("Find risky agents in current fleet")
+                    }
+                    className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                  >
+                    <span>Find risky agents in current fleet</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleSend(
+                        "Explain blocked prompt injection sessions & telemetry",
+                      )
+                    }
+                    className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                  >
+                    <span>Explain blocked prompt injection sessions</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                  </button>
+                </div>
               </div>
             ) : (
               messages.map((msg, idx) => (
@@ -634,7 +697,7 @@ export default function AiChatPage() {
                     handleSend();
                   }
                 }}
-                placeholder="Stelle irgendeine Frage..."
+                placeholder="Ask Aegisora AI Security Analyst..."
                 className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-500 font-medium text-[15px] px-1"
               />
 
@@ -661,7 +724,7 @@ export default function AiChatPage() {
         </div>
       </div>
 
-      {/* 📊 TAM EKRAN İNOVATİF ANALYTICS CANVAS (Yatay PDF Çıktısına Tam Sığacak Şekilde Düzenlendi) */}
+      {/* 📊 TAM EKRAN İNOVATİF ANALYTICS CANVAS */}
       <AnimatePresence>
         {isCanvasOpen && (
           <motion.div
