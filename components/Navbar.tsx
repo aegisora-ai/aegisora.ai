@@ -40,6 +40,7 @@ const navData = {
     items: [
       { title: "About", desc: "Who we are & what we do", href: "/about" },
       { title: "Blog", desc: "Privacy insights & news", href: "/blog" },
+      { title: "Admin Portal", desc: "Manage access requests", href: "/admin" },
     ],
   },
   Security: {
@@ -81,7 +82,6 @@ export default function Navbar() {
 
   const springConfig = { type: "spring" as const, bounce: 0, duration: 0.4 };
 
-  // Menüye göre sağ tarafta çıkacak görseli belirleyen dinamik fonksiyon
   const getDropdownImage = (key: string) => {
     switch (key) {
       case "Product":
@@ -101,9 +101,24 @@ export default function Navbar() {
 
   return (
     <>
+      {/* CSS Animasyon Tanımları (Dönen renk efekti için) */}
+      <style jsx global>{`
+        @keyframes border-spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        .animate-border-spin {
+          animation: border-spin 4s linear infinite;
+        }
+      `}</style>
+
       {/* MASAÜSTÜ VE MOBİL YÜZEN MENÜ */}
       <motion.div
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-[840px]"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-[920px]"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={springConfig}
@@ -112,7 +127,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 cursor-pointer z-50"
+            className="flex items-center gap-2 cursor-pointer z-50 shrink-0"
           >
             <div className="relative w-6 h-6 flex items-center justify-center overflow-hidden rounded-full bg-transparent">
               <img
@@ -128,7 +143,7 @@ export default function Navbar() {
 
           {/* Masaüstü Linkler */}
           <div
-            className="hidden lg:flex items-center relative z-50 h-full gap-2"
+            className="hidden lg:flex items-center relative z-50 h-full gap-1 px-2"
             onMouseLeave={() => setActiveDropdown(null)}
           >
             {navKeys.map((key) => (
@@ -170,7 +185,7 @@ export default function Navbar() {
                         ))}
                       </div>
 
-                      {/* SAĞ TARAFTAKİ KUTU (Dinamik Görsel Sistemi) */}
+                      {/* SAĞ TARAFTAKİ KUTU */}
                       <div className="w-[200px] h-[141px] bg-[#141414] rounded-lg overflow-hidden border border-gray-800/50 flex items-center justify-center relative">
                         <img
                           src={getDropdownImage(key)}
@@ -187,22 +202,33 @@ export default function Navbar() {
           </div>
 
           {/* Sağ Aksiyonlar */}
-          <div className="flex items-center gap-3 z-50 h-full py-[8px]">
+          <div className="flex items-center gap-2.5 z-50 h-full py-[8px] shrink-0">
             <Link
               href="/login"
-              className="hidden lg:flex items-center justify-center px-4 h-[32px] text-[13px] font-medium text-gray-200 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+              className="hidden lg:flex items-center justify-center px-3 h-[32px] text-[13px] font-medium text-gray-200 hover:text-white hover:bg-white/10 rounded-md transition-colors whitespace-nowrap"
             >
               Log in
             </Link>
 
+            {/* DÖNEN RENKLİ ÇERÇEVELİ (GLOWING) EARLY ACCESS BUTONU */}
+            <div className="hidden lg:flex relative p-[1px] rounded-xl overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 animate-border-spin" />
+              <Link
+                href="/early-access"
+                className="relative flex items-center justify-center px-3.5 h-[30px] text-[12px] font-medium text-white bg-[#0a0a0a] hover:bg-[#141414] rounded-[11px] transition-colors whitespace-nowrap"
+              >
+                Early Access ✨
+              </Link>
+            </div>
+
             <Link
               href="/get-started"
-              className="hidden lg:flex items-center justify-center px-5 h-[32px] bg-[#0066EE] hover:bg-[#005bb5] text-white text-[13px] font-medium rounded-full transition-colors shadow-sm whitespace-nowrap"
+              className="hidden lg:flex items-center justify-center px-4 h-[32px] bg-[#0066EE] hover:bg-[#005bb5] text-white text-[13px] font-medium rounded-full transition-colors shadow-sm whitespace-nowrap"
             >
               Sign up free
             </Link>
 
-            {/* 2 ÇİZGİLİ / X ANİMASYONLU BUTON */}
+            {/* MOBİL MENÜ BUTONU */}
             <button
               className="lg:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 transition-colors mr-1 cursor-pointer"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -237,6 +263,17 @@ export default function Navbar() {
                 transition={{ duration: 0.25, ease: "easeInOut" }}
                 className="absolute top-full left-0 right-0 bg-[#0c0c0c] rounded-[22px] border border-gray-800 shadow-2xl p-4 flex flex-col z-50 lg:hidden overflow-hidden"
               >
+                <div className="relative p-[1px] rounded-xl overflow-hidden mb-2">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 animate-border-spin" />
+                  <Link
+                    href="/early-access"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="relative w-full h-[36px] bg-[#0c0c0c] text-white font-medium text-[13px] rounded-[11px] transition-colors flex items-center justify-center shadow-sm"
+                  >
+                    Early Access Portal ✨
+                  </Link>
+                </div>
+
                 <Link
                   href="/get-started"
                   onClick={() => setIsMobileMenuOpen(false)}
