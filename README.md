@@ -9,6 +9,9 @@
     <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-blue" alt="TypeScript"></a>
     <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/TailwindCSS-38B2AC" alt="Tailwind CSS"></a>
   </p>
+  <p align="center">
+    🔗 <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+  </p>
 </div>
 
 ---
@@ -46,55 +49,51 @@ To run Aegisora locally on your machine, follow these steps:
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/KULLANICI_ADINIZ/aegisora-site.git
-   cd aegisora-site
-   ```
+```bash
+   git clone https://github.com/ozereray/aegisora.ai.git
+   cd aegisora.ai
+```
 
 2. **Install dependencies:**
 
-   ```bash
+```bash
    npm install
    # or
    yarn install
-   ```
+```
 
 3. **Configure environment variables:**
    Copy the example environment file and fill in your API keys:
 
-   ```bash
+```bash
    cp .env.example .env.local
-   ```
+```
 
 4. **Run the development server:**
 
-   ```bash
+```bash
    npm run dev
    # or
    yarn dev
-   ```
+```
 
-   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+
+## 🤝 Contributing
+
+Aegisora is built in the open, and contributions of any size are welcome — from fixing a typo to designing a new detection rule for the policy engine.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes
+4. Open a Pull Request
+
+Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks labeled `good first issue` if you're not sure where to start.
 
 ---
 
 ## 📄 License
 
 This project is open-source under the [MIT License](LICENSE).
-
----
-
-### Sırada Ne Var?
-
-Bu adımı tamamladıktan sonra projeni GitHub'a public (açık kaynak) olarak göndermek için:
-
-```bash
-git init
-git add .
-git commit -m "feat: complete open-source release setup for Aegisora"
-git remote add origin https://github.com/KULLANICI_ADINIZ/aegisora-site.git
-git branch -M main
-git push -u origin main
-```
-
-_(Not: `ozereray` kısmına kendi GitHub kullanıcı adını yazmayı unutma.)_ Bu komutlarla birlikte projen global dünyaya tam anlamıyla açık kaynak olarak açılmış olacaktır!
