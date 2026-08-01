@@ -8,9 +8,12 @@
     <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js"></a>
     <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-blue" alt="TypeScript"></a>
     <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/TailwindCSS-38B2AC" alt="Tailwind CSS"></a>
+    <a href="https://discord.gg/8CM3PpQRT5"><img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
   </p>
   <p align="center">
     🔗 <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+    &nbsp;·&nbsp;
+    💬 <a href="https://discord.gg/8CM3PpQRT5"><strong>Join our Discord</strong></a>
   </p>
 </div>
 
@@ -49,35 +52,35 @@ To run Aegisora locally on your machine, follow these steps:
 
 1. **Clone the repository:**
 
-```bash
+   ```bash
    git clone https://github.com/ozereray/aegisora.ai.git
    cd aegisora.ai
-```
+   ```
 
 2. **Install dependencies:**
 
-```bash
+   ```bash
    npm install
    # or
    yarn install
-```
+   ```
 
 3. **Configure environment variables:**
    Copy the example environment file and fill in your API keys:
 
-```bash
+   ```bash
    cp .env.example .env.local
-```
+   ```
 
 4. **Run the development server:**
 
-```bash
+   ```bash
    npm run dev
    # or
    yarn dev
-```
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ---
 
@@ -90,7 +93,7 @@ Aegisora is built in the open, and contributions of any size are welcome — fro
 3. Commit your changes
 4. Open a Pull Request
 
-Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks labeled `good first issue` if you're not sure where to start.
+Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks labeled `good first issue` if you're not sure where to start, and join the [Discord](https://discord.gg/8CM3PpQRT5) to chat with the community.
 
 ---
 
