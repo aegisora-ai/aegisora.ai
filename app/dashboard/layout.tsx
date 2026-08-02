@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -107,8 +107,8 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[#070709] text-gray-200 font-sans flex overflow-x-hidden">
-      {/* DESKTOP SIDEBAR (PC'de eskisi gibi çalışmaya devam eder) */}
+    <div className="min-h-screen bg-[#070709] text-gray-200 font-sans flex w-full max-w-[100vw] overflow-x-hidden">
+      {/* DESKTOP SIDEBAR (PC'de eskisi gibi çalışır) */}
       <aside
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
@@ -229,10 +229,10 @@ export default function DashboardLayout({
         </div>
       </aside>
 
-      {/* MOBİL İÇİN AÇILIR MENÜ (DRAWER) */}
+      {/* MOBİL İÇİN DENGELİ VE ORANTILI AÇILIR MENÜ (Ekranı tamamen boğmaz) */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm md:hidden flex">
-          <div className="w-72 bg-[#0c0c0e] h-full border-r border-gray-800 flex flex-col justify-between p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm md:hidden flex justify-start">
+          <div className="w-[80%] max-w-[280px] bg-[#0c0c0e] h-full border-r border-gray-800 flex flex-col justify-between p-4 overflow-y-auto shadow-2xl animate-in slide-in-from-left duration-200">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-gray-800 mb-4">
                 <div className="flex items-center gap-3">
@@ -247,11 +247,11 @@ export default function DashboardLayout({
                       <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />
                     </svg>
                   </div>
-                  <div>
-                    <span className="font-serif text-base text-white block leading-none">
+                  <div className="overflow-hidden">
+                    <span className="font-serif text-base text-white block leading-none truncate">
                       Aegisora
                     </span>
-                    <span className="text-[10px] font-mono text-gray-500">
+                    <span className="text-[10px] font-mono text-gray-500 truncate block max-w-[120px]">
                       {workspaceName}
                     </span>
                   </div>
@@ -283,8 +283,8 @@ export default function DashboardLayout({
                               : "text-gray-400 hover:text-white hover:bg-[#121215]"
                           }`}
                         >
-                          <Icon className="w-4 h-4" />
-                          <span className="text-xs font-medium">
+                          <Icon className="w-4 h-4 flex-shrink-0" />
+                          <span className="text-xs font-medium truncate">
                             {item.name}
                           </span>
                         </Link>
@@ -300,14 +300,14 @@ export default function DashboardLayout({
                 href="/dashboard/settings"
                 className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[#121215]"
               >
-                <Settings className="w-4 h-4" />
+                <Settings className="w-4 h-4 flex-shrink-0" />
                 <span className="text-xs font-medium">Settings</span>
               </Link>
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10"
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10 cursor-pointer"
               >
-                <LogOut className="w-4 h-4" />
+                <LogOut className="w-4 h-4 flex-shrink-0" />
                 <span className="text-xs font-medium">Sign Out</span>
               </button>
             </div>
@@ -316,14 +316,13 @@ export default function DashboardLayout({
         </div>
       )}
 
-      {/* ANA İÇERİK ALANI */}
+      {/* ANA İÇERİK ALANI (Mobilde yazıların taşmasını ve sıkışmasını önleyen wrap yapısı) */}
       <div
         className={`flex-1 flex flex-col transition-all duration-300 md:${
           isExpanded ? "ml-64" : "ml-20"
-        } ml-0 w-full overflow-x-hidden`}
+        } ml-0 w-full min-w-0 overflow-x-hidden`}
       >
         <header className="h-20 border-b border-gray-800/80 px-4 sm:px-8 flex items-center justify-between bg-[#070709]/80 backdrop-blur-md sticky top-0 z-30 w-full">
-          {/* Mobil Menü Butonu */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -331,13 +330,13 @@ export default function DashboardLayout({
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="relative hidden sm:flex items-center w-[250px] lg:w-[400px]">
+            <div className="relative hidden sm:flex items-center w-[200px] lg:w-[400px]">
               <div className="flex items-center gap-2 px-3 py-2 w-full bg-[#121215] border border-gray-800 rounded-xl">
-                <Search className="w-4 h-4 text-gray-500" />
+                <Search className="w-4 h-4 text-gray-500 flex-shrink-0" />
                 <input
                   type="text"
                   placeholder="Search across Aegisora..."
-                  className="bg-transparent border-none outline-none text-xs text-white w-full font-mono"
+                  className="bg-transparent border-none outline-none text-xs text-white w-full font-mono truncate"
                 />
               </div>
             </div>
@@ -347,13 +346,14 @@ export default function DashboardLayout({
             <button className="p-2.5 rounded-xl bg-[#121215] border border-gray-800 text-gray-400 hover:text-white transition-colors">
               <Bell className="w-4 h-4" />
             </button>
-            <div className="w-9 h-9 rounded-xl bg-[#0066EE]/20 border border-[#0066EE]/40 flex items-center justify-center text-[#0066EE] font-serif font-bold text-sm">
+            <div className="w-9 h-9 rounded-xl bg-[#0066EE]/20 border border-[#0066EE]/40 flex items-center justify-center text-[#0066EE] font-serif font-bold text-sm flex-shrink-0">
               {userName.charAt(0)}
             </div>
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto bg-[#0a0a0c] w-full p-4 sm:p-6 lg:p-8">
+        {/* Yazıların ekrandan taşmasını ve chat yan panel sorununu çözen dinamik main alanı */}
+        <main className="flex-1 overflow-y-auto overflow-x-hidden bg-[#0a0a0c] w-full min-w-0 p-3 sm:p-6 lg:p-8 break-words">
           {children}
         </main>
       </div>
