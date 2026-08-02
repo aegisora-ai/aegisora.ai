@@ -111,14 +111,14 @@ export default function Hero() {
       <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center z-10 mx-auto">
         {/* Sol Sütun: Tipografi ve CTAlar */}
         <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-          {/* Yeni AppSec Odaklı Vurucu Başlık */}
+          {/* Vurucu Başlık */}
           <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-serif text-[#111111] leading-[1.08] tracking-tight mb-6">
             Stop Rogue Tool-Calls
             <br />
             <span className="text-[#0066EE]">Before Execution.</span>
           </h1>
 
-          {/* Yeni Alt Metin */}
+          {/* Alt Metin */}
           <p className="text-slate-600 font-mono text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-8 max-w-lg">
             Traditional firewalls can't inspect semantic payloads. Aegisora is
             an open-source, zero-latency proxy layer built for AppSec teams.
@@ -126,7 +126,7 @@ export default function Hero() {
             indirect prompt injections—without the bloated black-box middleware.
           </p>
 
-          {/* Yeni Açık Kaynak / Geliştirici Odaklı Butonlar */}
+          {/* Butonlar */}
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[400px]">
             {/* 1. Buton: GitHub Repo Ana Sayfası */}
             <a
@@ -150,15 +150,13 @@ export default function Hero() {
               View on GitHub
             </a>
 
-            {/* 2. Buton: Doğrudan README.md Dosyasına Gider */}
-            <a
-              href="https://github.com/ozereray/aegisora.ai/blob/main/README.md"
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* 2. Buton: Yazısı 'Continue with work email' yapıldı ve /login sayfasına yönlendiriyor */}
+            <Link
+              href="/login"
               className="w-full flex items-center justify-center bg-white text-[#111] py-3.5 px-4 rounded-xl hover:bg-[#f8f9fa] transition-colors text-[14px] font-medium shadow-sm border border-gray-200"
             >
-              View Architecture
-            </a>
+              Continue with work email
+            </Link>
           </div>
         </div>
 
