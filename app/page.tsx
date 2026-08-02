@@ -17,7 +17,7 @@ import SectionNavigator from "@/components/ui/SectionNavigator";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#f4f8ff] overflow-x-hidden relative">
+    <main className="min-h-screen bg-[#f4f8ff] overflow-x-hidden relative w-full">
       {/* 🌊 TÜM SAYFANIN ARKASINI TEK BLOK YAPAN GLOBAL AKIŞKAN ARKA PLAN */}
       <GlobalBackground />
 
@@ -31,28 +31,28 @@ export default function Home() {
         <Hero />
       </div>
 
-      {/* 🚀 REDDIT GERİ BİLDİRİMİ İÇİN EKLENEN CANLI ÜRÜN DEMO VİDEOSU SEKSİYONU */}
+      {/* 🚀 REDDIT GERİ BİLDİRİMİ İÇİN EKLENEN CANLI ÜRÜN DEMO VİDEOSU SEKSİYONU (Mobilde taşma yapmayacak şekilde optimize edildi) */}
       <section
         id="demo"
-        className="w-full py-20 px-6 bg-black/90 relative flex flex-col items-center justify-center my-12 border-y border-zinc-800/80"
+        className="w-full py-16 px-4 sm:px-6 bg-black/90 relative flex flex-col items-center justify-center my-12 border-y border-zinc-800/80 overflow-hidden"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-600/15 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[600px] h-[300px] sm:h-[400px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="max-w-[1000px] w-full relative z-10 flex flex-col items-center">
-          <div className="text-center mb-10 space-y-3">
+          <div className="text-center mb-8 sm:mb-10 space-y-3 px-2">
             <span className="text-xs font-mono uppercase tracking-widest text-blue-400 bg-blue-950/60 border border-blue-800/60 px-3 py-1 rounded-full">
               Live Product Demo
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
               See Aegisora in Action
             </h2>
-            <p className="text-zinc-400 text-sm md:text-base max-w-xl mx-auto">
+            <p className="text-zinc-400 text-xs sm:text-sm md:text-base max-w-xl mx-auto">
               Watch how our Zero-Trust proxy intercepts malicious payloads and
               enforces AI governance in real-time.
             </p>
           </div>
 
-          {/* Video Konteyneri - Şık Kenarlık ve Gölge Efektiyle */}
+          {/* Video Konteyneri - Mobilde taşmayı önleyen yapı */}
           <div className="relative p-[1px] rounded-2xl overflow-hidden shadow-2xl w-full aspect-video group">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/40 via-purple-500/40 to-emerald-400/40 rounded-2xl" />
 
