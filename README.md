@@ -1,4 +1,7 @@
 <div align="center">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
   <h1 align="center">Aegisora</h1>
   <p align="center">
     <strong>Zero-trust runtime security and governance layer for autonomous AI agents</strong>
@@ -100,3 +103,25 @@ Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks
 ## 📄 License
 
 This project is open-source under the [MIT License](LICENSE).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ozereray"><img src="https://avatars.githubusercontent.com/u/118771126?v=4?s=100" width="100px;" alt="Eray Özer"/><br /><sub><b>Eray Özer</b></sub></a><br /><a href="https://github.com/ozereray/aegisora.ai/commits?author=ozereray" title="Code">💻</a> <a href="https://github.com/ozereray/aegisora.ai/commits?author=ozereray" title="Documentation">📖</a> <a href="#maintenance-ozereray" title="Maintenance">🚧</a> <a href="#infra-ozereray" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

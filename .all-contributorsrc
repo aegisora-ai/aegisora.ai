@@ -1,0 +1,29 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "ozereray",
+      "name": "Eray Özer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/118771126?v=4",
+      "profile": "https://github.com/ozereray",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance",
+        "infra"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "aegisora.ai",
+  "projectOwner": "ozereray"
+}
