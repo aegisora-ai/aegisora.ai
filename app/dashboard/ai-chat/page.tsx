@@ -17,7 +17,6 @@ import {
   Globe,
   Check,
   ShieldAlert,
-  Radio,
   Layers,
   ChevronRight,
 } from "lucide-react";
@@ -91,7 +90,8 @@ interface ChatSession {
 }
 
 export default function AiChatPage() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // MOBİL UYUMLULUK: Mobilde sidebar başlangıçta kapalı başlar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -128,6 +128,7 @@ export default function AiChatPage() {
     setActiveSessionId(newId);
     setInput("");
     setSelectedImage(null);
+    setIsSidebarOpen(false); // Mobilde otomatik kapat
   };
 
   const handleDeleteSession = (e: React.MouseEvent, id: string) => {
@@ -184,6 +185,7 @@ export default function AiChatPage() {
 
     targetSession.messages = newMessages;
     setSessions(updatedSessions);
+    setIsSidebarOpen(false); // Mobilde mesaj gönderince paneli kapat
 
     const isChartRequest =
       queryText.toLowerCase().includes("grafik") ||
@@ -261,7 +263,6 @@ export default function AiChatPage() {
 
   return (
     <div className="flex h-screen w-full bg-[#090a0f] text-white overflow-hidden font-sans relative">
-      {/* PROFESYONEL YATAY (LANDSCAPE) VE RENKLİ PDF ÇIKTI STİLLERİ */}
       <style jsx global>{`
         @media print {
           @page {
@@ -300,119 +301,112 @@ export default function AiChatPage() {
         }
       `}</style>
 
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <motion.div
-          animate={{
-            x: [0, 90, -90, 0],
-            y: [0, -90, 90, 0],
-            scale: [1, 1.3, 0.8, 1],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-15%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#0066EE]/20 blur-[170px]"
+      {/* MOBİL KARARTMA PERDESİ (Sidebar açıkken arka planı odaklar) */}
+      {isSidebarOpen && (
+        <div
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed inset-0 bg-black/70 backdrop-blur-xs z-30 md:hidden"
         />
-        <motion.div
-          animate={{
-            x: [0, -100, 100, 0],
-            y: [0, 100, -100, 0],
-            scale: [1, 1.35, 0.75, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-15%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#1d4ed8]/18 blur-[190px]"
-        />
+      )}
+
+      {/* SOL MENÜ (Mobilde Drawer, PC'de Sabit/Açılır) */}
+      <div
+        className={`
+          fixed md:relative inset-y-0 left-0 z-40 
+          w-[80%] max-w-[280px] md:w-[280px] bg-[#0e0f14] border-r border-white/10 
+          flex flex-col flex-shrink-0 shadow-2xl transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0 md:w-0 md:opacity-0 md:overflow-hidden md:border-none"}
+        `}
+      >
+        <div className="p-4 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2.5 px-2 py-1"
+            >
+              <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shadow-xs">
+                <AegisoraSpark className="w-4 h-4 text-[#0066EE]" />
+              </div>
+              <span className="text-white font-serif text-lg tracking-tight">
+                Aegisora
+              </span>
+            </Link>
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="md:hidden p-1.5 text-gray-400 hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <button
+            onClick={handleNewAnalysis}
+            className="w-full flex items-center gap-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 py-2.5 rounded-2xl transition-all shadow-xs text-sm font-medium group cursor-pointer"
+          >
+            <Plus className="w-4 h-4 text-[#0066EE] group-hover:rotate-90 transition-transform duration-300" />
+            New Analysis
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
+          <p className="text-[10px] text-gray-500 font-mono uppercase tracking-[0.2em] px-3 pt-3 pb-2">
+            Recent Queries
+          </p>
+
+          {sessions.length === 0 ? (
+            <div className="px-3 py-4 text-xs font-mono text-gray-600 italic">
+              No active queries. Click &quot;New Analysis&quot; to start.
+            </div>
+          ) : (
+            sessions.map((session) => (
+              <div
+                key={session.id}
+                onClick={() => {
+                  setActiveSessionId(session.id);
+                  setIsSidebarOpen(false);
+                }}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors text-left group cursor-pointer ${
+                  activeSessionId === session.id
+                    ? "bg-white/10 text-white border border-white/10"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <div className="flex items-center gap-3 truncate">
+                  <MessageSquare className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors flex-shrink-0" />
+                  <span className="text-[13px] truncate">{session.title}</span>
+                </div>
+                <button
+                  onClick={(e) => handleDeleteSession(e, session.id)}
+                  className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-400 transition-opacity"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="p-4 border-t border-white/10 bg-black/40">
+          <div className="flex items-center gap-3 px-2 py-2 hover:bg-white/5 rounded-xl transition-colors cursor-pointer">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0066EE] to-purple-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
+              EÖ
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <p className="text-sm font-medium text-white truncate">
+                Eray Özer
+              </p>
+              <p className="text-[11px] text-[#0066EE] font-mono truncate">
+                Aegisora Core Intelligence
+              </p>
+            </div>
+            <Settings className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+          </div>
+        </div>
       </div>
 
-      {/* SOL MENÜ */}
-      <AnimatePresence mode="wait">
-        {isSidebarOpen && (
-          <motion.div
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 280, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="h-full bg-[#0e0f14]/85 backdrop-blur-3xl border-r border-white/10 flex flex-col flex-shrink-0 z-20 shadow-2xl"
-          >
-            <div className="p-4 flex flex-col gap-4">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-2.5 px-2 py-1"
-              >
-                <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shadow-xs">
-                  <AegisoraSpark className="w-4 h-4 text-[#0066EE]" />
-                </div>
-                <span className="text-white font-serif text-lg tracking-tight">
-                  Aegisora
-                </span>
-              </Link>
-
-              <button
-                onClick={handleNewAnalysis}
-                className="w-full flex items-center gap-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 py-2.5 rounded-2xl transition-all shadow-xs text-sm font-medium group cursor-pointer"
-              >
-                <Plus className="w-4 h-4 text-[#0066EE] group-hover:rotate-90 transition-transform duration-300" />
-                New Analysis
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
-              <p className="text-[10px] text-gray-500 font-mono uppercase tracking-[0.2em] px-3 pt-3 pb-2">
-                Recent Queries
-              </p>
-
-              {sessions.length === 0 ? (
-                <div className="px-3 py-4 text-xs font-mono text-gray-600 italic">
-                  No active queries. Click &quot;New Analysis&quot; to start.
-                </div>
-              ) : (
-                sessions.map((session) => (
-                  <div
-                    key={session.id}
-                    onClick={() => setActiveSessionId(session.id)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors text-left group cursor-pointer ${
-                      activeSessionId === session.id
-                        ? "bg-white/10 text-white border border-white/10"
-                        : "text-gray-400 hover:text-white hover:bg-white/5"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 truncate">
-                      <MessageSquare className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors flex-shrink-0" />
-                      <span className="text-[13px] truncate">
-                        {session.title}
-                      </span>
-                    </div>
-                    <button
-                      onClick={(e) => handleDeleteSession(e, session.id)}
-                      className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-400 transition-opacity"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-
-            <div className="p-4 border-t border-white/10 bg-black/40">
-              <div className="flex items-center gap-3 px-2 py-2 hover:bg-white/5 rounded-xl transition-colors cursor-pointer">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0066EE] to-purple-600 flex items-center justify-center text-white font-bold text-xs shadow-md">
-                  EÖ
-                </div>
-                <div className="flex-1 overflow-hidden">
-                  <p className="text-sm font-medium text-white truncate">
-                    Eray Özer
-                  </p>
-                  <p className="text-[11px] text-[#0066EE] font-mono truncate">
-                    Aegisora Core Intelligence
-                  </p>
-                </div>
-                <Settings className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* SOHBET ALANI */}
-      <div className="flex-1 flex flex-col h-full relative z-10">
-        <header className="h-16 flex items-center px-6 border-b border-white/10 bg-[#0e0f14]/50 backdrop-blur-2xl z-10 shadow-xs justify-between">
+      <div className="flex-1 flex flex-col h-full relative z-10 min-w-0 overflow-hidden">
+        <header className="h-16 flex items-center px-4 sm:px-6 border-b border-white/10 bg-[#0e0f14]/50 backdrop-blur-2xl z-10 shadow-xs justify-between w-full">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -426,16 +420,16 @@ export default function AiChatPage() {
             </button>
           </div>
 
-          <div className="flex justify-center">
-            <span className="text-[14px] font-medium text-gray-200 flex items-center gap-2 bg-white/5 px-4 py-1.5 rounded-full border border-white/10 shadow-xs">
+          <div className="flex justify-center truncate px-2">
+            <span className="text-xs sm:text-[14px] font-medium text-gray-200 flex items-center gap-2 bg-white/5 px-3 sm:px-4 py-1.5 rounded-full border border-white/10 shadow-xs truncate">
               Aegisora{" "}
-              <span className="text-[#0066EE] font-semibold">
+              <span className="text-[#0066EE] font-semibold truncate">
                 Intelligence Core
               </span>
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-2">
             <Link
               href="/dashboard/agents"
               className="text-xs font-mono text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 transition-all flex items-center gap-1.5"
@@ -451,17 +445,17 @@ export default function AiChatPage() {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 scroll-smooth">
-          <div className="max-w-3xl mx-auto w-full flex flex-col gap-8 pb-36">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 scroll-smooth w-full min-w-0">
+          <div className="max-w-3xl mx-auto w-full flex flex-col gap-8 pb-36 min-w-0">
             {messages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full min-h-[55vh] mt-12">
+              <div className="flex flex-col items-center justify-center h-full min-h-[55vh] mt-12 text-center px-2">
                 <div className="w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl flex items-center justify-center mb-6">
                   <AegisoraSpark className="w-8 h-8 text-[#0066EE]" />
                 </div>
-                <h2 className="text-3xl font-serif text-white mb-2 tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-serif text-white mb-2 tracking-tight">
                   How can Aegisora protect you today?
                 </h2>
-                <p className="text-sm text-gray-400 mb-10 font-mono tracking-wide">
+                <p className="text-xs sm:text-sm text-gray-400 mb-10 font-mono tracking-wide">
                   Autonomous zero-trust threat detection & privacy suite.
                 </p>
 
@@ -473,8 +467,10 @@ export default function AiChatPage() {
                     }
                     className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span>Analyze today's critical security incidents</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                    <span className="truncate">
+                      Analyze today's security incidents
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors shrink-0" />
                   </button>
                   <button
                     onClick={() =>
@@ -482,8 +478,8 @@ export default function AiChatPage() {
                     }
                     className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span>Generate enterprise compliance report</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                    <span className="truncate">Generate compliance report</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors shrink-0" />
                   </button>
                   <button
                     onClick={() =>
@@ -491,8 +487,8 @@ export default function AiChatPage() {
                     }
                     className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span>Find risky agents in current fleet</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                    <span className="truncate">Find risky agents in fleet</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors shrink-0" />
                   </button>
                   <button
                     onClick={() =>
@@ -502,8 +498,10 @@ export default function AiChatPage() {
                     }
                     className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span>Explain blocked prompt injection sessions</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors" />
+                    <span className="truncate">
+                      Explain blocked prompt injections
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors shrink-0" />
                   </button>
                 </div>
               </div>
@@ -513,7 +511,7 @@ export default function AiChatPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   key={idx}
-                  className={`flex gap-4 w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex gap-3 sm:gap-4 w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "ai" && (
                     <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/20 shadow-sm flex items-center justify-center flex-shrink-0 mt-1 backdrop-blur-md">
@@ -525,10 +523,10 @@ export default function AiChatPage() {
                   )}
 
                   <div
-                    className={`max-w-[85%] sm:max-w-[80%] ${msg.role === "user" ? "flex justify-end" : "w-full"}`}
+                    className={`max-w-[85%] sm:max-w-[80%] min-w-0 ${msg.role === "user" ? "flex justify-end" : "w-full"}`}
                   >
                     {msg.role === "user" ? (
-                      <div className="flex flex-col items-end gap-2">
+                      <div className="flex flex-col items-end gap-2 min-w-0">
                         {msg.image && (
                           <div className="relative w-48 h-48 rounded-2xl overflow-hidden border border-gray-700 shadow-md">
                             <img
@@ -538,12 +536,12 @@ export default function AiChatPage() {
                             />
                           </div>
                         )}
-                        <div className="px-5 py-3.5 bg-[#1e1e24] text-gray-200 rounded-[22px] rounded-tr-sm font-medium text-[15px] shadow-sm border border-gray-700/50">
+                        <div className="px-4 sm:px-5 py-3.5 bg-[#1e1e24] text-gray-200 rounded-[22px] rounded-tr-sm font-medium text-xs sm:text-[15px] shadow-sm border border-gray-700/50 break-words">
                           {msg.content}
                         </div>
                       </div>
                     ) : (
-                      <div className="bg-transparent text-gray-200 p-2 space-y-4">
+                      <div className="bg-transparent text-gray-200 p-1 sm:p-2 space-y-4 min-w-0 overflow-hidden">
                         {msg.isThinking ? (
                           <div className="flex items-center gap-2.5 text-xs font-mono text-gray-400 py-1">
                             <AegisoraSpark
@@ -558,11 +556,11 @@ export default function AiChatPage() {
                             </motion.span>
                           </div>
                         ) : (
-                          <div className="space-y-4">
+                          <div className="space-y-4 min-w-0">
                             <motion.div
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
-                              className="text-[15.5px] leading-relaxed text-gray-100 font-sans tracking-wide space-y-3"
+                              className="text-xs sm:text-[15.5px] leading-relaxed text-gray-100 font-sans tracking-wide space-y-3 break-words overflow-hidden"
                             >
                               <ReactMarkdown
                                 components={{
@@ -573,7 +571,10 @@ export default function AiChatPage() {
                                     />
                                   ),
                                   p: ({ node, ...props }) => (
-                                    <p className="mb-2" {...props} />
+                                    <p
+                                      className="mb-2 break-words"
+                                      {...props}
+                                    />
                                   ),
                                   ul: ({ node, ...props }) => (
                                     <ul
@@ -588,7 +589,10 @@ export default function AiChatPage() {
                                     />
                                   ),
                                   li: ({ node, ...props }) => (
-                                    <li className="text-gray-200" {...props} />
+                                    <li
+                                      className="text-gray-200 break-words"
+                                      {...props}
+                                    />
                                   ),
                                 }}
                               >
@@ -599,11 +603,13 @@ export default function AiChatPage() {
                             {msg.showCanvas && (
                               <button
                                 onClick={() => setIsCanvasOpen(true)}
-                                className="flex items-center gap-2.5 px-4 py-2.5 bg-[#0066EE]/20 hover:bg-[#0066EE]/30 border border-[#0066EE]/40 text-blue-200 rounded-xl text-xs font-mono transition-all shadow-sm cursor-pointer mt-3"
+                                className="flex items-center gap-2.5 px-4 py-2.5 bg-[#0066EE]/25 hover:bg-[#0066EE]/35 border border-[#0066EE]/40 text-blue-200 rounded-xl text-xs font-mono transition-all shadow-sm cursor-pointer mt-3"
                               >
-                                <BarChart3 className="w-4 h-4 text-[#0066EE]" />
-                                <span>Open Interactive Analytics Canvas</span>
-                                <Maximize2 className="w-3 h-3 ml-auto text-blue-400" />
+                                <BarChart3 className="w-4 h-4 text-[#0066EE] shrink-0" />
+                                <span className="truncate">
+                                  Open Interactive Analytics Canvas
+                                </span>
+                                <Maximize2 className="w-3 h-3 ml-auto text-blue-400 shrink-0" />
                               </button>
                             )}
 
@@ -613,7 +619,7 @@ export default function AiChatPage() {
                                   <button
                                     key={optIdx}
                                     onClick={() => handleSend(option)}
-                                    className="px-4 py-2 bg-[#14151a] hover:bg-[#0066EE] text-gray-200 hover:text-white border border-white/15 hover:border-[#0066EE] rounded-xl text-xs font-medium transition-all shadow-sm cursor-pointer"
+                                    className="px-3 sm:px-4 py-2 bg-[#14151a] hover:bg-[#0066EE] text-gray-200 hover:text-white border border-white/15 hover:border-[#0066EE] rounded-xl text-xs font-medium transition-all shadow-sm cursor-pointer truncate max-w-full"
                                   >
                                     {option}
                                   </button>
@@ -639,7 +645,7 @@ export default function AiChatPage() {
         </div>
 
         {/* INPUT BARI */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/90 to-transparent pt-12 pb-6 px-4">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/95 to-transparent pt-12 pb-6 px-3 sm:px-4">
           <div className="max-w-3xl mx-auto relative flex flex-col gap-3">
             <input
               type="file"
@@ -679,7 +685,7 @@ export default function AiChatPage() {
               </motion.div>
             )}
 
-            <div className="bg-[#14151a]/90 backdrop-blur-3xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.5)] rounded-full px-4 py-2.5 flex items-center gap-3 focus-within:border-[#0066EE]/60 transition-all">
+            <div className="bg-[#14151a]/95 backdrop-blur-3xl border border-white/15 shadow-[0_15px_40px_rgba(0,0,0,0.5)] rounded-full px-3 sm:px-4 py-2 flex items-center gap-2 sm:gap-3 focus-within:border-[#0066EE]/60 transition-all w-full">
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer flex-shrink-0"
@@ -698,7 +704,7 @@ export default function AiChatPage() {
                   }
                 }}
                 placeholder="Ask Aegisora AI Security Analyst..."
-                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-500 font-medium text-[15px] px-1"
+                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-500 font-medium text-xs sm:text-[15px] px-1 min-w-0"
               />
 
               <div className="flex items-center gap-2 flex-shrink-0">
@@ -716,7 +722,7 @@ export default function AiChatPage() {
               </div>
             </div>
 
-            <p className="text-center text-[11px] text-gray-500 mt-1 font-mono">
+            <p className="text-center text-[10px] sm:text-[11px] text-gray-500 mt-1 font-mono px-2">
               Aegisora AI Core is end-to-end encrypted. Security operations are
               verified autonomously.
             </p>
@@ -733,30 +739,31 @@ export default function AiChatPage() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.25 }}
-            className="absolute inset-0 z-50 bg-[#070709] flex flex-col p-6 sm:p-10 overflow-y-auto"
+            className="absolute inset-0 z-50 bg-[#070709] flex flex-col p-4 sm:p-10 overflow-y-auto"
           >
             <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#0066EE]/20 border border-[#0066EE]/40 flex items-center justify-center text-[#0066EE]">
+              <div className="flex items-center gap-3 truncate pr-2">
+                <div className="w-10 h-10 rounded-xl bg-[#0066EE]/20 border border-[#0066EE]/40 flex items-center justify-center text-[#0066EE] shrink-0">
                   <BarChart3 className="w-5 h-5" />
                 </div>
-                <div>
-                  <h2 className="text-xl font-serif text-white">
+                <div className="truncate">
+                  <h2 className="text-base sm:text-xl font-serif text-white truncate">
                     {canvasData.title}
                   </h2>
-                  <p className="text-xs font-mono text-gray-400">
+                  <p className="text-[10px] sm:text-xs font-mono text-gray-400 truncate">
                     Generated dynamically by Aegisora Intelligence Core •
                     Language: {selectedLang.toUpperCase()}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 no-print">
+              <div className="flex items-center gap-2 sm:gap-3 no-print shrink-0">
                 <button
                   onClick={() => setIsLangModalOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-[#0066EE] border border-gray-700 hover:border-[#0066EE] text-xs font-mono text-white rounded-xl transition-all shadow-sm cursor-pointer"
+                  className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 hover:bg-[#0066EE] border border-gray-700 hover:border-[#0066EE] text-xs font-mono text-white rounded-xl transition-all shadow-sm cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5" /> Export PDF Report
+                  <Download className="w-3.5 h-3.5" />{" "}
+                  <span className="hidden sm:inline">Export PDF Report</span>
                 </button>
                 <button
                   onClick={() => setIsCanvasOpen(false)}
@@ -803,21 +810,21 @@ export default function AiChatPage() {
                 </div>
               </div>
 
-              <div className="bg-[#121215] border border-gray-800 p-6 rounded-2xl flex-1 flex flex-col">
+              <div className="bg-[#121215] border border-gray-800 p-4 sm:p-6 rounded-2xl flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-200">
+                  <h3 className="text-xs sm:text-sm font-medium text-gray-200 truncate pr-2">
                     Request Volume vs. Risk Telemetry (Feb 01 - Feb 05)
                   </h3>
-                  <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
+                  <span className="text-[10px] sm:text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 sm:px-2.5 py-1 rounded-md border border-emerald-500/25 shrink-0">
                     Live Stream
                   </span>
                 </div>
 
-                <div className="w-full h-[280px]">
+                <div className="w-full h-[250px] sm:h-[280px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                       data={MOCK_CHART_DATA}
-                      margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
+                      margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                     >
                       <defs>
                         <linearGradient
@@ -843,9 +850,9 @@ export default function AiChatPage() {
                       <XAxis
                         dataKey="date"
                         stroke="#6b7280"
-                        tick={{ fontSize: 12 }}
+                        tick={{ fontSize: 10 }}
                       />
-                      <YAxis stroke="#6b7280" tick={{ fontSize: 12 }} />
+                      <YAxis stroke="#6b7280" tick={{ fontSize: 10 }} />
                       <Tooltip
                         contentStyle={{
                           backgroundColor: "#121215",
