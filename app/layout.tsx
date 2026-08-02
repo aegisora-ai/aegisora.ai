@@ -31,11 +31,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // DÜZELTME: Mobilde scroll kilidini açmak için h-full yerine h-auto ve overflow-x-hidden eklendi
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${canela.variable} h-full antialiased`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} ${canela.variable} antialiased`}
+      style={{ colorScheme: "dark" }}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      {/* DÜZELTME: min-h-full kısıtlaması kaldırılarak mobil esneklik sağlandı */}
+      <body className="flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-[#0066EE] selection:text-white">
         {children}
       </body>
     </html>
