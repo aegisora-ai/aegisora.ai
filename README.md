@@ -12,9 +12,10 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
   <h1 align="center">Aegisora</h1>
   <p align="center">
-    <strong>Zero-trust runtime security and governance layer for autonomous AI agents</strong>
+    <strong>The Zero-Trust Runtime Security & Governance Layer for Autonomous AI Agents</strong>
   </p>
   <p align="center">
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
@@ -32,45 +33,68 @@
 
 ---
 
-## 🚀 About Aegisora
+## 🚀 Overview
 
-As AI systems and autonomous agents are granted direct access to critical enterprise infrastructure, tools, and data, the risk surface for prompt injection, data leakage, and unauthorized actions grows dramatically.
+As enterprises grant autonomous AI agents direct access to critical databases, internal tools, and production infrastructure, the attack surface for prompt injection, data exfiltration, and unauthorized action execution grows exponentially — and traditional security tooling was never designed to govern non-deterministic, self-directed software.
 
-**Aegisora** is an enterprise-grade runtime security platform that provides a real-time, zero-trust layer between your AI agents and the systems they interact with — intercepting every action before it executes, validating it against policy, and giving you full visibility into what your agents are actually doing.
+**Aegisora** sits between your AI agents and the systems they act upon as a real-time, zero-trust enforcement layer. Every tool call, every action, and every output is intercepted, evaluated against policy, and logged — **before** it ever touches production.
 
----
-
-## 🛡️ Core Features
-
-- **Zero-Trust Proxy:** Intercepts and validates every agent action and tool-call in real time before execution.
-- **Prompt Injection Firewall:** Blocks adversarial inputs attempting to override system instructions or hijack agent behavior.
-- **PII Data Masking:** Automatically redacts sensitive information (SSNs, credit card numbers, emails, and other confidential data) from agent inputs and outputs.
-- **Live Telemetry & Reasoning Trace:** Complete visibility into agent workflows, decision paths, and policy decisions (approved / flagged / blocked) as they happen.
+Our core design philosophy is solving what we call the **Binary Trap**: the false choice between blindly allowing an agent action and blindly blocking it. Instead of forcing a black-and-white decision on ambiguous or high-risk requests, Aegisora introduces a third state — **asynchronous human escalation** — so security teams get a governance layer that flexes with real-world ambiguity instead of breaking the workflow.
 
 ---
 
-## 🛠️ Tech Stack
+## 🎯 The Problem We Solve
 
-- **Framework:** Next.js (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Database & Auth:** Supabase
-- **AI Integration:** Groq API / LLM Proxies
+Conventional security systems force a binary outcome on every request: **allow** or **block**. For deterministic, low-risk traffic this works. For autonomous AI agents making judgment calls in ambiguous, high-stakes situations, it doesn't — organizations are left choosing between over-blocking (killing agent productivity) or over-permitting (accepting unacceptable risk).
+
+Aegisora resolves this with a three-state decision model:
+
+| State           | Trigger                                        | Outcome                                                                                                |
+| --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| ✅ **Allow**    | Low-risk, policy-compliant request             | Executes instantly via the deterministic fast-path (**< 10ms**)                                        |
+| 🚫 **Block**    | Clear policy violation or known attack pattern | Rejected immediately, fully logged                                                                     |
+| 🕵️ **Escalate** | Ambiguous or high-risk request                 | Routed to the **Human Review Queue** for asynchronous approval — without breaking the agent's workflow |
+
+---
+
+## 🛡️ Core Capabilities
+
+- **Zero-Trust Action Proxy** — Every agent action and tool call is intercepted and validated in real time before execution; nothing reaches production systems unchecked.
+- **The Human Review Queue** — High-risk or ambiguous actions are escalated asynchronously for human approval instead of being blindly blocked, preserving agent throughput while keeping a human in the loop for consequential decisions.
+- **Prompt Injection Firewall** — Detects and neutralizes adversarial inputs designed to override system instructions or hijack agent behavior.
+- **PII Data Masking** — Automatically detects and redacts sensitive data (credit card numbers, national IDs/SSNs, email addresses, and other regulated data classes) from agent inputs and outputs before it can leak.
+- **Live Telemetry & Reasoning Trace** — Full observability into agent workflows, decision paths, and policy outcomes (approved / flagged / blocked) as they happen, with a complete audit trail for compliance.
+- **Execution Integrity Proofs** — Cryptographic provenance for workload execution, enabling verifiable, tamper-evident audit records.
+
+For a full breakdown of the request lifecycle and system internals, see [**ARCHITECTURE.md**](ARCHITECTURE.md). For our threat model and disclosure policy, see [**SECURITY.md**](SECURITY.md).
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer               | Technology             |
+| ------------------- | ---------------------- |
+| **Framework**       | Next.js (App Router)   |
+| **Language**        | TypeScript             |
+| **Styling**         | Tailwind CSS           |
+| **Database & Auth** | Supabase               |
+| **AI Integration**  | Groq API / LLM Proxies |
+| **Deployment**      | Vercel Edge Network    |
 
 ---
 
 ## 📦 Getting Started Locally
 
-To run Aegisora locally on your machine, follow these steps:
+**Prerequisites:** Node.js 18+ and npm or yarn.
 
-1. **Clone the repository:**
+1. **Clone the repository**
 
    ```bash
    git clone https://github.com/ozereray/aegisora.ai.git
    cd aegisora.ai
    ```
 
-2. **Install dependencies:**
+2. **Install dependencies**
 
    ```bash
    npm install
@@ -78,14 +102,15 @@ To run Aegisora locally on your machine, follow these steps:
    yarn install
    ```
 
-3. **Configure environment variables:**
-   Copy the example environment file and fill in your API keys:
+3. **Configure environment variables**
 
    ```bash
    cp .env.example .env.local
    ```
 
-4. **Run the development server:**
+   Populate `.env.local` with your API keys and Supabase credentials.
+
+4. **Run the development server**
 
    ```bash
    npm run dev
@@ -93,7 +118,7 @@ To run Aegisora locally on your machine, follow these steps:
    yarn dev
    ```
 
-   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   Open [http://localhost:3000](http://localhost:3000) to view the app.
 
 ---
 
@@ -106,7 +131,7 @@ Aegisora is built in the open, and contributions of any size are welcome — fro
 3. Commit your changes
 4. Open a Pull Request
 
-Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks labeled `good first issue` if you're not sure where to start, and join the [Discord](https://discord.gg/8CM3PpQRT5) to chat with the community.
+Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks labeled `good first issue`, and join the [Discord](https://discord.gg/8CM3PpQRT5) to connect with the community.
 
 ---
 
@@ -114,7 +139,9 @@ Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks
 
 This project is open-source under the [MIT License](LICENSE).
 
-## Contributors ✨
+---
+
+## ✨ Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -131,7 +158,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
