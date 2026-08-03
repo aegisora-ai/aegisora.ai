@@ -11,6 +11,7 @@ import {
   Activity,
   ExternalLink,
   Check,
+  Mail,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
@@ -72,33 +73,23 @@ export default function BillingPage() {
     fetchRealData();
   }, [supabase]);
 
-  // 💳 GERÇEK STRIPE CHECKOUT YÖNLENDİRMESİ
-  const handleCheckout = async (planName: string, price: string) => {
+  // Lansmana özel aksiyon yönetimi (Stripe yerine Beta aktivasyonu)
+  const handleAction = async (planName: string, actionType: string) => {
+    if (actionType === "current") return; // Zaten aktif plan
+
     setUpgrading(planName);
 
-    try {
-      // Hazırladığımız API rotasına istek atıyoruz
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ planName }),
-      });
-
-      const data = await res.json();
-
-      if (data.url) {
-        // Her şey başarılıysa kullanıcıyı gerçek Stripe ödeme ekranına yönlendir
-        window.location.href = data.url;
+    setTimeout(() => {
+      if (actionType === "contact") {
+        window.location.href =
+          "mailto:hello@aegisora.com?subject=Enterprise Global Scale Inquiry";
       } else {
-        console.error("Stripe URL alınamadı:", data.error);
-        setUpgrading(null);
+        alert(
+          `🎉 Success! ${planName} features have been unlocked for your workspace during the Beta period.`,
+        );
       }
-    } catch (error) {
-      console.error("Checkout işlemi başarısız:", error);
       setUpgrading(null);
-    }
+    }, 800);
   };
 
   return (
@@ -109,11 +100,11 @@ export default function BillingPage() {
           animate={{ opacity: 1, x: 0 }}
         >
           <h1 className="text-2xl font-serif text-white tracking-tight">
-            Billing & Subscriptions
+            Plans & Early Access
           </h1>
           <p className="text-xs font-mono text-gray-400 mt-1">
-            Manage your enterprise tier, payment methods (Google Pay, Apple Pay,
-            Cards), and database telemetry.
+            Manage your beta access tiers, workspace limits, and database
+            telemetry.
           </p>
         </motion.div>
       </div>
@@ -137,31 +128,32 @@ export default function BillingPage() {
           </div>
         </div>
 
-        <button
-          onClick={() => handleCheckout("Enterprise Custom Portal", "$199/mo")}
-          className="flex items-center gap-2 bg-[#0066EE] hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all shadow-md cursor-pointer"
-        >
-          <span>Manage Stripe Billing Portal</span>
-          <ExternalLink className="w-3.5 h-3.5" />
+        <button className="flex items-center gap-2 bg-[#19191d] border border-gray-700 hover:bg-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-default">
+          <span>Billing Paused (Beta Phase)</span>
+          <Check className="w-3.5 h-3.5 text-emerald-400" />
         </button>
       </div>
 
-      {/* 🚀 GERÇEK ÖDEME SEÇENEKLİ PAKETLER (Google Pay & Apple Pay Entegre Edilebilir Alan) */}
+      {/* 🚀 LANSMAN İÇİN GÜNCELLENMİŞ PAKETLER (Free Beta & Contact Us) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
           {
             name: "Starter Developer",
-            price: "$49",
+            price: "Free",
+            period: "forever",
             desc: "For independent engineers and small AI agent prototypes.",
             features: [
               "Up to 5 AI Agents",
               "Basic Telemetry Logs",
               "Standard Security Proxy",
             ],
+            actionText: "Current Plan",
+            actionType: "current",
           },
           {
             name: "Pro Enterprise",
-            price: "$199",
+            price: "Free",
+            period: "during beta",
             desc: "For growing companies scaling production AI fleets.",
             features: [
               "Unlimited AI Agents",
@@ -170,10 +162,13 @@ export default function BillingPage() {
               "Priority Support",
             ],
             popular: true,
+            actionText: "Activate Beta Pass",
+            actionType: "upgrade",
           },
           {
             name: "Global Scale",
-            price: "$499",
+            price: "Custom",
+            period: "on-premise",
             desc: "Custom zero-trust proxies and dedicated clusters.",
             features: [
               "Multi-region Clusters",
@@ -181,6 +176,8 @@ export default function BillingPage() {
               "Dedicated Account Manager",
               "99.99% SLA",
             ],
+            actionText: "Contact Us",
+            actionType: "contact",
           },
         ].map((plan, idx) => (
           <div
@@ -193,7 +190,7 @@ export default function BillingPage() {
           >
             {plan.popular && (
               <span className="absolute -top-3 left-6 bg-[#0066EE] text-white text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider font-bold shadow-md">
-                Recommended Tier
+                100% Free For Launch
               </span>
             )}
             <div>
@@ -202,11 +199,13 @@ export default function BillingPage() {
                   {plan.name}
                 </h4>
               </div>
-              <div className="text-3xl font-serif font-semibold text-white mb-2">
-                {plan.price}{" "}
-                <span className="text-xs font-mono text-gray-500">/mo</span>
+              <div className="text-3xl font-serif font-semibold text-white mb-2 flex items-end gap-1">
+                {plan.price}
+                <span className="text-xs font-mono text-gray-500 mb-1">
+                  /{plan.period}
+                </span>
               </div>
-              <p className="text-xs font-mono text-gray-400 mb-6">
+              <p className="text-xs font-mono text-gray-400 mb-6 min-h-[32px]">
                 {plan.desc}
               </p>
 
@@ -216,7 +215,7 @@ export default function BillingPage() {
                     key={fIdx}
                     className="flex items-center gap-2 text-xs font-mono text-gray-300"
                   >
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -224,19 +223,27 @@ export default function BillingPage() {
             </div>
 
             <button
-              onClick={() => handleCheckout(plan.name, plan.price)}
-              disabled={upgrading === plan.name}
-              className={`w-full py-3 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer flex items-center justify-center gap-2 ${
-                plan.popular
-                  ? "bg-[#0066EE] hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20"
-                  : "bg-gray-800 hover:bg-gray-700 text-white"
+              onClick={() => handleAction(plan.name, plan.actionType)}
+              disabled={
+                upgrading === plan.name || plan.actionType === "current"
+              }
+              className={`w-full py-3 rounded-xl text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2 ${
+                plan.actionType === "current"
+                  ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 cursor-default"
+                  : plan.popular
+                    ? "bg-[#0066EE] hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 cursor-pointer"
+                    : "bg-gray-800 hover:bg-gray-700 text-white cursor-pointer"
               }`}
             >
-              <CreditCard className="w-4 h-4" />
+              {plan.actionType === "contact" ? (
+                <Mail className="w-4 h-4" />
+              ) : plan.actionType === "current" ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <Zap className="w-4 h-4" />
+              )}
               <span>
-                {upgrading === plan.name
-                  ? "Connecting to Stripe..."
-                  : `Upgrade with Google Pay / Card`}
+                {upgrading === plan.name ? "Processing..." : plan.actionText}
               </span>
             </button>
           </div>
@@ -278,15 +285,15 @@ export default function BillingPage() {
         <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono text-gray-400">
-              Payment Gateway Status
+              Launch Phase Status
             </span>
             <Activity className="w-4 h-4 text-emerald-400" />
           </div>
           <div className="text-3xl font-serif font-semibold text-emerald-400 mb-1">
-            Active
+            Beta Active
           </div>
-          <p className="text-[11px] font-mono text-gray-500">
-            Stripe Elements & Wallet Ready
+          <p className="text-[11px] font-mono text-emerald-500/70">
+            100% Free Access Enabled
           </p>
         </div>
       </div>

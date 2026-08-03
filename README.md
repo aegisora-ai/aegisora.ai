@@ -1,3 +1,13 @@
+<p align="center">
+  🔗 <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+  &nbsp;·&nbsp;
+  🏛️ <a href="ARCHITECTURE.md"><strong>Architecture</strong></a>
+  &nbsp;·&nbsp;
+  🛡️ <a href="SECURITY.md"><strong>Security</strong></a>
+  &nbsp;·&nbsp;
+  💬 <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
+</p>
+
 <div align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
