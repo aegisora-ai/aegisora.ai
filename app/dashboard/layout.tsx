@@ -17,28 +17,40 @@ import {
   CreditCard,
   Menu,
   X,
+  AlertTriangle,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
+// --- KATEGORİZE EDİLMİŞ MENÜ YAPISI (ENTERPRISE GTM ODAKLI) ---
 const MENU_GROUPS = [
   {
-    label: "PLATFORM",
+    label: "OPERATIONAL CONTROL",
     items: [
       { name: "Command Center", href: "/dashboard", icon: LayoutDashboard },
-      { name: "Live Monitor", href: "/dashboard/live-monitor", icon: Activity },
+      {
+        name: "Tool Call Telemetry",
+        href: "/dashboard/live-monitor",
+        icon: Activity,
+      },
     ],
   },
   {
-    label: "SECURITY",
+    label: "ENFORCEMENT & AUDIT",
     items: [
-      { name: "AI Agents", href: "/dashboard/agents", icon: Cpu },
+      { name: "Agent Identities", href: "/dashboard/agents", icon: Cpu },
       {
-        name: "Risk Center",
+        name: "Audit & Policy Logs",
         href: "/dashboard/risk-center",
         icon: ShieldAlert,
       },
       {
-        name: "Compliance Reports",
+        name: "Review Queue",
+        href: "/dashboard/review-queue",
+        icon: AlertTriangle,
+        badge: "2 PENDING",
+      },
+      {
+        name: "False Positive Metrics",
         href: "/dashboard/reports",
         icon: FileText,
       },
@@ -106,7 +118,7 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-[#070709] text-gray-200 font-sans flex w-full max-w-[100vw] overflow-x-hidden relative">
-      {/* DESKTOP SIDEBAR (PC'de sol tarafa sabitlenir, asla içeriğin üzerine binmez) */}
+      {/* DESKTOP SIDEBAR */}
       <aside
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
@@ -172,13 +184,18 @@ export default function DashboardLayout({
                         }`}
                       />
                       <span
-                        className={`text-[13px] font-medium tracking-wide whitespace-nowrap transition-opacity duration-300 ${
+                        className={`text-[13px] font-medium tracking-wide whitespace-nowrap flex-1 flex items-center transition-opacity duration-300 ${
                           isExpanded
                             ? "opacity-100"
-                            : "opacity-0 pointer-events-none"
+                            : "opacity-0 pointer-events-none w-0"
                         }`}
                       >
                         {item.name}
+                        {item.badge && isExpanded && (
+                          <span className="ml-auto bg-orange-500/20 text-orange-400 text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                            {item.badge}
+                          </span>
+                        )}
                       </span>
                       {!isExpanded && (
                         <div className="absolute left-20 bg-[#121215] border border-gray-800 text-white text-[11px] font-mono px-3 py-1.5 rounded-lg shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
@@ -282,9 +299,14 @@ export default function DashboardLayout({
                           }`}
                         >
                           <Icon className="w-4 h-4 flex-shrink-0" />
-                          <span className="text-xs font-medium truncate">
+                          <span className="text-xs font-medium truncate flex-1">
                             {item.name}
                           </span>
+                          {item.badge && (
+                            <span className="ml-auto bg-orange-500/20 text-orange-400 text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                              {item.badge}
+                            </span>
+                          )}
                         </Link>
                       );
                     })}
@@ -314,7 +336,7 @@ export default function DashboardLayout({
         </div>
       )}
 
-      {/* KESİN ÇÖZÜM: PC'de sol menünün genişliğine göre (ml-20) boşluk bırakılır, asla içeriğin üstüne binmez */}
+      {/* KESİN ÇÖZÜM */}
       <div className="flex-1 flex flex-col min-h-screen md:ml-20 ml-0 w-full min-w-0 overflow-x-hidden bg-[#070709]">
         <header className="h-20 border-b border-gray-800/80 px-4 sm:px-8 flex items-center justify-between bg-[#070709]/90 backdrop-blur-md sticky top-0 z-30 w-full">
           <div className="flex items-center gap-3">

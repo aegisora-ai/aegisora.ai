@@ -101,6 +101,12 @@ function LiveMonitorContent() {
           text: "Confirming state synchronization across cluster nodes.",
           status: "VERIFIED",
         },
+        // YENİ EKLENEN ESCALATE SENARYOSU
+        {
+          sender: "System Proxy",
+          text: "Action flagged for near-threshold limits. Routing to Human Review.",
+          status: "ESCALATE",
+        },
       ];
       const nextItem = mockItems[Math.floor(Math.random() * mockItems.length)];
       const timeStr = `00:${Math.floor(Math.random() * 50 + 10)}`;
@@ -210,12 +216,24 @@ function LiveMonitorContent() {
                     <span className="text-[10px] font-mono text-gray-500">
                       {msg.sender} • {msg.time}
                     </span>
-                    <span className="text-[9px] font-mono bg-emerald-500/10 text-emerald-400 px-1.5 py-0.2 rounded border border-emerald-500/20">
+                    <span
+                      className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${
+                        msg.status === "ESCALATE"
+                          ? "bg-orange-500/10 text-orange-400 border-orange-500/30"
+                          : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                      }`}
+                    >
                       {msg.status}
                     </span>
                   </div>
                   <div
-                    className={`px-5 py-3 rounded-2xl text-[13px] max-w-[85%] leading-relaxed font-mono ${msg.sender === "Client" ? "bg-[#19191d] border border-gray-700/50 text-gray-200 rounded-tl-sm" : "bg-[#0066EE]/10 border border-[#0066EE]/30 text-blue-300 rounded-tr-sm"}`}
+                    className={`px-5 py-3 rounded-2xl text-[13px] max-w-[85%] leading-relaxed font-mono ${
+                      msg.sender === "Client"
+                        ? "bg-[#19191d] border border-gray-700/50 text-gray-200 rounded-tl-sm"
+                        : msg.status === "ESCALATE"
+                          ? "bg-orange-500/10 border border-orange-500/30 text-orange-300 rounded-tr-sm"
+                          : "bg-[#0066EE]/10 border border-[#0066EE]/30 text-blue-300 rounded-tr-sm"
+                    }`}
                   >
                     {msg.text}
                   </div>

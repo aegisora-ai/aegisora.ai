@@ -31,7 +31,7 @@ export default function Home() {
         <Hero />
       </div>
 
-      {/* 🚀 REDDIT GERİ BİLDİRİMİ İÇİN EKLENEN CANLI ÜRÜN DEMO VİDEOSU SEKSİYONU (Mobilde taşma yapmayacak şekilde optimize edildi) */}
+      {/* 🚀 REDDIT GERİ BİLDİRİMİ İÇİN EKLENEN CANLI ÜRÜN DEMO VİDEOSU SEKSİYONU (Enterprise Odaklı Metinlerle Güncellendi) */}
       <section
         id="demo"
         className="w-full py-16 px-4 sm:px-6 bg-black/90 relative flex flex-col items-center justify-center my-12 border-y border-zinc-800/80 overflow-hidden"
@@ -44,11 +44,12 @@ export default function Home() {
               Live Product Demo
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
-              See Aegisora in Action
+              Operational Control in Action
             </h2>
             <p className="text-zinc-400 text-xs sm:text-sm md:text-base max-w-xl mx-auto">
-              Watch how our Zero-Trust proxy intercepts malicious payloads and
-              enforces AI governance in real-time.
+              Watch how our narrow control plane blocks unauthorized tool calls,
+              prevents PII leakage, and generates readable audit logs in
+              real-time.
             </p>
           </div>
 

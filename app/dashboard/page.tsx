@@ -404,7 +404,7 @@ export default function CommandCenterPage() {
         </div>
       </div>
 
-      {/* METRİK KARTLARI */}
+      {/* METRİK KARTLARI (KURUMSAL GTM İÇİN GÜNCELLENDİ) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <Link
           href="/dashboard/agents"
@@ -445,47 +445,51 @@ export default function CommandCenterPage() {
               {incidentCount}
             </h3>
             <p className="text-xs font-mono text-gray-400">
-              Critical Flags (DB Incidents)
+              Critical Policy Violations
             </p>
           </div>
         </Link>
 
+        {/* 3. KART: Compliance Score YERİNE False Positive Rate */}
         <Link
-          href="/dashboard/risk-center"
+          href="/dashboard/reports"
           className="bg-[#121215] border border-gray-800/80 rounded-2xl p-5 hover:border-emerald-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 shadow-sm group-hover:scale-105 transition-transform">
-              <Lock className="w-5 h-5" />
+              <ShieldCheck className="w-5 h-5" />
             </div>
             <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-              100% Secure
+              Target &lt; 1%
             </span>
           </div>
           <div>
             <h3 className="text-3xl font-serif font-semibold text-white mb-1">
-              99.8%
+              0.2%
             </h3>
-            <p className="text-xs font-mono text-gray-400">Compliance Score</p>
+            <p className="text-xs font-mono text-gray-400">
+              False Positive Rate
+            </p>
           </div>
         </Link>
 
+        {/* 4. KART: Live Tokens YERİNE Blocked Unauthorized Tool Calls */}
         <Link
-          href="/dashboard/live-monitor"
+          href="/dashboard/risk-center"
           className="bg-[#121215] border border-gray-800/80 rounded-2xl p-5 hover:border-purple-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-sm group-hover:scale-105 transition-transform">
-              <Terminal className="w-5 h-5" />
+              <AlertOctagon className="w-5 h-5" />
             </div>
             <div className="w-2 h-2 rounded-full bg-purple-400 animate-ping"></div>
           </div>
           <div>
             <h3 className="text-3xl font-serif font-semibold text-white mb-1">
-              {formatNumber(tokensCount)}
+              {formatNumber(Math.floor(tokensCount / 100))}
             </h3>
             <p className="text-xs font-mono text-gray-400">
-              Tokens Processed (Live)
+              Blocked Unauthorized Tool Calls
             </p>
           </div>
         </Link>
@@ -500,11 +504,11 @@ export default function CommandCenterPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 className="text-sm font-medium text-white flex items-center gap-2">
-              <Radio className="w-4 h-4 text-[#0066EE]" /> Network Telemetry &
-              Firewall Activity
+              <Radio className="w-4 h-4 text-[#0066EE]" /> Operational Telemetry
+              & Policy Blocks
             </h3>
             <p className="text-[11px] font-mono text-gray-500 mt-1">
-              Total Requests vs Blocked Threats • Range:{" "}
+              Total Agent Requests vs Blocked Unauthorized Calls • Range:{" "}
               <span className="text-[#0066EE] font-bold">{timeframe}</span>{" "}
               (Scroll Wheel to Zoom)
             </p>
@@ -578,8 +582,8 @@ export default function CommandCenterPage() {
         <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 flex flex-col shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-white flex items-center gap-2">
-              <PieIcon className="w-4 h-4 text-amber-400" /> Threat Vectors
-              Distribution
+              <PieIcon className="w-4 h-4 text-amber-400" /> Blocked Actions by
+              Policy Type
             </h3>
             <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
               Percentage Share
@@ -638,7 +642,7 @@ export default function CommandCenterPage() {
         <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 flex flex-col shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-white flex items-center gap-2">
-              <BarChart3 className="w-4 h-4 text-purple-400" /> Agent Latency &
+              <BarChart3 className="w-4 h-4 text-purple-400" /> Agent Latency vs
               Workload Matrix
             </h3>
             <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">

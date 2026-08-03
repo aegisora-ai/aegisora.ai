@@ -13,6 +13,7 @@ import {
   LogOut,
   FileText,
   CreditCard,
+  AlertTriangle,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
@@ -32,6 +33,12 @@ const MENU_GROUPS = [
         name: "Risk Center",
         href: "/dashboard/risk-center",
         icon: ShieldAlert,
+      },
+      {
+        name: "Review Queue",
+        href: "/dashboard/review-queue",
+        icon: AlertTriangle,
+        badge: "2 PENDING",
       },
       {
         name: "Compliance Reports",
@@ -132,13 +139,18 @@ export default function Sidebar() {
                       }`}
                     />
                     <span
-                      className={`text-[13px] font-medium tracking-wide whitespace-nowrap transition-opacity duration-300 ${
+                      className={`text-[13px] font-medium tracking-wide whitespace-nowrap flex-1 flex items-center transition-opacity duration-300 ${
                         isExpanded
                           ? "opacity-100"
-                          : "opacity-0 pointer-events-none"
+                          : "opacity-0 pointer-events-none w-0"
                       }`}
                     >
                       {item.name}
+                      {item.badge && isExpanded && (
+                        <span className="ml-auto bg-orange-500/20 text-orange-400 text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                          {item.badge}
+                        </span>
+                      )}
                     </span>
                     {!isExpanded && (
                       <div className="absolute left-20 bg-[#121215] border border-gray-800 text-white text-[11px] font-mono px-3 py-1.5 rounded-lg shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">

@@ -6,12 +6,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// Aegisora'nın kurumsal B2B AI vizyonuna uygun daktilo yazıları
+// Kurumsal, Operasyonel ve InfoSec odaklı yeni daktilo yazıları
 const PHRASES = [
-  "Monitor autonomous agent telemetry in real-time.",
-  "Enforce zero-trust AI governance policies.",
-  "Audit LLM prompt injections and data leaks.",
-  "Deploy enterprise shield for your AI infrastructure.",
+  "Monitor agent tool calls with granular policy audits.",
+  "Enforce least-privilege API access for autonomous agents.",
+  "Block unauthorized data transfers and prompt injections.",
+  "Deploy a narrow control plane for enterprise AI safety.",
 ];
 
 // Aegisora'ya Özel Mavi Kıvılcım (AI Spark) Animasyonu
@@ -111,19 +111,19 @@ export default function Hero() {
       <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center z-10 mx-auto">
         {/* Sol Sütun: Tipografi ve CTAlar */}
         <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-          {/* Vurucu Başlık */}
+          {/* Vurucu Başlık - Kurumsal InfoSec Odaklı */}
           <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-serif text-[#111111] leading-[1.08] tracking-tight mb-6">
-            Stop Rogue Tool-Calls
+            Operational Control
             <br />
-            <span className="text-[#0066EE]">Before Execution.</span>
+            <span className="text-[#0066EE]">for AI Agents.</span>
           </h1>
 
-          {/* Alt Metin */}
+          {/* Alt Metin - Somut Değer Önerisi */}
           <p className="text-slate-600 font-mono text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-8 max-w-lg">
-            Traditional firewalls can't inspect semantic payloads. Aegisora is
-            an open-source, zero-latency proxy layer built for AppSec teams.
-            Intercept malicious LLM actions, mask PII on the fly, and block
-            indirect prompt injections—without the bloated black-box middleware.
+            Stop selling abstract "safety". Aegisora is the narrow control plane
+            for agent tool and API calls. Enforce least-privilege access, block
+            PII leaks, and generate readable audit logs—without the bloated
+            black-box middleware.
           </p>
 
           {/* Butonlar */}
