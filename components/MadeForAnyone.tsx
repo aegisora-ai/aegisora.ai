@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   ArrowUp,
   Shield,
@@ -19,14 +20,13 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-// Enterprise AI Vizyonu İçin Güncellenmiş Komutlar
 const changingTexts = [
   "Deploy zero-trust policy to engineering swarm...",
   "Intercept all external tool calls containing PII...",
   "Analyze reasoning traces for shadow model usage...",
 ];
 
-// Aegisora'nın Özel Mavi Kıvılcımı (Dönen AI Sembolü)
+// GPU Hızlandırmalı Aegisora Spark
 const AegisoraSpark = ({
   className = "w-4 h-4 text-[#0066EE]",
   isThinking = false,
@@ -43,7 +43,8 @@ const AegisoraSpark = ({
           ? { duration: 2, ease: "linear", repeat: Infinity }
           : { duration: 0.3 }
       }
-      className={`flex-shrink-0 ${className}`}
+      className={`flex-shrink-0 will-change-transform ${className}`}
+      aria-hidden="true"
     >
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
         <path d="M11.25 1.5L12.75 1.5L12.75 9L19.5 4.5L20.25 5.5L14.25 10.5L22.5 11.25L22.5 12.75L14.25 13.5L20.25 18.5L19.5 19.5L12.75 15L12.75 22.5L11.25 22.5L11.25 15L4.5 19.5L3.75 18.5L9.75 13.5L1.5 12.75L1.5 11.25L9.75 10.5L3.75 5.5L4.5 4.5L11.25 9L11.25 1.5Z" />
@@ -53,20 +54,23 @@ const AegisoraSpark = ({
 };
 
 export default function MadeForAnyone() {
+  const router = useRouter(); // Sayfayı yenilemeden geçiş yapmak için Next.js Router
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: false, margin: "100px" });
+
   const [textIndex, setTextIndex] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Ortadaki arama çubuğu metninin dönmesini sağlayan efekt
+  // Sadece ekrandayken (isInView) metni döndür
   useEffect(() => {
-    if (isProcessing || isSuccess) return;
+    if (isProcessing || isSuccess || !isInView) return;
     const interval = setInterval(() => {
       setTextIndex((prev) => (prev + 1) % changingTexts.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [isProcessing, isSuccess]);
+  }, [isProcessing, isSuccess, isInView]);
 
-  // Butona tıklanınca çalışacak Görsel Şölen ve /login yönlendirmesi
   const handleProcessAction = () => {
     if (isProcessing || isSuccess) return;
 
@@ -76,14 +80,13 @@ export default function MadeForAnyone() {
       setIsProcessing(false);
       setIsSuccess(true);
 
-      // Başarı göstergesinden sonra login sayfasına yönlendir
+      // SPA standartlarında, sayfa yenilenmeden /login'e yönlendir
       setTimeout(() => {
-        window.location.href = "/login";
+        router.push("/login");
       }, 1200);
     }, 2500);
   };
 
-  // Sol taraftaki Enterprise rozetler ve konumları
   const leftBadges = [
     {
       text: "Security Operations (SecOps)",
@@ -117,7 +120,6 @@ export default function MadeForAnyone() {
     },
   ];
 
-  // Sağ taraftaki Enterprise rozetler ve konumları
   const rightBadges = [
     {
       text: "Data Privacy Officers",
@@ -151,31 +153,11 @@ export default function MadeForAnyone() {
     },
   ];
 
-  // Kod Bazlı Arka Plan Ağı (Neural Network/Grid Görünümü) İçin
-  const renderGridLines = () => {
-    const lines = [];
-    for (let i = 0; i < 20; i++) {
-      lines.push(
-        <div
-          key={`h-${i}`}
-          className="absolute w-full h-[1px] bg-blue-500/10"
-          style={{ top: `${(i / 20) * 100}%` }}
-        />,
-      );
-      lines.push(
-        <div
-          key={`v-${i}`}
-          className="absolute h-full w-[1px] bg-blue-500/10"
-          style={{ left: `${(i / 20) * 100}%` }}
-        />,
-      );
-    }
-    return lines;
-  };
-
   return (
-    <section className="relative w-full flex flex-col items-center justify-center pt-24 pb-32 px-6 bg-transparent font-sans z-10">
-      {/* Üst Metin ve Butonlar */}
+    <section
+      ref={containerRef}
+      className="relative w-full flex flex-col items-center justify-center pt-24 pb-32 px-6 bg-transparent font-sans z-10 overflow-hidden"
+    >
       <div className="text-center max-w-3xl mb-16 z-20 flex flex-col items-center">
         <h2 className="text-5xl md:text-6xl font-serif text-[#111111] leading-[1.1] tracking-tight mb-6">
           Built for AI-Native Enterprises.
@@ -202,9 +184,7 @@ export default function MadeForAnyone() {
         </div>
       </div>
 
-      {/* Yüzen Rozetler ve Merkezi Kart Alanı */}
       <div className="relative w-full max-w-[1200px] h-[650px] flex items-center justify-center">
-        {/* Masaüstü İçin Sol Rozetler */}
         <div className="hidden lg:block absolute inset-0 pointer-events-none z-30">
           {leftBadges.map((badge, idx) => (
             <motion.div
@@ -226,7 +206,6 @@ export default function MadeForAnyone() {
           ))}
         </div>
 
-        {/* Masaüstü İçin Sağ Rozetler */}
         <div className="hidden lg:block absolute inset-0 pointer-events-none z-30">
           {rightBadges.map((badge, idx) => (
             <motion.div
@@ -248,7 +227,6 @@ export default function MadeForAnyone() {
           ))}
         </div>
 
-        {/* Merkezi Odak Kartı (Görsel ve Komut Çubuğu İle) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -256,7 +234,6 @@ export default function MadeForAnyone() {
           transition={{ duration: 0.6 }}
           className={`relative w-full max-w-[380px] h-[540px] bg-[#0a0a0a] rounded-[2.5rem] overflow-hidden z-20 flex flex-col justify-end p-6 border transition-all duration-500 ${isProcessing ? "border-blue-500/50 shadow-[0_0_50px_rgba(0,102,238,0.3)]" : isSuccess ? "border-emerald-500/50 shadow-[0_0_50px_rgba(52,211,153,0.2)]" : "border-white/10 shadow-2xl"}`}
         >
-          {/* Soyut Teknoloji / Profesyonel Dark Mode Arka Plan Görseli */}
           <div
             className="absolute inset-0 bg-cover bg-center opacity-70 mix-blend-lighten"
             style={{
@@ -265,24 +242,27 @@ export default function MadeForAnyone() {
             }}
           />
 
-          {/* Geometrik Ağ Arka Planı (Neural Network İlüzyonu) */}
-          <div className="absolute inset-0 z-0 overflow-hidden opacity-30 mix-blend-overlay">
-            {renderGridLines()}
-          </div>
+          {/* 40 adet DOM elementi yerine CSS Background Pattern ile sıfır yük (Zero Load) */}
+          <div
+            className="absolute inset-0 z-0 opacity-30 mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px)",
+              backgroundSize: "5% 5%",
+            }}
+          />
 
-          {/* İşlem Sırasında Çıkan Lazer Tarama (Scanner) Efekti */}
           <AnimatePresence>
             {isProcessing && (
               <motion.div
                 initial={{ top: "0%", opacity: 0 }}
                 animate={{ top: "100%", opacity: [0, 1, 1, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 w-full h-[2px] bg-blue-400 shadow-[0_0_20px_#3b82f6] z-10"
+                className="absolute left-0 w-full h-[2px] bg-blue-400 shadow-[0_0_20px_#3b82f6] z-10 will-change-transform"
               />
             )}
           </AnimatePresence>
 
-          {/* İşlem Sırasında Mavi Parlama */}
           <AnimatePresence>
             {isProcessing && (
               <motion.div
@@ -294,10 +274,8 @@ export default function MadeForAnyone() {
             )}
           </AnimatePresence>
 
-          {/* Derinlik Veren Koyu Degrade Katmanı */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent z-10"></div>
 
-          {/* İşlem Merkezi Overlay (Processing State) */}
           <AnimatePresence>
             {(isProcessing || isSuccess) && (
               <motion.div
@@ -342,14 +320,13 @@ export default function MadeForAnyone() {
             )}
           </AnimatePresence>
 
-          {/* Kart İçi Etkileşimli Arama Çubuğu */}
           <div className="relative z-30 w-full bg-[#111111]/90 backdrop-blur-2xl border border-white/10 rounded-[1.25rem] p-2.5 pl-4 flex items-center gap-3 shadow-2xl">
-            {/* Dönen Mavi AI Sembolü */}
             <div className="w-5 h-5 rounded-full bg-[#0066EE]/20 flex items-center justify-center">
-              <AegisoraSpark isThinking={!isProcessing && !isSuccess} />
+              <AegisoraSpark
+                isThinking={!isProcessing && !isSuccess && isInView}
+              />
             </div>
 
-            {/* Animasyonlu Metin Alanı */}
             <div className="flex-1 relative h-5 overflow-hidden flex items-center">
               <AnimatePresence mode="wait">
                 <motion.p
@@ -376,10 +353,10 @@ export default function MadeForAnyone() {
               </AnimatePresence>
             </div>
 
-            {/* Gönder Butonu */}
             <button
               onClick={handleProcessAction}
               disabled={isProcessing || isSuccess}
+              aria-label="Process Zero-Trust Action"
               className={`w-8 h-8 rounded-full transition-all flex items-center justify-center flex-shrink-0 shadow-md outline-none
                 ${isProcessing || isSuccess ? "bg-[#1a1b23] border border-white/10 cursor-not-allowed" : "bg-[#0066EE] hover:bg-[#005bb5] cursor-pointer"}
               `}

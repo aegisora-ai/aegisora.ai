@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   ShieldCheck,
   ArrowUp,
@@ -10,7 +10,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-// Aegisora'nın Özel Mavi Kıvılcımı (Dönen AI Sembolü)
+// GPU Hızlandırmalı Aegisora Spark
 const AegisoraSpark = ({
   className = "w-5 h-5 text-[#0066EE]",
   isThinking = false,
@@ -27,7 +27,8 @@ const AegisoraSpark = ({
           ? { duration: 2, ease: "linear", repeat: Infinity }
           : { duration: 0.3 }
       }
-      className={`flex-shrink-0 ${className}`}
+      className={`flex-shrink-0 will-change-transform ${className}`}
+      aria-hidden="true"
     >
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
         <path d="M11.25 1.5L12.75 1.5L12.75 9L19.5 4.5L20.25 5.5L14.25 10.5L22.5 11.25L22.5 12.75L14.25 13.5L20.25 18.5L19.5 19.5L12.75 15L12.75 22.5L11.25 22.5L11.25 15L4.5 19.5L3.75 18.5L9.75 13.5L1.5 12.75L1.5 11.25L9.75 10.5L3.75 5.5L4.5 4.5L11.25 9L11.25 1.5Z" />
@@ -36,7 +37,6 @@ const AegisoraSpark = ({
   );
 };
 
-// Sonsuz Akış İçin Senaryo Listesi (Her turda farklı bir swarm komutu akar)
 const FLOW_SCENARIOS = [
   {
     command:
@@ -75,26 +75,28 @@ const FLOW_SCENARIOS = [
 ];
 
 export default function ChatMockup() {
+  const containerRef = useRef(null);
+  // Performans: Sadece ekrandayken (viewport) çalışmasını sağlar
+  const isInView = useInView(containerRef, { once: false, margin: "-100px" });
+
   const [scenarioIndex, setScenarioIndex] = useState(0);
   const [step, setStep] = useState(0);
-  // 0: Initial, 1: User Command Sent, 2: Terminal Logs Streaming, 3: Success Response Shown
   const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const currentScenario = FLOW_SCENARIOS[scenarioIndex];
 
-  // Sonsuz Akış Döngüsü (Continuous Auto-Play Loop)
+  // Sonsuz Akış Döngüsü (Sadece bileşen görünür olduğunda çalışır)
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
-    if (isAutoPlaying) {
+    if (isAutoPlaying && isInView) {
       if (step === 0) {
         timer = setTimeout(() => setStep(1), 1200);
       } else if (step === 1) {
         timer = setTimeout(() => setStep(2), 600);
       } else if (step === 3) {
         timer = setTimeout(() => {
-          // Sonraki senaryoya geç veya başa sar, böylece asla aynı şeyin bittiği hissedilmez
           setScenarioIndex((prev) => (prev + 1) % FLOW_SCENARIOS.length);
           setStep(0);
           setVisibleLogs([]);
@@ -103,11 +105,11 @@ export default function ChatMockup() {
     }
 
     return () => clearTimeout(timer);
-  }, [step, isAutoPlaying]);
+  }, [step, isAutoPlaying, isInView]);
 
-  // Logların akma hızı
+  // Logların akma hızı (Sadece ekrandaysa)
   useEffect(() => {
-    if (step === 2) {
+    if (step === 2 && isInView) {
       let currentIndex = 0;
       setVisibleLogs([]);
       const interval = setInterval(() => {
@@ -125,9 +127,8 @@ export default function ChatMockup() {
 
       return () => clearInterval(interval);
     }
-  }, [step, currentScenario]);
+  }, [step, currentScenario, isInView]);
 
-  // Manuel tetikleme (Kullanıcı butona basarsa)
   const handleManualTrigger = () => {
     setIsAutoPlaying(false);
     setStep(1);
@@ -135,14 +136,17 @@ export default function ChatMockup() {
   };
 
   return (
-    <section className="relative w-full py-32 flex flex-col items-center justify-center px-4 sm:px-6 font-sans overflow-hidden bg-transparent z-10">
+    <section
+      ref={containerRef}
+      className="relative w-full py-32 flex flex-col items-center justify-center px-4 sm:px-6 font-sans overflow-hidden bg-transparent z-10"
+    >
       <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center">
-        {/* Üst Rozet ve Dönen Mavi Sembol */}
+        {/* Üst Rozet */}
         <div className="bg-white/80 backdrop-blur-2xl rounded-full px-5 py-2 flex items-center gap-2.5 mb-8 border border-white/50 shadow-sm">
           <div className="w-6 h-6 rounded-full bg-[#0066EE]/10 flex items-center justify-center">
             <AegisoraSpark
               className="w-3.5 h-3.5 text-[#0066EE]"
-              isThinking={true}
+              isThinking={isInView && isAutoPlaying}
             />
           </div>
           <span className="text-[13px] font-mono text-gray-700 font-medium">
@@ -162,13 +166,13 @@ export default function ChatMockup() {
           real-time.
         </p>
 
-        {/* Mesajlaşma Arayüzü (Chat Mockup Kartı) */}
+        {/* Mesajlaşma Arayüzü (Sabit Yükseklik = Reflow ve Layout Kaymalarını Önler) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-2xl bg-[#14151a]/95 backdrop-blur-3xl border border-white/15 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.4)] p-6 sm:p-8 text-left space-y-6 flex flex-col min-h-[500px]"
+          className="w-full max-w-2xl bg-[#14151a]/95 backdrop-blur-3xl border border-white/15 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.4)] p-6 sm:p-8 text-left space-y-6 flex flex-col h-[520px] sm:h-[500px]"
         >
           {/* Chat Başlık / Durum Çubuğu */}
           <div className="flex items-center justify-between border-b border-white/10 pb-4 shrink-0">
@@ -191,8 +195,11 @@ export default function ChatMockup() {
             </div>
           </div>
 
-          {/* Konuşma Balonları Alanı (Sonsuz Akış Hissi) */}
-          <div className="flex-1 space-y-4 py-2 overflow-y-auto">
+          {/* Konuşma Balonları Alanı */}
+          <div
+            className="flex-1 space-y-4 py-2 overflow-y-auto"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
             {/* Sistem Başlangıç Mesajı */}
             <div className="flex gap-3 items-start">
               <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 mt-1">
@@ -208,7 +215,6 @@ export default function ChatMockup() {
               </div>
             </div>
 
-            {/* Kullanıcı Komutu (Siyah / Beyaz Kontrast Akış) */}
             <AnimatePresence mode="wait">
               {step >= 1 && (
                 <motion.div
@@ -216,7 +222,7 @@ export default function ChatMockup() {
                   initial={{ opacity: 0, y: 15, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex justify-end pt-2"
+                  className="flex justify-end pt-2 will-change-transform"
                 >
                   <div className="max-w-[85%] px-4.5 py-3 bg-white text-gray-900 rounded-[20px] rounded-tr-sm font-medium text-sm shadow-md">
                     {currentScenario.command}
@@ -225,17 +231,20 @@ export default function ChatMockup() {
               )}
             </AnimatePresence>
 
-            {/* Terminal Logları Akışı */}
             <AnimatePresence>
               {step === 2 && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="flex gap-3 items-start pt-2"
+                  className="flex gap-3 items-start pt-2 will-change-transform"
                 >
                   <div className="w-7 h-7 rounded-xl bg-transparent flex items-center justify-center flex-shrink-0 mt-1"></div>
-                  <div className="w-full max-w-[85%] bg-[#0a0a0a] border border-white/10 rounded-xl p-4 shadow-inner font-mono text-xs text-gray-400">
+                  <div
+                    className="w-full max-w-[85%] bg-[#0a0a0a] border border-white/10 rounded-xl p-4 shadow-inner font-mono text-xs text-gray-400"
+                    role="log"
+                    aria-live="polite"
+                  >
                     <div className="flex items-center gap-2 text-blue-500 mb-2">
                       <Terminal className="w-3.5 h-3.5" />
                       <span className="animate-pulse">
@@ -247,7 +256,7 @@ export default function ChatMockup() {
                         key={index}
                         initial={{ opacity: 0, x: -5 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="mt-1"
+                        className="mt-1 will-change-transform"
                       >
                         <span className="text-gray-600 mr-2">{">"}</span> {log}
                       </motion.div>
@@ -257,14 +266,13 @@ export default function ChatMockup() {
               )}
             </AnimatePresence>
 
-            {/* Başarılı Sonuç Yanıtı */}
             <AnimatePresence>
               {step === 3 && (
                 <motion.div
                   key={`res-${scenarioIndex}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex gap-3 items-start pt-2"
+                  className="flex gap-3 items-start pt-2 will-change-transform"
                 >
                   <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 mt-1">
                     <AegisoraSpark className="w-3.5 h-3.5 text-[#0066EE]" />
@@ -284,7 +292,7 @@ export default function ChatMockup() {
           </div>
 
           {/* Alt Giriş Çubuğu */}
-          <div className="pt-2 shrink-0">
+          <div className="pt-2 shrink-0 border-t border-white/5">
             <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2.5 flex items-center gap-3">
               <div className="flex-1 text-[13px] text-gray-400 font-mono truncate">
                 {step === 0
@@ -296,6 +304,7 @@ export default function ChatMockup() {
               <button
                 onClick={handleManualTrigger}
                 disabled={step === 2}
+                aria-label="Trigger manual scan"
                 className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-colors outline-none shrink-0
                   ${step === 2 ? "bg-[#1a1b23] border border-white/10 cursor-not-allowed" : "bg-[#0066EE] hover:bg-[#005bb5] cursor-pointer"}
                 `}

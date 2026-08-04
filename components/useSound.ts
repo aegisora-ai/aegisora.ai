@@ -1,4 +1,3 @@
-// hooks/useSound.ts (veya utils içinde de tutabilirsin)
 "use client";
 import { useCallback } from "react";
 
@@ -12,16 +11,10 @@ type SoundType =
 
 export const useSound = () => {
   const playSound = useCallback((type: SoundType, volume: number = 0.4) => {
-    try {
-      const audio = new Audio(`/sounds/${type}.mp3`);
-      audio.volume = volume; // Kulak tırmalamaması için varsayılan ses seviyesi düşük (0.4)
-      audio.play().catch((e) => {
-        // Tarayıcı autoplay politikaları engellerse hata fırlatmasın diye yakalıyoruz
-        console.log("Audio play blocked or error:", e);
-      });
-    } catch (error) {
-      console.error("Sound error:", error);
-    }
+    // ENTERPRISE LANSMAN MODU: Güvenlik ve Kurumsal UX standartları gereği
+    // web sitesindeki tüm etkileşim sesleri devre dışı bırakıldı (Muted).
+    // Kodun patlamaması (import hataları) için bu fonksiyon boş (no-op) bırakılmıştır.
+    return;
   }, []);
 
   return { playSound };

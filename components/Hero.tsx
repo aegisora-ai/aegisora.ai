@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// Kurumsal, Operasyonel ve InfoSec odaklı yeni daktilo yazıları
 const PHRASES = [
   "Monitor agent tool calls with granular policy audits.",
   "Enforce least-privilege API access for autonomous agents.",
@@ -14,7 +13,7 @@ const PHRASES = [
   "Deploy a narrow control plane for enterprise AI safety.",
 ];
 
-// Aegisora'ya Özel Mavi Kıvılcım (AI Spark) Animasyonu
+// GPU Hızlandırmalı Aegisora Spark
 const AegisoraSpark = () => {
   return (
     <motion.div
@@ -28,7 +27,8 @@ const AegisoraSpark = () => {
         times: [0, 0.4, 0.6, 1],
         repeat: Infinity,
       }}
-      className="w-5 h-5 flex-shrink-0 text-[#0066EE]"
+      className="w-5 h-5 flex-shrink-0 text-[#0066EE] will-change-transform"
+      aria-hidden="true"
     >
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
         <path d="M11.25 1.5L12.75 1.5L12.75 9L19.5 4.5L20.25 5.5L14.25 10.5L22.5 11.25L22.5 12.75L14.25 13.5L20.25 18.5L19.5 19.5L12.75 15L12.75 22.5L11.25 22.5L11.25 15L4.5 19.5L3.75 18.5L9.75 13.5L1.5 12.75L1.5 11.25L9.75 10.5L3.75 5.5L4.5 4.5L11.25 9L11.25 1.5Z" />
@@ -43,7 +43,6 @@ export default function Hero() {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(50);
 
-  // Typewriter (Yazı yazma/silme) Efekti
   useEffect(() => {
     const handleTyping = () => {
       const i = loopNum % PHRASES.length;
@@ -55,15 +54,11 @@ export default function Hero() {
           : fullText.substring(0, currentText.length + 1),
       );
 
-      // Yazma hızı (silinirken daha hızlı)
       setTypingSpeed(isDeleting ? 30 : 60);
 
-      // Kelime bittiyse bekle ve silmeye başla
       if (!isDeleting && currentText === fullText) {
         setTimeout(() => setIsDeleting(true), 2000);
-      }
-      // Silme bittiyse sıradaki kelimeye geç
-      else if (isDeleting && currentText === "") {
+      } else if (isDeleting && currentText === "") {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);
         setTypingSpeed(500);
@@ -75,50 +70,44 @@ export default function Hero() {
   }, [currentText, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflow-visible font-sans">
-      {/* HAREKETLİ MESH GRADIENT */}
+    // overflow-hidden buraya taşındı, mobil sağ-sol kayma hatası önlendi.
+    <section className="relative w-full min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflow-hidden font-sans">
+      {/* HAREKETLİ MESH GRADIENT (GPU Optimizasyonlu) */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <motion.div
           animate={{
-            x: [0, 80, -80, 0],
-            y: [0, -80, 80, 0],
-            scale: [1, 1.2, 0.9, 1],
+            rotate: [0, 90, 0],
+            scale: [1, 1.2, 1],
           }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#0066EE]/25 blur-[100px]"
+          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] min-w-[300px] min-h-[300px] rounded-full bg-[#0066EE]/25 blur-[70px] md:blur-[100px] will-change-transform"
         />
         <motion.div
           animate={{
-            x: [0, -100, 100, 0],
-            y: [0, 100, -100, 0],
-            scale: [1, 1.3, 0.8, 1],
+            rotate: [0, -90, 0],
+            scale: [1, 1.3, 1],
           }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#3b82f6]/30 blur-[120px]"
+          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] min-w-[350px] min-h-[350px] rounded-full bg-[#3b82f6]/30 blur-[80px] md:blur-[120px] will-change-transform"
         />
         <motion.div
           animate={{
-            x: [0, 90, -90, 0],
-            y: [0, 90, -90, 0],
-            scale: [1, 0.8, 1.1, 1],
+            rotate: [0, 90, 0],
+            scale: [1, 1.1, 1],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] left-[30%] w-[45vw] h-[45vw] rounded-full bg-[#60a5fa]/35 blur-[100px]"
+          className="absolute top-[20%] left-[30%] w-[45vw] h-[45vw] min-w-[250px] min-h-[250px] rounded-full bg-[#60a5fa]/35 blur-[70px] md:blur-[100px] will-change-transform"
         />
       </div>
 
-      {/* Ana İçerik Konteyneri */}
       <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center z-10 mx-auto">
-        {/* Sol Sütun: Tipografi ve CTAlar */}
         <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-          {/* Vurucu Başlık - Kurumsal InfoSec Odaklı */}
           <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-serif text-[#111111] leading-[1.08] tracking-tight mb-6">
             Operational Control
             <br />
             <span className="text-[#0066EE]">for AI Agents.</span>
           </h1>
 
-          {/* Alt Metin - Somut Değer Önerisi */}
           <p className="text-slate-600 font-mono text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-8 max-w-lg">
             Stop selling abstract "safety". Aegisora is the narrow control plane
             for agent tool and API calls. Enforce least-privilege access, block
@@ -126,13 +115,12 @@ export default function Hero() {
             black-box middleware.
           </p>
 
-          {/* Butonlar */}
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[400px]">
-            {/* 1. Buton: GitHub Repo Ana Sayfası */}
             <a
               href="https://github.com/ozereray/aegisora.ai"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="View Aegisora on GitHub"
               className="w-full flex items-center justify-center gap-2 bg-[#111111] hover:bg-[#222222] transition-colors text-white py-3.5 px-4 rounded-xl text-[14px] font-medium shadow-sm"
             >
               <svg
@@ -150,7 +138,6 @@ export default function Hero() {
               View on GitHub
             </a>
 
-            {/* 2. Buton: Yazısı 'Continue with work email' yapıldı ve /login sayfasına yönlendiriyor */}
             <Link
               href="/login"
               className="w-full flex items-center justify-center bg-white text-[#111] py-3.5 px-4 rounded-xl hover:bg-[#f8f9fa] transition-colors text-[14px] font-medium shadow-sm border border-gray-200"
@@ -160,30 +147,27 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Sağ Sütun: Özel Görsel Alanı */}
         <div className="lg:col-span-6 relative w-full max-w-[480px] lg:max-w-none mx-auto aspect-square lg:aspect-[4/4.5] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,102,238,0.15)] bg-black">
           <Image
             src="/hero-visual.png"
             alt="Aegisora Platform Preview"
             fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
             priority
           />
 
-          {/* Alt Kısımdaki Animasyonlu Sorgu Çubuğu Overlay */}
           <div className="absolute bottom-6 left-6 right-6 z-20">
             <div className="bg-[#2a2a2a]/80 backdrop-blur-xl border border-white/10 rounded-[1.25rem] p-2 pl-4 flex items-center gap-3 shadow-2xl h-[46px]">
-              {/* Mavi Aegisora AI Kıvılcımı */}
               <AegisoraSpark />
 
-              {/* Typewriter Efektli Yazı Alanı */}
               <div className="text-gray-100 text-[13px] font-medium flex-1 overflow-hidden whitespace-nowrap">
                 {currentText}
                 <span className="inline-block w-[1.5px] h-3.5 bg-white/70 ml-[2px] animate-pulse align-middle"></span>
               </div>
 
-              <Link href="/get-started">
-                <button className="p-2.5 bg-white/10 hover:bg-[#0066EE] rounded-xl transition-colors cursor-pointer flex-shrink-0 group">
+              <Link href="/get-started" aria-label="Get Started with Aegisora">
+                <button className="p-2.5 bg-white/10 hover:bg-[#0066EE] rounded-xl transition-colors cursor-pointer flex-shrink-0 group outline-none">
                   <ArrowUp className="w-4 h-4 text-white group-hover:text-white transition-colors" />
                 </button>
               </Link>

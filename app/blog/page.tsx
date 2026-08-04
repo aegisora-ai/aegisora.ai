@@ -6,31 +6,31 @@ import Navbar from "@/components/Navbar";
 export default function BlogIndexPage() {
   const posts = [
     {
-      slug: "securing-autonomous-ai-agents",
+      slug: "securing-autonomous-ai-against-prompt-injection",
       date: "Oct 12, 2026",
       category: "Security",
-      title: "Securing Autonomous AI Agents – 5 Key Strategies",
-      desc: "How do you know if your AI agent is operating within boundaries? If something feels off, knowing the warning signs can help you act quickly...",
-      author: "Filip Landgren",
-      role: "Chief Scientist & CEO",
+      title: "Securing Autonomous AI Agents Against Prompt Injection",
+      desc: "As enterprises scale AI agents, prompt injection becomes a critical threat vector. Learn how Aegisora's zero-trust proxy intercepts malicious tool calls at runtime.",
+      author: "Eray Özer",
+      role: "Founder & CEO",
     },
     {
-      slug: "how-to-enforce-ai-compliance",
+      slug: "architecture-of-zero-trust-ai-swarms",
       date: "Sep 28, 2026",
       category: "Governance",
-      title: "How to Enforce Compliance in Autonomous Systems | Aegisora",
-      desc: "Deploying an AI agent should feel safe — you expect it to be compliant and secure. But scaling AI across the enterprise introduces new vulnerabilities...",
-      author: "Anthon Mansland",
-      role: "Head of Product",
+      title: "The Architecture of a Zero-Trust AI Swarm",
+      desc: "Deploying an AI agent should feel safe. But scaling multi-agent swarms across the enterprise introduces complex vulnerabilities. Discover how to enforce compliance dynamically.",
+      author: "Aegisora Engineering",
+      role: "Core Team",
     },
     {
       slug: "the-risks-of-shadow-ai",
       date: "Sep 15, 2026",
       category: "Enterprise",
-      title: "The Risks of Shadow AI in the Enterprise",
-      desc: "What can a rogue AI agent do with your corporate data? More than most realize. Unmonitored models give direct routes into your secure infrastructure...",
-      author: "Johan Sollevi",
-      role: "Chief Sales Officer",
+      title: "Shadow AI: The Hidden Risk in Enterprise Infrastructure",
+      desc: "What happens when unmonitored AI models access your corporate databases? Shadow AI opens direct routes into secure infrastructure. Here is how to regain visibility.",
+      author: "Eray Özer",
+      role: "Founder & CEO",
     },
   ];
 
@@ -69,9 +69,22 @@ export default function BlogIndexPage() {
                 <h3 className="text-xl font-serif font-medium mb-3 group-hover:text-[#0066EE] transition-colors leading-tight">
                   {post.title}
                 </h3>
-                <p className="text-[12.5px] font-mono text-gray-600 line-clamp-3 leading-relaxed">
+                <p className="text-[12.5px] font-mono text-gray-600 line-clamp-3 leading-relaxed mb-6">
                   {post.desc}
                 </p>
+              </div>
+              <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
+                <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center text-white text-xs font-bold">
+                  {post.author.charAt(0)}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[12px] font-bold text-gray-900">
+                    {post.author}
+                  </span>
+                  <span className="text-[10px] font-mono text-gray-500">
+                    {post.role}
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
@@ -144,9 +157,14 @@ export default function BlogIndexPage() {
                 <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
               </svg>
             </Link>
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
+            {/* GitHub İkonu (Instagram yerine eklendi) */}
+            <Link
+              href="https://github.com/aegisora"
+              target="_blank"
+              className="hover:text-[#0066EE] transition-colors"
+            >
               <svg
-                className="w-6 h-6"
+                className="w-[20px] h-[20px]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -154,13 +172,11 @@ export default function BlogIndexPage() {
                 strokeLinejoin="round"
                 viewBox="0 0 24 24"
               >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
               </svg>
             </Link>
             <Link
-              href="https://www.linkedin.com/company/aegisora/posts/?feedView=all&viewAsMember=true"
+              href="https://www.linkedin.com/company/aegisora/"
               target="_blank"
               className="hover:text-[#0066EE] transition-colors"
             >
@@ -287,6 +303,21 @@ export default function BlogIndexPage() {
                 className="hover:text-[#0066EE] transition-colors"
               >
                 Terms of Service
+              </Link>
+            </div>
+          </div>
+
+          {/* Telif (Copyright) ve Alt Linkler Bölümü */}
+          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 border-t border-gray-300/60 text-[11px] font-mono text-gray-500">
+            <span className="mb-4 md:mb-0">
+              © 2026 Aegisora. All rights reserved.
+            </span>
+            <div className="flex gap-6">
+              <Link href="#" className="hover:text-gray-900 transition-colors">
+                AI Info
+              </Link>
+              <Link href="#" className="hover:text-gray-900 transition-colors">
+                AI Policy
               </Link>
             </div>
           </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -71,9 +72,18 @@ export default function Navbar() {
     null,
   );
 
+  // Ölümcül kaydırma (scroll) hatasını engelleyen temizlik fonksiyonu eklendi
   useEffect(() => {
-    if (isMobileMenuOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "auto";
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Kullanıcı menü açıkken başka sayfaya yönlenirse kilidi mutlaka kaldır
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [isMobileMenuOpen]);
 
   const toggleMobileAccordion = (key: NavKey) => {
@@ -101,7 +111,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CSS Animasyon Tanımları (Dönen renk efekti için) */}
       <style jsx global>{`
         @keyframes border-spin {
           0% {
@@ -116,7 +125,6 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* MASAÜSTÜ VE MOBİL YÜZEN MENÜ */}
       <motion.div
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-[920px]"
         initial={{ y: -20, opacity: 0 }}
@@ -124,16 +132,17 @@ export default function Navbar() {
         transition={springConfig}
       >
         <nav className="flex items-center justify-between pl-6 pr-2 rounded-full border border-gray-800 shadow-2xl font-sans h-[52px] lg:h-[48px] bg-[#0a0a0a] relative">
-          {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2 cursor-pointer z-50 shrink-0"
           >
             <div className="relative w-6 h-6 flex items-center justify-center overflow-hidden rounded-full bg-transparent">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Aegisora Logo"
-                className="w-full h-full object-contain"
+                fill
+                sizes="24px"
+                className="object-contain"
               />
             </div>
             <span className="text-[20px] font-serif tracking-tight text-white mt-0.5">
@@ -141,7 +150,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Masaüstü Linkler */}
           <div
             className="hidden lg:flex items-center relative z-50 h-full gap-1 px-2"
             onMouseLeave={() => setActiveDropdown(null)}
@@ -173,7 +181,7 @@ export default function Navbar() {
                           <Link
                             key={idx}
                             href={item.href}
-                            className="w-[200px] h-[47px] px-3 flex flex-col justify-center cursor-pointer rounded-lg hover:bg-[#1a1a1a] transition-colors group"
+                            className="w-[200px] h-[47px] px-3 flex flex-col justify-center cursor-pointer rounded-lg hover:bg-[#1a1a1a] transition-colors group outline-none"
                           >
                             <h3 className="text-white text-[13px] font-medium mb-0.5 group-hover:text-[#0066EE] transition-colors leading-none">
                               {item.title}
@@ -185,12 +193,13 @@ export default function Navbar() {
                         ))}
                       </div>
 
-                      {/* SAĞ TARAFTAKİ KUTU */}
                       <div className="w-[200px] h-[141px] bg-[#141414] rounded-lg overflow-hidden border border-gray-800/50 flex items-center justify-center relative">
-                        <img
+                        <Image
                           src={getDropdownImage(key)}
                           alt={`${key} Preview`}
-                          className="w-full h-full object-cover opacity-90 transition-opacity duration-300"
+                          fill
+                          sizes="200px"
+                          className="object-cover opacity-90 transition-opacity duration-300"
                         />
                         <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0a0a]/60 to-transparent pointer-events-none"></div>
                       </div>
@@ -201,7 +210,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Sağ Aksiyonlar */}
           <div className="flex items-center gap-2.5 z-50 h-full py-[8px] shrink-0">
             <Link
               href="/login"
@@ -210,7 +218,6 @@ export default function Navbar() {
               Log in
             </Link>
 
-            {/* DÖNEN RENKLİ ÇERÇEVELİ (GLOWING) EARLY ACCESS BUTONU */}
             <div className="hidden lg:flex relative p-[1px] rounded-xl overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 animate-border-spin" />
               <Link
@@ -228,10 +235,10 @@ export default function Navbar() {
               Sign up free
             </Link>
 
-            {/* MOBİL MENÜ BUTONU */}
             <button
-              className="lg:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 transition-colors mr-1 cursor-pointer"
+              className="lg:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 transition-colors mr-1 cursor-pointer outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-expanded={isMobileMenuOpen}
               aria-label="Toggle Menu"
             >
               <motion.span
@@ -253,7 +260,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* MOBİL VE YARIM EKRAN AÇILIR MENÜ */}
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
@@ -287,15 +293,11 @@ export default function Navbar() {
                     <div key={key} className="flex flex-col w-full">
                       <button
                         onClick={() => toggleMobileAccordion(key)}
-                        className="w-full py-2 flex items-center gap-1 text-[14px] font-medium text-gray-200 hover:text-white transition-colors px-1 cursor-pointer"
+                        className="w-full py-2 flex items-center gap-1 text-[14px] font-medium text-gray-200 hover:text-white transition-colors px-1 cursor-pointer outline-none"
                       >
                         <span>{key}</span>
                         <ChevronDown
-                          className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-300 ${
-                            openMobileAccordion === key
-                              ? "rotate-180 text-white"
-                              : ""
-                          }`}
+                          className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-300 ${openMobileAccordion === key ? "rotate-180 text-white" : ""}`}
                         />
                       </button>
 

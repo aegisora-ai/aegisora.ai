@@ -3,48 +3,49 @@
 import { motion } from "framer-motion";
 
 export default function TrustedBy() {
+  // Şirket isimlerini "Müşteri" yalanından çıkarıp,
+  // "Entegre Çalıştığımız Ekosistemler" gerçekliğine çektik.
   const logos = [
     {
-      name: "Meta",
+      name: "OpenAI",
       cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
     },
     {
-      name: "CLOUDFLARE",
-      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
-    },
-    {
-      name: "Google",
-      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
-    },
-    {
-      name: "amazon",
-      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
-    },
-    {
-      name: "pwc",
+      name: "Anthropic",
       cls: "font-serif font-bold text-xl sm:text-2xl text-slate-800 italic",
+    },
+    {
+      name: "Azure AI",
+      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
+    },
+    {
+      name: "AWS Bedrock",
+      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
+    },
+    {
+      name: "GitHub",
+      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
+    },
+    {
+      name: "Slack",
+      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
     },
     {
       name: "Vercel",
       cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
     },
-    {
-      name: "Stripe",
-      cls: "font-sans font-bold text-xl sm:text-2xl text-slate-800",
-    },
   ];
 
   return (
-    // bg-transparent yaptık ve border çizgilerini kaldırdık
-    <section className="w-full py-12 bg-transparent flex flex-col items-center justify-center relative z-10">
-      {/* Başlık */}
+    <section className="w-full py-12 bg-transparent flex flex-col items-center justify-center relative z-10 overflow-hidden">
+      {/* Başlık: Dürüst ve Kurumsal B2B Mesajı */}
       <p className="relative z-10 text-[10px] sm:text-[11px] font-mono text-slate-400 uppercase tracking-[0.2em] mb-10 text-center px-4">
-        Trusted by people at leading companies
+        Seamlessly Integrates With Modern Ecosystems
       </p>
 
-      {/* SÜREKLİ AKAN (LOOP) ŞİRKET LOGOLARI */}
+      {/* SÜREKLİ AKAN (LOOP) ENTEGRASYON LOGOLARI */}
       <div
-        className="relative z-10 w-full flex overflow-hidden"
+        className="relative z-10 w-full flex overflow-hidden pointer-events-none"
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
@@ -52,8 +53,9 @@ export default function TrustedBy() {
             "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}
       >
+        {/* GPU Hızlandırması (will-change-transform) eklendi */}
         <motion.div
-          className="flex whitespace-nowrap items-center w-max"
+          className="flex whitespace-nowrap items-center w-max will-change-transform"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ ease: "linear", duration: 35, repeat: Infinity }}
         >
@@ -65,7 +67,7 @@ export default function TrustedBy() {
               {logos.map((logo, index) => (
                 <span
                   key={index}
-                  className={`${logo.cls} opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer`}
+                  className={`${logo.cls} opacity-40 grayscale transition-all duration-300`}
                 >
                   {logo.name}
                 </span>

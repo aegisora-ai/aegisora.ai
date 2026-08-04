@@ -1,128 +1,83 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, ArrowRight, Shield } from "lucide-react";
 
 export default function PricingSection() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">(
-    "annual",
-  );
-
   const plans = [
     {
-      name: "Starter",
+      name: "Developer Sandbox",
       description:
-        "Essential AI visibility and basic guardrails for growing engineering teams.",
-      price: { monthly: "$49", annual: "$39" },
-      period: "per user / month",
+        "Essential AI visibility and basic guardrails for local engineering testing and exploration.",
+      price: "Open Source",
+      period: "free forever",
       popular: false,
-      cta: "Start Free Trial",
-      href: "http://localhost:3000/contact/sales",
+      cta: "View Documentation",
+      href: "https://github.com/ozereray/aegisora.ai",
       features: {
         "AI Visibility": [
-          "AI Agent Monitoring",
-          "Runtime Logs",
-          "Prompt History",
+          "Local Agent Monitoring",
+          "Basic Runtime Logs",
+          "Prompt Interception",
         ],
-        Security: ["Zero-Trust Proxy", "PII Masking", "Basic Risk Detection"],
-        Governance: ["Standard Audit Logs", "Basic Policy Library"],
-        Analytics: ["AI Trust Score", "Agent Analytics"],
+        Security: ["Local Zero-Trust Proxy", "Rule-based Blocking"],
+        Governance: ["Local Console Output"],
+        Integrations: ["Localhost", "OpenAI API"],
+      },
+    },
+    {
+      name: "Design Partner",
+      description:
+        "Cloud-managed runtime governance, continuous enforcement, and full swarm oversight.",
+      price: "Early Access",
+      period: "limited spots available",
+      popular: true,
+      badge: "Priority Access",
+      cta: "Book a Demo",
+      href: "/contact/sales",
+      features: {
+        "AI Visibility": [
+          "Full Swarm Monitoring",
+          "Cloud Runtime Logs",
+          "Decision Timeline",
+          "Tool Usage Tracking",
+        ],
+        Security: [
+          "Managed Zero-Trust Proxy",
+          "PII Masking",
+          "Advanced Risk Detection",
+        ],
+        Governance: ["Standard Audit Logs", "Dynamic Policy Library"],
         Integrations: ["OpenAI", "Anthropic", "Slack"],
       },
     },
     {
-      name: "Business",
+      name: "Enterprise VPC",
       description:
-        "Advanced runtime governance, continuous enforcement, and full swarm oversight.",
-      price: { monthly: "$199", annual: "$159" },
-      period: "per user / month",
-      popular: true,
-      cta: "Deploy Business Tier",
-      href: "http://localhost:3000/contact/sales",
-      features: {
-        "AI Visibility": [
-          "AI Agent Monitoring",
-          "Runtime Logs",
-          "Prompt History",
-          "Tool Usage",
-          "Decision Timeline",
-        ],
-        Security: [
-          "Zero-Trust Proxy",
-          "PII Masking",
-          "Runtime Policy Enforcement",
-          "Neural Firewall",
-          "Advanced Risk Detection",
-        ],
-        Governance: [
-          "Advanced Audit Logs",
-          "Compliance Reports (SOC 2, ISO)",
-          "Approval Workflows",
-          "RBAC (Role-Based Access)",
-          "Dynamic Policy Library",
-        ],
-        Analytics: [
-          "AI Trust Score",
-          "Agent Analytics",
-          "Cost Analytics",
-          "Behavioral Insights",
-        ],
-        Integrations: [
-          "OpenAI",
-          "Anthropic",
-          "Azure OpenAI",
-          "Slack",
-          "GitHub",
-          "Jira",
-        ],
-      },
-    },
-    {
-      name: "Enterprise",
-      description:
-        "Tailored runtime constitutions, dedicated deployment, and custom LLM security infrastructure.",
-      price: { monthly: "Custom Pricing", annual: "Custom Pricing" },
+        "Tailored runtime constitutions, dedicated deployment, and on-premise security infrastructure.",
+      price: "Custom",
       period: "for large-scale organizations",
       popular: false,
-      cta: "Talk to Sales",
-      href: "http://localhost:3000/contact/sales",
+      cta: "Talk to Founders",
+      href: "/contact/sales",
       features: {
         "AI Visibility": [
-          "Unlimited AI Agent Monitoring",
-          "Real-time Enterprise Runtime Logs",
-          "Unlimited Prompt History",
-          "Advanced Tool Usage Auditing",
-          "Granular Decision Timeline",
+          "Unlimited Agent Monitoring",
+          "Real-time Enterprise Logs",
+          "Granular Tool Auditing",
         ],
         Security: [
-          "Dedicated Zero-Trust Proxy Cluster",
-          "Advanced Enterprise PII Masking",
-          "Custom Runtime Policy Enforcement",
-          "Enterprise Neural Firewall",
-          "Real-time Threat & Jailbreak Defense",
+          "Dedicated Proxy Cluster",
+          "Enterprise PII Masking",
+          "Custom Policy Enforcement",
         ],
         Governance: [
-          "Tamper-Proof Immutable Audit Logs",
-          "Automated Regulatory Compliance Suite",
-          "Multi-tier Approval Workflows",
-          "Enterprise RBAC & SSO (SAML)",
-          "Custom Policy Constitutions",
+          "SOC 2 / ISO Compliance Suite",
+          "Multi-tier Approvals",
+          "RBAC & SSO (SAML)",
         ],
-        Analytics: [
-          "Enterprise AI Trust Score",
-          "Deep Swarm & Agent Analytics",
-          "Granular Cost & Token Analytics",
-          "Predictive Behavioral Insights",
-        ],
-        Integrations: [
-          "All LLM Providers (Custom & Open Source)",
-          "Azure OpenAI & AWS Bedrock",
-          "Enterprise Slack & Teams",
-          "GitHub, GitLab & CI/CD Pipelines",
-          "Custom Webhooks & SIEM Integration",
-        ],
+        Integrations: ["Azure OpenAI", "AWS Bedrock", "Custom SIEM"],
       },
     },
   ];
@@ -131,18 +86,17 @@ export default function PricingSection() {
     "AI Visibility",
     "Security",
     "Governance",
-    "Analytics",
     "Integrations",
   ];
 
   return (
     <section className="relative w-full py-32 px-6 bg-transparent font-sans z-10">
-      {/* Header & Billing Toggle */}
+      {/* Header */}
       <div className="max-w-4xl mx-auto text-center mb-20 flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-black/5 shadow-sm mb-6">
           <Shield className="w-4 h-4 text-[#0066EE]" />
           <span className="text-xs font-mono font-medium text-slate-800 uppercase tracking-wider">
-            Enterprise Pricing Architecture
+            Deployment Architecture
           </span>
         </div>
 
@@ -150,46 +104,16 @@ export default function PricingSection() {
           Predictable runtime governance. <br /> Absolute scale.
         </h2>
 
-        <p className="font-mono text-slate-600 text-sm sm:text-base max-w-xl leading-relaxed mb-10">
-          Govern AI swarms at the speed of thought. Transparent plans designed
-          for modern engineering organizations and security leaders.
+        <p className="font-mono text-slate-600 text-sm sm:text-base max-w-xl leading-relaxed">
+          Govern AI swarms at the speed of thought. Built for modern engineering
+          organizations and strict enterprise security requirements.
         </p>
-
-        {/* Monthly / Annual Switcher */}
-        <div className="bg-slate-200/60 backdrop-blur-md p-1.5 rounded-full flex items-center border border-slate-300/50 shadow-inner">
-          <button
-            onClick={() => setBillingCycle("monthly")}
-            className={`px-6 py-2 rounded-full font-mono text-xs font-medium transition-all cursor-pointer ${
-              billingCycle === "monthly"
-                ? "bg-white text-slate-900 shadow-md"
-                : "text-slate-600 hover:text-slate-900"
-            }`}
-          >
-            Monthly Billing
-          </button>
-          <button
-            onClick={() => setBillingCycle("annual")}
-            className={`px-6 py-2 rounded-full font-mono text-xs font-medium transition-all cursor-pointer flex items-center gap-2 ${
-              billingCycle === "annual"
-                ? "bg-[#0066EE] text-white shadow-md shadow-blue-500/20"
-                : "text-slate-600 hover:text-slate-900"
-            }`}
-          >
-            <span>Annual Billing</span>
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded-full ${billingCycle === "annual" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-600"}`}
-            >
-              Save 20%
-            </span>
-          </button>
-        </div>
       </div>
 
-      {/* Pricing Cards Grid */}
+      {/* Deployment Cards Grid */}
       <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
         {plans.map((plan, idx) => {
           const isBusiness = plan.popular;
-          const currentPrice = plan.price[billingCycle];
 
           return (
             <motion.div
@@ -204,10 +128,10 @@ export default function PricingSection() {
                   : "bg-white/90 text-slate-900 border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.1)]"
               }`}
             >
-              {/* Highlight Badge for Business Plan */}
+              {/* Highlight Badge */}
               {isBusiness && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#0066EE] text-white font-mono text-[11px] font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
-                  Most Popular
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#0066EE] text-white font-mono text-[11px] font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                  {plan.badge}
                 </div>
               )}
 
@@ -231,17 +155,15 @@ export default function PricingSection() {
                 <div className="mb-8 pb-8 border-b border-current/10">
                   <div className="flex items-baseline gap-2">
                     <span
-                      className={`text-4xl lg:text-5xl font-serif tracking-tight ${isBusiness ? "text-white" : "text-slate-900"}`}
+                      className={`text-3xl lg:text-4xl font-serif tracking-tight ${isBusiness ? "text-white" : "text-slate-900"}`}
                     >
-                      {currentPrice}
+                      {plan.price}
                     </span>
-                    {currentPrice !== "Custom Pricing" && (
-                      <span
-                        className={`font-mono text-xs ${isBusiness ? "text-slate-400" : "text-slate-500"}`}
-                      >
-                        / {plan.period}
-                      </span>
-                    )}
+                  </div>
+                  <div
+                    className={`font-mono text-xs mt-2 ${isBusiness ? "text-blue-400" : "text-slate-500"}`}
+                  >
+                    {plan.period}
                   </div>
                 </div>
 
@@ -291,7 +213,7 @@ export default function PricingSection() {
               <div>
                 <Link
                   href={plan.href}
-                  className={`w-full py-4 rounded-2xl font-mono text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md ${
+                  className={`w-full py-4 rounded-2xl font-mono text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-md outline-none ${
                     isBusiness
                       ? "bg-[#0066EE] hover:bg-[#005bb5] text-white shadow-blue-500/25 hover:shadow-blue-500/40"
                       : "bg-[#111111] hover:bg-black text-white shadow-slate-900/10 hover:shadow-slate-900/20"

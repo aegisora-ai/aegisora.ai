@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Activity,
   Lock,
@@ -15,47 +15,55 @@ import {
 // -----------------------------------------
 // 1. DİNAMİK BİLEŞEN: ZERO-TRUST PROXY
 // -----------------------------------------
-const ProxyAnimation = () => (
-  <div className="absolute bottom-0 left-0 w-full h-full bg-transparent overflow-hidden flex items-center justify-center">
+const ProxyAnimation = ({ isInView }: { isInView: boolean }) => (
+  <div className="absolute bottom-0 left-0 w-full h-full bg-transparent overflow-hidden flex items-center justify-center pointer-events-none">
     <div className="relative w-full h-full flex flex-col items-center justify-start pt-32">
-      {/* Merkezdeki Veri Hattı */}
       <div className="absolute top-0 bottom-0 w-[1px] bg-blue-500/20"></div>
 
-      {/* Aşağı Akan Temiz Veri (Mavi) */}
       <motion.div
-        animate={{ y: [-20, 250], opacity: [0, 1, 0] }}
+        animate={
+          isInView
+            ? { y: [-20, 250], opacity: [0, 1, 0] }
+            : { y: -20, opacity: 0 }
+        }
         transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
-        className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full shadow-[0_0_10px_#60a5fa]"
+        className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full shadow-[0_0_10px_#60a5fa] will-change-transform"
       />
 
-      {/* Aşağı Akan Riskli Veri (Kırmızı) ve Bloklanma Efekti */}
       <motion.div
-        animate={{ y: [-20, 100], opacity: [0, 1, 0], scale: [1, 1, 2] }}
+        animate={
+          isInView
+            ? { y: [-20, 100], opacity: [0, 1, 0], scale: [1, 1, 2] }
+            : { y: -20, opacity: 0, scale: 1 }
+        }
         transition={{
           repeat: Infinity,
           duration: 2,
           ease: "easeOut",
           delay: 1,
         }}
-        className="absolute ml-8 w-1.5 h-1.5 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444]"
+        className="absolute ml-8 w-1.5 h-1.5 bg-red-500 rounded-full shadow-[0_0_10px_#ef4444] will-change-transform"
       />
 
       <motion.div
-        animate={{ y: [-20, 200], opacity: [0, 1, 0] }}
+        animate={
+          isInView
+            ? { y: [-20, 200], opacity: [0, 1, 0] }
+            : { y: -20, opacity: 0 }
+        }
         transition={{
           repeat: Infinity,
           duration: 3,
           ease: "linear",
           delay: 0.5,
         }}
-        className="absolute mr-8 w-1.5 h-1.5 bg-emerald-400 rounded-full shadow-[0_0_10px_#34d399]"
+        className="absolute mr-8 w-1.5 h-1.5 bg-emerald-400 rounded-full shadow-[0_0_10px_#34d399] will-change-transform"
       />
 
-      {/* Tarama Çizgisi (Scanner Line) */}
       <motion.div
-        animate={{ y: [0, 150, 0] }}
+        animate={isInView ? { y: [0, 150, 0] } : { y: 0 }}
         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-        className="w-full max-w-[120px] h-[1px] bg-blue-500/50 shadow-[0_0_15px_#3b82f6] mt-4 relative"
+        className="w-full max-w-[120px] h-[1px] bg-blue-500/50 shadow-[0_0_15px_#3b82f6] mt-4 relative will-change-transform"
       >
         <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 border border-blue-400 rotate-45"></div>
       </motion.div>
@@ -66,9 +74,9 @@ const ProxyAnimation = () => (
 // -----------------------------------------
 // 2. DİNAMİK BİLEŞEN: PII MASKING
 // -----------------------------------------
-const MaskingAnimation = () => {
+const MaskingAnimation = ({ isInView }: { isInView: boolean }) => {
   return (
-    <div className="absolute bottom-0 left-0 w-full h-full bg-transparent overflow-hidden p-6 pb-8 flex flex-col justify-end gap-3 font-mono">
+    <div className="absolute bottom-0 left-0 w-full h-full bg-transparent overflow-hidden p-6 pb-8 flex flex-col justify-end gap-3 font-mono pointer-events-none">
       <div className="flex items-center justify-between border-b border-white/10 pb-3">
         <span className="text-[10px] text-gray-500 uppercase tracking-widest">
           Live Output
@@ -79,24 +87,22 @@ const MaskingAnimation = () => {
       </div>
 
       <div className="flex flex-col gap-4 mt-2">
-        {/* Satır 1 */}
         <div className="flex flex-col gap-1">
           <span className="text-[10px] text-gray-600">user.email</span>
           <motion.div
-            animate={{ opacity: [1, 0.5, 1] }}
+            animate={isInView ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="text-[12px] text-blue-400 bg-blue-500/10 px-2 py-1 rounded w-fit"
+            className="text-[12px] text-blue-400 bg-blue-500/10 px-2 py-1 rounded w-fit will-change-[opacity]"
           >
             j***.d**@enterprise.com
           </motion.div>
         </div>
-        {/* Satır 2 */}
         <div className="flex flex-col gap-1">
           <span className="text-[10px] text-gray-600">payment.credit_card</span>
           <motion.div
-            animate={{ opacity: [1, 0.5, 1] }}
+            animate={isInView ? { opacity: [1, 0.5, 1] } : { opacity: 1 }}
             transition={{ repeat: Infinity, duration: 2.5, delay: 0.5 }}
-            className="text-[12px] text-blue-400 bg-blue-500/10 px-2 py-1 rounded w-fit flex items-center gap-2"
+            className="text-[12px] text-blue-400 bg-blue-500/10 px-2 py-1 rounded w-fit flex items-center gap-2 will-change-[opacity]"
           >
             **** **** **** 4921
             <ShieldCheck className="w-3 h-3 text-emerald-500" />
@@ -110,35 +116,48 @@ const MaskingAnimation = () => {
 // -----------------------------------------
 // 3. DİNAMİK BİLEŞEN: NEURAL FIREWALL
 // -----------------------------------------
-const FirewallAnimation = () => (
-  <div className="relative mt-8 w-[170px] h-[170px] bg-[#111111] border border-white/5 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
-    {/* Dalgalanan Radar (Pulse) Efekti */}
+const FirewallAnimation = ({ isInView }: { isInView: boolean }) => (
+  <div className="relative mt-8 w-[170px] h-[170px] bg-[#111111] border border-white/5 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden pointer-events-none">
     <motion.div
-      animate={{ scale: [1, 2.5], opacity: [0.3, 0] }}
+      animate={
+        isInView
+          ? { scale: [1, 2.5], opacity: [0.3, 0] }
+          : { scale: 1, opacity: 0 }
+      }
       transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
-      className="absolute w-12 h-12 border border-blue-500/50 rounded-full"
+      className="absolute w-12 h-12 border border-blue-500/50 rounded-full will-change-transform"
     />
     <motion.div
-      animate={{ scale: [1, 2.5], opacity: [0.3, 0] }}
+      animate={
+        isInView
+          ? { scale: [1, 2.5], opacity: [0.3, 0] }
+          : { scale: 1, opacity: 0 }
+      }
       transition={{ repeat: Infinity, duration: 2, delay: 1, ease: "easeOut" }}
-      className="absolute w-12 h-12 border border-blue-500/50 rounded-full"
+      className="absolute w-12 h-12 border border-blue-500/50 rounded-full will-change-transform"
     />
 
-    {/* Merkez Kalkan */}
     <div className="w-12 h-12 bg-blue-500/20 border border-blue-500/40 rounded-xl flex items-center justify-center z-10 backdrop-blur-sm">
       <Shield className="w-5 h-5 text-blue-400" />
     </div>
 
-    {/* Saldıran Kırmızı Noktalar (Bloklanıyor) */}
     <motion.div
-      animate={{ x: [-60, -20], opacity: [0, 1, 0], scale: [1, 1, 2] }}
+      animate={
+        isInView
+          ? { x: [-60, -20], opacity: [0, 1, 0], scale: [1, 1, 2] }
+          : { x: -60, opacity: 0, scale: 1 }
+      }
       transition={{ repeat: Infinity, duration: 1.5 }}
-      className="absolute left-1/2 top-1/2 -mt-1 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_#ef4444]"
+      className="absolute left-1/2 top-1/2 -mt-1 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_#ef4444] will-change-transform"
     />
     <motion.div
-      animate={{ x: [60, 20], opacity: [0, 1, 0], scale: [1, 1, 2] }}
+      animate={
+        isInView
+          ? { x: [60, 20], opacity: [0, 1, 0], scale: [1, 1, 2] }
+          : { x: 60, opacity: 0, scale: 1 }
+      }
       transition={{ repeat: Infinity, duration: 1.5, delay: 0.7 }}
-      className="absolute right-1/2 top-[40%] -mt-1 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_#ef4444]"
+      className="absolute right-1/2 top-[40%] -mt-1 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_#ef4444] will-change-transform"
     />
   </div>
 );
@@ -146,21 +165,19 @@ const FirewallAnimation = () => (
 // -----------------------------------------
 // 4. DİNAMİK BİLEŞEN: COMMAND CENTER
 // -----------------------------------------
-const TerminalAnimation = () => (
-  <div className="absolute bottom-0 left-0 w-full h-full bg-transparent overflow-hidden p-6 pb-8 flex flex-col justify-end font-mono text-[10px] sm:text-[11px] leading-relaxed">
-    {/* Terminal Butonları */}
+const TerminalAnimation = ({ isInView }: { isInView: boolean }) => (
+  <div className="absolute bottom-0 left-0 w-full h-full bg-transparent overflow-hidden p-6 pb-8 flex flex-col justify-end font-mono text-[10px] sm:text-[11px] leading-relaxed pointer-events-none">
     <div className="flex gap-1.5 mb-4 relative z-10">
       <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
       <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
       <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
     </div>
 
-    {/* Kayan Terminal Yazıları */}
     <div className="relative flex-1 overflow-hidden">
       <motion.div
-        animate={{ y: [0, -80] }}
+        animate={isInView ? { y: [0, -80] } : { y: 0 }}
         transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-        className="absolute top-0 left-0 w-full flex flex-col gap-2"
+        className="absolute top-0 left-0 w-full flex flex-col gap-2 will-change-transform"
       >
         <p className="text-gray-400">
           <span className="text-blue-500">root@aegisora:~$</span> tail -f
@@ -191,6 +208,9 @@ const TerminalAnimation = () => (
 );
 
 export default function PrivacyAutopilot() {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: false, margin: "100px" });
+
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const [animatedIndex, setAnimatedIndex] = useState(0);
 
@@ -199,15 +219,19 @@ export default function PrivacyAutopilot() {
   };
 
   useEffect(() => {
+    if (!isInView) return; // Sadece ekrandaysa döngüyü çalıştır
+
     const interval = setInterval(() => {
       setAnimatedIndex((prev) => (prev + 1) % 4);
     }, 3500);
     return () => clearInterval(interval);
-  }, []);
+  }, [isInView]);
 
   return (
-    <section className="w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center relative z-10">
-      {/* Başlık Alanı */}
+    <section
+      ref={containerRef}
+      className="w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center relative z-10 overflow-hidden"
+    >
       <div className="text-center mb-16 flex flex-col items-center">
         <h2 className="text-5xl font-serif text-[#111111] mb-5 tracking-tight">
           Zero-Trust Architecture. Built for scale.
@@ -219,16 +243,15 @@ export default function PrivacyAutopilot() {
         </p>
 
         <div className="flex items-center gap-4">
-          <button className="bg-[#0066EE] hover:bg-[#005bb5] text-white text-[13px] font-medium px-6 py-2.5 rounded-full transition-all shadow-md cursor-pointer">
+          <button className="bg-[#0066EE] hover:bg-[#005bb5] text-white text-[13px] font-medium px-6 py-2.5 rounded-full transition-all shadow-md cursor-pointer outline-none">
             Explore Architecture
           </button>
-          <button className="text-gray-600 hover:text-black text-[13px] font-medium px-4 py-2 transition-colors cursor-pointer">
+          <button className="text-gray-600 hover:text-black text-[13px] font-medium px-4 py-2 transition-colors cursor-pointer outline-none">
             Read the Docs
           </button>
         </div>
       </div>
 
-      {/* Bento Grid */}
       <div className="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-12 gap-6 h-auto">
         {/* 1. Kart: Sol (Zero-Trust Proxy) */}
         <div
@@ -244,6 +267,8 @@ export default function PrivacyAutopilot() {
 
           <div
             onClick={() => toggleCard("proxy")}
+            role="button"
+            tabIndex={0}
             className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-2xl flex items-center gap-2.5 shadow-sm z-30 cursor-pointer hover:bg-white transition-all border border-gray-200/60"
           >
             <div className="p-1 bg-gray-100 rounded-lg">
@@ -281,8 +306,7 @@ export default function PrivacyAutopilot() {
             )}
           </AnimatePresence>
 
-          {/* DİNAMİK ANİMASYON */}
-          <ProxyAnimation />
+          <ProxyAnimation isInView={isInView} />
         </div>
 
         {/* 2. Sütun: Orta İki Kart */}
@@ -301,6 +325,8 @@ export default function PrivacyAutopilot() {
 
             <div
               onClick={() => toggleCard("masking")}
+              role="button"
+              tabIndex={0}
               className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-2xl flex items-center gap-2.5 shadow-sm z-30 cursor-pointer hover:bg-white transition-all border border-gray-200/60"
             >
               <div className="p-1 bg-gray-100 rounded-lg">
@@ -338,8 +364,7 @@ export default function PrivacyAutopilot() {
               )}
             </AnimatePresence>
 
-            {/* DİNAMİK ANİMASYON */}
-            <MaskingAnimation />
+            <MaskingAnimation isInView={isInView} />
           </div>
 
           {/* Alt Orta: (Neural Firewall) */}
@@ -356,6 +381,8 @@ export default function PrivacyAutopilot() {
 
             <div
               onClick={() => toggleCard("firewall")}
+              role="button"
+              tabIndex={0}
               className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-2xl flex items-center gap-2.5 shadow-sm z-30 cursor-pointer hover:bg-white transition-all border border-gray-200/60 z-30"
             >
               <div className="p-1 bg-gray-100 rounded-lg">
@@ -393,8 +420,7 @@ export default function PrivacyAutopilot() {
               )}
             </AnimatePresence>
 
-            {/* DİNAMİK ANİMASYON */}
-            <FirewallAnimation />
+            <FirewallAnimation isInView={isInView} />
           </div>
         </div>
 
@@ -412,6 +438,8 @@ export default function PrivacyAutopilot() {
 
           <div
             onClick={() => toggleCard("command")}
+            role="button"
+            tabIndex={0}
             className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-2xl flex items-center gap-2.5 shadow-sm z-30 cursor-pointer hover:bg-white transition-all border border-gray-200/60 z-30"
           >
             <div className="p-1 bg-gray-100 rounded-lg">
@@ -450,8 +478,7 @@ export default function PrivacyAutopilot() {
             )}
           </AnimatePresence>
 
-          {/* DİNAMİK ANİMASYON */}
-          <TerminalAnimation />
+          <TerminalAnimation isInView={isInView} />
         </div>
       </div>
     </section>

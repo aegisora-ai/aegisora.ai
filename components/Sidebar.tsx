@@ -29,33 +29,16 @@ const MENU_GROUPS = [
     label: "SECURITY",
     items: [
       { name: "AI Agents", href: "/dashboard/agents", icon: Cpu },
-      {
-        name: "Risk Center",
-        href: "/dashboard/risk-center",
-        icon: ShieldAlert,
-      },
-      {
-        name: "Review Queue",
-        href: "/dashboard/review-queue",
-        icon: AlertTriangle,
-        badge: "2 PENDING",
-      },
-      {
-        name: "Compliance Reports",
-        href: "/dashboard/reports",
-        icon: FileText,
-      },
+      { name: "Risk Center", href: "/dashboard/risk-center", icon: ShieldAlert },
+      { name: "Review Queue", href: "/dashboard/review-queue", icon: AlertTriangle, badge: "2 PENDING" },
+      { name: "Compliance Reports", href: "/dashboard/reports", icon: FileText },
       { name: "Billing & Plans", href: "/dashboard/billing", icon: CreditCard },
     ],
   },
   {
     label: "INTELLIGENCE",
     items: [
-      {
-        name: "Intelligence Core",
-        href: "/dashboard/ai-chat",
-        icon: TerminalSquare,
-      },
+      { name: "Intelligence Core", href: "/dashboard/ai-chat", icon: TerminalSquare },
     ],
   },
 ];
@@ -75,9 +58,12 @@ export default function Sidebar() {
     <aside
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      className={`fixed inset-y-0 left-0 z-40 bg-[#0c0c0e] border-r border-gray-800/80 transition-all duration-300 ease-in-out flex flex-col justify-between ${
-        isExpanded ? "w-64" : "w-20"
+      // Mobilde gizlenir (hidden), tablet ve masaüstünde görünür (md:flex). 
+      // Dokunmatik cihazlar için erişilebilirlik sağlandı.
+      className={`hidden md:flex fixed inset-y-0 left-0 z-40 bg-[#0c0c0e] border-r border-gray-800/80 transition-all duration-300 ease-in-out flex-col justify-between ${
+        isExpanded ? "w-64 shadow-2xl" : "w-20"
       }`}
+      aria-expanded={isExpanded}
     >
       <div className="flex flex-col h-full overflow-y-auto hide-scrollbar">
         {/* LOGO & BRANDING */}
@@ -120,12 +106,19 @@ export default function Sidebar() {
               </span>
               {group.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname === item.href;
+                
+                // Alt Rota (Nested Route) Algılayıcı Mantık
+                // Eğer href tam "/dashboard" ise sadece tam eşleşmeye bakar.
+                // Eğer "/dashboard/agents" gibi bir alt link ise, "startsWith" ile içindeki sayfaları da kapsar.
+                const isActive = item.href === "/dashboard" 
+                  ? pathname === item.href 
+                  : pathname?.startsWith(item.href);
+
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all group relative ${
+                    className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all group relative outline-none focus-visible:ring-2 focus-visible:ring-[#0066EE] ${
                       isActive
                         ? "bg-[#0066EE]/15 text-[#0066EE] border border-[#0066EE]/30 shadow-sm"
                         : "text-gray-400 hover:text-white hover:bg-[#121215] border border-transparent"
@@ -152,6 +145,7 @@ export default function Sidebar() {
                         </span>
                       )}
                     </span>
+                    {/* Tooltip sadece kapalıyken görünür */}
                     {!isExpanded && (
                       <div className="absolute left-20 bg-[#121215] border border-gray-800 text-white text-[11px] font-mono px-3 py-1.5 rounded-lg shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
                         {item.name}
@@ -168,10 +162,10 @@ export default function Sidebar() {
         <div className="p-3 border-t border-gray-800/60 space-y-1 shrink-0">
           <Link
             href="/dashboard/settings"
-            className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all group relative ${
-              pathname === "/dashboard/settings"
+            className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all group relative outline-none focus-visible:ring-2 focus-visible:ring-[#0066EE] ${
+              pathname?.startsWith("/dashboard/settings")
                 ? "bg-[#0066EE]/15 text-[#0066EE] border border-[#0066EE]/30"
-                : "text-gray-400 hover:text-white hover:bg-[#121215]"
+                : "text-gray-400 hover:text-white hover:bg-[#121215] border border-transparent"
             }`}
           >
             <Settings className="w-[18px] h-[18px] flex-shrink-0" />
@@ -185,7 +179,7 @@ export default function Sidebar() {
           </Link>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all group relative cursor-pointer"
+            className="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all group relative cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-red-500"
           >
             <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
             <span
