@@ -1,7 +1,7 @@
 <div align="center">
 
   <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
-    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=594435&theme=dark" alt="Aegisora - Zero-Trust Runtime Security for AI Agents on Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" />
+    <img src="https://img.shields.io/badge/Product%20Hunt-Featured%20on%20PH-FF6154?style=for-the-badge&logo=producthunt&logoColor=white" alt="Product Hunt Featured" />
   </a>
 
   <h1>Aegisora</h1>
