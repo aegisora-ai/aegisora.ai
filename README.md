@@ -46,11 +46,11 @@ Conventional security systems force a binary outcome on every request: **allow**
 
 Aegisora resolves this with a three-state decision model:
 
-| State | Trigger | Outcome |
-| :--- | :--- | :--- |
-| ✅ **Allow** | Low-risk, policy-compliant request | Executes instantly via the deterministic fast-path (**< 10ms**) |
-| 🚫 **Block** | Clear policy violation or known attack pattern | Rejected immediately, fully logged |
-| 🕵️ **Escalate** | Ambiguous or high-risk request | Routed to the **Human Review Queue** for asynchronous approval — without breaking the agent's workflow |
+| State           | Trigger                                        | Outcome                                                                                                |
+| :-------------- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| ✅ **Allow**    | Low-risk, policy-compliant request             | Executes instantly via the deterministic fast-path (**< 10ms**)                                        |
+| 🚫 **Block**    | Clear policy violation or known attack pattern | Rejected immediately, fully logged                                                                     |
+| 🕵️ **Escalate** | Ambiguous or high-risk request                 | Routed to the **Human Review Queue** for asynchronous approval — without breaking the agent's workflow |
 
 ---
 
@@ -69,14 +69,14 @@ For a full breakdown of the request lifecycle and system internals, see [**ARCHI
 
 ## 🏗️ Tech Stack
 
-| Layer | Technology |
-| :--- | :--- |
-| **Framework** | Next.js (App Router) |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS |
-| **Database & Auth** | Supabase |
-| **AI Integration** | Groq API / LLM Proxies |
-| **Deployment** | Vercel Edge Network |
+| Layer               | Technology             |
+| :------------------ | :--------------------- |
+| **Framework**       | Next.js (App Router)   |
+| **Language**        | TypeScript             |
+| **Styling**         | Tailwind CSS           |
+| **Database & Auth** | Supabase               |
+| **AI Integration**  | Groq API / LLM Proxies |
+| **Deployment**      | Vercel Edge Network    |
 
 ---
 
@@ -86,35 +86,36 @@ For a full breakdown of the request lifecycle and system internals, see [**ARCHI
 
 1. **Clone the repository**
 
-   ```bash
-   git clone [https://github.com/ozereray/aegisora.ai.git](https://github.com/ozereray/aegisora.ai.git)
+```bash
+   git clone https://github.com/ozereray/aegisora.ai.git
    cd aegisora.ai
+```
 
 2. **Install dependencies**
 
-   ```bash
+```bash
    npm install
    # or
    yarn install
-   ```
+```
 
 3. **Configure environment variables**
 
-   ```bash
+```bash
    cp .env.example .env.local
-   ```
+```
 
-   Populate `.env.local` with your API keys and Supabase credentials.
+Populate `.env.local` with your API keys and Supabase credentials.
 
 4. **Run the development server**
 
-   ```bash
+```bash
    npm run dev
    # or
    yarn dev
-   ```
+```
 
-   Open [http://localhost:3000](http://localhost:3000) to view the app.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
 ---
 
