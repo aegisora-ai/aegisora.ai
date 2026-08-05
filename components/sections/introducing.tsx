@@ -1,19 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function Introducing() {
+  const containerRef = useRef(null);
+  // Performans Optimizasyonu: Animasyonlar sadece ekrandayken çalışır
+  const isInView = useInView(containerRef, { once: false, margin: "100px" });
+
   return (
     <section
+      ref={containerRef}
       id="product"
-      className="relative py-32 md:py-48 bg-surface border-y border-border"
+      className="relative py-32 md:py-48 bg-transparent border-y border-white/10 overflow-hidden font-sans"
     >
-      {/* Subtle top highlight */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      {/* İnce Üst Parlama Efekti */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#0066EE]/40 to-transparent" />
 
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
-          {/* Text Content */}
+          {/* Sol Taraf: Kurumsal B2B Metin İçeriği */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -21,33 +27,37 @@ export default function Introducing() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col gap-6"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-white/[0.02] w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              <span className="text-xs font-medium tracking-wide uppercase text-secondary">
-                Introducing
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 w-fit shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0066EE] animate-pulse" />
+              <span className="text-[11px] font-mono font-medium tracking-widest uppercase text-gray-400">
+                Introducing Aegisora Core
               </span>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-medium tracking-tighter text-primary leading-[1.1]">
-              Always there. <br />
-              Never in the way.
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif tracking-tight text-[#111111] dark:text-white leading-[1.1]">
+              Invisible Governance. <br />
+              <span className="text-[#0066EE]">Absolute Control.</span>
             </h2>
 
-            <p className="text-lg text-secondary leading-relaxed max-w-md mt-4">
-              ECHO is a context-aware AI wearable designed to seamlessly
-              integrate into your life. It listens, processes, and remembers the
-              context of your day without demanding your attention.
+            <p className="text-sm sm:text-base font-mono text-gray-500 leading-relaxed max-w-md mt-4">
+              Aegisora is an enterprise zero-trust proxy designed to seamlessly
+              integrate into your AI infrastructure. It monitors, intercepts,
+              and secures your agentic swarms at runtime without demanding
+              changes to your codebase.
             </p>
 
             <ul className="mt-8 flex flex-col gap-4">
               {[
-                "Invisible to others",
+                "Zero-latency interception",
                 "Private by architecture",
-                "Natural interaction",
+                "Deploy in under 2 minutes",
               ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-secondary">
-                  <div className="w-5 h-5 rounded-full border border-border flex items-center justify-center bg-white/[0.02]">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                <li
+                  key={i}
+                  className="flex items-center gap-3 text-sm font-medium text-gray-400 font-mono"
+                >
+                  <div className="w-5 h-5 rounded-full border border-white/10 flex items-center justify-center bg-white/5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#0066EE]" />
                   </div>
                   {item}
                 </li>
@@ -55,42 +65,53 @@ export default function Introducing() {
             </ul>
           </motion.div>
 
-          {/* Large Product Showcase */}
+          {/* Sağ Taraf: GPU Hızlandırmalı AI Core Görseli */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full aspect-[4/5] md:aspect-square rounded-[32px] overflow-hidden bg-background border border-border group"
+            className="relative w-full aspect-[4/5] md:aspect-square rounded-[2.5rem] overflow-hidden bg-[#0a0a0a] border border-white/10 group shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
           >
-            <div className="absolute inset-0 bg-surface-gradient opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0066EE]/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
 
             <div className="absolute inset-0 flex items-center justify-center">
-              {/* Concept Ring Floating */}
+              {/* Yüzük yerine Zero-Trust Çekirdeği (AI Core) */}
               <motion.div
-                animate={{ y: [-10, 10, -10], rotateX: [0, 5, 0] }}
+                animate={
+                  isInView
+                    ? { y: [-10, 10, -10], rotateX: [0, 5, 0] }
+                    : { y: 0, rotateX: 0 }
+                }
                 transition={{
                   duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="relative w-64 h-64"
+                className="relative w-48 h-48 sm:w-64 sm:h-64 will-change-transform"
               >
-                {/* Placeholder for actual 3D render */}
-                <div className="absolute inset-0 rounded-full border-[24px] border-[#1A1A1A] shadow-[0_0_60px_rgba(255,255,255,0.05)] flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-full border border-white/10" />
-                </div>
+                {/* Dış Radar Halkası */}
+                <div className="absolute inset-0 rounded-full border-[2px] border-[#0066EE]/20 flex items-center justify-center border-dashed animate-[spin_20s_linear_infinite]" />
 
-                {/* Fake reflection */}
-                <div className="absolute top-4 right-8 w-12 h-4 bg-white/10 rounded-full blur-sm -rotate-45" />
+                {/* İç Koruma Kalkanı */}
+                <div className="absolute inset-4 rounded-full border-[1px] border-blue-400/30 flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]" />
+
+                {/* Merkez Aura Bulanıklığı */}
+                <div className="absolute inset-12 rounded-full bg-gradient-to-tr from-[#0066EE]/40 to-indigo-500/40 blur-xl flex items-center justify-center" />
+
+                {/* Merkez Fiziksel Core */}
+                <div className="absolute inset-16 rounded-full border border-white/20 bg-[#111111]/80 backdrop-blur-sm shadow-[0_0_50px_rgba(0,102,238,0.4)] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#0066EE] animate-pulse shadow-[0_0_20px_#0066EE]"></div>
+                </div>
               </motion.div>
             </div>
 
-            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end text-secondary text-sm">
-              <span className="font-mono text-xs opacity-50">
-                Matte Black Edition
+            {/* Alt Etiketler */}
+            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end text-gray-400 text-xs font-mono">
+              <span className="opacity-50 uppercase tracking-widest">
+                Enterprise Proxy
               </span>
-              <span className="font-medium">Titanium Grade 5</span>
+              <span className="font-medium text-[#0066EE]">SOC 2 Ready</span>
             </div>
           </motion.div>
         </div>

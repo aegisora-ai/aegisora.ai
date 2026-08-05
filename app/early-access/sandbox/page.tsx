@@ -23,7 +23,6 @@ export default function ContributorSandbox() {
       return;
     }
 
-    // Backend'den kullanıcının onay durumunu kontrol et
     fetch(`/api/early-access?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
@@ -64,48 +63,60 @@ export default function ContributorSandbox() {
   if (!authorized) return null;
 
   return (
-    <main className="min-h-screen bg-black text-white p-6 md:p-12">
+    <main className="min-h-screen bg-black text-white p-6 md:p-12 font-sans">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Üst Bilgi / Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-zinc-800 pb-6 gap-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs uppercase tracking-widest text-emerald-400 font-semibold">
+              <span className="text-xs uppercase tracking-widest text-emerald-400 font-semibold font-mono">
                 Core Contributor Environment Active
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold mt-2">
+            <h1 className="text-2xl md:text-3xl font-serif mt-2 tracking-tight">
               Aegisora Agent Governance Sandbox
             </h1>
-            <p className="text-zinc-400 text-sm">
+            <p className="text-zinc-400 text-sm font-mono mt-1">
               Test your multi-agent pipelines against enterprise compliance
               frameworks (EU DSA & GDPR).
             </p>
           </div>
-          <div className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-xs text-zinc-300">
+          <div className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-xs text-zinc-300 font-mono">
             Node:{" "}
             <span className="text-blue-400 font-mono">eu-central-trier-01</span>
           </div>
         </div>
 
         {/* Sekmeler */}
-        <div className="flex gap-6 border-b border-zinc-800 text-sm">
+        <div className="flex gap-6 border-b border-zinc-800 text-sm font-medium">
           <button
             onClick={() => setActiveTab("pipelines")}
-            className={`pb-3 font-medium transition-colors border-b-2 ${activeTab === "pipelines" ? "border-white text-white" : "border-transparent text-zinc-400 hover:text-white"}`}
+            className={`pb-3 transition-colors border-b-2 outline-none cursor-pointer ${
+              activeTab === "pipelines"
+                ? "border-white text-white"
+                : "border-transparent text-zinc-400 hover:text-white"
+            }`}
           >
             Agent Pipelines & Audit
           </button>
           <button
             onClick={() => setActiveTab("governance")}
-            className={`pb-3 font-medium transition-colors border-b-2 ${activeTab === "governance" ? "border-white text-white" : "border-transparent text-zinc-400 hover:text-white"}`}
+            className={`pb-3 transition-colors border-b-2 outline-none cursor-pointer ${
+              activeTab === "governance"
+                ? "border-white text-white"
+                : "border-transparent text-zinc-400 hover:text-white"
+            }`}
           >
             Governance Rules (EU DSA)
           </button>
           <button
             onClick={() => setActiveTab("propose")}
-            className={`pb-3 font-medium transition-colors border-b-2 ${activeTab === "propose" ? "border-white text-white" : "border-transparent text-zinc-400 hover:text-white"}`}
+            className={`pb-3 transition-colors border-b-2 outline-none cursor-pointer ${
+              activeTab === "propose"
+                ? "border-white text-white"
+                : "border-transparent text-zinc-400 hover:text-white"
+            }`}
           >
             Shape Core Architecture 💡
           </button>
@@ -118,7 +129,7 @@ export default function ContributorSandbox() {
               <h3 className="font-semibold text-base">
                 Run Compliance Simulation
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-400 font-mono leading-relaxed">
                 Execute a sample multi-agent RAG workflow through
                 Aegisora&apos;s Zero-Trust proxy layer.
               </p>
@@ -137,7 +148,7 @@ export default function ContributorSandbox() {
               <button
                 onClick={runTestPipeline}
                 disabled={testStatus === "running"}
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-xl transition-colors text-sm disabled:opacity-50 cursor-pointer"
+                className="w-full bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium py-3 rounded-xl transition-colors text-xs font-mono disabled:opacity-50 cursor-pointer outline-none shadow-sm"
               >
                 {testStatus === "running"
                   ? "Evaluating Agents..."
@@ -179,7 +190,7 @@ export default function ContributorSandbox() {
                   )}
                 </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-zinc-800 text-xs text-zinc-500 flex justify-between">
+              <div className="mt-4 pt-4 border-t border-zinc-800 text-xs text-zinc-500 font-mono flex justify-between">
                 <span>Contribute architectural feedback via sandbox.</span>
                 <span className="text-zinc-400">Aegisora Core v1.2</span>
               </div>
@@ -193,7 +204,7 @@ export default function ContributorSandbox() {
             <h3 className="text-lg font-semibold">
               Active Compliance Frameworks
             </h3>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-zinc-400 font-mono">
               As a Core Contributor, you can suggest, modify, or override
               governance policies enforced on autonomous agents.
             </p>
@@ -202,7 +213,7 @@ export default function ContributorSandbox() {
                 <h4 className="font-medium text-white text-sm">
                   EU Digital Services Act (DSA)
                 </h4>
-                <p className="text-xs text-zinc-400 mt-1">
+                <p className="text-xs text-zinc-400 mt-1 font-mono">
                   Ensures transparency and algorithmic accountability for
                   automated decision systems.
                 </p>
@@ -211,7 +222,7 @@ export default function ContributorSandbox() {
                 <h4 className="font-medium text-white text-sm">
                   GDPR Privacy Shield
                 </h4>
-                <p className="text-xs text-zinc-400 mt-1">
+                <p className="text-xs text-zinc-400 mt-1 font-mono">
                   Blocks PII leakage and unauthorized data retention across LLM
                   embedding layers.
                 </p>
@@ -220,17 +231,17 @@ export default function ContributorSandbox() {
           </div>
         )}
 
-        {/* İçerik Alanı 3: Mimari Öneri / Katkı Kutusu */}
+        {/* İçerik Alanı 3: Mimari Öneri */}
         {activeTab === "propose" && (
           <div className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl space-y-6 max-w-2xl">
             <div>
-              <span className="text-xs uppercase tracking-widest text-blue-400 font-semibold bg-blue-950/40 px-3 py-1 rounded-full border border-blue-800/50">
+              <span className="text-[11px] uppercase tracking-widest text-blue-400 font-semibold font-mono bg-blue-950/40 px-3 py-1 rounded-full border border-blue-800/50">
                 Core Contribution Portal
               </span>
-              <h3 className="text-xl font-bold mt-3">
+              <h3 className="text-xl font-serif mt-3 tracking-tight">
                 Propose a Governance Rule or Architecture Shift
               </h3>
-              <p className="text-sm text-zinc-400 mt-1">
+              <p className="text-sm text-zinc-400 mt-1 font-mono">
                 Your domain expertise drives Aegisora&apos;s core engine. Submit
                 your policy logic, compliance check, or agent routing rule
                 directly to the core repository review.
@@ -240,7 +251,7 @@ export default function ContributorSandbox() {
             {!submittedProposal ? (
               <form onSubmit={handleProposalSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1">
+                  <label className="block text-xs font-medium text-zinc-300 mb-1 font-mono">
                     Your Architectural / Compliance Proposal
                   </label>
                   <textarea
@@ -249,22 +260,22 @@ export default function ContributorSandbox() {
                     value={proposal}
                     onChange={(e) => setProposal(e.target.value)}
                     placeholder="e.g., We should add an automated token-budget validator for multi-agent loops to comply with strict EU financial auditing..."
-                    className="w-full bg-black/50 border border-zinc-800 rounded-lg p-4 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+                    className="w-full bg-black/50 border border-zinc-800 rounded-xl p-4 text-xs font-mono text-white focus:outline-none focus:border-[#0066EE] transition-colors resize-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="bg-white text-black font-medium px-6 py-3 rounded-xl hover:bg-zinc-200 transition-colors text-sm tracking-wide cursor-pointer"
+                  className="bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium px-6 py-3 rounded-xl transition-colors text-xs font-mono tracking-wide cursor-pointer outline-none shadow-sm"
                 >
                   Submit Proposal to Core Team
                 </button>
               </form>
             ) : (
               <div className="bg-emerald-950/20 border border-emerald-800/30 p-6 rounded-xl text-center space-y-2">
-                <h4 className="text-emerald-400 font-semibold text-base">
+                <h4 className="text-emerald-400 font-semibold text-base font-serif">
                   Proposal Logged Successfully
                 </h4>
-                <p className="text-zinc-400 text-xs">
+                <p className="text-zinc-400 text-xs font-mono">
                   Thank you for shaping the architecture. Our core maintainers
                   are reviewing your submission for the upcoming v1.3 release.
                 </p>

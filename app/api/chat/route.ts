@@ -1,57 +1,93 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+// Tip Tanımlamaları
+interface Message {
+  role: "user" | "assistant" | "system";
+  content: string;
+}
+
+interface GroqRequestPayload {
+  messages: Message[];
+}
+
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const body: GroqRequestPayload = await req.json();
+    const messages = body.messages;
 
-    const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) {
+    if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
-        { error: "Groq API key is not configured on the server." },
+        { error: "Invalid request payload: 'messages' array is required." },
+        { status: 400 },
+      );
+    }
+
+    const groqApiKey = process.env.GROQ_API_KEY;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!groqApiKey || !supabaseUrl || !supabaseServiceKey) {
+      console.error("[Aegisora Core] Missing critical environment variables.");
+      return NextResponse.json(
+        {
+          error: "Server configuration error. Contact platform administrator.",
+        },
         { status: 500 },
       );
     }
 
-    // 🚀 Server-side Supabase Client (Gerçek Veritabanı Bağlamı İçin)
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-    const supabaseKey =
-      process.env.SUPABASE_SERVICE_ROLE_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      "";
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    // 🚀 Server-side Supabase Client (Enterprise Güvenlik Optimizasyonu)
+    // Sadece sunucu tarafında çalışan ve RLS'i bypass eden Service Role Key kullanıyoruz.
+    const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
 
     // 📊 Veritabanından Anlık Enterprise Telemetri Verilerini Çekelim
     let dbContextSummary = "No active database context available.";
     try {
-      const [{ data: agents }, { data: incidents }, { data: policies }] =
-        await Promise.all([
-          supabase.from("agents").select("id, name, model, risk_level, status"),
-          supabase
-            .from("incidents")
-            .select("id, threat_type, severity, status, agent_name")
-            .order("created_at", { ascending: false })
-            .limit(5),
-          supabase.from("policy_rules").select("policy_key, is_enabled"),
-        ]);
+      const [agentsRes, incidentsRes, policiesRes] = await Promise.all([
+        supabase.from("agents").select("id, name, model, risk_level, status"),
+        supabase
+          .from("incidents")
+          .select("id, threat_type, severity, status, agent_name")
+          .order("created_at", { ascending: false })
+          .limit(5),
+        supabase.from("policy_rules").select("policy_key, is_enabled"),
+      ]);
+
+      // Hata kontrolü
+      if (agentsRes.error)
+        console.error("Agents fetch error:", agentsRes.error);
+      if (incidentsRes.error)
+        console.error("Incidents fetch error:", incidentsRes.error);
+      if (policiesRes.error)
+        console.error("Policies fetch error:", policiesRes.error);
 
       dbContextSummary = `
 REAL-TIME DATABASE TELEMETRY & STATE:
-- Total Deployed Agents: ${agents?.length || 0}
-- Agent Fleet Details: ${JSON.stringify(agents || [])}
-- Recent Security Incidents: ${JSON.stringify(incidents || [])}
-- Active Security Policies: ${JSON.stringify(policies || [])}
+- Total Deployed Agents: ${agentsRes.data?.length || 0}
+- Agent Fleet Details: ${JSON.stringify(agentsRes.data || [])}
+- Recent Security Incidents: ${JSON.stringify(incidentsRes.data || [])}
+- Active Security Policies: ${JSON.stringify(policiesRes.data || [])}
 `;
     } catch (dbErr) {
-      console.error("Failed to fetch DB context for AI:", dbErr);
+      console.error(
+        "[Aegisora Core] Failed to fetch DB context for AI telemetry:",
+        dbErr,
+      );
     }
 
+    // 🧠 Groq API Çağrısı
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${groqApiKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -67,7 +103,7 @@ ${dbContextSummary}
 Guidelines:
 - Always base your security answers, analytics, and diagnostics on the real database telemetry provided above. Never invent fake agent names or mock incident IDs if real ones exist.
 - If the user asks about the fleet, incidents, or security rules, quote the actual data from the telemetry above.
-- If you need clarification or want to give the user quick choices to narrow down their request (like Claude Artifacts / interactive options), you MUST include a JSON block at the very end of your response formatted exactly like this:
+- If you need clarification or want to give the user quick choices to narrow down their request (like interactive options), you MUST include a JSON block at the very end of your response formatted exactly like this:
 \`\`\`json
 {
   "options": ["Option 1", "Option 2", "Option 3"]
@@ -92,8 +128,9 @@ If no choices are needed, do not include this json block. Be professional, techn
     }
 
     const rawContent =
-      data.choices[0]?.message?.content || "No response generated.";
+      data.choices?.[0]?.message?.content || "No response generated.";
 
+    // 🛠️ JSON Parse Optimizasyonu
     let options: string[] = [];
     let cleanContent = rawContent;
 
@@ -101,20 +138,24 @@ If no choices are needed, do not include this json block. Be professional, techn
     if (jsonMatch) {
       try {
         const parsed = JSON.parse(jsonMatch[1]);
-        if (parsed.options && Array.isArray(parsed.options)) {
+        if (parsed && Array.isArray(parsed.options)) {
           options = parsed.options;
         }
         cleanContent = rawContent.replace(jsonMatch[0], "").trim();
-      } catch (e) {
-        // Parse hatası olursa yut
+      } catch (parseError) {
+        console.warn(
+          "[Aegisora Core] Failed to parse JSON options from LLM response:",
+          parseError,
+        );
+        // Parse hatası olursa içeriği bozmamak için müdahale etmiyoruz
       }
     }
 
     return NextResponse.json({ result: cleanContent, options });
   } catch (error: any) {
-    console.error("Groq API Error:", error);
+    console.error("[Aegisora Core] API Route Error:", error);
     return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
+      { error: "Internal Server Error during AI processing." },
       { status: 500 },
     );
   }

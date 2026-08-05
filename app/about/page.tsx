@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Sparkles, Shield } from "lucide-react";
+import Image from "next/image";
+import { ChevronDown, Sparkles, Shield, Network, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 
@@ -12,7 +13,7 @@ export default function AboutPage() {
   const faqs = [
     {
       q: "How does Aegisora monitor AI agents?",
-      a: "Aegisora integrates seamlessly into your AI infrastructure to monitor agent actions, prompts, and outputs in real-time, instantly matching them against your enterprise security and governance policies.",
+      a: "Aegisora integrates seamlessly into your AI infrastructure via a local VPC sidecar proxy to monitor agent actions, prompts, and outputs in real-time, instantly matching them against your enterprise security and governance policies.",
     },
     {
       q: "Does Aegisora track a compliance score?",
@@ -20,178 +21,172 @@ export default function AboutPage() {
     },
     {
       q: "Is our enterprise data safe?",
-      a: "Absolutely. Your data is encrypted in transit and at rest, handled in strict accordance with enterprise security standards. We never use your proprietary corporate data or agent logs to train our own models.",
+      a: "Absolutely. Your raw payloads never leave your secure perimeter. Data is encrypted in transit and at rest, handled in strict accordance with enterprise security standards. We never use your proprietary corporate data or agent logs to train our own models.",
     },
     {
       q: "What governance tools do you offer?",
-      a: "Aegisora provides real-time monitoring dashboards, automated policy enforcement APIs, continuous vulnerability scanning, and comprehensive audit logs tailored for enterprise compliance.",
+      a: "Aegisora provides real-time monitoring dashboards, automated policy enforcement APIs, continuous vulnerability scanning, and comprehensive immutable audit logs tailored for SOC2 / ISO compliance.",
     },
     {
       q: "Are there limits to the agents you can monitor?",
-      a: "Aegisora scales with your enterprise. Whether you have 10 autonomous agents or 10,000, our infrastructure provides continuous monitoring without performance bottlenecks.",
+      a: "Aegisora scales with your enterprise. Whether you have 10 autonomous agents or 10,000, our infrastructure provides continuous monitoring without performance bottlenecks, supporting strict fail-closed enforcement.",
     },
     {
       q: "What type of risks do you prevent?",
-      a: "We actively prevent data exfiltration, prompt injection, unauthorized tool execution, hallucinations, and any deviations from your internal AI usage guidelines.",
+      a: "We actively prevent data exfiltration, prompt injection, unauthorized external tool execution, shadow AI routing, and any deviations from your internal AI usage guidelines.",
     },
     {
       q: "How do I onboard my organization?",
-      a: "You can start with our free tier to test the platform on a limited scale, or contact our enterprise sales team for a custom, infrastructure-wide deployment.",
+      a: "You can start with our developer sandbox to test the platform on a limited scale, or contact our enterprise sales team for a custom, infrastructure-wide deployment.",
     },
   ];
 
-  const team = [
-    { name: "Filip Landgzen, PhD", role: "Chief Scientist, CEO & Co-Founder" },
-    { name: "Anthon Mansland", role: "Head of Product & Co-Founder" },
-    { name: "Argjent Sahiti", role: "CTO" },
-    { name: "Johan Sollevi", role: "Chief Sales Officer" },
-    { name: "Shkumbin Hasani", role: "Senior Fullstack Engineer" },
-    { name: "Fidan Sinani", role: "Senior Fullstack Engineer" },
-    { name: "Ida Nilsson", role: "Customer Success Manager" },
-    { name: "Mal Kazazi", role: "UX Designer" },
-    { name: "Ludwig Sandgren", role: "Head of Legal" },
-    { name: "Tor Erland Fyksen", role: "Board Member" },
-    { name: "Just-Acne Storvik", role: "Board Member" },
-    { name: "Daniel Öderyd", role: "Board Member" },
-  ];
-
   return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-[#f4f4f5] text-[#111111] pt-24">
+    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-24 selection:bg-blue-500/30 relative overflow-hidden">
+      {/* Arkaplan Işık Efektleri */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.15)_0%,transparent_70%)] pointer-events-none" />
+
       {/* Üst Menü / Navbar */}
       <Navbar />
 
       {/* Hero / Vizyon Bölümü */}
-      <div className="max-w-[800px] w-full mx-auto px-6 pt-16 pb-16 text-center">
-        <h1 className="text-4xl sm:text-6xl font-serif tracking-tight mb-8 leading-[1.1]">
-          We're building the future of secure autonomous AI
-        </h1>
-        <p className="text-sm sm:text-base font-mono text-gray-600 leading-relaxed mb-6 max-w-2xl mx-auto">
-          In a world where AI agents are acting autonomously, Aegisora is here
-          to ensure they do so safely. We're crafting a future where your
-          enterprise innovation is never compromised by compliance or security
-          blind spots.
-        </p>
-        <p className="text-sm sm:text-base font-mono text-gray-600 leading-relaxed max-w-2xl mx-auto">
-          Our solutions aren't just about locking down your models; they're
-          about giving your team the freedom to scale AI with total control and
-          visibility.
-        </p>
+      <div className="relative z-10 max-w-[800px] w-full mx-auto px-6 pt-16 pb-16 text-center">
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-8 inline-block"
+        >
+          Company &amp; Vision
+        </motion.span>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-4xl sm:text-6xl font-serif tracking-tight mb-8 leading-[1.1] text-white"
+        >
+          We&apos;re building the foundation of secure autonomous AI
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-sm sm:text-base font-mono text-zinc-400 leading-relaxed mb-6 max-w-2xl mx-auto"
+        >
+          In a world where AI agents act autonomously across enterprise
+          pipelines, Aegisora ensures they do so safely. We&apos;re crafting a
+          control plane where enterprise innovation is never compromised by
+          compliance or security blind spots.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="text-sm sm:text-base font-mono text-zinc-400 leading-relaxed max-w-2xl mx-auto"
+        >
+          Our runtime guardrails aren&apos;t just about restricting models; they
+          give your security and engineering teams the freedom to scale AI with
+          total governance and absolute visibility.
+        </motion.p>
       </div>
 
       {/* Our Story Bölümü */}
-      <div className="max-w-[720px] w-full mx-auto px-6 py-16 border-t border-gray-300/60">
-        <h2 className="text-3xl font-serif tracking-tight mb-6">Our story</h2>
-        <div className="space-y-6 text-sm font-mono text-gray-600 leading-relaxed">
+      <div className="relative z-10 max-w-[720px] w-full mx-auto px-6 py-16 border-t border-zinc-800/80">
+        <h2 className="text-3xl font-serif tracking-tight mb-6 text-white">
+          Our story
+        </h2>
+        <div className="space-y-6 text-sm font-mono text-zinc-400 leading-relaxed">
           <p>
-            At Aegisora, we're driven by a simple belief: innovation should
-            never compromise security. Born from a shared frustration with the
-            lack of visibility in modern AI deployments, we started as a group
-            of security engineers and AI researchers fed up with black-box
-            models and reactive compliance.
+            At Aegisora, we are driven by a foundational principle: enterprise
+            innovation must never compromise operational security. Born from a
+            shared frustration with black-box agent models and reactive
+            compliance audits, we started as a collective of security
+            researchers and systems engineers determined to bring strict order
+            to autonomous workflows.
           </p>
           <p>
-            What began as late-night brainstorming over coffee grew into a
-            mission to redefine AI governance. We launched Aegisora to empower
-            enterprises to monitor, control, and secure their AI agents in
-            real-time. With the support of strategic investors and successful
-            funding rounds, we've rapidly expanded our vision.
+            What began as deep-dive architectural discussions evolved into a
+            mission to redefine AI governance at runtime. We launched Aegisora
+            to empower organizations to intercept tool calls, enforce strict
+            fail-closed policies, and audit multi-agent ecosystems in real time
+            within their own perimeters.
           </p>
           <p>
-            Aegisora isn't just an infrastructure company—it's the trust layer
-            for the new age of technology. We're fighting for your right to
-            deploy AI safely, confidently, and globally.
+            Aegisora is much more than a security middleware—it is the
+            operational trust layer for the agentic enterprise. We are committed
+            to securing your path toward autonomous operations.
           </p>
         </div>
       </div>
 
       {/* What We Believe Bölümü */}
-      <div className="max-w-[900px] w-full mx-auto px-6 py-16">
-        <h2 className="text-3xl font-serif tracking-tight mb-10 text-center">
+      <div className="relative z-10 max-w-[900px] w-full mx-auto px-6 py-16">
+        <h2 className="text-3xl font-serif tracking-tight mb-10 text-center text-white">
           What We Believe
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-8 rounded-[2rem] bg-[#ededee] border border-gray-300/60 flex flex-col justify-between hover:shadow-md transition-shadow">
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
-              <Sparkles className="w-5 h-5 text-[#0066EE]" />
+          <div className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between hover:border-zinc-700 transition-colors group shadow-lg shadow-black/20">
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-500/20 transition-colors">
+              <Network className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <h3 className="text-xl font-serif font-medium mb-3">
-                You Need Total Visibility Into Your AI Systems
+              <h3 className="text-xl font-serif font-medium mb-3 text-white tracking-tight">
+                Total Visibility Into Agentic Workflows
               </h3>
-              <p className="text-xs font-mono text-gray-600 leading-relaxed">
-                Knowledge is power. To scale AI safely, you need to know exactly
-                what your agents are doing, what tools they access, and why. At
-                Aegisora, we believe in empowering you with clear, real-time
-                insights into your entire AI ecosystem.
+              <p className="text-xs font-mono text-zinc-400 leading-relaxed">
+                To scale autonomous systems safely, you must understand every
+                reasoning trace, tool invocation, and data payload in real time.
+                We empower engineering and SecOps teams with complete,
+                uncompromised telemetry.
               </p>
             </div>
           </div>
-          <div className="p-8 rounded-[2rem] bg-[#ededee] border border-gray-300/60 flex flex-col justify-between hover:shadow-md transition-shadow">
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center mb-6 shadow-sm">
-              <Shield className="w-5 h-5 text-[#0066EE]" />
+          <div className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between hover:border-zinc-700 transition-colors group shadow-lg shadow-black/20">
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-500/20 transition-colors">
+              <Shield className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <h3 className="text-xl font-serif font-medium mb-3">
-                Proactive Governance Is the Only Defense
+              <h3 className="text-xl font-serif font-medium mb-3 text-white tracking-tight">
+                Proactive Runtime Governance Is Essential
               </h3>
-              <p className="text-xs font-mono text-gray-600 leading-relaxed">
-                Waiting for a rogue AI incident to happen is like leaving your
-                enterprise database wide open. We believe in staying one step
-                ahead of the risks. Aegisora's approach is all about proactive
-                policy enforcement—blocking threats before they execute.
+              <p className="text-xs font-mono text-zinc-400 leading-relaxed">
+                Waiting for an AI security incident post-execution exposes your
+                core infrastructure to severe risk. Aegisora enforces strict,
+                dynamic perimeter policies that neutralize threats before
+                execution.
               </p>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Team (Takım) Bölümü */}
-      <div className="max-w-[1100px] w-full mx-auto px-6 py-16 text-center">
-        <h2 className="text-3xl font-serif tracking-tight mb-6">Team</h2>
-        <p className="text-xs font-mono text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
-          We're a crew of AI researchers, security engineers, and governance
-          experts—united by a passion for making autonomous technology secure.
-          From enterprise security veterans to empathetic designers who know
-          enterprise software should feel intuitive...
-        </p>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {team.map((member, idx) => (
-            <div key={idx} className="flex flex-col items-center">
-              <div className="w-full h-56 bg-[#dcdce0] rounded-2xl mb-4 overflow-hidden relative flex items-center justify-center border border-gray-300/50 shadow-sm">
-                <span className="text-[10px] font-mono text-gray-500 tracking-widest">
-                  •••••••••••••
-                </span>
-              </div>
-              <span className="text-sm font-medium">{member.name}</span>
-              <span className="text-[11px] font-mono text-[#0066EE] font-semibold mt-1">
-                {member.role}
-              </span>
-            </div>
-          ))}
         </div>
       </div>
 
       {/* We're hiring Bölümü */}
-      <div className="max-w-[800px] w-full mx-auto px-6 py-20 text-center">
-        <h2 className="text-3xl font-serif tracking-tight mb-3">
-          We're hiring
-        </h2>
-        <p className="text-xs font-mono text-gray-600 mb-6">
-          We're creating something special, and we're looking for people who
-          care deeply about AI safety and quality to build it with us.
-        </p>
-        <button className="px-8 py-3.5 bg-[#0066EE] text-white text-[13px] font-medium rounded-full hover:bg-[#005bb5] transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.35)] hover:-translate-y-0.5 cursor-pointer">
-          Open Positions
-        </button>
+      <div className="relative z-10 max-w-[800px] w-full mx-auto px-6 py-24 text-center">
+        <div className="bg-zinc-900/40 border border-zinc-800 rounded-[2.5rem] p-12 backdrop-blur-md">
+          <h2 className="text-3xl font-serif tracking-tight mb-4 text-white">
+            We&apos;re hiring
+          </h2>
+          <p className="text-sm font-mono text-zinc-400 mb-8 max-w-md mx-auto leading-relaxed">
+            We are scaling our core engineering team and looking for exceptional
+            talent passionate about distributed systems and AI safety.
+          </p>
+          <Link
+            href="/contact/sales"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-blue-600 text-white text-[13px] font-medium rounded-full hover:bg-blue-500 transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>View Open Positions</span>
+          </Link>
+        </div>
       </div>
 
       {/* Questions? (FAQ Akordeon) */}
-      <div className="max-w-[800px] w-full mx-auto px-6 py-16">
-        <div className="mb-10">
-          <h2 className="text-4xl font-serif tracking-tight">Questions?</h2>
-          <p className="text-lg font-serif italic text-gray-500">
-            We've got answers.
+      <div className="relative z-10 max-w-[800px] w-full mx-auto px-6 py-16">
+        <div className="mb-10 text-center">
+          <h2 className="text-4xl font-serif tracking-tight text-white mb-2">
+            Questions?
+          </h2>
+          <p className="text-lg font-serif italic text-zinc-500">
+            We&apos;ve got answers.
           </p>
         </div>
 
@@ -199,15 +194,15 @@ export default function AboutPage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="border border-gray-300/80 rounded-2xl overflow-hidden bg-[#ededee]"
+              className="border border-zinc-800/80 rounded-2xl overflow-hidden bg-zinc-900/40 backdrop-blur-sm transition-colors hover:border-zinc-700"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full p-5 text-left flex items-center justify-between font-medium text-[13.5px] cursor-pointer hover:bg-gray-200/50 transition-colors"
+                className="w-full p-5 text-left flex items-center justify-between font-medium text-[13.5px] cursor-pointer hover:bg-zinc-800/40 transition-colors outline-none text-zinc-200"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-300 text-[#0066EE] ${
+                  className={`w-4 h-4 transition-transform duration-300 text-blue-400 ${
                     openFaq === idx ? "rotate-180" : ""
                   }`}
                 />
@@ -218,7 +213,7 @@ export default function AboutPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="px-5 pb-5 text-[13px] font-mono text-gray-600 leading-relaxed border-t border-gray-300/40 pt-3"
+                    className="px-5 pb-5 text-[13px] font-mono text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-4"
                   >
                     {faq.a}
                   </motion.div>
@@ -229,47 +224,42 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Yenilenmiş Aegisora Ana Footer */}
-      <footer className="w-full border-t py-16 px-8 mt-20 border-gray-200 bg-[#f4f4f5]">
+      {/* Yenilenmiş Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
+      <footer className="relative z-10 w-full border-t py-16 px-6 mt-20 border-zinc-800 bg-zinc-950">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center">
+          {/* Logo Alanı */}
           <Link
             href="/"
-            className="flex items-center gap-3 group cursor-pointer mb-4"
+            className="flex items-center gap-3 group cursor-pointer mb-6"
           >
-            <svg
-              className="w-6 h-6 text-gray-500 group-hover:text-black transition-colors"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <circle cx="12" cy="12" r="2" />
-              <circle cx="12" cy="5" r="1.5" />
-              <circle cx="12" cy="19" r="1.5" />
-              <circle cx="5" cy="12" r="1.5" />
-              <circle cx="19" cy="12" r="1.5" />
-              <circle cx="7" cy="7" r="1.5" />
-              <circle cx="17" cy="17" r="1.5" />
-              <circle cx="7" cy="17" r="1.5" />
-              <circle cx="17" cy="7" r="1.5" />
-            </svg>
-            <span className="text-xl font-serif font-bold tracking-tight text-[#111111]">
+            <div className="relative w-8 h-8 flex items-center justify-center">
+              <Image
+                src="/logo-white.png"
+                alt="Aegisora Logo"
+                fill
+                className="object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                sizes="32px"
+              />
+            </div>
+            <span className="text-xl font-serif font-bold tracking-tight text-white">
               Aegisora
             </span>
           </Link>
 
-          <p className="text-[13px] text-gray-500 font-mono text-center max-w-[500px] leading-relaxed">
-            You deserve control over your autonomous systems. Aegisora monitors
-            what's happening, helps you manage it, and works to enforce your
-            governance policies, so you can deploy AI safely.
+          <p className="text-[13px] text-zinc-500 font-mono text-center max-w-[500px] leading-relaxed">
+            You deserve control over your autonomous systems. Aegisora
+            intercepts unauthorized tool calls, enforces dynamic zero-trust
+            policies, and guarantees raw payloads never leave your perimeter.
           </p>
 
-          <div className="flex items-center gap-5 text-gray-400 mt-6 mb-12">
+          <div className="flex items-center gap-5 text-zinc-500 mt-8 mb-16">
             <Link
               href="https://aegisora.ai"
               target="_blank"
-              className="hover:text-[#0066EE] transition-colors"
+              className="hover:text-blue-400 transition-colors"
             >
               <svg
-                className="w-[22px] h-[22px]"
+                className="w-[20px] h-[20px]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -285,157 +275,156 @@ export default function AboutPage() {
             <Link
               href="https://x.com/aegisora_ai"
               target="_blank"
-              className="hover:text-[#0066EE] transition-colors"
+              className="hover:text-blue-400 transition-colors"
             >
               <svg
-                className="w-[18px] h-[18px]"
+                className="w-[16px] h-[16px]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
               </svg>
             </Link>
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                viewBox="0 0 24 24"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </Link>
             <Link
-              href="https://www.linkedin.com/company/aegisora/posts/?feedView=all&viewAsMember=true"
+              href="https://www.linkedin.com/company/aegisora"
               target="_blank"
-              className="hover:text-[#0066EE] transition-colors"
+              className="hover:text-blue-400 transition-colors"
             >
               <svg
-                className="w-[22px] h-[22px]"
+                className="w-[20px] h-[20px]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.847-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.588 0 4.257 2.36 4.257 5.39v6.351zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
               </svg>
             </Link>
+            <Link
+              href="https://github.com/aegisora"
+              target="_blank"
+              className="hover:text-blue-400 transition-colors"
+            >
+              <svg
+                className="w-[20px] h-[20px]"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"
+                />
+              </svg>
+            </Link>
           </div>
 
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-gray-300/60 text-[11.5px] font-mono text-gray-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Company</span>
+              <span className="font-bold text-zinc-300 mb-1">Company</span>
               <Link
                 href="/about"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 About
               </Link>
-              <Link href="#" className="hover:text-[#0066EE] transition-colors">
+              <Link href="#" className="hover:text-white transition-colors">
                 Careers
               </Link>
-              <Link
-                href="/blog"
-                className="hover:text-[#0066EE] transition-colors"
-              >
+              <Link href="/blog" className="hover:text-white transition-colors">
                 Blog
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Help</span>
+              <span className="font-bold text-zinc-300 mb-1">Help</span>
               <Link
                 href="/contact/support"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Support
               </Link>
-              <Link href="#" className="hover:text-[#0066EE] transition-colors">
+              <Link href="#" className="hover:text-white transition-colors">
                 Status
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Security</span>
+              <span className="font-bold text-zinc-300 mb-1">Security</span>
               <Link
                 href="/security"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Our Practices
               </Link>
               <Link
                 href="/legal/gdpr"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 GDPR
               </Link>
               <Link
                 href="/legal/dpa"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 DPA
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Product</span>
+              <span className="font-bold text-zinc-300 mb-1">Product</span>
               <Link
                 href="/get-started"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Sign up
               </Link>
               <Link
                 href="/login"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Log in
               </Link>
               <Link
                 href="/business"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 For businesses
               </Link>
               <Link
                 href="/pricing"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Pricing
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Contact</span>
+              <span className="font-bold text-zinc-300 mb-1">Contact</span>
               <Link
                 href="/contact/sales"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Contact Sales
               </Link>
               <Link
                 href="/contact/business-inquiry"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Business inquiry
               </Link>
               <Link
                 href="/contact/partnership"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Partnership
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Legal</span>
+              <span className="font-bold text-zinc-300 mb-1">Legal</span>
               <Link
                 href="/legal/dpa"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Acceptable Use
               </Link>
               <Link
                 href="/legal/gdpr"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Terms of Service
               </Link>

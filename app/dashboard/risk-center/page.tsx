@@ -17,6 +17,7 @@ import {
   Clock,
   Loader2,
   Zap,
+  Terminal,
 } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
@@ -53,7 +54,6 @@ export default function RiskCenterPage() {
       try {
         setIsLoading(true);
 
-        // 1. Incidents Tablosundan Gerçek Verileri Çek
         const { data: incData, error: incError } = await supabase
           .from("incidents")
           .select("*")
@@ -65,7 +65,6 @@ export default function RiskCenterPage() {
           setIncidents(incData);
         }
 
-        // 2. Policy Rules Tablosundan Şalter Durumlarını Çek
         const { data: polData, error: polError } = await supabase
           .from("policy_rules")
           .select("policy_key, is_enabled");
@@ -86,7 +85,7 @@ export default function RiskCenterPage() {
 
     fetchRiskData();
 
-    // ⚡ REALTIME SUBSCRIPTION (Canlı Senkronizasyon)
+    // ⚡ REALTIME SUBSCRIPTION
     const channel = supabase
       .channel("risk-center-realtime")
       .on(
@@ -147,139 +146,165 @@ export default function RiskCenterPage() {
   );
 
   return (
-    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-6">
-        <div>
-          <h1 className="text-2xl font-serif text-white tracking-tight flex items-center gap-2">
-            <ShieldAlert className="w-6 h-6 text-red-500" /> Risk & Compliance
-            Center
+    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8 font-sans relative selection:bg-blue-500/30 min-h-screen">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.08)_0%,transparent_70%)] pointer-events-none" />
+
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-800/80 pb-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-red-400 bg-red-950/40 border border-red-800/30 px-3 py-1 rounded-full mb-4 inline-flex items-center gap-1.5 shadow-sm">
+            <ShieldAlert className="w-3 h-3" />
+            Security Perimeter
+          </span>
+          <h1 className="text-3xl font-serif text-white tracking-tight flex items-center gap-3">
+            Risk & Compliance Center
           </h1>
-          <p className="text-xs font-mono text-gray-400 mt-1">
-            Production-grade PostgreSQL zero-trust security policies and threat
-            monitoring.
+          <p className="text-xs font-mono text-zinc-400 mt-2">
+            Production-grade PostgreSQL zero-trust security policies and
+            real-time threat monitoring.
           </p>
-        </div>
-        <div className="flex items-center gap-3">
+        </motion.div>
+
+        <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/dashboard/ai-chat"
-            className="flex items-center gap-2 bg-[#0066EE]/10 hover:bg-[#0066EE]/20 border border-[#0066EE]/30 px-4 py-2 rounded-xl text-xs font-mono text-blue-400 transition-all shadow-sm"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 px-5 py-2.5 rounded-xl text-xs font-medium text-white transition-all shadow-[0_4px_15px_rgba(0,102,238,0.2)] hover:shadow-[0_6px_20px_rgba(0,102,238,0.3)] outline-none"
           >
-            <Zap className="w-3.5 h-3.5 text-[#0066EE]" />
+            <Zap className="w-4 h-4" />
             <span>Analyze Incidents with AI</span>
           </Link>
-          <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 rounded-xl text-emerald-400 text-xs font-mono shadow-sm">
-            <ShieldCheck className="w-4 h-4" /> All Security Protocols Active &
-            Enforcing
+          <div className="flex items-center gap-2.5 bg-emerald-500/10 border border-emerald-500/20 px-4 py-2.5 rounded-xl text-emerald-400 text-[11px] font-mono font-semibold uppercase tracking-widest shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
+            All Protocols Enforcing
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-        {/* ŞALTERLER */}
-        <div className="xl:col-span-4 bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl h-fit relative">
-          <h3 className="text-sm font-medium text-white flex items-center gap-2 mb-6">
-            <Lock className="w-4 h-4 text-[#0066EE]" /> Active Security Policies
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 relative z-10">
+        {/* ŞALTERLER (POLICIES) */}
+        <div className="xl:col-span-4 bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2rem] p-6 sm:p-8 shadow-2xl h-fit relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,102,238,0.05)_0%,transparent_50%)] pointer-events-none" />
+
+          <h3 className="text-sm font-semibold text-white flex items-center gap-2.5 mb-8 tracking-wide relative z-10">
+            <Lock className="w-4 h-4 text-blue-400" /> Active Security Policies
             (DB)
           </h3>
 
-          <div className="space-y-6">
-            <div className="flex items-start justify-between gap-4">
+          <div className="space-y-7 relative z-10">
+            {/* PII Masking */}
+            <div className="flex items-start justify-between gap-4 group">
               <div>
-                <h4 className="text-[13px] font-medium text-gray-200 flex items-center gap-1.5 mb-1">
-                  <EyeOff className="w-3.5 h-3.5 text-gray-400" /> PII Data
-                  Masking
+                <h4 className="text-[13px] font-medium text-zinc-200 flex items-center gap-2 mb-1.5 group-hover:text-white transition-colors">
+                  <EyeOff className="w-4 h-4 text-blue-400" /> PII Data Masking
                 </h4>
-                <p className="text-[11px] font-mono text-gray-500 leading-relaxed">
-                  Automatically redacts SSN, credit cards, and emails.
+                <p className="text-[11px] font-mono text-zinc-500 leading-relaxed max-w-[220px]">
+                  Automatically redacts SSN, credit cards, and emails at proxy
+                  level.
                 </p>
               </div>
               <button
                 onClick={() => togglePolicy("policy_pii")}
-                className={`w-10 h-5 rounded-full relative transition-colors flex-shrink-0 cursor-pointer ${
-                  policies.policy_pii ? "bg-[#0066EE]" : "bg-gray-600"
+                className={`w-11 h-6 rounded-full relative transition-colors flex-shrink-0 cursor-pointer outline-none border ${
+                  policies.policy_pii
+                    ? "bg-blue-600 border-blue-500"
+                    : "bg-zinc-800 border-zinc-700"
                 }`}
               >
                 <div
-                  className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-transform ${
-                    policies.policy_pii ? "translate-x-5" : "translate-x-0.5"
+                  className={`w-4 h-4 bg-white rounded-full absolute top-[3px] transition-transform shadow-sm ${
+                    policies.policy_pii ? "translate-x-6" : "translate-x-1"
                   }`}
                 />
               </button>
             </div>
 
-            <div className="flex items-start justify-between gap-4">
+            {/* Prompt Injection */}
+            <div className="flex items-start justify-between gap-4 group">
               <div>
-                <h4 className="text-[13px] font-medium text-gray-200 flex items-center gap-1.5 mb-1">
-                  <AlertCircle className="w-3.5 h-3.5 text-gray-400" /> Prompt
+                <h4 className="text-[13px] font-medium text-zinc-200 flex items-center gap-2 mb-1.5 group-hover:text-white transition-colors">
+                  <AlertCircle className="w-4 h-4 text-red-400" /> Prompt
                   Injection Firewall
                 </h4>
-                <p className="text-[11px] font-mono text-gray-500 leading-relaxed">
-                  Blocks adversarial inputs attempting to override prompts.
+                <p className="text-[11px] font-mono text-zinc-500 leading-relaxed max-w-[220px]">
+                  Blocks adversarial inputs attempting to override agent
+                  prompts.
                 </p>
               </div>
               <button
                 onClick={() => togglePolicy("policy_injection")}
-                className={`w-10 h-5 rounded-full relative transition-colors flex-shrink-0 cursor-pointer ${
-                  policies.policy_injection ? "bg-[#0066EE]" : "bg-gray-600"
+                className={`w-11 h-6 rounded-full relative transition-colors flex-shrink-0 cursor-pointer outline-none border ${
+                  policies.policy_injection
+                    ? "bg-blue-600 border-blue-500"
+                    : "bg-zinc-800 border-zinc-700"
                 }`}
               >
                 <div
-                  className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-transform ${
+                  className={`w-4 h-4 bg-white rounded-full absolute top-[3px] transition-transform shadow-sm ${
                     policies.policy_injection
-                      ? "translate-x-5"
-                      : "translate-x-0.5"
+                      ? "translate-x-6"
+                      : "translate-x-1"
                   }`}
                 />
               </button>
             </div>
 
-            <div className="flex items-start justify-between gap-4">
+            {/* Hallucination Guard */}
+            <div className="flex items-start justify-between gap-4 group">
               <div>
-                <h4 className="text-[13px] font-medium text-gray-200 flex items-center gap-1.5 mb-1">
-                  <Activity className="w-3.5 h-3.5 text-gray-400" />{" "}
+                <h4 className="text-[13px] font-medium text-zinc-200 flex items-center gap-2 mb-1.5 group-hover:text-white transition-colors">
+                  <Activity className="w-4 h-4 text-emerald-400" />{" "}
                   Hallucination Guard
                 </h4>
-                <p className="text-[11px] font-mono text-gray-500 leading-relaxed">
-                  Flags responses if confidence score drops below 85%.
+                <p className="text-[11px] font-mono text-zinc-500 leading-relaxed max-w-[220px]">
+                  Flags & halts responses if semantic confidence score drops
+                  below 85%.
                 </p>
               </div>
               <button
                 onClick={() => togglePolicy("policy_hallucination")}
-                className={`w-10 h-5 rounded-full relative transition-colors flex-shrink-0 cursor-pointer ${
-                  policies.policy_hallucination ? "bg-[#0066EE]" : "bg-gray-600"
+                className={`w-11 h-6 rounded-full relative transition-colors flex-shrink-0 cursor-pointer outline-none border ${
+                  policies.policy_hallucination
+                    ? "bg-blue-600 border-blue-500"
+                    : "bg-zinc-800 border-zinc-700"
                 }`}
               >
                 <div
-                  className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-transform ${
+                  className={`w-4 h-4 bg-white rounded-full absolute top-[3px] transition-transform shadow-sm ${
                     policies.policy_hallucination
-                      ? "translate-x-5"
-                      : "translate-x-0.5"
+                      ? "translate-x-6"
+                      : "translate-x-1"
                   }`}
                 />
               </button>
             </div>
 
-            <div className="flex items-start justify-between gap-4">
+            {/* Anomaly Rate Limiting */}
+            <div className="flex items-start justify-between gap-4 group">
               <div>
-                <h4 className="text-[13px] font-medium text-gray-200 flex items-center gap-1.5 mb-1">
-                  <Clock className="w-3.5 h-3.5 text-gray-400" /> Anomaly Rate
+                <h4 className="text-[13px] font-medium text-zinc-200 flex items-center gap-2 mb-1.5 group-hover:text-white transition-colors">
+                  <Clock className="w-4 h-4 text-amber-400" /> Anomaly Rate
                   Limiting
                 </h4>
-                <p className="text-[11px] font-mono text-gray-500 leading-relaxed">
-                  Halts agents making abnormal tool request bursts.
+                <p className="text-[11px] font-mono text-zinc-500 leading-relaxed max-w-[220px]">
+                  Halts agents making abnormal tool request bursts
+                  automatically.
                 </p>
               </div>
               <button
                 onClick={() => togglePolicy("policy_anomaly")}
-                className={`w-10 h-5 rounded-full relative transition-colors flex-shrink-0 cursor-pointer ${
-                  policies.policy_anomaly ? "bg-[#0066EE]" : "bg-gray-600"
+                className={`w-11 h-6 rounded-full relative transition-colors flex-shrink-0 cursor-pointer outline-none border ${
+                  policies.policy_anomaly
+                    ? "bg-blue-600 border-blue-500"
+                    : "bg-zinc-800 border-zinc-700"
                 }`}
               >
                 <div
-                  className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-transform ${
-                    policies.policy_anomaly
-                      ? "translate-x-5"
-                      : "translate-x-0.5"
+                  className={`w-4 h-4 bg-white rounded-full absolute top-[3px] transition-transform shadow-sm ${
+                    policies.policy_anomaly ? "translate-x-6" : "translate-x-1"
                   }`}
                 />
               </button>
@@ -288,52 +313,55 @@ export default function RiskCenterPage() {
         </div>
 
         {/* LOG TABLOSU VE İŞLEMLER */}
-        <div className="xl:col-span-8 flex flex-col gap-4">
+        <div className="xl:col-span-8 flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-gray-500 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-zinc-500 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search incident ID, agent or threat type..."
-                className="w-full bg-[#121215] border border-gray-800 rounded-xl pl-11 pr-4 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#0066EE]/50 font-mono transition-colors"
+                className="w-full bg-zinc-900/50 backdrop-blur-md border border-zinc-800 rounded-xl pl-11 pr-4 py-3.5 text-[13px] text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 font-mono transition-all shadow-inner"
               />
             </div>
-            <button className="flex items-center justify-center gap-2 bg-[#121215] border border-gray-800 hover:bg-gray-800/50 px-5 py-3 rounded-xl text-xs font-medium text-gray-300 transition-colors cursor-pointer">
-              <Filter className="w-4 h-4" /> Filter Logs
+            <button className="flex items-center justify-center gap-2 bg-zinc-900/80 border border-zinc-800 hover:bg-zinc-800 hover:border-zinc-700 px-6 py-3.5 rounded-xl text-xs font-mono font-semibold uppercase tracking-widest text-zinc-300 transition-colors cursor-pointer outline-none shadow-sm">
+              <Filter className="w-3.5 h-3.5" /> Filter Logs
             </button>
           </div>
 
-          <div className="bg-[#121215] border border-gray-800/80 rounded-2xl overflow-hidden shadow-xl min-h-[300px]">
+          <div className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2rem] overflow-hidden shadow-2xl min-h-[400px]">
             {isLoading ? (
-              <div className="flex flex-col items-center justify-center min-h-[300px] text-gray-500">
-                <Loader2 className="w-8 h-8 animate-spin text-[#0066EE] mb-3" />
-                <p className="text-xs font-mono">
-                  Fetching security telemetry from DB...
+              <div className="flex flex-col items-center justify-center min-h-[400px] text-zinc-500 gap-4">
+                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                <p className="text-[11px] font-mono font-semibold uppercase tracking-widest">
+                  Fetching security telemetry...
                 </p>
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-[#19191d]/50 border-b border-gray-800 text-[10px] font-mono text-gray-500 uppercase tracking-wider">
+                <div className="grid grid-cols-12 gap-4 px-8 py-5 bg-zinc-950/60 border-b border-zinc-800/80 text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
                   <div className="col-span-3">Incident ID</div>
-                  <div className="col-span-5">Threat Type & Agent</div>
+                  <div className="col-span-5">Threat Vector & Node</div>
                   <div className="col-span-2">Severity</div>
                   <div className="col-span-2 text-right">Status</div>
                 </div>
 
-                <div className="divide-y divide-gray-800">
+                <div className="divide-y divide-zinc-800/60">
                   <AnimatePresence>
                     {filteredIncidents.length > 0 ? (
                       filteredIncidents.map((inc) => (
                         <motion.div
                           layout
-                          initial={{ opacity: 0, backgroundColor: "#3b0707" }}
-                          animate={{ opacity: 1, backgroundColor: "#0a0a0c" }}
+                          initial={{ opacity: 0, backgroundColor: "#18181b" }}
+                          animate={{
+                            opacity: 1,
+                            backgroundColor: "transparent",
+                          }}
                           exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.5 }}
+                          transition={{ duration: 0.3 }}
                           key={inc.id}
-                          className="flex flex-col bg-[#0a0a0c]"
+                          className="flex flex-col group"
                         >
                           <div
                             onClick={() =>
@@ -341,42 +369,45 @@ export default function RiskCenterPage() {
                                 expandedId === inc.id ? null : inc.id,
                               )
                             }
-                            className="grid grid-cols-12 gap-4 px-6 py-4 items-center hover:bg-[#19191d]/40 transition-colors cursor-pointer"
+                            className="grid grid-cols-12 gap-4 px-8 py-5 items-center hover:bg-zinc-800/30 transition-colors cursor-pointer"
                           >
                             <div className="col-span-3">
-                              <p className="text-[13px] font-medium text-gray-200">
+                              <p className="text-[12px] font-mono text-zinc-300">
                                 {inc.id}
                               </p>
                             </div>
                             <div className="col-span-5">
-                              <p className="text-[13px] font-medium text-gray-200">
+                              <p className="text-[13px] font-medium text-white tracking-wide truncate">
                                 {inc.threat_type}
                               </p>
-                              <p className="text-[11px] font-mono text-gray-500 mt-0.5">
-                                {inc.agent_name || "Aegisora Gateway"}
+                              <p className="text-[10px] font-mono text-zinc-500 mt-1 uppercase tracking-widest truncate">
+                                Node: {inc.agent_name || "System Gateway"}
                               </p>
                             </div>
                             <div className="col-span-2">
                               <span
-                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border text-[10px] font-mono uppercase tracking-wider ${
+                                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[9px] font-mono font-bold uppercase tracking-widest ${
                                   inc.severity === "CRITICAL"
-                                    ? "bg-red-500/10 text-red-500 border-red-500/20"
+                                    ? "bg-red-500/10 text-red-400 border-red-500/20"
                                     : inc.severity === "HIGH"
-                                      ? "bg-amber-500/10 text-amber-500 border-amber-500/20"
-                                      : "bg-[#0066EE]/10 text-[#0066EE] border-[#0066EE]/20"
+                                      ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                                      : "bg-blue-500/10 text-blue-400 border-blue-500/20"
                                 }`}
                               >
+                                <span
+                                  className={`w-1.5 h-1.5 rounded-full ${inc.severity === "CRITICAL" ? "bg-red-400 shadow-[0_0_8px_#f87171] animate-pulse" : inc.severity === "HIGH" ? "bg-amber-400" : "bg-blue-400"}`}
+                                />
                                 {inc.severity}
                               </span>
                             </div>
                             <div className="col-span-2 flex items-center justify-end gap-3">
-                              <span className="text-[12px] font-medium text-gray-300">
+                              <span className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
                                 {inc.status}
                               </span>
                               {expandedId === inc.id ? (
-                                <ChevronUp className="w-4 h-4 text-gray-500" />
+                                <ChevronUp className="w-4 h-4 text-zinc-500" />
                               ) : (
-                                <ChevronDown className="w-4 h-4 text-gray-500" />
+                                <ChevronDown className="w-4 h-4 text-zinc-500" />
                               )}
                             </div>
                           </div>
@@ -387,24 +418,25 @@ export default function RiskCenterPage() {
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
-                                className="overflow-hidden bg-[#121215]/50 border-t border-gray-800/50"
+                                className="overflow-hidden bg-zinc-950/50 border-t border-zinc-800/50"
                               >
-                                <div className="p-6 flex flex-col gap-4">
-                                  <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-                                    Threat Payload Details & Proxy Interception
+                                <div className="p-8 flex flex-col gap-4">
+                                  <p className="text-[10px] font-mono font-semibold text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                                    <Terminal className="w-3.5 h-3.5" /> Threat
+                                    Payload & Interception Details
                                   </p>
-                                  <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-red-400 font-mono text-xs leading-relaxed">
+                                  <div className="bg-zinc-950 border border-red-500/20 rounded-xl p-5 text-red-400 font-mono text-[12px] leading-relaxed shadow-inner overflow-x-auto whitespace-pre-wrap">
                                     {inc.payload}
                                   </div>
-                                  <div className="flex justify-end gap-3 mt-2">
+                                  <div className="flex justify-end gap-4 mt-3">
                                     <button
                                       onClick={(e) => {
                                         e.stopPropagation();
                                         handleDismiss(inc.id);
                                       }}
-                                      className="px-4 py-2 rounded-xl text-xs font-medium text-gray-300 hover:text-white border border-gray-700 hover:border-gray-500 transition-colors cursor-pointer"
+                                      className="px-5 py-2.5 rounded-xl text-xs font-mono font-semibold uppercase tracking-widest text-zinc-400 hover:text-white border border-zinc-700 hover:border-zinc-500 transition-colors cursor-pointer outline-none"
                                     >
-                                      Dismiss Incident
+                                      Dismiss Log
                                     </button>
                                     <button
                                       onClick={(e) => {
@@ -416,10 +448,10 @@ export default function RiskCenterPage() {
                                           )}`,
                                         );
                                       }}
-                                      className="px-4 py-2 rounded-xl text-xs font-medium text-white bg-[#0066EE] hover:bg-[#005bb5] transition-colors shadow-lg cursor-pointer flex items-center gap-2"
+                                      className="px-6 py-2.5 rounded-xl text-xs font-mono font-semibold uppercase tracking-widest text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-lg cursor-pointer flex items-center gap-2 outline-none"
                                     >
                                       <Zap className="w-3.5 h-3.5" /> Review
-                                      Live Stream
+                                      Stream
                                     </button>
                                   </div>
                                 </div>
@@ -429,8 +461,16 @@ export default function RiskCenterPage() {
                         </motion.div>
                       ))
                     ) : (
-                      <div className="px-6 py-12 text-center text-xs font-mono text-gray-500">
-                        No incident logs found. Environment is secured.
+                      <div className="px-8 py-16 text-center flex flex-col items-center justify-center gap-4 text-zinc-500 min-h-[300px]">
+                        <ShieldCheck className="w-10 h-10 text-emerald-500/50" />
+                        <div>
+                          <p className="text-[13px] font-medium text-zinc-300">
+                            No incident logs found.
+                          </p>
+                          <p className="text-[11px] font-mono uppercase tracking-widest mt-1">
+                            Environment is fully secured.
+                          </p>
+                        </div>
                       </div>
                     )}
                   </AnimatePresence>

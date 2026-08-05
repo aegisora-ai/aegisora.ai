@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Sparkles } from "lucide-react";
 
 const navData = {
   Product: {
@@ -41,7 +41,6 @@ const navData = {
     items: [
       { title: "About", desc: "Who we are & what we do", href: "/about" },
       { title: "Blog", desc: "Privacy insights & news", href: "/blog" },
-      { title: "Admin Portal", desc: "Manage access requests", href: "/admin" },
     ],
   },
   Security: {
@@ -72,7 +71,6 @@ export default function Navbar() {
     null,
   );
 
-  // Ölümcül kaydırma (scroll) hatasını engelleyen temizlik fonksiyonu eklendi
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -80,11 +78,15 @@ export default function Navbar() {
       document.body.style.overflow = "auto";
     }
 
-    // Kullanıcı menü açıkken başka sayfaya yönlenirse kilidi mutlaka kaldır
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isMobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setOpenMobileAccordion(null);
+  };
 
   const toggleMobileAccordion = (key: NavKey) => {
     setOpenMobileAccordion((prev) => (prev === key ? null : key));
@@ -111,27 +113,13 @@ export default function Navbar() {
 
   return (
     <>
-      <style jsx global>{`
-        @keyframes border-spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-        .animate-border-spin {
-          animation: border-spin 4s linear infinite;
-        }
-      `}</style>
-
       <motion.div
         className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-[920px]"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={springConfig}
       >
-        <nav className="flex items-center justify-between pl-6 pr-2 rounded-full border border-gray-800 shadow-2xl font-sans h-[52px] lg:h-[48px] bg-[#0a0a0a] relative">
+        <nav className="flex items-center justify-between pl-6 pr-2 rounded-full border border-zinc-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] font-sans h-[52px] lg:h-[48px] bg-zinc-950/90 backdrop-blur-2xl relative">
           <Link
             href="/"
             className="flex items-center gap-2 cursor-pointer z-50 shrink-0"
@@ -160,7 +148,7 @@ export default function Navbar() {
                 className="relative flex items-center h-full px-1"
                 onMouseEnter={() => setActiveDropdown(key)}
               >
-                <div className="flex items-center justify-center gap-1 px-3 h-[28px] text-[13px] font-medium text-gray-300 cursor-pointer rounded-md transition-all duration-200 hover:bg-white/10 hover:text-white">
+                <div className="flex items-center justify-center gap-1 px-3 h-[28px] text-[13px] font-medium text-zinc-300 cursor-pointer rounded-md transition-all duration-200 hover:bg-zinc-800/60 hover:text-white">
                   {key}{" "}
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === key ? "rotate-180 text-white" : ""}`}
@@ -174,26 +162,26 @@ export default function Navbar() {
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.96, y: 10 }}
                       transition={springConfig}
-                      className="absolute top-[56px] left-1/2 -translate-x-1/2 bg-[#0a0a0a] rounded-[1rem] p-3 shadow-2xl flex gap-3 border border-gray-800/80 backdrop-blur-2xl"
+                      className="absolute top-[56px] left-1/2 -translate-x-1/2 bg-zinc-950 rounded-[1rem] p-3 shadow-2xl flex gap-3 border border-zinc-800 backdrop-blur-2xl"
                     >
                       <div className="flex flex-col gap-1">
                         {navData[key].items.map((item, idx) => (
                           <Link
                             key={idx}
                             href={item.href}
-                            className="w-[200px] h-[47px] px-3 flex flex-col justify-center cursor-pointer rounded-lg hover:bg-[#1a1a1a] transition-colors group outline-none"
+                            className="w-[200px] h-[47px] px-3 flex flex-col justify-center cursor-pointer rounded-lg hover:bg-zinc-900 transition-colors group outline-none"
                           >
-                            <h3 className="text-white text-[13px] font-medium mb-0.5 group-hover:text-[#0066EE] transition-colors leading-none">
+                            <h3 className="text-white text-[13px] font-medium mb-0.5 group-hover:text-blue-400 transition-colors leading-none">
                               {item.title}
                             </h3>
-                            <p className="text-gray-500 text-[11px] leading-none">
+                            <p className="text-zinc-400 text-[11px] leading-none">
                               {item.desc}
                             </p>
                           </Link>
                         ))}
                       </div>
 
-                      <div className="w-[200px] h-[141px] bg-[#141414] rounded-lg overflow-hidden border border-gray-800/50 flex items-center justify-center relative">
+                      <div className="w-[200px] h-[141px] bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800 flex items-center justify-center relative">
                         <Image
                           src={getDropdownImage(key)}
                           alt={`${key} Preview`}
@@ -201,7 +189,7 @@ export default function Navbar() {
                           sizes="200px"
                           className="object-cover opacity-90 transition-opacity duration-300"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0a0a]/60 to-transparent pointer-events-none"></div>
+                        <div className="absolute inset-0 bg-gradient-to-tr from-zinc-950/60 to-transparent pointer-events-none"></div>
                       </div>
                     </motion.div>
                   )}
@@ -213,24 +201,23 @@ export default function Navbar() {
           <div className="flex items-center gap-2.5 z-50 h-full py-[8px] shrink-0">
             <Link
               href="/login"
-              className="hidden lg:flex items-center justify-center px-3 h-[32px] text-[13px] font-medium text-gray-200 hover:text-white hover:bg-white/10 rounded-md transition-colors whitespace-nowrap"
+              className="hidden lg:flex items-center justify-center px-3 h-[32px] text-[13px] font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/60 rounded-md transition-colors whitespace-nowrap"
             >
               Log in
             </Link>
 
-            <div className="hidden lg:flex relative p-[1px] rounded-xl overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 animate-border-spin" />
-              <Link
-                href="/early-access"
-                className="relative flex items-center justify-center px-3.5 h-[30px] text-[12px] font-medium text-white bg-[#0a0a0a] hover:bg-[#141414] rounded-[11px] transition-colors whitespace-nowrap"
-              >
-                Early Access ✨
-              </Link>
-            </div>
+            {/* Enterprise Stilinde Lüks Early Access Rozeti (Çizgisiz, Net & Premium) */}
+            <Link
+              href="/early-access"
+              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 h-[30px] rounded-full text-[12px] font-mono font-medium text-blue-300 bg-blue-950/60 border border-blue-800/50 hover:bg-blue-900/60 hover:border-blue-700/80 transition-all duration-200 shadow-sm whitespace-nowrap"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
+              <span>Early Access</span>
+            </Link>
 
             <Link
               href="/get-started"
-              className="hidden lg:flex items-center justify-center px-4 h-[32px] bg-[#0066EE] hover:bg-[#005bb5] text-white text-[13px] font-medium rounded-full transition-colors shadow-sm whitespace-nowrap"
+              className="hidden lg:flex items-center justify-center px-4 h-[32px] bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium rounded-full transition-colors shadow-md shadow-blue-600/25 whitespace-nowrap"
             >
               Sign up free
             </Link>
@@ -267,23 +254,21 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 8, height: "auto" }}
                 exit={{ opacity: 0, y: 0, height: 0 }}
                 transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="absolute top-full left-0 right-0 bg-[#0c0c0c] rounded-[22px] border border-gray-800 shadow-2xl p-4 flex flex-col z-50 lg:hidden overflow-hidden"
+                className="absolute top-full left-0 right-0 bg-zinc-950 rounded-[22px] border border-zinc-800 shadow-2xl p-4 flex flex-col z-50 lg:hidden overflow-hidden"
               >
-                <div className="relative p-[1px] rounded-xl overflow-hidden mb-2">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 animate-border-spin" />
-                  <Link
-                    href="/early-access"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="relative w-full h-[36px] bg-[#0c0c0c] text-white font-medium text-[13px] rounded-[11px] transition-colors flex items-center justify-center shadow-sm"
-                  >
-                    Early Access Portal ✨
-                  </Link>
-                </div>
+                <Link
+                  href="/early-access"
+                  onClick={closeMobileMenu}
+                  className="w-full h-[36px] bg-blue-950/60 border border-blue-800/50 text-blue-300 font-medium text-[13px] rounded-xl mb-2 transition-colors flex items-center justify-center gap-2 shadow-sm"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Early Access Portal</span>
+                </Link>
 
                 <Link
                   href="/get-started"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full h-[38px] bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium text-[13px] rounded-xl mb-2 transition-colors flex items-center justify-center shadow-sm"
+                  onClick={closeMobileMenu}
+                  className="w-full h-[38px] bg-blue-600 hover:bg-blue-500 text-white font-medium text-[13px] rounded-xl mb-2 transition-colors flex items-center justify-center shadow-sm"
                 >
                   Sign up free
                 </Link>
@@ -293,11 +278,11 @@ export default function Navbar() {
                     <div key={key} className="flex flex-col w-full">
                       <button
                         onClick={() => toggleMobileAccordion(key)}
-                        className="w-full py-2 flex items-center gap-1 text-[14px] font-medium text-gray-200 hover:text-white transition-colors px-1 cursor-pointer outline-none"
+                        className="w-full py-2 flex items-center gap-1 text-[14px] font-medium text-zinc-200 hover:text-white transition-colors px-1 cursor-pointer outline-none"
                       >
                         <span>{key}</span>
                         <ChevronDown
-                          className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-300 ${openMobileAccordion === key ? "rotate-180 text-white" : ""}`}
+                          className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-300 ${openMobileAccordion === key ? "rotate-180 text-white" : ""}`}
                         />
                       </button>
 
@@ -315,8 +300,8 @@ export default function Navbar() {
                                 <Link
                                   href={item.href}
                                   key={idx}
-                                  onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block text-gray-500 hover:text-white transition-colors text-[13px] py-1"
+                                  onClick={closeMobileMenu}
+                                  className="block text-zinc-400 hover:text-white transition-colors text-[13px] py-1"
                                 >
                                   {item.title}
                                 </Link>
@@ -329,11 +314,11 @@ export default function Navbar() {
                   ))}
                 </div>
 
-                <div className="mt-2 mb-0.5 w-full flex items-center justify-center pt-2.5">
+                <div className="mt-2 mb-0.5 w-full flex items-center justify-center pt-2.5 border-t border-zinc-900">
                   <Link
                     href="/login"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-[13px] text-gray-300 hover:text-white transition-colors font-medium"
+                    onClick={closeMobileMenu}
+                    className="text-[13px] text-zinc-300 hover:text-white transition-colors font-medium"
                   >
                     Log in
                   </Link>

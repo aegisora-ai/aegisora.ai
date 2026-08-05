@@ -17,6 +17,7 @@ import {
   Zap,
   PieChart as PieIcon,
   BarChart3,
+  Network,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -32,11 +33,9 @@ import {
   Cell,
   BarChart,
   Bar,
-  Legend,
 } from "recharts";
 import { createClient } from "@/utils/supabase/client";
 
-// Zaman Aralıkları Sıralaması (Zoom için)
 const timeframeSequence = ["24H", "7D", "1M", "3M", "1Y"];
 
 const timeframeDatasets: Record<string, any[]> = {
@@ -191,15 +190,13 @@ const timeframeDatasets: Record<string, any[]> = {
   ],
 };
 
-// Saldırı Türleri Dağılımı Verisi (Threat Vectors Donut Chart)
 const threatDistributionData = [
   { name: "Prompt Injection", value: 45, color: "#ef4444" },
   { name: "PII Data Leakage", value: 30, color: "#f59e0b" },
-  { name: "Hallucination Breach", value: 15, color: "#0066EE" },
+  { name: "Hallucination Breach", value: 15, color: "#3b82f6" },
   { name: "Anomaly Rate Limit", value: 10, color: "#8b5cf6" },
 ];
 
-// Ajan Performans ve Gecikme Verisi (Agent Latency & Workload Bar Chart)
 const agentLatencyData = [
   { name: "Support Bot", latency: 42, requests: 4100 },
   { name: "Billing AI", latency: 35, requests: 2800 },
@@ -211,28 +208,28 @@ const CustomTerminalTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-[#121215] border border-gray-700 p-4 rounded-xl shadow-2xl font-mono text-xs max-w-xs">
-        <div className="flex items-center justify-between border-b border-gray-800 pb-2 mb-2">
-          <span className="text-gray-400 uppercase tracking-widest text-[10px]">
+      <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl shadow-2xl font-mono text-xs max-w-xs backdrop-blur-xl">
+        <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-2">
+          <span className="text-zinc-500 uppercase tracking-widest text-[10px]">
             Timestamp / Slot
           </span>
           <span className="text-white font-bold">{label}</span>
         </div>
-        <div className="space-y-1.5">
-          <div className="flex justify-between">
-            <span className="text-gray-400">Total Requests:</span>
+        <div className="space-y-2">
+          <div className="flex justify-between gap-4">
+            <span className="text-zinc-400">Total Requests:</span>
             <span className="text-blue-400 font-semibold">
               {data.requests?.toLocaleString()}
             </span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-400">Blocked Threats:</span>
+          <div className="flex justify-between gap-4">
+            <span className="text-zinc-400">Blocked Threats:</span>
             <span className="text-red-400 font-semibold">
               {data.blocked?.toLocaleString()}
             </span>
           </div>
           {data.label && (
-            <div className="mt-2 pt-2 border-t border-gray-800 text-[11px] text-amber-400 bg-amber-500/10 px-2 py-1 rounded">
+            <div className="mt-2 pt-2 border-t border-zinc-800 text-[11px] text-amber-400 bg-amber-500/10 px-2.5 py-1.5 rounded-lg border border-amber-500/20">
               ⚡ {data.label}
             </div>
           )}
@@ -272,7 +269,7 @@ const CustomizedDot = (props: any) => {
       cx={cx}
       cy={cy}
       r={3}
-      fill="#0066EE"
+      fill="#3b82f6"
       stroke="#fff"
       strokeWidth={1}
     />
@@ -288,7 +285,6 @@ export default function CommandCenterPage() {
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
-  // 🖱️ FARE TEKERLEĞİ (WHEEL ZOOM) İLE DİNAMİK ZAMAN ARALIĞI DEĞİŞTİRME
   useEffect(() => {
     const container = chartContainerRef.current;
     if (!container) return;
@@ -364,65 +360,73 @@ export default function CommandCenterPage() {
     timeframeDatasets[timeframe] || timeframeDatasets["7D"];
 
   return (
-    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-6">
+    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8 font-sans relative selection:bg-blue-500/30 min-h-screen">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.08)_0%,transparent_70%)] pointer-events-none" />
+
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-800/80 pb-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <h1 className="text-2xl font-serif text-white tracking-tight">
+          <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/40 border border-blue-800/30 px-3 py-1 rounded-full mb-4 inline-flex items-center gap-1.5 shadow-sm">
+            <Network className="w-3 h-3" />
+            Operations Overview
+          </span>
+          <h1 className="text-3xl font-serif text-white tracking-tight mt-1">
             Command Center
           </h1>
-          <p className="text-xs font-mono text-gray-400 mt-1">
+          <p className="text-xs font-mono text-zinc-400 mt-2">
             Real-time PostgreSQL telemetry overview of your enterprise AI
             infrastructure.
           </p>
         </motion.div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 relative z-10">
           <Link
             href="/dashboard/ai-chat"
-            className="flex items-center gap-2 bg-[#0066EE]/10 hover:bg-[#0066EE]/20 border border-[#0066EE]/30 px-4 py-2 rounded-xl text-xs font-mono text-blue-400 transition-all shadow-sm"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 px-5 py-2.5 rounded-xl text-xs font-medium text-white transition-all shadow-[0_4px_15px_rgba(0,102,238,0.2)] hover:shadow-[0_6px_20px_rgba(0,102,238,0.3)] outline-none"
           >
-            <Zap className="w-3.5 h-3.5 text-[#0066EE]" />
+            <Zap className="w-4 h-4 text-white" />
             <span>Ask AI Analyst</span>
           </Link>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 bg-[#121215] border border-gray-800 px-4 py-2 rounded-xl shadow-inner"
+            className="flex items-center gap-2.5 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 px-4 py-2.5 rounded-xl shadow-inner"
           >
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-            <span className="text-xs font-mono text-gray-300">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"></div>
+            <span className="text-[11px] font-mono text-zinc-300">
               System Status:{" "}
-              <strong className="text-emerald-400 font-normal">
-                Optimal & Secured (Zero-Trust)
+              <strong className="text-emerald-400 font-semibold">
+                Optimal & Secured
               </strong>
             </span>
           </motion.div>
         </div>
       </div>
 
-      {/* METRİK KARTLARI (KURUMSAL GTM İÇİN GÜNCELLENDİ) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      {/* METRİK KARTLARI */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
         <Link
           href="/dashboard/agents"
-          className="bg-[#121215] border border-gray-800/80 rounded-2xl p-5 hover:border-[#0066EE]/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer"
+          className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2rem] p-6 hover:border-blue-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer outline-none"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 rounded-xl bg-[#0066EE]/10 border border-[#0066EE]/30 flex items-center justify-center text-[#0066EE] shadow-sm group-hover:scale-105 transition-transform">
-              <Layers className="w-5 h-5" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-inner group-hover:scale-105 transition-transform">
+              <Layers className="w-6 h-6" />
             </div>
-            <span className="text-[11px] font-mono text-[#0066EE] group-hover:underline flex items-center gap-1 bg-[#0066EE]/10 px-2.5 py-1 rounded-lg border border-[#0066EE]/20 transition-all">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-400 group-hover:underline flex items-center gap-1.5 bg-blue-950/60 px-3 py-1 rounded-full border border-blue-800/40 transition-all">
               <Plus className="w-3 h-3" /> Fleet View
             </span>
           </div>
           <div>
-            <h3 className="text-3xl font-serif font-semibold text-white mb-1">
+            <h3 className="text-3xl font-serif font-bold text-white mb-1 tracking-tight">
               {agentCount}
             </h3>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
               Active AI Agents (DB)
             </p>
           </div>
@@ -430,99 +434,99 @@ export default function CommandCenterPage() {
 
         <Link
           href="/dashboard/risk-center"
-          className="bg-[#121215] border border-gray-800/80 rounded-2xl p-5 hover:border-red-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer"
+          className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2rem] p-6 hover:border-red-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer outline-none"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 shadow-sm group-hover:scale-105 transition-transform">
-              <ShieldAlert className="w-5 h-5" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 shadow-inner group-hover:scale-105 transition-transform">
+              <ShieldAlert className="w-6 h-6" />
             </div>
-            <span className="text-[11px] font-mono text-amber-400 bg-amber-500/10 border-amber-500/20 px-2.5 py-1 rounded-lg">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
               {incidentCount} Logged
             </span>
           </div>
           <div>
-            <h3 className="text-3xl font-serif font-semibold text-white mb-1">
+            <h3 className="text-3xl font-serif font-bold text-white mb-1 tracking-tight">
               {incidentCount}
             </h3>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
               Critical Policy Violations
             </p>
           </div>
         </Link>
 
-        {/* 3. KART: Compliance Score YERİNE False Positive Rate */}
         <Link
           href="/dashboard/reports"
-          className="bg-[#121215] border border-gray-800/80 rounded-2xl p-5 hover:border-emerald-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer"
+          className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2rem] p-6 hover:border-emerald-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer outline-none"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 shadow-sm group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-5 h-5" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-inner group-hover:scale-105 transition-transform">
+              <ShieldCheck className="w-6 h-6" />
             </div>
-            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
               Target &lt; 1%
             </span>
           </div>
           <div>
-            <h3 className="text-3xl font-serif font-semibold text-white mb-1">
+            <h3 className="text-3xl font-serif font-bold text-white mb-1 tracking-tight">
               0.2%
             </h3>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
               False Positive Rate
             </p>
           </div>
         </Link>
 
-        {/* 4. KART: Live Tokens YERİNE Blocked Unauthorized Tool Calls */}
         <Link
           href="/dashboard/risk-center"
-          className="bg-[#121215] border border-gray-800/80 rounded-2xl p-5 hover:border-purple-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer"
+          className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2rem] p-6 hover:border-purple-500/50 transition-all shadow-xl flex flex-col justify-between group cursor-pointer outline-none"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 shadow-sm group-hover:scale-105 transition-transform">
-              <AlertOctagon className="w-5 h-5" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shadow-inner group-hover:scale-105 transition-transform">
+              <AlertOctagon className="w-6 h-6" />
             </div>
-            <div className="w-2 h-2 rounded-full bg-purple-400 animate-ping"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-ping shadow-[0_0_10px_#c084fc]"></div>
           </div>
           <div>
-            <h3 className="text-3xl font-serif font-semibold text-white mb-1">
+            <h3 className="text-3xl font-serif font-bold text-white mb-1 tracking-tight">
               {formatNumber(Math.floor(tokensCount / 100))}
             </h3>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
               Blocked Unauthorized Tool Calls
             </p>
           </div>
         </Link>
       </div>
 
-      {/* GRAFİK 1: NETWORK TELEMETRY (ZOOM & MOUSE WHEEL) */}
+      {/* GRAFİK 1: NETWORK TELEMETRY */}
       <div
         ref={chartContainerRef}
-        className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 flex flex-col shadow-xl select-none"
+        className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2.5rem] p-6 sm:p-8 flex flex-col shadow-2xl select-none relative z-10 overflow-hidden"
         title="Grafik üzerinde fare tekerleğini (wheel) kullanarak zaman aralığını dinamik olarak değiştirebilirsin (Zoom In/Out)"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,102,238,0.05)_0%,transparent_50%)] pointer-events-none" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 relative z-10">
           <div>
-            <h3 className="text-sm font-medium text-white flex items-center gap-2">
-              <Radio className="w-4 h-4 text-[#0066EE]" /> Operational Telemetry
-              & Policy Blocks
+            <h3 className="text-base font-serif font-medium text-white flex items-center gap-2.5 tracking-tight">
+              <Radio className="w-4 h-4 text-blue-400 animate-pulse" />{" "}
+              Operational Telemetry & Policy Blocks
             </h3>
-            <p className="text-[11px] font-mono text-gray-500 mt-1">
+            <p className="text-[11px] font-mono text-zinc-500 mt-1 uppercase tracking-widest">
               Total Agent Requests vs Blocked Unauthorized Calls • Range:{" "}
-              <span className="text-[#0066EE] font-bold">{timeframe}</span>{" "}
+              <span className="text-blue-400 font-bold">{timeframe}</span>{" "}
               (Scroll Wheel to Zoom)
             </p>
           </div>
 
-          <div className="flex items-center bg-[#0a0a0c] p-1 rounded-xl border border-gray-800">
+          <div className="flex items-center bg-zinc-950 p-1.5 rounded-xl border border-zinc-800 shadow-inner">
             {timeframeSequence.map((tf) => (
               <button
                 key={tf}
                 onClick={() => setTimeframe(tf)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer outline-none ${
                   timeframe === tf
-                    ? "bg-[#0066EE] text-white shadow-md font-semibold"
-                    : "text-gray-400 hover:text-white"
+                    ? "bg-blue-600 text-white shadow-md font-semibold"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 {tf}
@@ -531,7 +535,7 @@ export default function CommandCenterPage() {
           </div>
         </div>
 
-        <div className="w-full h-[320px]">
+        <div className="w-full h-[320px] relative z-10">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={currentChartData}
@@ -539,34 +543,44 @@ export default function CommandCenterPage() {
             >
               <defs>
                 <linearGradient id="colorReq" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#0066EE" stopOpacity={0.5} />
-                  <stop offset="95%" stopColor="#0066EE" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="#222228"
+                stroke="#27272a"
                 vertical={false}
               />
               <XAxis
                 dataKey="time"
-                stroke="#6b7280"
-                tick={{ fontSize: 11 }}
+                stroke="#71717a"
+                tick={{
+                  fontSize: 11,
+                  fill: "#a1a1aa",
+                  fontFamily: "monospace",
+                }}
                 axisLine={false}
                 tickLine={false}
+                dy={10}
               />
               <YAxis
-                stroke="#6b7280"
-                tick={{ fontSize: 11 }}
+                stroke="#71717a"
+                tick={{
+                  fontSize: 11,
+                  fill: "#a1a1aa",
+                  fontFamily: "monospace",
+                }}
                 axisLine={false}
                 tickLine={false}
+                dx={-10}
               />
               <Tooltip content={<CustomTerminalTooltip />} />
               <Area
                 type="monotone"
                 dataKey="requests"
-                stroke="#0066EE"
-                strokeWidth={2.5}
+                stroke="#3b82f6"
+                strokeWidth={3}
                 fillOpacity={1}
                 fill="url(#colorReq)"
                 dot={<CustomizedDot />}
@@ -576,21 +590,23 @@ export default function CommandCenterPage() {
         </div>
       </div>
 
-      {/* 2 ADET YENİ KURUMSAL GRAFİK (ALT KISIM) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* GRAFİK 2: THREAT VECTORS DISTRIBUTION (DONUT CHART) */}
-        <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 flex flex-col shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-white flex items-center gap-2">
+      {/* ALT GRAFİKLER */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+        {/* PIE CHART */}
+        <div className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2.5rem] p-6 sm:p-8 flex flex-col shadow-2xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(0,102,238,0.05)_0%,transparent_50%)] pointer-events-none" />
+
+          <div className="flex items-center justify-between mb-6 relative z-10">
+            <h3 className="text-base font-serif font-medium text-white flex items-center gap-2.5 tracking-tight">
               <PieIcon className="w-4 h-4 text-amber-400" /> Blocked Actions by
               Policy Type
             </h3>
-            <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-semibold">
               Percentage Share
             </span>
           </div>
 
-          <div className="w-full h-[260px] flex items-center justify-center">
+          <div className="w-full h-[260px] flex items-center justify-center relative z-10">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -599,35 +615,39 @@ export default function CommandCenterPage() {
                   cy="50%"
                   innerRadius={65}
                   outerRadius={95}
-                  paddingAngle={5}
+                  paddingAngle={6}
                   dataKey="value"
                 >
                   {threatDistributionData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={entry.color}
+                      stroke="transparent"
+                    />
                   ))}
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#121215",
-                    borderColor: "#333",
+                    backgroundColor: "#18181b",
+                    borderColor: "#27272a",
                     borderRadius: "12px",
                     color: "#fff",
                     fontSize: "12px",
+                    fontFamily: "monospace",
                   }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          {/* Lejant (Açıklamalar) */}
-          <div className="grid grid-cols-2 gap-2 mt-2 pt-4 border-t border-gray-800/80">
+          <div className="grid grid-cols-2 gap-3 mt-4 pt-6 border-t border-zinc-800/80 relative z-10">
             {threatDistributionData.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-2 text-xs font-mono text-gray-300"
+                className="flex items-center gap-2.5 text-xs font-mono text-zinc-300 bg-zinc-950/40 px-3 py-2 rounded-xl border border-zinc-800/60"
               >
                 <span
-                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  className="w-2.5 h-2.5 rounded-full flex-shrink-0 shadow-sm"
                   style={{ backgroundColor: item.color }}
                 ></span>
                 <span className="truncate">
@@ -638,19 +658,21 @@ export default function CommandCenterPage() {
           </div>
         </div>
 
-        {/* GRAFİK 3: AGENT LATENCY & PERFORMANCE (BAR CHART) */}
-        <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 flex flex-col shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-medium text-white flex items-center gap-2">
+        {/* BAR CHART */}
+        <div className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2.5rem] p-6 sm:p-8 flex flex-col shadow-2xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.05)_0%,transparent_50%)] pointer-events-none" />
+
+          <div className="flex items-center justify-between mb-6 relative z-10">
+            <h3 className="text-base font-serif font-medium text-white flex items-center gap-2.5 tracking-tight">
               <BarChart3 className="w-4 h-4 text-purple-400" /> Agent Latency vs
               Workload Matrix
             </h3>
-            <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-semibold">
               Avg Latency (ms)
             </span>
           </div>
 
-          <div className="w-full h-[260px]">
+          <div className="w-full h-[260px] relative z-10">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={agentLatencyData}
@@ -658,43 +680,54 @@ export default function CommandCenterPage() {
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
-                  stroke="#222228"
+                  stroke="#27272a"
                   vertical={false}
                 />
                 <XAxis
                   dataKey="name"
-                  stroke="#6b7280"
-                  tick={{ fontSize: 11 }}
+                  stroke="#71717a"
+                  tick={{
+                    fontSize: 11,
+                    fill: "#a1a1aa",
+                    fontFamily: "monospace",
+                  }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  stroke="#6b7280"
-                  tick={{ fontSize: 11 }}
+                  stroke="#71717a"
+                  tick={{
+                    fontSize: 11,
+                    fill: "#a1a1aa",
+                    fontFamily: "monospace",
+                  }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#121215",
-                    borderColor: "#333",
+                    backgroundColor: "#18181b",
+                    borderColor: "#27272a",
                     borderRadius: "12px",
                     color: "#fff",
                     fontSize: "12px",
+                    fontFamily: "monospace",
                   }}
+                  itemStyle={{ color: "#c084fc" }}
                 />
-                <Bar dataKey="latency" fill="#8b5cf6" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="latency" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-2 pt-4 border-t border-gray-800/80 text-xs font-mono text-gray-400 flex justify-between">
-            <span>
-              Status: All agents operating under safe latency limits (&lt;100ms)
+          <div className="mt-4 pt-6 border-t border-zinc-800/80 text-xs font-mono text-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2 relative z-10">
+            <span className="flex items-center gap-1.5 text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />{" "}
+              Status: All agents operating under safe limits (&lt;100ms)
             </span>
             <Link
               href="/dashboard/agents"
-              className="text-[#0066EE] hover:underline"
+              className="text-blue-400 hover:text-white font-semibold transition-colors underline underline-offset-4"
             >
               View Fleet →
             </Link>

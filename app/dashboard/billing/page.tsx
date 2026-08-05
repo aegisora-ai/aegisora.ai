@@ -73,16 +73,16 @@ export default function BillingPage() {
     fetchRealData();
   }, [supabase]);
 
-  // Lansmana özel aksiyon yönetimi (Stripe yerine Beta aktivasyonu)
+  // Lansmana özel aksiyon yönetimi (Beta aktivasyonu)
   const handleAction = async (planName: string, actionType: string) => {
-    if (actionType === "current") return; // Zaten aktif plan
+    if (actionType === "current") return;
 
     setUpgrading(planName);
 
     setTimeout(() => {
       if (actionType === "contact") {
         window.location.href =
-          "mailto:hello@aegisora.com?subject=Enterprise Global Scale Inquiry";
+          "mailto:hello@aegisora.ai?subject=Enterprise Global Scale Inquiry";
       } else {
         alert(
           `🎉 Success! ${planName} features have been unlocked for your workspace during the Beta period.`,
@@ -93,7 +93,7 @@ export default function BillingPage() {
   };
 
   return (
-    <div className="p-6 sm:p-10 max-w-[1400px] mx-auto w-full flex flex-col gap-8">
+    <div className="p-6 sm:p-10 max-w-[1400px] mx-auto w-full flex flex-col gap-8 font-sans">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -128,13 +128,13 @@ export default function BillingPage() {
           </div>
         </div>
 
-        <button className="flex items-center gap-2 bg-[#19191d] border border-gray-700 hover:bg-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-default">
+        <button className="flex items-center gap-2 bg-[#19191d] border border-gray-700 hover:bg-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-default outline-none">
           <span>Billing Paused (Beta Phase)</span>
           <Check className="w-3.5 h-3.5 text-emerald-400" />
         </button>
       </div>
 
-      {/* 🚀 LANSMAN İÇİN GÜNCELLENMİŞ PAKETLER (Free Beta & Contact Us) */}
+      {/* PAKETLER */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
           {
@@ -227,7 +227,7 @@ export default function BillingPage() {
               disabled={
                 upgrading === plan.name || plan.actionType === "current"
               }
-              className={`w-full py-3 rounded-xl text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2 ${
+              className={`w-full py-3 rounded-xl text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2 outline-none ${
                 plan.actionType === "current"
                   ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 cursor-default"
                   : plan.popular
@@ -250,7 +250,7 @@ export default function BillingPage() {
         ))}
       </div>
 
-      {/* Gerçek Veritabanı Özet Metrikleri */}
+      {/* Veritabanı Özet Metrikleri */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
@@ -263,7 +263,7 @@ export default function BillingPage() {
             {loading ? "..." : metrics.agentCount}
           </div>
           <p className="text-[11px] font-mono text-gray-500">
-            Live from `agents` table
+            Live from agents table
           </p>
         </div>
 
@@ -278,7 +278,7 @@ export default function BillingPage() {
             {loading ? "..." : metrics.incidentCount}
           </div>
           <p className="text-[11px] font-mono text-gray-500">
-            Live from `incidents` table
+            Live from incidents table
           </p>
         </div>
 

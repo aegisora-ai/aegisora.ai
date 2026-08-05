@@ -1,68 +1,87 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-// Supabase Sunucu Bağlantısı
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Supabase Sunucu Bağlantısı (Enterprise Güvenlik Optimizasyonu)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "";
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+interface ScanPayload {
+  agentId?: string;
+  workspaceId?: string;
+  prompt?: string;
+}
 
 export async function POST(req: Request) {
   try {
-    // 1. API Key Kontrolü (Sisteme sadece anahtarı olanlar girebilir)
+    // 1. API Key Kontrolü (Sisteme sadece yetkili Aegisora anahtarı olanlar girebilir)
     const authHeader = req.headers.get("authorization");
     if (!authHeader || !authHeader.startsWith("Bearer aeg_")) {
       return NextResponse.json(
-        { error: "Unauthorized: Invalid API Key" },
+        { error: "Unauthorized: Invalid or missing Aegisora API Key" },
         { status: 401 },
       );
     }
 
-    const body = await req.json();
+    const body: ScanPayload = await req.json();
     const { agentId, workspaceId, prompt } = body;
 
     if (!agentId || !workspaceId || !prompt) {
       return NextResponse.json(
-        { error: "Missing required payload (agentId, workspaceId, prompt)" },
+        {
+          error:
+            "Missing required payload parameters (agentId, workspaceId, prompt)",
+        },
         { status: 400 },
       );
     }
 
-    // --- AEGISORA OTONOM TEHDİT TARAMASI (Zero-Trust) ---
-    let threatDetected = null;
+    // --- AEGISORA OTONOM TEHDİT TARAMASI (Zero-Trust Engine) ---
+    let threatDetected: string | null = null;
     let severity = "Low";
     let status = "Passed";
 
     const lowerPrompt = prompt.toLowerCase();
 
-    // Senaryo 1: Prompt Injection (Siber Saldırı)
-    if (lowerPrompt.includes("ignore") && lowerPrompt.includes("instruction")) {
+    // Senaryo 1: Prompt Injection (Siber Saldırı / Komut Manipülasyonu)
+    if (
+      (lowerPrompt.includes("ignore") && lowerPrompt.includes("instruction")) ||
+      lowerPrompt.includes("disregard previous")
+    ) {
       threatDetected = "Prompt Injection";
       severity = "HIGH";
       status = "Mitigated";
     }
-    // Senaryo 2: PII Data Leak (Kredi Kartı / SSN Sızıntısı)
+    // Senaryo 2: PII Data Leak (Kredi Kartı / Hassas Veri Sızıntısı)
     else if (
-      lowerPrompt.match(/\d{4}-\d{4}-\d{4}-\d{4}/) ||
+      lowerPrompt.match(/\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}/) ||
       lowerPrompt.includes("ssn") ||
-      lowerPrompt.includes("password")
+      lowerPrompt.includes("password") ||
+      lowerPrompt.includes("credit_card")
     ) {
       threatDetected = "PII Exposure";
       severity = "CRITICAL";
       status = "Blocked";
     }
-    // Senaryo 3: Hallucination Risk (Saçmalama veya Manipülasyon)
+    // Senaryo 3: Unauthorized System Access (Yetkisiz Komut veya Veritabanı Tehdidi)
     else if (
       lowerPrompt.includes("drop table") ||
-      lowerPrompt.includes("system prompt")
+      lowerPrompt.includes("system prompt") ||
+      lowerPrompt.includes("exec(") ||
+      lowerPrompt.includes("eval(")
     ) {
       threatDetected = "Unauthorized System Access";
       severity = "CRITICAL";
       status = "Blocked";
     }
 
-    // EĞER TEHDİT BULUNURSA: Blokla ve Veritabanına (Risk Center'a) Yaz!
+    // EĞER TEHDİT BULUNURSA: Blokla ve Veritabanına (Risk Center / Incidents) Kaydet!
     if (threatDetected) {
-      const incidentId = `INC-${Math.floor(Math.random() * 9000) + 1000}`;
+      // Çakışmayı önlemek için benzersiz incident kimliği üretimi
+      const incidentId = `INC-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 900 + 100)}`;
 
       const { error } = await supabase.from("incidents").insert([
         {
@@ -72,11 +91,13 @@ export async function POST(req: Request) {
           agent_name: agentId,
           severity: severity,
           status: status,
-          payload: `Intercepted Request: "${prompt}"`,
+          payload: `Intercepted Request: "${prompt.substring(0, 250)}..."`, // Uzun payload'ları truncate et
         },
       ]);
 
-      if (error) console.error("Aegisora Core DB Error:", error);
+      if (error) {
+        console.error("Aegisora Core DB Incident Insert Error:", error);
+      }
 
       // Müşteriye "İsteğin Aegisora tarafından engellendi" yanıtı dön
       return NextResponse.json(
@@ -90,7 +111,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // EĞER TEMİZSE: İsteğe izin ver
+    // EĞER TEMİZSE: İsteğe izin ver ve telemetriyi geçir
     return NextResponse.json(
       {
         success: true,
@@ -100,6 +121,10 @@ export async function POST(req: Request) {
       { status: 200 },
     );
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Aegisora Scan Route Error:", error);
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error during threat scan" },
+      { status: 500 },
+    );
   }
 }

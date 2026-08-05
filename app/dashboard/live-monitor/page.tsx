@@ -101,7 +101,6 @@ function LiveMonitorContent() {
           text: "Confirming state synchronization across cluster nodes.",
           status: "VERIFIED",
         },
-        // YENİ EKLENEN ESCALATE SENARYOSU
         {
           sender: "System Proxy",
           text: "Action flagged for near-threshold limits. Routing to Human Review.",
@@ -141,7 +140,7 @@ function LiveMonitorContent() {
   };
 
   return (
-    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-6">
+    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-6 font-sans">
       {/* ÜST BİLGİ VE KONTROL PANELİ */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
         <div className="flex items-center gap-4">
@@ -166,13 +165,13 @@ function LiveMonitorContent() {
         <div className="flex items-center gap-3">
           <button
             onClick={handleEndSession}
-            className="px-4 py-2 rounded-xl border border-gray-700 text-gray-300 text-xs font-medium hover:bg-[#121215] hover:text-white transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl border border-gray-700 text-gray-300 text-xs font-medium hover:bg-[#121215] hover:text-white transition-colors cursor-pointer outline-none"
           >
             End Session
           </button>
           <button
             onClick={() => router.push("/dashboard/risk-center")}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium hover:bg-red-500/20 transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium hover:bg-red-500/20 transition-colors cursor-pointer outline-none"
           >
             <AlertTriangle className="w-4 h-4" /> Emergency Kill-Switch
           </button>
@@ -192,7 +191,7 @@ function LiveMonitorContent() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/dashboard/ai-chat"
-                  className="text-[11px] font-mono text-blue-400 hover:underline flex items-center gap-1"
+                  className="text-[11px] font-mono text-blue-400 hover:underline flex items-center gap-1 outline-none"
                 >
                   <Zap className="w-3 h-3" /> Analyze in AI Core
                 </Link>
@@ -254,7 +253,7 @@ function LiveMonitorContent() {
               </h3>
               <Link
                 href="/dashboard/risk-center"
-                className="text-[11px] font-mono text-[#0066EE] hover:underline flex items-center"
+                className="text-[11px] font-mono text-[#0066EE] hover:underline flex items-center outline-none"
               >
                 Policies <ChevronRight className="w-3 h-3" />
               </Link>

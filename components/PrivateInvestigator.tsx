@@ -5,15 +5,13 @@ import Link from "next/link";
 import { Bell, Terminal, Workflow } from "lucide-react";
 import { useInView } from "framer-motion";
 
-export default function SecOpsSynchronizedSection() {
+export default function PrivateInvestigator() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Performans: Sadece ekrandayken (viewport) çalışmasını sağlar
   const isInView = useInView(containerRef, { once: false, margin: "100px" });
   const inViewRef = useRef(isInView);
 
-  // isInView state'ini Canvas döngüsü için her zaman güncel tutar
   useEffect(() => {
     inViewRef.current = isInView;
   }, [isInView]);
@@ -26,7 +24,6 @@ export default function SecOpsSynchronizedSection() {
 
     let animationFrameId: number;
 
-    // Retina Display (Yüksek DPI) Ekranlar için Keskinleştirme Algoritması
     const setCanvasDimensions = () => {
       if (!canvas.parentElement) return { width: 800, height: 400 };
 
@@ -36,7 +33,7 @@ export default function SecOpsSynchronizedSection() {
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
 
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
@@ -54,7 +51,6 @@ export default function SecOpsSynchronizedSection() {
 
     window.addEventListener("resize", handleResize);
 
-    // Veri paketleri / Node'lar
     const nodes: {
       x: number;
       y: number;
@@ -74,7 +70,6 @@ export default function SecOpsSynchronizedSection() {
     }
 
     const render = () => {
-      // Eğer ekranda değilse çizimi ve ağır matematiği durdur (CPU Kurtarıcısı)
       if (!inViewRef.current) {
         animationFrameId = requestAnimationFrame(render);
         return;
@@ -82,7 +77,6 @@ export default function SecOpsSynchronizedSection() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Node bağlantı çizgileri (Neural Mesh)
       ctx.lineWidth = 0.5;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -100,7 +94,6 @@ export default function SecOpsSynchronizedSection() {
         }
       }
 
-      // Node'ları hareket ettir ve çiz
       nodes.forEach((node) => {
         node.x += node.vx;
         node.y += node.vy;
@@ -128,9 +121,9 @@ export default function SecOpsSynchronizedSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-32 px-6 bg-transparent font-sans flex flex-col items-center justify-center z-10 overflow-hidden"
+      className="relative w-full py-32 px-6 bg-transparent font-sans flex flex-col items-center justify-center z-10 overflow-hidden text-white"
     >
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-65 z-0">
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-40 z-0">
         <canvas
           ref={canvasRef}
           className="w-full h-full max-w-[1200px] will-change-transform"
@@ -138,29 +131,30 @@ export default function SecOpsSynchronizedSection() {
       </div>
 
       <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center">
-        <div className="bg-white/90 backdrop-blur-2xl rounded-2xl px-6 py-4 flex flex-col items-center gap-3 mb-8 border border-slate-200/80 shadow-[0_15px_35px_rgba(0,0,0,0.06)]">
-          <div className="flex items-center gap-4 text-slate-800">
-            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200/60 flex items-center justify-center text-[#0066EE] shadow-sm">
+        {/* Üst Kısım: Koyu Uyumlu Enterprise Telemetry Kutusu */}
+        <div className="bg-zinc-900/90 backdrop-blur-2xl rounded-2xl px-6 py-4 flex flex-col items-center gap-3 mb-8 border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <div className="flex items-center gap-4 text-zinc-200">
+            <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
               <Workflow className="w-5 h-5" />
             </div>
-            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200/60 flex items-center justify-center text-[#0066EE] shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
               <Bell className="w-5 h-5" />
             </div>
-            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200/60 flex items-center justify-center text-[#0066EE] shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
               <Terminal className="w-5 h-5" />
             </div>
           </div>
-          <span className="font-mono text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+          <span className="font-mono text-[11px] font-semibold uppercase tracking-widest text-blue-400">
             Enterprise Integrations & Real-Time Telemetry
           </span>
         </div>
 
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#111111] tracking-tight mb-6">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-white tracking-tight mb-6">
           SecOps synchronized.
         </h2>
 
-        <p className="font-mono text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed mb-12">
-          Integrate Aegisora's Command Center directly into your enterprise
+        <p className="font-mono text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed mb-12">
+          Integrate Aegisora&apos;s Command Center directly into your enterprise
           stack — Slack, Microsoft Teams, and PagerDuty. Receive instant,
           context-aware alerts for zero-trust policy violations, masked PII
           vectors, and runtime prompt injection attempts.
@@ -169,15 +163,9 @@ export default function SecOpsSynchronizedSection() {
         <div className="flex items-center gap-4">
           <Link
             href="/login"
-            className="bg-[#0066EE] hover:bg-[#005bb5] text-white text-[13px] font-medium px-7 py-3.5 rounded-full transition-colors shadow-md shadow-blue-500/20 cursor-pointer inline-flex items-center justify-center outline-none"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-7 py-3.5 rounded-full transition-colors shadow-lg shadow-blue-600/20 cursor-pointer inline-flex items-center justify-center"
           >
-            View Documentation
-          </Link>
-          <Link
-            href="/login"
-            className="text-slate-700 hover:text-black text-[13px] font-medium transition-colors px-3 cursor-pointer inline-flex items-center outline-none"
-          >
-            Contact Sales
+            Get Started
           </Link>
         </div>
       </div>

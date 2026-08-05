@@ -1,43 +1,64 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-// Hata mesajında bizden istenen en güncel API versiyonunu tanımlıyoruz.
-// TypeScript'in bu yeni versiyon ismine kızmaması için "as any" ile tip korumasını aşıyoruz.
+// Stripe istemcisi, en güncel API sürümü ve tip zorlamasıyla başlatıldı
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2025-03-31.basil" as any,
 });
 
 export async function POST(req: Request) {
   try {
-    const { planName } = await req.json();
+    const body = await req.json();
+    const { planName } = body;
 
-    let unitAmount = 4900;
-    if (planName.includes("Pro")) unitAmount = 19900;
-    if (planName.includes("Global")) unitAmount = 49900;
+    if (!planName) {
+      return NextResponse.json(
+        { error: "Plan name is required for checkout session creation." },
+        { status: 400 },
+      );
+    }
 
+    // Enterprise SaaS Standartı: Aylık birim fiyatlar (Cents cinsinden)
+    let unitAmount = 4900; // Starter: $49/mo
+    if (planName.includes("Pro") || planName.includes("Business"))
+      unitAmount = 19900; // Business: $199/mo
+    if (planName.includes("Global") || planName.includes("Enterprise"))
+      unitAmount = 49900; // Enterprise: $499/mo
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+    // B2B SaaS için 'mode: subscription' olarak güncellendi (Tek seferlik payment yerine)
     const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
       line_items: [
         {
           price_data: {
             currency: "usd",
             product_data: {
-              name: planName,
-              description: "Aegisora Enterprise Zero-Trust Infrastructure",
+              name: `Aegisora - ${planName}`,
+              description:
+                "Enterprise Zero-Trust AI Governance & Runtime Protection",
               tax_code: "txcd_10103000",
             },
             unit_amount: unitAmount,
+            recurring: {
+              interval: "month", // Aylık abonelik modeli
+            },
           },
           quantity: 1,
         },
       ],
-      mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/dashboard/billing?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/dashboard/billing?canceled=true`,
+      mode: "subscription",
+      success_url: `${baseUrl}/dashboard/billing?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/dashboard/billing?canceled=true`,
     });
 
     return NextResponse.json({ url: session.url });
   } catch (error: any) {
-    console.error("Stripe Error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Stripe Checkout Error:", error);
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error during checkout." },
+      { status: 500 },
+    );
   }
 }

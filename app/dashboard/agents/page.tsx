@@ -15,6 +15,7 @@ import {
   X,
   ChevronRight,
   Sliders,
+  Network,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
@@ -38,7 +39,7 @@ export default function AgentsFleetPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
-  const [deletingId, setDeletingId] = useState<string | null>(null); // Hangi ajanın silindiğini takip etmek için
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -76,7 +77,7 @@ export default function AgentsFleetPage() {
         "postgres_changes",
         { event: "*", schema: "public", table: "agents" },
         () => {
-          fetchRealAgents(); // Veritabanında her değişiklik olduğunda listeyi tazele
+          fetchRealAgents();
         },
       )
       .subscribe();
@@ -86,7 +87,7 @@ export default function AgentsFleetPage() {
     };
   }, [supabase]);
 
-  // 📝 AJAN OLUŞTURMA (YÜKLENİYOR GÖRSELİ İLE)
+  // 📝 AJAN OLUŞTURMA
   const handleDeployAgent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || isDeploying) return;
@@ -115,7 +116,7 @@ export default function AgentsFleetPage() {
       } else {
         setIsModalOpen(false);
         setFormData({ name: "", model: "gpt-4o-realtime", risk_level: "Low" });
-        await fetchRealAgents(); // Listeyi hemen güncelle
+        await fetchRealAgents();
       }
     } catch (err: any) {
       alert(`Error: ${err.message}`);
@@ -124,13 +125,12 @@ export default function AgentsFleetPage() {
     }
   };
 
-  // 🗑️ VERİTABANINDAN ANINDA SİLME (GÖRSEL LOADING İLE)
+  // 🗑️ VERİTABANINDAN SİLME
   const handleDelete = async (agentId: string) => {
     if (deletingId) return;
     setDeletingId(agentId);
 
     try {
-      // Önce UI'dan kaldır (Optimistic Update)
       setAgents((prev) => prev.filter((a) => a.id !== agentId));
 
       const { error } = await supabase
@@ -139,7 +139,7 @@ export default function AgentsFleetPage() {
         .eq("id", agentId);
       if (error) {
         console.error("Delete error:", error.message);
-        await fetchRealAgents(); // Hata olursa listeyi geri getir
+        await fetchRealAgents();
       }
     } catch (err) {
       console.error("Failed to delete agent:", err);
@@ -156,54 +156,62 @@ export default function AgentsFleetPage() {
   };
 
   return (
-    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8 relative">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-800 pb-6">
+    <div className="p-6 sm:p-10 max-w-[1600px] mx-auto w-full flex flex-col gap-8 relative font-sans selection:bg-blue-500/30">
+      {/* Üst Bilgi / Header Alanı */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-zinc-800/80 pb-6 relative z-10">
         <div>
-          <h1 className="text-2xl font-serif text-white tracking-tight flex items-center gap-2">
+          <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/40 border border-blue-800/30 px-3 py-1 rounded-full mb-4 inline-flex items-center gap-1.5">
+            <Network className="w-3 h-3" />
+            Infrastructure
+          </span>
+          <h1 className="text-3xl font-serif text-white tracking-tight flex items-center gap-3">
             AI Agent Fleet
           </h1>
-          <p className="text-xs font-mono text-gray-400 mt-1">
+          <p className="text-xs font-mono text-zinc-400 mt-2">
             Production-grade autonomous AI governance connected to PostgreSQL.
           </p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center gap-2 bg-[#0066EE] hover:bg-[#005bb5] text-white px-5 py-2.5 rounded-xl text-xs font-medium transition-colors shadow-lg cursor-pointer min-w-[150px]"
+          className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl text-xs font-mono font-medium transition-all shadow-[0_4px_15px_rgba(0,102,238,0.2)] hover:shadow-[0_6px_20px_rgba(0,102,238,0.3)] cursor-pointer min-w-[160px] outline-none"
         >
           <Plus className="w-4 h-4" /> Deploy New Agent
         </button>
       </div>
 
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center min-h-[40vh] text-gray-500">
-          <Loader2 className="w-8 h-8 animate-spin text-[#0066EE] mb-4" />
-          <p className="text-xs font-mono">
-            Syncing with PostgreSQL database...
+        <div className="flex flex-col items-center justify-center min-h-[50vh] text-zinc-500 space-y-4">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+          <p className="text-xs font-mono tracking-widest uppercase">
+            Syncing Telemetry...
           </p>
         </div>
       ) : agents.length === 0 ? (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center justify-center min-h-[45vh] border border-dashed border-gray-800 rounded-3xl bg-[#121215]/30 p-8 text-center"
+          className="flex flex-col items-center justify-center min-h-[50vh] border border-dashed border-zinc-800 rounded-[2.5rem] bg-zinc-900/20 backdrop-blur-sm p-12 text-center"
         >
-          <div className="w-16 h-16 rounded-2xl bg-[#0066EE]/10 border border-[#0066EE]/20 flex items-center justify-center mb-6">
-            <Cpu className="w-8 h-8 text-[#0066EE]" />
+          <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 shadow-inner">
+            <Cpu className="w-8 h-8 text-blue-400" />
           </div>
-          <h2 className="text-xl font-serif text-white mb-2">No AI Agents</h2>
-          <p className="text-xs font-mono text-gray-500 max-w-md leading-relaxed mb-8">
+          <h2 className="text-2xl font-serif text-white mb-3 tracking-tight">
+            No Active Agents
+          </h2>
+          <p className="text-[13px] font-mono text-zinc-500 max-w-md leading-relaxed mb-8">
             Your enterprise fleet database is currently empty. Deploy your first
-            autonomous agent to begin telemetry tracking.
+            autonomous agent to initialize the zero-trust perimeter and begin
+            telemetry tracking.
           </p>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-xl text-xs font-medium transition-colors shadow-sm cursor-pointer min-w-[180px] justify-center"
+            className="flex items-center gap-2 bg-white hover:bg-zinc-200 text-black px-8 py-3.5 rounded-xl text-xs font-bold transition-all shadow-lg cursor-pointer outline-none"
           >
-            <Plus className="w-4 h-4" /> Deploy First Agent
+            <Plus className="w-4 h-4" /> Initialize First Agent
           </button>
         </motion.div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 relative z-10">
           <AnimatePresence>
             {agents.map((agent) => (
               <motion.div
@@ -212,63 +220,67 @@ export default function AgentsFleetPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 key={agent.id}
-                className="bg-[#121215] border border-gray-800 hover:border-gray-700 rounded-2xl p-6 shadow-xl flex flex-col group relative transition-all"
+                className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 hover:border-zinc-700 rounded-[2rem] p-6 shadow-xl flex flex-col group relative transition-colors"
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-[#0066EE]/10 border border-[#0066EE]/20 flex items-center justify-center text-[#0066EE] group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-105 group-hover:bg-blue-500/20 transition-all shadow-inner">
                     <Cpu className="w-6 h-6" />
                   </div>
                   <div className="flex items-center gap-3">
                     <span
-                      className={`px-3 py-1 text-[10px] font-mono uppercase tracking-widest rounded-full border ${
+                      className={`px-3 py-1.5 text-[9px] font-mono font-bold uppercase tracking-widest rounded-full border flex items-center gap-1.5 ${
                         agent.status === "SECURED"
-                          ? "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
                           : agent.status === "WARNING"
-                            ? "bg-amber-500/10 text-amber-500 border-amber-500/20"
-                            : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                            ? "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                            : "bg-blue-500/10 text-blue-400 border-blue-500/20"
                       }`}
                     >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${agent.status === "WARNING" ? "bg-amber-400 animate-pulse" : agent.status === "SECURED" ? "bg-emerald-400" : "bg-blue-400 animate-pulse"}`}
+                      />
                       {agent.status || "ACTIVE"}
                     </span>
                     <button
                       onClick={() => handleDelete(agent.id)}
                       disabled={deletingId === agent.id}
-                      className="w-8 h-8 rounded-full bg-white/5 hover:bg-red-500/20 text-gray-500 hover:text-red-400 flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50"
-                      title="Delete Agent"
+                      className="w-8 h-8 rounded-full bg-zinc-800/50 hover:bg-red-500/20 border border-transparent hover:border-red-500/30 text-zinc-500 hover:text-red-400 flex items-center justify-center transition-all cursor-pointer disabled:opacity-50 outline-none"
+                      title="Decommission Agent"
                     >
                       {deletingId === agent.id ? (
-                        <Loader2 className="w-4 h-4 animate-spin text-red-400" />
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-red-400" />
                       ) : (
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       )}
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-serif font-medium text-white mb-1 truncate">
+                  <h3 className="text-xl font-serif font-medium text-white mb-1.5 tracking-tight truncate group-hover:text-blue-400 transition-colors">
                     {agent.name}
                   </h3>
-                  <p className="text-[11px] font-mono text-gray-500 mb-6 truncate">
-                    {agent.id} • {agent.model}
+                  <p className="text-[11px] font-mono text-zinc-500 mb-6 truncate uppercase tracking-wider">
+                    {agent.id} <span className="mx-1 text-zinc-700">•</span>{" "}
+                    {agent.model}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 border-t border-gray-800/80 pt-5 pb-6">
+                <div className="grid grid-cols-2 gap-4 border-t border-zinc-800/60 pt-5 pb-6">
                   <div>
-                    <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-1">
+                    <p className="text-[9px] font-mono font-semibold text-zinc-500 uppercase tracking-widest mb-1.5">
                       Total Requests
                     </p>
-                    <p className="text-lg font-semibold text-white">
+                    <p className="text-lg font-mono text-white">
                       {agent.total_requests?.toLocaleString() || 0}
                     </p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest mb-1">
+                    <p className="text-[9px] font-mono font-semibold text-zinc-500 uppercase tracking-widest mb-1.5">
                       Risk Level
                     </p>
                     <p
-                      className={`text-[13px] font-medium flex items-center gap-1.5 mt-1.5 ${
+                      className={`text-[12px] font-mono font-medium flex items-center gap-1.5 mt-1.5 ${
                         agent.risk_level === "High"
                           ? "text-red-400"
                           : agent.risk_level === "Medium"
@@ -290,20 +302,20 @@ export default function AgentsFleetPage() {
                   </div>
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-gray-800/80 flex items-center justify-between">
+                <div className="mt-auto pt-5 border-t border-zinc-800/60 flex items-center justify-between">
                   <button
                     onClick={() => router.push("/dashboard/risk-center")}
-                    className="text-[11px] font-mono text-gray-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                    className="text-[10px] font-mono uppercase tracking-widest font-semibold text-zinc-500 hover:text-zinc-300 flex items-center gap-1.5 transition-colors cursor-pointer outline-none"
                   >
-                    <Sliders className="w-3.5 h-3.5 text-[#0066EE]" /> Policies
+                    <Sliders className="w-3.5 h-3.5 text-blue-400" /> Perimeter
+                    Rules
                   </button>
 
                   <button
                     onClick={() => handleConnectStream(agent.id, agent.name)}
-                    className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-mono text-emerald-400 transition-colors cursor-pointer shadow-sm"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-[11px] font-mono uppercase tracking-widest font-semibold text-emerald-400 transition-colors cursor-pointer shadow-sm outline-none"
                   >
-                    <Radio className="w-3.5 h-3.5 animate-pulse" /> Connect
-                    Stream <ChevronRight className="w-3 h-3" />
+                    <Radio className="w-3 h-3 animate-pulse" /> Connect
                   </button>
                 </div>
               </motion.div>
@@ -312,36 +324,39 @@ export default function AgentsFleetPage() {
         </div>
       )}
 
-      {/* DEPLOY MODAL (YÜKLENİYOR ANİMASYONLU) */}
+      {/* DEPLOY MODAL (Enterprise Glassmorphism) */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-4"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-[#121215] border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-zinc-900 border border-zinc-800 rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl relative overflow-hidden"
             >
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-serif text-white">
-                  Deploy New Agent
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl font-serif text-white tracking-tight">
+                  Deploy Node
                 </h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className="text-gray-500 hover:text-white cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-zinc-800/50 hover:bg-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer outline-none"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
-              <form onSubmit={handleDeployAgent} className="space-y-5">
+
+              <form onSubmit={handleDeployAgent} className="space-y-6">
                 <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1.5 uppercase tracking-wider">
-                    Agent Name
+                  <label className="block text-[10px] font-mono font-semibold text-zinc-400 mb-2 uppercase tracking-widest">
+                    Agent Designation
                   </label>
                   <input
                     type="text"
@@ -350,56 +365,67 @@ export default function AgentsFleetPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    placeholder="e.g. Finance Bot v2"
-                    className="w-full bg-[#0a0a0c] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:border-[#0066EE] outline-none transition-colors"
+                    placeholder="e.g. Finance Oracle v2"
+                    className="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3.5 text-[13px] font-mono text-white focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all shadow-inner placeholder:text-zinc-600"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1.5 uppercase tracking-wider">
-                    LLM Model
+                  <label className="block text-[10px] font-mono font-semibold text-zinc-400 mb-2 uppercase tracking-widest">
+                    LLM Engine
                   </label>
-                  <select
-                    value={formData.model}
-                    onChange={(e) =>
-                      setFormData({ ...formData, model: e.target.value })
-                    }
-                    className="w-full bg-[#0a0a0c] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:border-[#0066EE] outline-none transition-colors appearance-none"
-                  >
-                    <option value="gpt-4o-realtime">GPT-4o Realtime</option>
-                    <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
-                    <option value="llama-3.3-70b">Llama 3.3 70B</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.model}
+                      onChange={(e) =>
+                        setFormData({ ...formData, model: e.target.value })
+                      }
+                      className="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3.5 text-[13px] font-mono text-white focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all appearance-none cursor-pointer shadow-inner"
+                    >
+                      <option value="gpt-4o-realtime">GPT-4o Realtime</option>
+                      <option value="claude-3-5-sonnet">
+                        Claude 3.5 Sonnet
+                      </option>
+                      <option value="llama-3.3-70b">Llama 3.3 70B</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
+                  </div>
                 </div>
+
                 <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1.5 uppercase tracking-wider">
-                    Security Rules (Risk Level)
+                  <label className="block text-[10px] font-mono font-semibold text-zinc-400 mb-2 uppercase tracking-widest">
+                    Perimeter Clearance (Risk)
                   </label>
-                  <select
-                    value={formData.risk_level}
-                    onChange={(e) =>
-                      setFormData({ ...formData, risk_level: e.target.value })
-                    }
-                    className="w-full bg-[#0a0a0c] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:border-[#0066EE] outline-none transition-colors appearance-none"
-                  >
-                    <option value="Low">Low Risk (Strict Compliance)</option>
-                    <option value="Medium">Medium Risk (Standard)</option>
-                    <option value="High">
-                      High Risk (Internal Tools Only)
-                    </option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.risk_level}
+                      onChange={(e) =>
+                        setFormData({ ...formData, risk_level: e.target.value })
+                      }
+                      className="w-full bg-zinc-950/50 border border-zinc-800 rounded-xl px-4 py-3.5 text-[13px] font-mono text-white focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 outline-none transition-all appearance-none cursor-pointer shadow-inner"
+                    >
+                      <option value="Low">Low Risk (Strict Compliance)</option>
+                      <option value="Medium">Medium Risk (Standard)</option>
+                      <option value="High">
+                        High Risk (Internal Tools Only)
+                      </option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
+                  </div>
                 </div>
+
                 <button
                   type="submit"
                   disabled={isDeploying || !formData.name.trim()}
-                  className="w-full bg-[#0066EE] hover:bg-[#005bb5] disabled:bg-[#0066EE]/50 text-white font-medium text-sm py-3.5 rounded-xl transition-colors mt-4 flex justify-center items-center gap-2 cursor-pointer"
+                  className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-blue-900 disabled:text-blue-400/50 text-white font-mono font-semibold text-[13px] uppercase tracking-widest py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 mt-2 flex justify-center items-center gap-2 cursor-pointer outline-none"
                 >
                   {isDeploying ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" /> Deploying to
-                      PostgreSQL...
+                      <Loader2 className="w-4 h-4 animate-spin" /> Provisioning
+                      Node...
                     </>
                   ) : (
-                    "Deploy Agent"
+                    "Deploy Autonomous Node"
                   )}
                 </button>
               </form>

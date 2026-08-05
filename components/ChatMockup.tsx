@@ -10,9 +10,9 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-// GPU Hızlandırmalı Aegisora Spark
+// GPU-accelerated Aegisora Spark icon
 const AegisoraSpark = ({
-  className = "w-5 h-5 text-[#0066EE]",
+  className = "w-5 h-5 text-blue-400",
   isThinking = false,
 }) => {
   return (
@@ -40,15 +40,15 @@ const AegisoraSpark = ({
 const FLOW_SCENARIOS = [
   {
     command:
-      "Deploy zero-trust policy to the Finance Swarm. Intercept any external API calls containing PII.",
+      "Deploy zero-trust policy to Finance Swarm. Enforce strict fail-closed enforcement.",
     logs: [
-      "Initializing runtime interception...",
+      "Initializing sidecar proxy in secure VPC...",
       "Target identified: Finance Swarm (4 nodes)",
-      "Injecting zero-trust perimeter policy...",
-      "Neural firewall active and enforcing.",
+      "Applying strict fail-closed runtime policy...",
+      "Neural firewall active: raw payloads never leave perimeter.",
     ],
     response:
-      "Policy deployed successfully. 4 active Finance Agents restricted to secure perimeter.",
+      "Policy deployed successfully. 4 active Finance Agents restricted under strict fail-closed enforcement.",
   },
   {
     command: "Isolate unauthorized LLM tool calls in Customer Support cluster.",
@@ -56,27 +56,26 @@ const FLOW_SCENARIOS = [
       "Scanning active agent tool hooks...",
       "Anomaly detected: Unsandboxed python execution",
       "Terminating unauthorized external route...",
-      "Isolating agent nodes...",
+      "Enforcing perimeter security...",
     ],
     response:
-      "Cluster secured. 2 shadow model requests intercepted and neutralized.",
+      "Cluster secured. 2 shadow model requests intercepted and neutralized locally.",
   },
   {
-    command: "Generate compliance audit log for European region operations.",
+    command: "Generate ISO/SOC2 immutable audit log for European operations.",
     logs: [
       "Gathering runtime decision timelines...",
       "Compiling zero-trust proof vectors...",
-      "Encrypting audit trail with HSM...",
+      "Encrypting audit trail with local HSM...",
       "Compliance bundle ready.",
     ],
     response:
-      "SOC 2 & GDPR compliance report successfully generated and archived.",
+      "SOC 2 & GDPR compliance report successfully generated and archived within perimeter.",
   },
 ];
 
 export default function ChatMockup() {
   const containerRef = useRef(null);
-  // Performans: Sadece ekrandayken (viewport) çalışmasını sağlar
   const isInView = useInView(containerRef, { once: false, margin: "-100px" });
 
   const [scenarioIndex, setScenarioIndex] = useState(0);
@@ -86,7 +85,6 @@ export default function ChatMockup() {
 
   const currentScenario = FLOW_SCENARIOS[scenarioIndex];
 
-  // Sonsuz Akış Döngüsü (Sadece bileşen görünür olduğunda çalışır)
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
@@ -107,7 +105,6 @@ export default function ChatMockup() {
     return () => clearTimeout(timer);
   }, [step, isAutoPlaying, isInView]);
 
-  // Logların akma hızı (Sadece ekrandaysa)
   useEffect(() => {
     if (step === 2 && isInView) {
       let currentIndex = 0;
@@ -130,87 +127,90 @@ export default function ChatMockup() {
   }, [step, currentScenario, isInView]);
 
   const handleManualTrigger = () => {
+    if (step === 1 || step === 2) return;
     setIsAutoPlaying(false);
     setStep(1);
     setTimeout(() => setStep(2), 400);
+    setTimeout(() => setIsAutoPlaying(true), 5500);
   };
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-32 flex flex-col items-center justify-center px-4 sm:px-6 font-sans overflow-hidden bg-transparent z-10"
+      className="relative w-full py-32 flex flex-col items-center justify-center px-4 sm:px-6 font-sans overflow-hidden bg-transparent z-10 text-white"
     >
       <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center">
-        {/* Üst Rozet */}
-        <div className="bg-white/80 backdrop-blur-2xl rounded-full px-5 py-2 flex items-center gap-2.5 mb-8 border border-white/50 shadow-sm">
-          <div className="w-6 h-6 rounded-full bg-[#0066EE]/10 flex items-center justify-center">
+        {/* Top badge */}
+        <div className="bg-zinc-900/90 backdrop-blur-2xl rounded-full px-5 py-2 flex items-center gap-2.5 mb-8 border border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+          <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
             <AegisoraSpark
-              className="w-3.5 h-3.5 text-[#0066EE]"
+              className="w-3.5 h-3.5 text-blue-400"
               isThinking={isInView && isAutoPlaying}
             />
           </div>
-          <span className="text-[13px] font-mono text-gray-700 font-medium">
+          <span className="text-[13px] font-mono text-zinc-300 font-medium">
             Swarm Command Center
           </span>
         </div>
 
-        {/* Ana Başlık */}
-        <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-serif text-[#111111] leading-[1.1] tracking-tight mb-6">
+        {/* Main heading */}
+        <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold font-serif text-white leading-[1.1] tracking-tight mb-6">
           Govern AI swarms at the speed of thought.
         </h2>
 
-        {/* Açıklama */}
-        <p className="text-gray-600 font-mono text-sm sm:text-base max-w-2xl leading-relaxed mb-14">
+        {/* Description */}
+        <p className="text-zinc-400 font-mono text-sm sm:text-base max-w-2xl leading-relaxed mb-14">
           Aegisora intercepts unauthorized tool calls, enforces dynamic
-          zero-trust policies, and orchestrates multi-agent ecosystems in
-          real-time.
+          zero-trust policies with strict fail-closed runtime, and guarantees
+          raw payloads never leave your perimeter.
         </p>
 
-        {/* Mesajlaşma Arayüzü (Sabit Yükseklik = Reflow ve Layout Kaymalarını Önler) */}
+        {/* Chat mockup */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-2xl bg-[#14151a]/95 backdrop-blur-3xl border border-white/15 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.4)] p-6 sm:p-8 text-left space-y-6 flex flex-col h-[520px] sm:h-[500px]"
+          className="w-full max-w-2xl bg-zinc-950/90 backdrop-blur-3xl border border-zinc-800 rounded-[28px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-6 sm:p-8 text-left space-y-6 flex flex-col h-[520px] sm:h-[500px]"
         >
-          {/* Chat Başlık / Durum Çubuğu */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 shrink-0">
+          {/* Chat header / status bar */}
+          <div className="flex items-center justify-between border-b border-zinc-800 pb-4 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center">
-                <AegisoraSpark className="w-4 h-4 text-[#0066EE]" />
+              <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+                <AegisoraSpark className="w-4 h-4 text-blue-400" />
               </div>
               <div>
                 <h4 className="text-white font-medium text-sm">
                   Aegisora Core Intelligence
                 </h4>
-                <p className="text-[11px] text-[#0066EE] font-mono">
-                  Runtime Governance Active
+                <p className="text-[11px] text-blue-400 font-mono">
+                  Runtime Governance Active • Fail-Closed Enforced
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Secured</span>
+              <span>Secured (Local VPC)</span>
             </div>
           </div>
 
-          {/* Konuşma Balonları Alanı */}
+          {/* Conversation area */}
           <div
             className="flex-1 space-y-4 py-2 overflow-y-auto"
             style={{ WebkitOverflowScrolling: "touch" }}
           >
-            {/* Sistem Başlangıç Mesajı */}
+            {/* System boot message */}
             <div className="flex gap-3 items-start">
-              <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 mt-1">
+              <div className="w-7 h-7 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center flex-shrink-0 mt-1">
                 <AegisoraSpark
-                  className="w-3.5 h-3.5 text-[#0066EE]"
+                  className="w-3.5 h-3.5 text-blue-400"
                   isThinking={step === 2}
                 />
               </div>
-              <div className="max-w-[85%] bg-white/5 border border-white/10 text-gray-200 rounded-[20px] rounded-tl-sm p-4 text-sm leading-relaxed backdrop-blur-md">
-                <p className="font-medium text-gray-300">
-                  Aegisora proxy is online. Continuous swarm monitoring active.
+              <div className="max-w-[85%] bg-zinc-900/90 border border-zinc-800 text-zinc-200 rounded-[20px] rounded-tl-sm p-4 text-sm leading-relaxed backdrop-blur-md">
+                <p className="font-medium text-zinc-200">
+                  Aegisora sidecar proxy is online. Raw payloads remain inside
+                  your secure perimeter.
                 </p>
               </div>
             </div>
@@ -224,7 +224,7 @@ export default function ChatMockup() {
                   exit={{ opacity: 0, y: -10 }}
                   className="flex justify-end pt-2 will-change-transform"
                 >
-                  <div className="max-w-[85%] px-4.5 py-3 bg-white text-gray-900 rounded-[20px] rounded-tr-sm font-medium text-sm shadow-md">
+                  <div className="max-w-[85%] px-[18px] py-3 bg-blue-600 text-white rounded-[20px] rounded-tr-sm font-medium text-sm shadow-lg shadow-blue-600/20">
                     {currentScenario.command}
                   </div>
                 </motion.div>
@@ -241,11 +241,11 @@ export default function ChatMockup() {
                 >
                   <div className="w-7 h-7 rounded-xl bg-transparent flex items-center justify-center flex-shrink-0 mt-1"></div>
                   <div
-                    className="w-full max-w-[85%] bg-[#0a0a0a] border border-white/10 rounded-xl p-4 shadow-inner font-mono text-xs text-gray-400"
+                    className="w-full max-w-[85%] bg-zinc-950 border border-zinc-800 rounded-xl p-4 shadow-inner font-mono text-xs text-zinc-400"
                     role="log"
                     aria-live="polite"
                   >
-                    <div className="flex items-center gap-2 text-blue-500 mb-2">
+                    <div className="flex items-center gap-2 text-blue-400 mb-2">
                       <Terminal className="w-3.5 h-3.5" />
                       <span className="animate-pulse">
                         Executing Protocol...
@@ -258,7 +258,7 @@ export default function ChatMockup() {
                         animate={{ opacity: 1, x: 0 }}
                         className="mt-1 will-change-transform"
                       >
-                        <span className="text-gray-600 mr-2">{">"}</span> {log}
+                        <span className="text-zinc-600 mr-2">{">"}</span> {log}
                       </motion.div>
                     ))}
                   </div>
@@ -274,15 +274,15 @@ export default function ChatMockup() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex gap-3 items-start pt-2 will-change-transform"
                 >
-                  <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 mt-1">
-                    <AegisoraSpark className="w-3.5 h-3.5 text-[#0066EE]" />
+                  <div className="w-7 h-7 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center flex-shrink-0 mt-1">
+                    <AegisoraSpark className="w-3.5 h-3.5 text-blue-400" />
                   </div>
-                  <div className="max-w-[85%] bg-white/5 border border-white/10 text-gray-200 rounded-[20px] rounded-tl-sm p-4 text-sm leading-relaxed space-y-2 backdrop-blur-md">
+                  <div className="max-w-[85%] bg-zinc-900/90 border border-zinc-800 text-zinc-200 rounded-[20px] rounded-tl-sm p-4 text-sm leading-relaxed space-y-2 backdrop-blur-md">
                     <div className="flex items-center gap-2 text-emerald-400 font-medium">
                       <CheckCircle2 className="w-4 h-4" />
                       Policy enforced successfully.
                     </div>
-                    <p className="text-xs font-mono text-gray-400 pt-1">
+                    <p className="text-xs font-mono text-zinc-400 pt-1">
                       {currentScenario.response}
                     </p>
                   </div>
@@ -291,10 +291,10 @@ export default function ChatMockup() {
             </AnimatePresence>
           </div>
 
-          {/* Alt Giriş Çubuğu */}
-          <div className="pt-2 shrink-0 border-t border-white/5">
-            <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2.5 flex items-center gap-3">
-              <div className="flex-1 text-[13px] text-gray-400 font-mono truncate">
+          {/* Bottom input bar */}
+          <div className="pt-2 shrink-0 border-t border-zinc-800">
+            <div className="bg-zinc-900/80 border border-zinc-800 rounded-full px-4 py-2.5 flex items-center gap-3">
+              <div className="flex-1 text-[13px] text-zinc-400 font-mono truncate">
                 {step === 0
                   ? "Awaiting next autonomous cycle..."
                   : step === 3
@@ -303,14 +303,14 @@ export default function ChatMockup() {
               </div>
               <button
                 onClick={handleManualTrigger}
-                disabled={step === 2}
+                disabled={step === 1 || step === 2}
                 aria-label="Trigger manual scan"
                 className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-colors outline-none shrink-0
-                  ${step === 2 ? "bg-[#1a1b23] border border-white/10 cursor-not-allowed" : "bg-[#0066EE] hover:bg-[#005bb5] cursor-pointer"}
+                  ${step === 1 || step === 2 ? "bg-zinc-800 border border-zinc-700 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500 cursor-pointer"}
                 `}
               >
                 {step === 2 ? (
-                  <Loader2 className="w-4 h-4 text-blue-500 animate-spin" />
+                  <Loader2 className="w-4 h-4 text-blue-300 animate-spin" />
                 ) : (
                   <ArrowUp className="w-4 h-4 text-white" />
                 )}

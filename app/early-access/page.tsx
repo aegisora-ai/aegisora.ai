@@ -44,7 +44,7 @@ export default function EarlyAccessPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6 relative overflow-hidden">
+    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6 relative overflow-hidden font-sans">
       <div className="absolute w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <motion.div
@@ -54,13 +54,13 @@ export default function EarlyAccessPage() {
         className="max-w-xl w-full bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl backdrop-blur-xl relative z-10 shadow-2xl"
       >
         <div className="text-center mb-8">
-          <span className="text-xs uppercase tracking-widest text-blue-400 font-semibold bg-blue-950/40 px-3 py-1 rounded-full border border-blue-800/50">
+          <span className="text-xs uppercase tracking-widest text-blue-400 font-semibold font-mono bg-blue-950/40 px-3 py-1 rounded-full border border-blue-800/50">
             Core Contributor Program
           </span>
-          <h1 className="text-3xl font-bold mt-4 tracking-tight">
+          <h1 className="text-3xl font-serif mt-4 tracking-tight">
             Aegisora Early Access & Sandbox
           </h1>
-          <p className="text-zinc-400 text-sm mt-2">
+          <p className="text-zinc-400 text-sm mt-2 font-mono leading-relaxed">
             Shape the future of autonomous AI governance. Enter your
             professional email to request secure access.
           </p>
@@ -68,7 +68,7 @@ export default function EarlyAccessPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-zinc-300 mb-1">
+            <label className="block text-xs font-medium text-zinc-300 mb-1 font-mono">
               Professional / Work Email
             </label>
             <input
@@ -77,20 +77,20 @@ export default function EarlyAccessPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@company.com or university.de"
-              className="w-full bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full bg-black/50 border border-zinc-800 rounded-xl px-4 py-3 text-xs font-mono text-white focus:outline-none focus:border-[#0066EE] transition-colors placeholder-zinc-600"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-white text-black font-medium py-3 rounded-lg hover:bg-zinc-200 transition-colors text-sm tracking-wide disabled:opacity-50 cursor-pointer"
+            className="w-full bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium py-3 rounded-xl transition-colors text-xs font-mono tracking-wide disabled:opacity-50 cursor-pointer outline-none shadow-sm flex items-center justify-center"
           >
             {loading ? "Checking..." : "Request Secure Access"}
           </button>
         </form>
 
         {statusMessage && (
-          <div className="mt-6 p-4 bg-amber-950/30 border border-amber-800/40 rounded-xl text-center text-amber-400 text-xs">
+          <div className="mt-6 p-4 bg-amber-950/30 border border-amber-800/40 rounded-xl text-center text-amber-400 text-xs font-mono">
             {statusMessage}
           </div>
         )}

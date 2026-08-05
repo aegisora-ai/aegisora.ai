@@ -13,13 +13,13 @@ export default function Problem() {
       y: 0,
       transition: {
         duration: 1.2,
-        ease: [0.16, 1, 0.3, 1] as any,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
 
   return (
-    <section className="relative py-32 md:py-48 flex items-center justify-center overflow-hidden">
+    <section className="relative py-32 md:py-48 flex items-center justify-center overflow-hidden font-sans bg-transparent">
       <div
         className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 w-full"
         ref={containerRef}
@@ -35,39 +35,44 @@ export default function Problem() {
             }}
             className="flex flex-col gap-8 md:gap-12"
           >
+            {/* Kurumsal Siber Güvenlik Problem Tanımları */}
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-secondary"
+              className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-gray-500"
             >
-              People forget.
+              AI adoption accelerates.
             </motion.h2>
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-secondary"
+              className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-gray-500"
             >
-              Important conversations{" "}
-              <span className="text-primary opacity-40 line-through">
-                disappear.
+              Shadow models{" "}
+              <span className="text-[#111111] dark:text-white opacity-40 line-through">
+                bypass security.
               </span>
             </motion.h2>
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-secondary"
+              className="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-gray-500"
             >
-              Brilliant ideas{" "}
-              <span className="text-primary opacity-40 line-through">
-                vanish.
+              Sensitive data{" "}
+              <span className="text-[#111111] dark:text-white opacity-40 line-through">
+                leaks invisibly.
               </span>
             </motion.h2>
 
+            {/* Vurucu Çözüm Mesajı */}
             <motion.div
               variants={fadeIn}
-              className="mt-12 md:mt-24 pt-12 border-t border-border"
+              className="mt-12 md:mt-24 pt-12 border-t border-gray-300 dark:border-white/10"
             >
-              <p className="text-xl md:text-3xl font-medium tracking-tight text-primary leading-tight">
-                Your memory shouldn't rely on pulling out a screen.{" "}
+              <p className="text-xl md:text-3xl font-serif tracking-tight text-[#111111] dark:text-white leading-tight">
+                AI safety shouldn't rely on passive logging and delayed alerts.{" "}
                 <br className="hidden md:block" />
-                It should be natural.
+                It demands{" "}
+                <span className="text-[#0066EE] font-medium">
+                  active runtime interception.
+                </span>
               </p>
             </motion.div>
           </motion.div>

@@ -19,6 +19,8 @@ import {
   ShieldAlert,
   Layers,
   ChevronRight,
+  Terminal,
+  Activity,
 } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -33,14 +35,14 @@ import {
 } from "recharts";
 
 const AegisoraSpark = ({
-  className = "w-5 h-5 text-[#0066EE]",
+  className = "w-5 h-5 text-blue-400",
   isThinking = false,
 }) => {
   return (
     <motion.div
       animate={
         isThinking
-          ? { rotate: [0, 180, 360], scale: [1, 1.2, 1] }
+          ? { rotate: [0, 180, 360], scale: [1, 1.15, 1] }
           : { rotate: 0, scale: 1 }
       }
       transition={
@@ -90,7 +92,6 @@ interface ChatSession {
 }
 
 export default function AiChatPage() {
-  // Masaüstünde varsayılan olarak açık, mobilde ise ekran boyutuna göre efektle kapatacağız
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -105,7 +106,6 @@ export default function AiChatPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Sayfa yüklendiğinde eğer ekran mobil boyuttaysa (md altı) sidebar'ı kapalı başlat
     if (window.innerWidth < 768) {
       setIsSidebarOpen(false);
     }
@@ -191,7 +191,6 @@ export default function AiChatPage() {
     targetSession.messages = newMessages;
     setSessions(updatedSessions);
 
-    // Mobilde mesaj atıldığında klavyenin rahat açılması için sidebarı otomatik kapat
     if (window.innerWidth < 768) setIsSidebarOpen(false);
 
     const isChartRequest =
@@ -251,7 +250,7 @@ export default function AiChatPage() {
             const lastMsg = msgs[msgs.length - 1];
             if (lastMsg) {
               lastMsg.isThinking = false;
-              lastMsg.content = `Error communicating with Aegisora Core: ${err.message}`;
+              lastMsg.content = `[ERROR] Intelligence Core Communication Failure: ${err.message}`;
             }
             return { ...s, messages: msgs };
           }
@@ -269,8 +268,7 @@ export default function AiChatPage() {
   };
 
   return (
-    // Ekrana 100dvh ile kesin oturur, gereksiz sayfa scroll barı çıkarmaz.
-    <div className="flex h-[100dvh] w-full bg-[#090a0f] text-white overflow-hidden font-sans relative">
+    <div className="flex h-[100dvh] w-full bg-zinc-950 text-white overflow-hidden font-sans relative selection:bg-blue-500/30">
       <style jsx global>{`
         @media print {
           @page {
@@ -283,7 +281,7 @@ export default function AiChatPage() {
             color-adjust: exact !important;
           }
           body {
-            background-color: #070709 !important;
+            background-color: #09090b !important;
           }
           body * {
             visibility: hidden;
@@ -298,7 +296,7 @@ export default function AiChatPage() {
             top: 0;
             width: 100% !important;
             height: 100% !important;
-            background-color: #070709 !important;
+            background-color: #09090b !important;
             color: white !important;
             padding: 20px !important;
             overflow: visible !important;
@@ -309,7 +307,7 @@ export default function AiChatPage() {
         }
       `}</style>
 
-      {/* MOBİL KARARTMA PERDESİ (Sadece mobil boyutta sidebar açıkken görünür) */}
+      {/* MOBİL KARARTMA PERDESİ */}
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.div
@@ -317,14 +315,14 @@ export default function AiChatPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsSidebarOpen(false)}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden"
+            className="fixed inset-0 bg-zinc-950/80 backdrop-blur-sm z-40 md:hidden"
           />
         )}
       </AnimatePresence>
 
-      {/* DİNAMİK YAN MENÜ (SIDEBAR) */}
+      {/* DİNAMİK YAN MENÜ */}
       <div
-        className={`fixed md:relative inset-y-0 left-0 z-50 h-full bg-[#0e0f14] border-r border-white/10 shrink-0 transition-all duration-300 ease-in-out
+        className={`fixed md:relative inset-y-0 left-0 z-50 h-full bg-zinc-950/50 backdrop-blur-xl border-r border-zinc-800/80 shrink-0 transition-all duration-300 ease-in-out
           ${
             isSidebarOpen
               ? "translate-x-0 w-[280px]"
@@ -332,16 +330,15 @@ export default function AiChatPage() {
           }
         `}
       >
-        {/* İçerik her zaman 280px genişliktedir, böylece daralma anında yazılar alta kayıp çirkin görüntü oluşturmaz */}
-        <div className="w-[280px] h-full flex flex-col">
-          <div className="p-4 flex flex-col gap-4">
+        <div className="w-[280px] h-full flex flex-col relative z-10">
+          <div className="p-5 flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2.5 px-2 py-1"
+                className="flex items-center gap-3 px-1 outline-none group"
               >
-                <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shadow-sm shrink-0">
-                  <AegisoraSpark className="w-4 h-4 text-[#0066EE]" />
+                <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shadow-inner shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                  <AegisoraSpark className="w-4 h-4 text-blue-400" />
                 </div>
                 <span className="text-white font-serif text-lg tracking-tight truncate">
                   Aegisora
@@ -349,7 +346,7 @@ export default function AiChatPage() {
               </Link>
               <button
                 onClick={() => setIsSidebarOpen(false)}
-                className="md:hidden p-1.5 text-gray-400 hover:text-white shrink-0"
+                className="md:hidden p-1.5 text-zinc-500 hover:text-white shrink-0 outline-none transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -357,20 +354,20 @@ export default function AiChatPage() {
 
             <button
               onClick={handleNewAnalysis}
-              className="w-full flex items-center justify-center gap-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 py-2.5 rounded-2xl transition-all shadow-sm text-sm font-medium group cursor-pointer"
+              className="w-full flex items-center justify-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-[14px] transition-all shadow-[0_4px_15px_rgba(0,102,238,0.2)] hover:shadow-[0_6px_20px_rgba(0,102,238,0.3)] text-xs font-semibold tracking-wide group cursor-pointer outline-none"
             >
-              <Plus className="w-4 h-4 text-[#0066EE] group-hover:rotate-90 transition-transform duration-300 shrink-0" />
+              <Plus className="w-4 h-4 text-white group-hover:rotate-90 transition-transform duration-300 shrink-0" />
               <span className="truncate">New Analysis</span>
             </button>
           </div>
 
           <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
-            <p className="text-[10px] text-gray-500 font-mono uppercase tracking-[0.2em] px-3 pt-3 pb-2 shrink-0">
+            <p className="text-[9px] text-zinc-500 font-mono font-semibold uppercase tracking-[0.25em] px-4 pt-2 pb-3 shrink-0">
               Recent Queries
             </p>
             {sessions.length === 0 ? (
-              <div className="px-3 py-4 text-xs font-mono text-gray-600 italic">
-                No active queries. Click "New Analysis" to start.
+              <div className="px-4 py-4 text-xs font-mono text-zinc-600 italic">
+                No active queries. Initiate a new session.
               </div>
             ) : (
               sessions.map((session) => (
@@ -380,21 +377,23 @@ export default function AiChatPage() {
                     setActiveSessionId(session.id);
                     if (window.innerWidth < 768) setIsSidebarOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors text-left group cursor-pointer ${
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all text-left group cursor-pointer border ${
                     activeSessionId === session.id
-                      ? "bg-white/10 text-white border border-white/10"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                      ? "bg-zinc-800/80 text-white border-zinc-700/80 shadow-sm"
+                      : "border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40"
                   }`}
                 >
                   <div className="flex items-center gap-3 truncate pr-2">
-                    <MessageSquare className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] transition-colors shrink-0" />
-                    <span className="text-[13px] truncate">
+                    <Terminal
+                      className={`w-3.5 h-3.5 shrink-0 ${activeSessionId === session.id ? "text-blue-400" : "text-zinc-600 group-hover:text-blue-400/70"} transition-colors`}
+                    />
+                    <span className="text-[12.5px] truncate font-medium">
                       {session.title}
                     </span>
                   </div>
                   <button
                     onClick={(e) => handleDeleteSession(e, session.id)}
-                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-400 transition-opacity shrink-0"
+                    className="opacity-0 group-hover:opacity-100 p-1.5 text-zinc-500 hover:text-red-400 transition-all shrink-0 outline-none rounded-md hover:bg-red-400/10"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -403,34 +402,36 @@ export default function AiChatPage() {
             )}
           </div>
 
-          <div className="p-4 border-t border-white/10 bg-black/40 shrink-0">
-            <div className="flex items-center gap-3 px-2 py-2 hover:bg-white/5 rounded-xl transition-colors cursor-pointer">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0066EE] to-purple-600 flex items-center justify-center text-white font-bold text-xs shadow-md shrink-0">
+          <div className="p-4 border-t border-zinc-800/80 bg-zinc-950/80 shrink-0">
+            <div className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-800/60 rounded-[14px] transition-colors cursor-pointer border border-transparent hover:border-zinc-700/50">
+              <div className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 font-bold text-xs shadow-sm shrink-0">
                 EÖ
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">
+                <p className="text-[13px] font-semibold text-white truncate tracking-tight">
                   Eray Özer
                 </p>
-                <p className="text-[11px] text-[#0066EE] font-mono truncate">
-                  Aegisora Core Intelligence
+                <p className="text-[10px] text-blue-400 font-mono truncate tracking-widest uppercase mt-0.5">
+                  SecOps Admin
                 </p>
               </div>
-              <Settings className="w-4 h-4 text-gray-400 hover:text-white transition-colors shrink-0" />
+              <Settings className="w-4 h-4 text-zinc-500 hover:text-white transition-colors shrink-0" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* ANA SOHBET ALANI (KATIKSIZ FLEX KULLANIMI) */}
-      <div className="flex-1 flex flex-col h-[100dvh] relative z-10 min-w-0 bg-[#090a0f]">
+      {/* ANA SOHBET ALANI */}
+      <div className="flex-1 flex flex-col h-[100dvh] relative z-10 min-w-0 bg-zinc-950">
+        {/* Subtle Background Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(0,102,238,0.05)_0%,transparent_70%)] pointer-events-none" />
+
         {/* HEADER */}
-        <header className="h-16 flex items-center justify-between px-3 sm:px-6 border-b border-white/10 bg-[#0e0f14]/80 backdrop-blur-md shrink-0">
+        <header className="h-[72px] flex items-center justify-between px-4 sm:px-6 border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-xl shrink-0 relative z-20">
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* SİDEBAR AÇMA/KAPAMA BUTONU */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer border border-transparent"
+              className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded-xl transition-all cursor-pointer border border-transparent outline-none"
               title="Toggle Sidebar"
             >
               {isSidebarOpen ? (
@@ -442,84 +443,109 @@ export default function AiChatPage() {
           </div>
 
           <div className="flex-1 flex justify-center min-w-0 px-2">
-            <span className="text-xs sm:text-[14px] font-medium text-gray-200 flex items-center gap-1.5 sm:gap-2 bg-white/5 px-3 sm:px-4 py-1.5 rounded-full border border-white/10 shadow-sm truncate max-w-full">
-              Aegisora{" "}
-              <span className="text-[#0066EE] font-semibold truncate">
-                Intelligence Core
-              </span>
+            <span className="text-[11px] sm:text-xs font-mono font-semibold text-zinc-300 flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 px-4 py-2 rounded-full shadow-sm truncate max-w-full uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6] animate-pulse shrink-0" />
+              Intelligence Core{" "}
+              <span className="text-zinc-600 hidden sm:inline">|</span>{" "}
+              <span className="text-blue-400 hidden sm:inline">Active</span>
             </span>
           </div>
 
-          <div className="hidden md:flex items-center gap-2 shrink-0">
+          <div className="hidden md:flex items-center gap-3 shrink-0">
             <Link
               href="/dashboard/agents"
-              className="text-xs font-mono text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 transition-all flex items-center gap-1.5"
+              className="text-[11px] font-mono uppercase tracking-widest font-semibold text-zinc-400 hover:text-white bg-zinc-900/50 hover:bg-zinc-800/80 px-3.5 py-2 rounded-xl border border-zinc-800 transition-all flex items-center gap-2 outline-none shadow-sm"
             >
-              <Layers className="w-3.5 h-3.5 text-[#0066EE]" /> Fleet
+              <Layers className="w-3.5 h-3.5 text-blue-400" /> Fleet
             </Link>
             <Link
               href="/dashboard/risk-center"
-              className="text-xs font-mono text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 transition-all flex items-center gap-1.5"
+              className="text-[11px] font-mono uppercase tracking-widest font-semibold text-zinc-400 hover:text-white bg-zinc-900/50 hover:bg-zinc-800/80 px-3.5 py-2 rounded-xl border border-zinc-800 transition-all flex items-center gap-2 outline-none shadow-sm"
             >
               <ShieldAlert className="w-3.5 h-3.5 text-red-400" /> Risks
             </Link>
           </div>
         </header>
 
-        {/* MESAJLARIN LİSTELENDİĞİ ALAN (Kendi içinde kaydırılabilir) */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 w-full min-w-0 scroll-smooth relative">
-          <div className="max-w-4xl mx-auto w-full flex flex-col gap-6 sm:gap-8 min-w-0">
+        {/* MESAJLARIN LİSTELENDİĞİ ALAN */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 w-full min-w-0 scroll-smooth relative z-10">
+          <div className="max-w-4xl mx-auto w-full flex flex-col gap-8 min-w-0">
             {messages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full min-h-[50vh] text-center px-2">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl flex items-center justify-center mb-6">
-                  <AegisoraSpark className="w-8 h-8 text-[#0066EE]" />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col items-center justify-center h-full min-h-[60vh] text-center px-4"
+              >
+                <div className="w-20 h-20 bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 shadow-2xl rounded-[1.5rem] flex items-center justify-center mb-8 relative">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,102,238,0.2)_0,transparent_70%)] pointer-events-none rounded-[1.5rem]" />
+                  <AegisoraSpark className="w-10 h-10 text-blue-400" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-serif text-white mb-2 tracking-tight">
-                  How can Aegisora protect you today?
+                <h2 className="text-3xl sm:text-4xl font-serif text-white mb-3 tracking-tight">
+                  Awaiting Telemetry Query
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-400 mb-8 font-mono tracking-wide">
+                <p className="text-xs sm:text-[13px] text-zinc-500 mb-10 font-mono tracking-widest uppercase">
                   Autonomous zero-trust threat detection & privacy suite.
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
                   <button
                     onClick={() =>
                       handleSend("Analyze today's critical security incidents")
                     }
-                    className="p-3 sm:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                    className="p-4 rounded-[1rem] bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800/80 hover:border-zinc-700 text-left transition-all cursor-pointer flex items-center justify-between group outline-none shadow-sm"
                   >
-                    <span className="truncate">Analyze today's incidents</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] shrink-0" />
+                    <div className="flex items-center gap-3 truncate">
+                      <Activity className="w-4 h-4 text-amber-500 shrink-0" />
+                      <span className="text-[13px] font-medium text-zinc-300 group-hover:text-white truncate">
+                        Analyze active incidents
+                      </span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 shrink-0" />
                   </button>
                   <button
                     onClick={() =>
                       handleSend("Generate enterprise compliance report")
                     }
-                    className="p-3 sm:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                    className="p-4 rounded-[1rem] bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800/80 hover:border-zinc-700 text-left transition-all cursor-pointer flex items-center justify-between group outline-none shadow-sm"
                   >
-                    <span className="truncate">Generate compliance report</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] shrink-0" />
+                    <div className="flex items-center gap-3 truncate">
+                      <BarChart3 className="w-4 h-4 text-blue-400 shrink-0" />
+                      <span className="text-[13px] font-medium text-zinc-300 group-hover:text-white truncate">
+                        Generate compliance report
+                      </span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 shrink-0" />
                   </button>
                   <button
                     onClick={() =>
                       handleSend("Find risky agents in current fleet")
                     }
-                    className="p-3 sm:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                    className="p-4 rounded-[1rem] bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800/80 hover:border-zinc-700 text-left transition-all cursor-pointer flex items-center justify-between group outline-none shadow-sm"
                   >
-                    <span className="truncate">Find risky agents in fleet</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] shrink-0" />
+                    <div className="flex items-center gap-3 truncate">
+                      <Layers className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span className="text-[13px] font-medium text-zinc-300 group-hover:text-white truncate">
+                        Find risky fleet agents
+                      </span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 shrink-0" />
                   </button>
                   <button
                     onClick={() =>
                       handleSend("Explain blocked prompt injection sessions")
                     }
-                    className="p-3 sm:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs font-mono text-gray-300 hover:text-white transition-all cursor-pointer flex items-center justify-between group"
+                    className="p-4 rounded-[1rem] bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800/80 hover:border-zinc-700 text-left transition-all cursor-pointer flex items-center justify-between group outline-none shadow-sm"
                   >
-                    <span className="truncate">Explain blocked injections</span>
-                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#0066EE] shrink-0" />
+                    <div className="flex items-center gap-3 truncate">
+                      <ShieldAlert className="w-4 h-4 text-red-400 shrink-0" />
+                      <span className="text-[13px] font-medium text-zinc-300 group-hover:text-white truncate">
+                        Explain blocked injections
+                      </span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 shrink-0" />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ) : (
               messages.map((msg, idx) => (
                 <motion.div
@@ -529,9 +555,9 @@ export default function AiChatPage() {
                   className={`flex gap-3 sm:gap-4 w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "ai" && (
-                    <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/20 shadow-sm flex items-center justify-center shrink-0 mt-1 backdrop-blur-md">
+                    <div className="w-9 h-9 rounded-[10px] bg-zinc-900 border border-zinc-800 shadow-sm flex items-center justify-center shrink-0 mt-1">
                       <AegisoraSpark
-                        className="w-4 h-4 text-[#0066EE]"
+                        className="w-5 h-5 text-blue-400"
                         isThinking={msg.isThinking}
                       />
                     </div>
@@ -543,7 +569,7 @@ export default function AiChatPage() {
                     {msg.role === "user" ? (
                       <div className="flex flex-col items-end gap-2 min-w-0">
                         {msg.image && (
-                          <div className="relative w-48 h-48 rounded-2xl overflow-hidden border border-gray-700 shadow-md shrink-0">
+                          <div className="relative w-48 h-48 rounded-2xl overflow-hidden border border-zinc-700 shadow-md shrink-0">
                             <img
                               src={msg.image}
                               alt="Upload"
@@ -551,84 +577,57 @@ export default function AiChatPage() {
                             />
                           </div>
                         )}
-                        <div className="px-4 py-3 bg-[#1e1e24] text-gray-100 rounded-[22px] rounded-tr-sm font-medium text-[14px] sm:text-[15px] shadow-sm border border-gray-700/50 break-words whitespace-pre-wrap">
+                        <div className="px-5 py-3.5 bg-zinc-800/90 text-zinc-200 rounded-[1.25rem] rounded-tr-sm font-medium text-[14px] sm:text-[15px] shadow-sm border border-zinc-700/50 break-words whitespace-pre-wrap leading-relaxed">
                           {msg.content}
                         </div>
                       </div>
                     ) : (
-                      <div className="text-gray-200 py-1 sm:py-2 space-y-4 min-w-0 overflow-hidden">
+                      <div className="text-zinc-300 py-1 sm:py-2 space-y-4 min-w-0 overflow-hidden">
                         {msg.isThinking ? (
-                          <div className="flex items-center gap-2.5 text-xs font-mono text-gray-400 py-1">
+                          <div className="flex items-center gap-3 text-[11px] font-mono font-semibold uppercase tracking-widest text-zinc-500 py-2">
                             <AegisoraSpark
-                              className="w-3.5 h-3.5 text-[#0066EE]"
+                              className="w-4 h-4 text-blue-500"
                               isThinking={true}
                             />
                             <motion.span
                               animate={{ opacity: [0.4, 1, 0.4] }}
                               transition={{ duration: 1.5, repeat: Infinity }}
                             >
-                              Aegisora Core analyzing telemetry...
+                              Querying intelligence core...
                             </motion.span>
                           </div>
                         ) : (
-                          <div className="space-y-4 min-w-0">
+                          <div className="space-y-5 min-w-0">
                             <motion.div
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
-                              className="text-[14px] sm:text-[15.5px] leading-relaxed text-gray-100 font-sans tracking-wide space-y-3 break-words overflow-wrap-anywhere"
+                              className="text-[14px] sm:text-[15.5px] leading-relaxed text-zinc-300 font-sans tracking-wide space-y-4 break-words overflow-wrap-anywhere prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800 prose-a:text-blue-400"
                             >
-                              <ReactMarkdown
-                                components={{
-                                  strong: ({ node, ...props }) => (
-                                    <strong
-                                      className="font-bold text-white"
-                                      {...props}
-                                    />
-                                  ),
-                                  p: ({ node, ...props }) => (
-                                    <p className="mb-2 last:mb-0" {...props} />
-                                  ),
-                                  ul: ({ node, ...props }) => (
-                                    <ul
-                                      className="list-disc pl-5 space-y-1 my-2"
-                                      {...props}
-                                    />
-                                  ),
-                                  ol: ({ node, ...props }) => (
-                                    <ol
-                                      className="list-decimal pl-5 space-y-1 my-2"
-                                      {...props}
-                                    />
-                                  ),
-                                  li: ({ node, ...props }) => (
-                                    <li className="text-gray-200" {...props} />
-                                  ),
-                                }}
-                              >
-                                {msg.content}
-                              </ReactMarkdown>
+                              <ReactMarkdown>{msg.content}</ReactMarkdown>
                             </motion.div>
 
                             {msg.showCanvas && (
                               <button
                                 onClick={() => setIsCanvasOpen(true)}
-                                className="flex items-center gap-2.5 px-4 py-2.5 bg-[#0066EE]/15 hover:bg-[#0066EE]/25 border border-[#0066EE]/30 text-blue-300 rounded-xl text-xs font-mono transition-all shadow-sm cursor-pointer mt-3 max-w-full"
+                                className="flex items-center justify-between w-full max-w-sm px-5 py-3.5 bg-zinc-900/80 hover:bg-zinc-800/80 border border-zinc-800 text-blue-400 rounded-[14px] text-xs font-mono font-semibold uppercase tracking-widest transition-all shadow-sm cursor-pointer mt-4 outline-none group"
                               >
-                                <BarChart3 className="w-4 h-4 text-[#0066EE] shrink-0" />
-                                <span className="truncate">
-                                  Open Interactive Analytics Canvas
-                                </span>
-                                <Maximize2 className="w-3 h-3 ml-auto text-blue-400 shrink-0" />
+                                <div className="flex items-center gap-3 truncate">
+                                  <BarChart3 className="w-4 h-4 text-blue-500 shrink-0" />
+                                  <span className="truncate">
+                                    Open Analytics Canvas
+                                  </span>
+                                </div>
+                                <Maximize2 className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 shrink-0 transition-colors" />
                               </button>
                             )}
 
                             {msg.options && msg.options.length > 0 && (
-                              <div className="flex flex-wrap gap-2 pt-2">
+                              <div className="flex flex-wrap gap-2 pt-3">
                                 {msg.options.map((option, optIdx) => (
                                   <button
                                     key={optIdx}
                                     onClick={() => handleSend(option)}
-                                    className="px-3 py-2 bg-[#14151a] hover:bg-[#0066EE] text-gray-200 hover:text-white border border-white/15 hover:border-[#0066EE] rounded-xl text-xs font-medium transition-all shadow-sm cursor-pointer text-left break-words max-w-full"
+                                    className="px-4 py-2.5 bg-zinc-900 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 text-zinc-300 hover:text-blue-400 rounded-xl text-[13px] font-medium transition-all shadow-sm cursor-pointer text-left break-words max-w-full outline-none"
                                   >
                                     {option}
                                   </button>
@@ -642,19 +641,19 @@ export default function AiChatPage() {
                   </div>
 
                   {msg.role === "user" && (
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0066EE] to-purple-600 flex items-center justify-center text-white font-bold text-xs shrink-0 mt-1 shadow-sm">
+                    <div className="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 font-bold text-xs shrink-0 mt-1 shadow-sm">
                       EÖ
                     </div>
                   )}
                 </motion.div>
               ))
             )}
-            <div ref={messagesEndRef} className="h-2" />
+            <div ref={messagesEndRef} className="h-4" />
           </div>
         </div>
 
-        {/* INPUT BARI (Flex yapısı sayesinde tam dibe sabitlenir, taşma yaratmaz) */}
-        <div className="w-full shrink-0 p-3 sm:p-5 bg-[#090a0f] border-t border-white/5">
+        {/* INPUT BARI */}
+        <div className="w-full shrink-0 px-4 pb-6 pt-2 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent relative z-20">
           <div className="max-w-4xl mx-auto w-full relative flex flex-col gap-2">
             <input
               type="file"
@@ -668,9 +667,9 @@ export default function AiChatPage() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-3 p-2 bg-[#14151a]/95 border border-white/15 rounded-2xl w-fit shadow-md mb-1"
+                className="flex items-center gap-3 p-2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 rounded-2xl w-fit shadow-lg mb-2"
               >
-                <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-gray-700 shrink-0">
+                <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-zinc-700 shrink-0">
                   <img
                     src={selectedImage}
                     alt="Preview"
@@ -678,27 +677,27 @@ export default function AiChatPage() {
                   />
                 </div>
                 <div className="flex flex-col pr-3">
-                  <span className="text-xs font-medium text-gray-200">
-                    Image attached
+                  <span className="text-xs font-semibold text-zinc-200 tracking-tight">
+                    Telemetry Image
                   </span>
-                  <span className="text-[10px] font-mono text-gray-500">
-                    Ready for analysis
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5">
+                    Ready to scan
                   </span>
                 </div>
                 <button
                   onClick={() => setSelectedImage(null)}
-                  className="p-1.5 rounded-full bg-white/10 hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-colors cursor-pointer mr-1 shrink-0"
+                  className="p-1.5 rounded-full bg-zinc-800/50 hover:bg-red-500/20 text-zinc-400 hover:text-red-400 transition-colors cursor-pointer mr-1 shrink-0 outline-none"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
               </motion.div>
             )}
 
-            <div className="bg-[#14151a] border border-white/15 shadow-lg rounded-3xl p-1.5 sm:p-2 flex items-end gap-2 focus-within:border-[#0066EE]/60 transition-colors w-full">
+            <div className="bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/80 shadow-2xl rounded-[1.5rem] p-1.5 sm:p-2 flex items-end gap-2 focus-within:border-blue-500/50 focus-within:ring-1 focus-within:ring-blue-500/20 transition-all w-full">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 mb-0.5"
-                title="Upload image"
+                className="w-11 h-11 rounded-xl bg-zinc-800/50 hover:bg-zinc-700/80 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 mb-0.5 outline-none"
+                title="Attach Log / Image"
               >
                 <Plus className="w-5 h-5" />
               </button>
@@ -710,32 +709,34 @@ export default function AiChatPage() {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") handleSend();
                 }}
-                placeholder="Ask Aegisora AI Security Analyst..."
-                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-500 font-medium text-[14px] sm:text-[15px] px-2 py-3 w-full min-w-0"
+                placeholder="Query Aegisora Intelligence Core..."
+                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-zinc-600 font-medium text-[14px] sm:text-[15px] px-3 py-3.5 w-full min-w-0"
               />
 
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim() && !selectedImage}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0 mb-0.5 ${
+                className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all shrink-0 mb-0.5 outline-none ${
                   input.trim() || selectedImage
-                    ? "bg-[#0066EE] text-white shadow-md hover:bg-[#005bb5] cursor-pointer"
-                    : "bg-white/5 text-gray-600 cursor-not-allowed"
+                    ? "bg-blue-600 text-white shadow-[0_4px_15px_rgba(0,102,238,0.3)] hover:bg-blue-500 cursor-pointer"
+                    : "bg-zinc-800/50 text-zinc-600 cursor-not-allowed"
                 }`}
               >
                 <ArrowUp className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-center text-[10px] sm:text-[11px] text-gray-500 mt-1 font-mono px-2">
-              Aegisora AI Core is end-to-end encrypted. Security operations are
-              verified autonomously.
-            </p>
+            <div className="flex items-center justify-center gap-2 mt-2">
+              <ShieldCheck className="w-3 h-3 text-zinc-600" />
+              <p className="text-center text-[10px] text-zinc-600 font-mono tracking-widest uppercase">
+                Zero-Trust Encryption Active
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 📊 TAM EKRAN İNOVATİF ANALYTICS CANVAS */}
+      {/* 📊 ANALYTICS CANVAS (ENTERPRISE DARK) */}
       <AnimatePresence>
         {isCanvasOpen && (
           <motion.div
@@ -744,35 +745,35 @@ export default function AiChatPage() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-[#070709] flex flex-col p-4 sm:p-8 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-zinc-950/95 backdrop-blur-2xl flex flex-col p-4 sm:p-8 overflow-y-auto"
           >
-            <div className="flex items-center justify-between border-b border-gray-800 pb-4 mb-6">
-              <div className="flex items-center gap-3 truncate pr-2">
-                <div className="w-10 h-10 rounded-xl bg-[#0066EE]/20 border border-[#0066EE]/40 flex items-center justify-center text-[#0066EE] shrink-0">
-                  <BarChart3 className="w-5 h-5" />
+            <div className="flex items-center justify-between border-b border-zinc-800/80 pb-6 mb-8">
+              <div className="flex items-center gap-4 truncate pr-2">
+                <div className="w-12 h-12 rounded-[14px] bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0 shadow-inner">
+                  <BarChart3 className="w-6 h-6" />
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-base sm:text-xl font-serif text-white truncate">
+                  <h2 className="text-lg sm:text-2xl font-serif text-white truncate tracking-tight">
                     {canvasData.title || "Enterprise Telemetry"}
                   </h2>
-                  <p className="text-[10px] sm:text-xs font-mono text-gray-400 truncate">
+                  <p className="text-[10px] sm:text-[11px] font-mono font-semibold text-zinc-500 uppercase tracking-widest truncate mt-1">
                     Generated dynamically by Aegisora Core •{" "}
                     {selectedLang.toUpperCase()}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0 no-print">
+              <div className="flex items-center gap-3 shrink-0 no-print">
                 <button
                   onClick={() => setIsLangModalOpen(true)}
-                  className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 hover:bg-[#0066EE] border border-gray-700 hover:border-[#0066EE] text-xs font-mono text-white rounded-xl transition-all cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 text-[11px] font-mono uppercase tracking-widest font-semibold text-zinc-300 hover:text-blue-400 rounded-xl transition-all cursor-pointer outline-none shadow-sm"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Export PDF</span>
+                  <Download className="w-4 h-4" />
+                  <span className="hidden sm:inline">Export Report</span>
                 </button>
                 <button
                   onClick={() => setIsCanvasOpen(false)}
-                  className="p-2.5 rounded-xl bg-white/10 hover:bg-red-500/20 text-gray-300 hover:text-red-400 transition-colors cursor-pointer"
+                  className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-red-500/20 text-zinc-400 hover:text-red-400 hover:border-red-500/30 transition-all cursor-pointer outline-none shadow-sm"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -780,49 +781,58 @@ export default function AiChatPage() {
             </div>
 
             <div className="w-full flex-1 flex flex-col gap-6 max-w-6xl mx-auto pb-10">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-[#121215] border border-gray-800 p-4 sm:p-5 rounded-2xl">
-                  <p className="text-xs font-mono text-gray-500 mb-1">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="bg-zinc-900/60 border border-zinc-800 p-6 rounded-[1.5rem] shadow-lg">
+                  <p className="text-[10px] font-mono font-semibold text-zinc-500 uppercase tracking-widest mb-2">
                     Total Agent Requests
                   </p>
-                  <h3 className="text-2xl font-semibold text-white">16,900</h3>
-                  <p className="text-[11px] font-mono text-emerald-400 mt-1">
+                  <h3 className="text-3xl font-serif text-white mb-2">
+                    16,900
+                  </h3>
+                  <p className="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5 bg-emerald-500/10 w-fit px-2 py-1 rounded">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />{" "}
                     +12.4% vs last week
                   </p>
                 </div>
-                <div className="bg-[#121215] border border-gray-800 p-4 sm:p-5 rounded-2xl">
-                  <p className="text-xs font-mono text-gray-500 mb-1">
+                <div className="bg-zinc-900/60 border border-zinc-800 p-6 rounded-[1.5rem] shadow-lg">
+                  <p className="text-[10px] font-mono font-semibold text-zinc-500 uppercase tracking-widest mb-2">
                     Detected Anomalies
                   </p>
-                  <h3 className="text-2xl font-semibold text-amber-400">35</h3>
-                  <p className="text-[11px] font-mono text-gray-500 mt-1">
-                    Mitigated automatically
+                  <h3 className="text-3xl font-serif text-amber-400 mb-2">
+                    35
+                  </h3>
+                  <p className="text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 bg-zinc-800 w-fit px-2 py-1 rounded">
+                    <ShieldAlert className="w-3 h-3" /> Mitigated automatically
                   </p>
                 </div>
-                <div className="bg-[#121215] border border-gray-800 p-4 sm:p-5 rounded-2xl">
-                  <p className="text-xs font-mono text-gray-500 mb-1">
+                <div className="bg-zinc-900/60 border border-zinc-800 p-6 rounded-[1.5rem] shadow-lg">
+                  <p className="text-[10px] font-mono font-semibold text-zinc-500 uppercase tracking-widest mb-2">
                     Avg Risk Vector
                   </p>
-                  <h3 className="text-2xl font-semibold text-blue-400">
-                    3.7 / 10
+                  <h3 className="text-3xl font-serif text-blue-400 mb-2">
+                    3.7 <span className="text-lg text-zinc-600">/ 10</span>
                   </h3>
-                  <p className="text-[11px] font-mono text-emerald-400 mt-1">
-                    Secure threshold
+                  <p className="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5 bg-emerald-500/10 w-fit px-2 py-1 rounded">
+                    <Check className="w-3 h-3" /> Secure threshold
                   </p>
                 </div>
               </div>
 
-              <div className="bg-[#121215] border border-gray-800 p-4 sm:p-6 rounded-2xl flex-1 flex flex-col min-h-[300px]">
-                <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
-                  <h3 className="text-xs sm:text-sm font-medium text-gray-200">
+              <div className="bg-zinc-900/60 border border-zinc-800 p-6 sm:p-8 rounded-[2rem] flex-1 flex flex-col min-h-[400px] shadow-xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,102,238,0.05)_0%,transparent_50%)] pointer-events-none" />
+
+                <div className="flex flex-wrap items-center justify-between mb-8 gap-4 relative z-10">
+                  <h3 className="text-sm font-semibold text-white tracking-wide flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-blue-400" />
                     Request Volume vs. Risk Telemetry (Feb 01 - Feb 05)
                   </h3>
-                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/25 shrink-0">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-md border border-emerald-500/20 shrink-0 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />{" "}
                     Live Stream
                   </span>
                 </div>
 
-                <div className="w-full flex-1">
+                <div className="w-full flex-1 relative z-10">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                       data={MOCK_CHART_DATA}
@@ -838,38 +848,68 @@ export default function AiChatPage() {
                         >
                           <stop
                             offset="5%"
-                            stopColor="#0066EE"
-                            stopOpacity={0.6}
+                            stopColor="#3b82f6"
+                            stopOpacity={0.3}
                           />
                           <stop
                             offset="95%"
-                            stopColor="#0066EE"
-                            stopOpacity={0.1}
+                            stopColor="#3b82f6"
+                            stopOpacity={0.0}
                           />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#222228" />
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="#27272a"
+                        vertical={false}
+                      />
                       <XAxis
                         dataKey="date"
-                        stroke="#6b7280"
-                        tick={{ fontSize: 10 }}
+                        stroke="#71717a"
+                        tick={{
+                          fontSize: 10,
+                          fill: "#a1a1aa",
+                          fontFamily: "monospace",
+                        }}
+                        axisLine={false}
+                        tickLine={false}
+                        dy={10}
                       />
-                      <YAxis stroke="#6b7280" tick={{ fontSize: 10 }} />
+                      <YAxis
+                        stroke="#71717a"
+                        tick={{
+                          fontSize: 10,
+                          fill: "#a1a1aa",
+                          fontFamily: "monospace",
+                        }}
+                        axisLine={false}
+                        tickLine={false}
+                        dx={-10}
+                      />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "#121215",
-                          borderColor: "#333",
+                          backgroundColor: "#18181b",
+                          borderColor: "#27272a",
                           borderRadius: "12px",
                           color: "#fff",
+                          fontFamily: "monospace",
+                          fontSize: "12px",
                         }}
+                        itemStyle={{ color: "#60a5fa" }}
                       />
                       <Area
                         type="monotone"
                         dataKey="requests"
-                        stroke="#0066EE"
+                        stroke="#3b82f6"
                         strokeWidth={3}
                         fillOpacity={1}
                         fill="url(#colorRequests)"
+                        activeDot={{
+                          r: 6,
+                          fill: "#3b82f6",
+                          stroke: "#18181b",
+                          strokeWidth: 2,
+                        }}
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -887,72 +927,77 @@ export default function AiChatPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 no-print"
+            className="fixed inset-0 z-[100] bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-4 no-print"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-[#121215] border border-gray-800 rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl space-y-6"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-zinc-900 border border-zinc-800 rounded-[2rem] p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-6 relative overflow-hidden"
             >
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#0066EE]/20 border border-[#0066EE]/40 flex items-center justify-center text-[#0066EE] shrink-0">
-                    <Globe className="w-5 h-5" />
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-12 h-12 rounded-[14px] bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0 shadow-inner">
+                    <Globe className="w-6 h-6" />
                   </div>
                   <div className="truncate">
-                    <h3 className="text-lg font-serif text-white truncate">
+                    <h3 className="text-xl font-serif text-white truncate tracking-tight">
                       Report Language
                     </h3>
-                    <p className="text-xs font-mono text-gray-400 truncate">
-                      Export format: PDF ({selectedLang.toUpperCase()})
+                    <p className="text-[10px] font-mono font-semibold uppercase tracking-widest text-zinc-500 truncate mt-1">
+                      Export format: PDF ({selectedLang})
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsLangModalOpen(false)}
-                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer shrink-0"
+                  className="p-2 rounded-xl bg-zinc-800/50 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0 outline-none"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto">
+              <div className="grid grid-cols-2 gap-3 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => setSelectedLang(lang.code)}
-                    className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer outline-none ${
                       selectedLang === lang.code
-                        ? "bg-[#0066EE]/15 border-[#0066EE] text-white shadow-sm"
-                        : "bg-[#18181c] border-gray-800 text-gray-300 hover:border-gray-700 hover:bg-[#1f1f25]"
+                        ? "bg-blue-500/10 border-blue-500/50 text-white shadow-sm ring-1 ring-blue-500/20"
+                        : "bg-zinc-950/50 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:bg-zinc-800 hover:text-zinc-200"
                     }`}
                   >
-                    <div className="flex items-center gap-2 truncate">
-                      <span className="text-base shrink-0">{lang.flag}</span>
-                      <span className="text-xs font-medium truncate">
+                    <div className="flex items-center gap-2.5 truncate">
+                      <span className="text-lg shrink-0">{lang.flag}</span>
+                      <span className="text-[13px] font-medium truncate">
                         {lang.name}
                       </span>
                     </div>
                     {selectedLang === lang.code && (
-                      <Check className="w-4 h-4 text-[#0066EE] shrink-0 ml-1" />
+                      <Check
+                        className="w-4 h-4 text-blue-400 shrink-0 ml-1"
+                        strokeWidth={3}
+                      />
                     )}
                   </button>
                 ))}
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 pt-2 border-t border-zinc-800/80">
                 <button
                   onClick={() => setIsLangModalOpen(false)}
-                  className="w-1/2 py-3 bg-white/5 hover:bg-white/10 text-gray-300 rounded-xl text-xs font-medium transition-colors cursor-pointer border border-gray-800"
+                  className="w-1/2 py-3.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-xl text-[13px] font-semibold transition-colors cursor-pointer border border-transparent outline-none"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleExportPDF}
-                  className="w-1/2 py-3 bg-[#0066EE] hover:bg-[#005bb5] text-white rounded-xl text-xs font-medium transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                  className="w-1/2 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-[13px] font-semibold transition-all shadow-[0_4px_15px_rgba(0,102,238,0.2)] hover:shadow-[0_6px_20px_rgba(0,102,238,0.3)] cursor-pointer flex items-center justify-center gap-2 outline-none"
                 >
-                  <Download className="w-4 h-4" /> PDF
+                  <Download className="w-4 h-4" /> Download PDF
                 </button>
               </div>
             </motion.div>

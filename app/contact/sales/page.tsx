@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import {
+  ChevronDown,
+  Send,
+  CheckCircle2,
+  ShieldCheck,
+  Loader2,
+  Check,
+  Briefcase,
+} from "lucide-react";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 
 export default function SalesPage() {
@@ -18,274 +28,422 @@ export default function SalesPage() {
     message: "",
     accepted: false,
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.fullName || !formData.email || !formData.companyName) {
+      alert("Please fill in all required fields (Name, Email, Company).");
+      return;
+    }
+    if (!formData.accepted) {
+      alert("You must accept the terms and conditions.");
+      return;
+    }
+
+    setIsLoading(true);
+    // Simüle edilmiş kurumsal satış talep süreci
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSubmitted(true);
+    }, 1500);
+  };
 
   return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-[#f4f4f5] text-[#111111] pt-28">
+    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-28 selection:bg-blue-500/30 relative overflow-hidden">
+      {/* Arkaplan Işık Efektleri */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.15)_0%,transparent_70%)] pointer-events-none" />
+
       {/* Üst Menü / Navbar */}
       <Navbar />
 
       {/* Ana İçerik */}
-      <div className="max-w-[640px] w-full mx-auto px-4 py-16 flex flex-col items-center">
-        {/* We're online rozet ve avatarlar */}
-        <div className="flex flex-col items-center mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-xs font-mono text-emerald-600 font-semibold">
-              We're online
+      <div className="relative z-10 max-w-[680px] w-full mx-auto px-4 py-16 flex flex-col items-center">
+        {/* We're online rozet ve avatarlar (Dark Mode) */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center mb-8"
+        >
+          <div className="flex items-center gap-2 mb-4 bg-zinc-900/80 border border-zinc-800/80 px-3 py-1.5 rounded-full shadow-sm backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse"></span>
+            <span className="text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-semibold">
+              Our experts are online
             </span>
           </div>
-          <div className="flex -space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gray-400 border-2 border-white"></div>
-            <div className="w-8 h-8 rounded-full bg-gray-500 border-2 border-white"></div>
-            <div className="w-8 h-8 rounded-full bg-[#0066EE]/80 border-2 border-white"></div>
-            <div className="w-8 h-8 rounded-full bg-gray-700 border-2 border-white"></div>
+          <div className="flex -space-x-3">
+            <div className="w-10 h-10 rounded-full bg-zinc-800 border-2 border-zinc-950 shadow-sm flex items-center justify-center text-[10px] font-mono text-zinc-400">
+              EÖ
+            </div>
+            <div className="w-10 h-10 rounded-full bg-blue-900/60 border-2 border-zinc-950 shadow-sm flex items-center justify-center text-[10px] font-mono text-blue-400">
+              AV
+            </div>
+            <div className="w-10 h-10 rounded-full bg-emerald-900/60 border-2 border-zinc-950 shadow-sm flex items-center justify-center text-[10px] font-mono text-emerald-400">
+              MT
+            </div>
+            <div className="w-10 h-10 rounded-full bg-zinc-800 border-2 border-zinc-950 shadow-sm flex items-center justify-center text-[10px] font-mono text-zinc-400">
+              ER
+            </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="text-center mb-10">
-          <h1 className="text-4xl lg:text-5xl font-serif tracking-tight mb-3">
+        <div className="text-center mb-12">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-6 inline-flex items-center gap-2"
+          >
+            <Briefcase className="w-3.5 h-3.5" />
+            Enterprise Solutions
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl lg:text-5xl font-serif tracking-tight mb-4 text-white"
+          >
             Talk to our AI Governance Experts
-          </h1>
-          <p className="text-xs font-mono text-gray-500 max-w-md mx-auto leading-relaxed">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-[13px] font-mono text-zinc-400 max-w-md mx-auto leading-relaxed"
+          >
             Tell us a bit about your AI infrastructure and deployment goals, and
             our enterprise team will get back to you immediately.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Satış Formu Kutusu */}
-        <div className="w-full rounded-[2rem] border p-8 shadow-sm mb-12 bg-white border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* Full Name */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Full name</label>
-              <input
-                type="text"
-                placeholder="John Doe"
-                value={formData.fullName}
-                onChange={(e) =>
-                  setFormData({ ...formData, fullName: e.target.value })
-                }
-                className="w-full rounded-xl px-4 py-3 text-xs border focus:outline-none transition-colors focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-              />
-            </div>
+        {/* Satış Formu Kutusu (Enterprise Dark Mode & Glassmorphism) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="w-full rounded-[2.5rem] border border-zinc-800/80 p-8 sm:p-12 shadow-2xl mb-12 bg-zinc-900/40 backdrop-blur-xl relative overflow-hidden"
+        >
+          {/* Form İçi İnce Işık */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
-            {/* Email */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Work email</label>
-              <input
-                type="email"
-                placeholder="john@company.com"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="w-full rounded-xl px-4 py-3 text-xs border focus:outline-none transition-colors focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-              />
-            </div>
-
-            {/* Company Name */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Company Name</label>
-              <input
-                type="text"
-                placeholder="The Company Inc."
-                value={formData.companyName}
-                onChange={(e) =>
-                  setFormData({ ...formData, companyName: e.target.value })
-                }
-                className="w-full rounded-xl px-4 py-3 text-xs border focus:outline-none transition-colors focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-              />
-            </div>
-
-            {/* Amount of Employees */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Company Size</label>
-              <input
-                type="number"
-                placeholder="e.g., 500"
-                value={formData.amountOfEmployees}
-                onChange={(e) =>
+          {isSubmitted ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="py-12 text-center space-y-5"
+            >
+              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(16,185,129,0.15)] relative">
+                <CheckCircle2 className="w-8 h-8" />
+                <div className="absolute inset-0 border border-emerald-500/30 rounded-full animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
+              </div>
+              <h3 className="text-2xl font-serif text-white tracking-tight">
+                Sales Inquiry Dispatched
+              </h3>
+              <p className="text-[13px] font-mono text-zinc-400 max-w-sm mx-auto leading-relaxed">
+                Thank you,{" "}
+                <span className="text-white">{formData.fullName}</span>. An
+                Aegisora enterprise solutions architect has received your
+                parameters and will reach out to{" "}
+                <span className="text-white">{formData.email}</span> securely.
+              </p>
+              <button
+                onClick={() => {
+                  setIsSubmitted(false);
                   setFormData({
-                    ...formData,
-                    amountOfEmployees: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl px-4 py-3 text-xs border focus:outline-none transition-colors focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            {/* Company Website */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Company Website</label>
-              <input
-                type="text"
-                placeholder="www.company.com"
-                value={formData.companyWebsite}
-                onChange={(e) =>
-                  setFormData({ ...formData, companyWebsite: e.target.value })
-                }
-                className="w-full rounded-xl px-4 py-3 text-xs border focus:outline-none transition-colors focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-              />
-            </div>
-
-            {/* Phone Number */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Phone number</label>
-              <div className="grid grid-cols-[110px_1fr] gap-3">
-                <div className="relative">
-                  <select
-                    value={formData.phoneCountry}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phoneCountry: e.target.value })
-                    }
-                    className="w-full rounded-xl px-3 py-3 text-xs border appearance-none focus:outline-none focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black"
-                  >
-                    <option value="US">US +1</option>
-                    <option value="TR">TR +90</option>
-                    <option value="DE">DE +49</option>
-                    <option value="UK">UK +44</option>
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Enter phone number"
-                  value={formData.phoneNumber}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phoneNumber: e.target.value })
-                  }
-                  className="w-full rounded-xl px-4 py-3 text-xs border focus:outline-none transition-colors focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-                />
-              </div>
-            </div>
-
-            {/* Interest */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">Area of Interest</label>
-              <div className="relative">
-                <select
-                  value={formData.interest}
-                  onChange={(e) =>
-                    setFormData({ ...formData, interest: e.target.value })
-                  }
-                  className="w-full rounded-xl px-4 py-3 text-xs border appearance-none focus:outline-none focus:border-[#0066EE] bg-[#f9f9fa] border-gray-200 text-black"
-                >
-                  <option value="">Select an option</option>
-                  <option value="ai-monitoring">AI Agent Monitoring</option>
-                  <option value="policy-enforcement">
-                    Automated Policy Enforcement
-                  </option>
-                  <option value="enterprise-suite">
-                    Enterprise Governance Suite
-                  </option>
-                  <option value="other">Other / Custom Inquiry</option>
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium">How can we help?</label>
-              <textarea
-                rows={4}
-                placeholder="e.g., We are deploying autonomous agents and want to schedule a demo of Aegisora's governance dashboard."
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-                className="w-full rounded-xl p-4 text-xs border focus:outline-none focus:border-[#0066EE] resize-none transition-colors bg-[#f9f9fa] border-gray-200 text-black placeholder-gray-400"
-              />
-            </div>
-
-            {/* Checkbox */}
-            <div className="flex items-center gap-3 pt-2">
-              <input
-                type="checkbox"
-                id="accept"
-                checked={formData.accepted}
-                onChange={(e) =>
-                  setFormData({ ...formData, accepted: e.target.checked })
-                }
-                className="w-4 h-4 rounded border-gray-300 accent-[#0066EE] cursor-pointer"
-              />
-              <label
-                htmlFor="accept"
-                className="text-xs text-gray-500 cursor-pointer"
+                    fullName: "",
+                    email: "",
+                    companyName: "",
+                    amountOfEmployees: "",
+                    companyWebsite: "",
+                    phoneCountry: "US",
+                    phoneNumber: "",
+                    interest: "",
+                    message: "",
+                    accepted: false,
+                  });
+                }}
+                className="mt-6 px-6 py-3 bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs font-mono rounded-xl hover:bg-zinc-900 hover:text-white transition-colors cursor-pointer outline-none shadow-sm"
               >
-                I accept the{" "}
-                <Link
-                  href="/legal/gdpr"
-                  className="underline hover:text-[#0066EE] transition-colors"
-                >
-                  terms and conditions
-                </Link>{" "}
-                and{" "}
-                <Link
-                  href="/legal/gdpr"
-                  className="underline hover:text-[#0066EE] transition-colors"
-                >
-                  privacy policy
-                </Link>
-                .
-              </label>
-            </div>
+                Submit Another Request
+              </button>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit} className="relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                {/* Full Name */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Full name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="John Doe"
+                    value={formData.fullName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, fullName: e.target.value })
+                    }
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  />
+                </div>
 
-            {/* Send Inquiry Butonu */}
-            <button className="w-full py-3.5 bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium text-[13px] rounded-xl transition-colors shadow-sm cursor-pointer mt-2">
-              Send Inquiry
-            </button>
-          </div>
-        </div>
+                {/* Email */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Work email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="john@company.com"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  />
+                </div>
+
+                {/* Company Name */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="The Company Inc."
+                    value={formData.companyName}
+                    onChange={(e) =>
+                      setFormData({ ...formData, companyName: e.target.value })
+                    }
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  />
+                </div>
+
+                {/* Amount of Employees */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Company Size
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="e.g., 500"
+                    value={formData.amountOfEmployees}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        amountOfEmployees: e.target.value,
+                      })
+                    }
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                {/* Company Website */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Company Website
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="www.company.com"
+                    value={formData.companyWebsite}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        companyWebsite: e.target.value,
+                      })
+                    }
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  />
+                </div>
+
+                {/* Phone Number */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Phone number
+                  </label>
+                  <div className="grid grid-cols-[110px_1fr] gap-3">
+                    <div className="relative">
+                      <select
+                        value={formData.phoneCountry}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            phoneCountry: e.target.value,
+                          })
+                        }
+                        className="w-full rounded-xl px-3 py-3.5 text-[13px] font-mono border appearance-none focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white shadow-inner"
+                      >
+                        <option value="US">US +1</option>
+                        <option value="TR">TR +90</option>
+                        <option value="DE">DE +49</option>
+                        <option value="UK">UK +44</option>
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500 pointer-events-none" />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Enter phone number"
+                      value={formData.phoneNumber}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          phoneNumber: e.target.value,
+                        })
+                      }
+                      className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                    />
+                  </div>
+                </div>
+
+                {/* Interest */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    Area of Interest
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={formData.interest}
+                      onChange={(e) =>
+                        setFormData({ ...formData, interest: e.target.value })
+                      }
+                      className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border appearance-none focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white shadow-inner"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="ai-monitoring">AI Agent Monitoring</option>
+                      <option value="policy-enforcement">
+                        Automated Policy Enforcement
+                      </option>
+                      <option value="enterprise-suite">
+                        Enterprise Governance Suite
+                      </option>
+                      <option value="other">Other / Custom Inquiry</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[11px] font-mono font-medium text-zinc-400 uppercase tracking-widest">
+                    How can we help?
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="e.g., We are deploying autonomous agents and want to schedule a demo of Aegisora's governance dashboard."
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    className="w-full rounded-xl p-4 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 resize-none bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  />
+                </div>
+
+                {/* Checkbox */}
+                <div className="flex items-start sm:items-center gap-3 pt-2">
+                  <div className="relative flex items-center justify-center mt-0.5 sm:mt-0">
+                    <input
+                      type="checkbox"
+                      id="accept"
+                      checked={formData.accepted}
+                      onChange={(e) =>
+                        setFormData({ ...formData, accepted: e.target.checked })
+                      }
+                      className="w-4 h-4 rounded border-zinc-700 bg-zinc-950 appearance-none checked:bg-blue-500 transition-colors cursor-pointer peer"
+                    />
+                    <Check
+                      className="w-3 h-3 text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"
+                      strokeWidth={3}
+                    />
+                  </div>
+                  <label
+                    htmlFor="accept"
+                    className="text-[11px] font-mono text-zinc-400 cursor-pointer leading-relaxed"
+                  >
+                    I accept the{" "}
+                    <Link
+                      href="/legal/gdpr"
+                      className="text-zinc-300 underline underline-offset-2 hover:text-blue-400 transition-colors"
+                    >
+                      terms and conditions
+                    </Link>{" "}
+                    and{" "}
+                    <Link
+                      href="/legal/gdpr"
+                      className="text-zinc-300 underline underline-offset-2 hover:text-blue-400 transition-colors"
+                    >
+                      privacy policy
+                    </Link>
+                    .
+                  </label>
+                </div>
+
+                {/* Send Inquiry Butonu */}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium text-[13px] rounded-xl transition-all shadow-[0_8px_20px_rgba(0,102,238,0.2)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.3)] cursor-pointer mt-4 outline-none flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Transmitting Securely...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>Dispatch Sales Inquiry</span>
+                    </>
+                  )}
+                </button>
+
+                <div className="flex items-center justify-center gap-1.5 text-[10px] font-mono text-zinc-500 uppercase tracking-widest mt-2">
+                  <ShieldCheck className="w-3 h-3 text-emerald-500" />
+                  <span>End-to-End Encrypted Communication</span>
+                </div>
+              </div>
+            </form>
+          )}
+        </motion.div>
       </div>
 
-      {/* Yenilenmiş Aegisora Ana Footer */}
-      <footer className="w-full border-t py-16 px-8 mt-20 border-gray-200 bg-[#f4f4f5]">
+      {/* Yenilenmiş Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
+      <footer className="relative z-10 w-full border-t py-16 px-6 mt-10 border-zinc-800 bg-zinc-950">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center">
-          {/* SVG LOGO EKLENDİ (Kırık Resim Sorunu Çözüldü) */}
           <Link
             href="/"
-            className="flex items-center gap-3 group cursor-pointer mb-4"
+            className="flex items-center gap-3 group cursor-pointer mb-6 outline-none"
           >
-            <svg
-              className="w-6 h-6 text-gray-500 group-hover:text-black transition-colors"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <circle cx="12" cy="12" r="2" />
-              <circle cx="12" cy="5" r="1.5" />
-              <circle cx="12" cy="19" r="1.5" />
-              <circle cx="5" cy="12" r="1.5" />
-              <circle cx="19" cy="12" r="1.5" />
-              <circle cx="7" cy="7" r="1.5" />
-              <circle cx="17" cy="17" r="1.5" />
-              <circle cx="7" cy="17" r="1.5" />
-              <circle cx="17" cy="7" r="1.5" />
-            </svg>
-            <span className="text-xl font-serif font-bold tracking-tight text-[#111111]">
+            <div className="relative w-8 h-8 flex items-center justify-center">
+              <Image
+                src="/logo-white.png"
+                alt="Aegisora Logo"
+                fill
+                className="object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                sizes="32px"
+              />
+            </div>
+            <span className="text-xl font-serif font-bold tracking-tight text-white">
               Aegisora
             </span>
           </Link>
 
-          {/* Vizyon Metni */}
-          <p className="text-[13px] text-gray-500 font-mono text-center max-w-[500px] leading-relaxed">
-            You deserve control over your autonomous systems. Aegisora monitors
-            what's happening, helps you manage it, and works to enforce your
-            governance policies, so you can deploy AI safely.
+          <p className="text-[13px] text-zinc-500 font-mono text-center max-w-[500px] leading-relaxed">
+            You deserve control over your autonomous systems. Aegisora
+            intercepts unauthorized tool calls, enforces dynamic zero-trust
+            policies, and guarantees raw payloads never leave your perimeter.
           </p>
 
-          {/* Orijinal Sosyal Medya Logoları ve Yönlendirmeler */}
-          <div className="flex items-center gap-5 text-gray-400 mt-6 mb-12">
-            {/* Web İkonu */}
+          <div className="flex items-center gap-5 text-zinc-500 mt-8 mb-16">
             <Link
               href="https://aegisora.ai"
               target="_blank"
-              className="hover:text-[#0066EE] transition-colors"
+              className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
-                className="w-[22px] h-[22px]"
+                className="w-[20px] h-[20px]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -298,169 +456,175 @@ export default function SalesPage() {
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
             </Link>
-
-            {/* Orijinal X (Twitter) İkonu */}
             <Link
               href="https://x.com/aegisora_ai"
               target="_blank"
-              className="hover:text-[#0066EE] transition-colors"
+              className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
-                className="w-[18px] h-[18px]"
+                className="w-[16px] h-[16px]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
               </svg>
             </Link>
-
-            {/* Instagram İkonu */}
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                viewBox="0 0 24 24"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </Link>
-
-            {/* Orijinal LinkedIn İkonu */}
             <Link
-              href="https://www.linkedin.com/company/aegisora/posts/?feedView=all&viewAsMember=true"
+              href="https://www.linkedin.com/company/aegisora"
               target="_blank"
-              className="hover:text-[#0066EE] transition-colors"
+              className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
-                className="w-[22px] h-[22px]"
+                className="w-[20px] h-[20px]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.847-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.588 0 4.257 2.36 4.257 5.39v6.351zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
               </svg>
             </Link>
+            <Link
+              href="https://github.com/aegisora"
+              target="_blank"
+              className="hover:text-blue-400 transition-colors outline-none"
+            >
+              <svg
+                className="w-[20px] h-[20px]"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"
+                />
+              </svg>
+            </Link>
           </div>
 
-          {/* Menü Linkleri */}
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-gray-300/60 text-[11.5px] font-mono text-gray-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Company</span>
+              <span className="font-bold text-zinc-300 mb-1">Company</span>
               <Link
                 href="/about"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 About
               </Link>
-              <Link href="#" className="hover:text-[#0066EE] transition-colors">
+              <Link href="#" className="hover:text-white transition-colors">
                 Careers
               </Link>
-              <Link
-                href="/blog"
-                className="hover:text-[#0066EE] transition-colors"
-              >
+              <Link href="/blog" className="hover:text-white transition-colors">
                 Blog
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Help</span>
+              <span className="font-bold text-zinc-300 mb-1">Help</span>
               <Link
                 href="/contact/support"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Support
               </Link>
-              <Link href="#" className="hover:text-[#0066EE] transition-colors">
+              <Link href="#" className="hover:text-white transition-colors">
                 Status
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Security</span>
+              <span className="font-bold text-zinc-300 mb-1">Security</span>
               <Link
                 href="/security"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Our Practices
               </Link>
               <Link
                 href="/legal/gdpr"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 GDPR
               </Link>
               <Link
                 href="/legal/dpa"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 DPA
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Product</span>
+              <span className="font-bold text-zinc-300 mb-1">Product</span>
               <Link
                 href="/get-started"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Sign up
               </Link>
               <Link
                 href="/login"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Log in
               </Link>
               <Link
                 href="/business"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 For businesses
               </Link>
               <Link
                 href="/pricing"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Pricing
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Contact</span>
+              <span className="font-bold text-zinc-300 mb-1">Contact</span>
               <Link
                 href="/contact/sales"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Contact Sales
               </Link>
               <Link
                 href="/contact/business-inquiry"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Business inquiry
               </Link>
               <Link
                 href="/contact/partnership"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Partnership
               </Link>
             </div>
             <div className="flex flex-col gap-2.5">
-              <span className="font-bold text-gray-900 mb-1">Legal</span>
+              <span className="font-bold text-zinc-300 mb-1">Legal</span>
               <Link
                 href="/legal/dpa"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Acceptable Use
               </Link>
               <Link
                 href="/legal/gdpr"
-                className="hover:text-[#0066EE] transition-colors"
+                className="hover:text-white transition-colors"
               >
                 Terms of Service
+              </Link>
+            </div>
+          </div>
+
+          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 border-t border-zinc-800/80 text-[11px] font-mono text-zinc-500">
+            <span className="mb-4 md:mb-0">
+              © 2026 Aegisora. All rights reserved.
+            </span>
+            <div className="flex gap-6">
+              <Link href="#" className="hover:text-zinc-300 transition-colors">
+                AI Info
+              </Link>
+              <Link href="#" className="hover:text-zinc-300 transition-colors">
+                AI Policy
               </Link>
             </div>
           </div>

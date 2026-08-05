@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 
+interface EarlyAccessRequest {
+  email: string;
+  status: "pending" | "approved";
+  date: string;
+}
+
 declare global {
-  var _earlyAccessRequests: {
-    email: string;
-    status: "pending" | "approved";
-    date: string;
-  }[];
+  var _earlyAccessRequests: EarlyAccessRequest[] | undefined;
 }
 
 if (!global._earlyAccessRequests) {
@@ -15,18 +17,26 @@ if (!global._earlyAccessRequests) {
 const requests = global._earlyAccessRequests;
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const email = searchParams.get("email");
+  try {
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get("email");
 
-  if (email) {
-    const found = requests.find((r) => r.email === email);
-    return NextResponse.json({
-      exists: !!found,
-      status: found ? found.status : "none",
-    });
+    if (email) {
+      const found = requests.find((r) => r.email === email);
+      return NextResponse.json({
+        exists: !!found,
+        status: found ? found.status : "none",
+      });
+    }
+
+    return NextResponse.json(requests);
+  } catch (error: any) {
+    console.error("Early Access GET Error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
-
-  return NextResponse.json(requests);
 }
 
 export async function POST(request: Request) {
@@ -34,11 +44,20 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { email, action, adminSecret } = body;
 
+    if (!email || typeof email !== "string") {
+      return NextResponse.json(
+        { error: "Valid email is required" },
+        { status: 400 },
+      );
+    }
+
     // Admin Onay İşlemi
     if (action === "approve") {
-      // Şifre güncellendi: Mdse.1234
       if (adminSecret !== "Mdse.1234") {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        return NextResponse.json(
+          { error: "Unauthorized access credentials" },
+          { status: 401 },
+        );
       }
 
       const target = requests.find((r) => r.email === email);
@@ -55,10 +74,6 @@ export async function POST(request: Request) {
     }
 
     // Normal Kullanıcı Erken Erişim Talebi
-    if (!email) {
-      return NextResponse.json({ error: "Email required" }, { status: 400 });
-    }
-
     const existing = requests.find((r) => r.email === email);
     if (!existing) {
       requests.push({
@@ -72,7 +87,11 @@ export async function POST(request: Request) {
       success: true,
       status: existing ? existing.status : "pending",
     });
-  } catch (error) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  } catch (error: any) {
+    console.error("Early Access POST Error:", error);
+    return NextResponse.json(
+      { error: "Server error processing request" },
+      { status: 500 },
+    );
   }
 }
