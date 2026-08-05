@@ -83,6 +83,7 @@ export default function DashboardLayout({
   const router = useRouter();
   const supabase = createClient();
 
+  // 🚀 MASAÜSTÜNDE HOVER İLE AÇILIP KAPANAN MENÜ STATE'İ
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [userName, setUserName] = useState("Loading...");
@@ -119,11 +120,11 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-200 font-sans flex w-full max-w-[100vw] overflow-x-hidden relative selection:bg-blue-500/30">
-      {/* DESKTOP SIDEBAR */}
+      {/* DESKTOP SIDEBAR (Hover ile genişler, yanındakini orantılı iter) */}
       <aside
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
-        className={`hidden md:flex fixed inset-y-0 left-0 z-40 bg-zinc-950/90 backdrop-blur-2xl border-r border-zinc-800/80 transition-all duration-300 ease-in-out flex-col justify-between shadow-2xl ${
+        className={`hidden md:flex fixed inset-y-0 left-0 z-40 bg-zinc-950/95 backdrop-blur-2xl border-r border-zinc-800/80 transition-all duration-300 ease-in-out flex-col justify-between shadow-2xl ${
           isExpanded ? "w-64" : "w-20"
         }`}
       >
@@ -340,7 +341,7 @@ export default function DashboardLayout({
         </div>
       )}
 
-      {/* ANA İÇERİK ALANI */}
+      {/* ANA İÇERİK ALANI (Masaüstünde sol menünün genişliğine göre `md:ml-20` ile orantılı başlar) */}
       <div className="flex-1 flex flex-col min-h-screen md:ml-20 ml-0 w-full min-w-0 overflow-x-hidden bg-zinc-950">
         {/* TOP HEADER */}
         <header className="h-20 border-b border-zinc-800/80 px-4 sm:px-8 flex items-center justify-between bg-zinc-950/80 backdrop-blur-xl sticky top-0 z-30 w-full">
