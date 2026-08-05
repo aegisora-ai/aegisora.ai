@@ -1,3 +1,10 @@
+<div align="center">
+  <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
+    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=594435&theme=dark" alt="Aegisora - Zero-Trust Runtime Security for AI Agents on Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" />
+  </a>
+</div>
+
+
 <p align="center">
   🔗 <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
   &nbsp;·&nbsp;
