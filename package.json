@@ -2,11 +2,13 @@
   "name": "aegisora-site",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.20.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "turbo build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "turbo lint",
+    "test": "turbo test"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -38,6 +40,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "tailwindcss": "^4",
+    "turbo": "^2.10.8",
     "typescript": "^5"
   }
 }
