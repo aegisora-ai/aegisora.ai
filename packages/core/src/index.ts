@@ -1,77 +1,14 @@
 /**
- * Aegisora Core
+ * Aegisora Core Public API
  *
- * Fundamental contracts shared across
- * runtime, security, policy and SDK layers.
+ * This package contains shared contracts,
+ * types and errors used across the ecosystem.
  */
 
-/**
- * Represents an incoming AI agent request.
- */
-export interface AgentRequest {
-  id: string;
+export * from "./types/agent";
 
-  agentId: string;
+export * from "./types/runtime";
 
-  action: string;
+export * from "./types/security";
 
-  input: unknown;
-
-  timestamp: Date;
-
-  metadata?: Record<string, unknown>;
-}
-
-/**
- * Runtime execution context.
- *
- * Contains information required
- * to evaluate an agent action.
- */
-export interface RuntimeContext {
-  requestId: string;
-
-  agentId: string;
-
-  userId?: string;
-
-  environment: "development" | "production";
-
-  permissions?: string[];
-
-  metadata?: Record<string, unknown>;
-}
-
-/**
- * Security decision produced
- * by Aegisora governance layer.
- */
-export type SecurityDecision = "ALLOW" | "BLOCK" | "ESCALATE";
-
-/**
- * Result returned by policy evaluation.
- */
-export interface PolicyResult {
-  decision: SecurityDecision;
-
-  reason: string;
-
-  riskScore: number;
-
-  policyId?: string;
-
-  metadata?: Record<string, unknown>;
-}
-
-/**
- * Security evaluation result.
- */
-export interface SecurityResult {
-  decision: SecurityDecision;
-
-  threats: string[];
-
-  confidence: number;
-
-  explanation: string;
-}
+export * from "./errors";
