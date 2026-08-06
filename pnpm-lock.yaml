@@ -113,6 +113,22 @@ importers:
         specifier: ^5
         version: 5.9.3
 
+  packages/plugins:
+    dependencies:
+      '@aegisora/core':
+        specifier: workspace:*
+        version: link:../core
+      '@aegisora/policy-engine':
+        specifier: workspace:*
+        version: link:../policy-engine
+      '@aegisora/security-engine':
+        specifier: workspace:*
+        version: link:../security-engine
+    devDependencies:
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
   packages/policy-engine:
     dependencies:
       '@aegisora/core':
