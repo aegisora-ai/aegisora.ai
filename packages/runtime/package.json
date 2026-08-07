@@ -12,7 +12,9 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@aegisora/core": "workspace:*"
+    "@aegisora/core": "workspace:*",
+    "@aegisora/observability": "workspace:*",
+    "@aegisora/policy-engine": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5"

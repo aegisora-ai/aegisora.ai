@@ -1,16 +1,32 @@
 /**
- * Represents an incoming AI agent request.
+ * AI Agent contracts.
  */
-export interface AgentRequest {
+
+export interface AgentIdentity {
+  /**
+   * Unique agent id
+   */
   id: string;
 
-  agentId: string;
+  /**
+   * Agent name
+   */
+  name: string;
 
-  action: string;
+  /**
+   * Agent version
+   */
+  version?: string;
+}
 
-  input: unknown;
+export interface Agent {
+  /**
+   * Agent identity
+   */
+  identity: AgentIdentity;
 
-  timestamp: Date;
-
-  metadata?: Record<string, unknown>;
+  /**
+   * Agent capabilities
+   */
+  capabilities?: string[];
 }

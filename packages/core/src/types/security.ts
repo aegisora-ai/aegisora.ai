@@ -1,32 +1,44 @@
 /**
- * Possible security decisions.
+ * Security related contracts.
  */
+
 export type SecurityDecision = "ALLOW" | "BLOCK" | "ESCALATE";
 
-/**
- * Policy evaluation output.
- */
-export interface PolicyResult {
-  decision: SecurityDecision;
+export interface SecurityContext {
+  /**
+   * Agent identifier
+   */
+  agentId: string;
 
-  reason: string;
+  /**
+   * Request identifier
+   */
+  requestId: string;
 
-  riskScore: number;
+  /**
+   * Security risk score
+   */
+  riskScore?: number;
 
-  policyId?: string;
-
+  /**
+   * Additional security metadata
+   */
   metadata?: Record<string, unknown>;
 }
 
-/**
- * Security analysis output.
- */
 export interface SecurityResult {
+  /**
+   * Final decision
+   */
   decision: SecurityDecision;
 
-  threats: string[];
+  /**
+   * Explanation
+   */
+  reason: string;
 
-  confidence: number;
-
-  explanation: string;
+  /**
+   * Risk score
+   */
+  riskScore?: number;
 }

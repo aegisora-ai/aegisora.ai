@@ -1,8 +1,7 @@
 /**
  * Aegisora Core Public API
  *
- * This package contains shared contracts,
- * types and errors used across the ecosystem.
+ * Shared contracts, types and errors.
  */
 
 export * from "./types/agent";
@@ -10,5 +9,11 @@ export * from "./types/agent";
 export * from "./types/runtime";
 
 export * from "./types/security";
+
+export * from "./types/decision";
+
+export * from "./types/request";
+
+export * from "./types/response";
 
 export * from "./errors";
