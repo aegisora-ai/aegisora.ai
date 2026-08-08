@@ -1,41 +1,52 @@
-
-
 import {
 AgentRuntime
 } from "../agent/runtime";
 
-
 export class RuntimeAPI {
 
-
 constructor(
-private runtime:AgentRuntime
+private runtime: AgentRuntime
 ){}
-
-
-
 
 
 createAgent(
 id:string,
-name:string
+config?:unknown
 ){
 
 return this.runtime
 .createAgent(
 id,
-name
+config
 );
 
 }
 
 
 startAgent(
-id:string
+id:string,
+goal:string = ""
 ){
 
 return this.runtime
-.startAgent(id);
+.startAgent(
+id,
+goal
+);
+
+}
+
+
+runAgent(
+id:string,
+goal:string = ""
+){
+
+return this.runtime
+.runAgent(
+id,
+goal
+);
 
 }
 
@@ -52,7 +63,7 @@ return this.runtime
 
 failAgent(
 id:string,
-reason:string
+reason?:unknown
 ){
 
 return this.runtime
@@ -74,15 +85,12 @@ return this.runtime
 }
 
 
-
 getSnapshot(
 id:string
 ){
 
 return this.runtime
-.getSnapshot(
-id
-);
+.getSnapshot(id);
 
 }
 
@@ -96,8 +104,6 @@ return this.runtime
 
 
 getAgents(){
-
-
 
 return this.runtime
 .getAgents();
@@ -117,13 +123,11 @@ return this.runtime
 
 getEvents(){
 
-
 return this.runtime
 .getEventStore()
 .getAll();
 
 }
-
 
 
 getDecisions(){
@@ -134,14 +138,12 @@ return this.runtime
 }
 
 
-
 getMetrics(){
 
 return this.runtime
 .getMetrics();
 
 }
-
 
 
 getRisks(){
@@ -156,28 +158,11 @@ getHealth(
 id:string
 ){
 
-const metrics=
-this.runtime.getMetrics();
-
-
-return {
-
-status:
-metrics.failures > 0
-?
-"degraded"
-:
-"healthy",
-
-metrics
-
-};
+return this.runtime
+.getHealth(id);
 
 }
 
 
-
-
 }
-
 

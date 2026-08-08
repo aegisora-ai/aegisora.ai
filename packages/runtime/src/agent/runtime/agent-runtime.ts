@@ -1,9 +1,9 @@
-
 import {
 ToolRegistry,
 ToolSelector,
 EchoTool
 } from "../../tools";
+
 import {
 Agent
 } from "..";
@@ -40,26 +40,21 @@ import {
 AgentLoop
 } from "../../loop";
 
-
 import {
 EventBus
 } from "../../events";
-
 
 import {
 EventStore
 } from "../../observability";
 
-
 import {
 RuntimeMonitor
 } from "../../monitoring";
 
-
 import {
 RiskEngine
 } from "../../security";
-
 
 import {
 DecisionTraceStore
@@ -67,67 +62,48 @@ DecisionTraceStore
 
 import { RuntimeContext } from "../../context/runtime-context";
 
-
-
-
-
-
-export interface AgentExecutionRequest{
-
-agentId:string;
-
-goal:string;
-
+export interface AgentExecutionRequest {
+agentId: string;
+goal: string;
 }
 
-export interface AgentExecutionResponse{
-
-agentId:string;
-
-status:string;
-
-finishedAt:Date;
-
+export interface AgentExecutionResponse {
+agentId: string;
+status: string;
+finishedAt: Date;
 }
 
-export class AgentRuntime{
+export class AgentRuntime {
 
-private agents=
-new Map<string,Agent>();
+private agents =
+new Map<string, Agent>();
 
-
-
-private context=
+private context =
 new RuntimeContext();
 
-
-
-private events=
+private events =
 this.context.eventBus;
 
-
-private goals=
+private goals =
 new GoalManager();
 
-private planner=
+private planner =
 new PlannerEngine(
 this.goals
 );
 
-private tasks=
+private tasks =
 new TaskManager();
 
-
-
-private tools=
+private tools =
 new ToolRegistry();
 
-private selector=
+private selector =
 new ToolSelector(
 this.tools
 );
 
-private executor=
+private executor =
 new AgentExecutor(
 this.tasks,
 this.selector,
@@ -135,16 +111,16 @@ this.planner,
 this.context
 );
 
-private observer=
+private observer =
 new Observer();
 
-private reflection=
+private reflection =
 new ReflectionEngine();
 
-private learning=
+private learning =
 new LearningEngine();
 
-private loop=
+private loop =
 new AgentLoop(
 this.planner,
 this.executor,
@@ -153,19 +129,28 @@ this.reflection,
 this.learning
 );
 
-create(
-id:string,
-config?:unknown
-){
+constructor() {
 
-const agent=
+this.tools.register(
+new EchoTool()
+);
+
+}
+
+create(
+id: string,
+config?: unknown
+) {
+
+const agent =
 new Agent({
 id,
-name:id,
+name: id,
 metadata:
-config && typeof config==="object"
-?config as Record<string, unknown>
-:undefined
+config &&
+typeof config === "object"
+? config as Record<string, unknown>
+: undefined
 });
 
 this.agents.set(
@@ -175,16 +160,16 @@ agent
 
 this.events.emit({
 
-id:crypto.randomUUID(),
+id: crypto.randomUUID(),
 
-type:"agent.created",
+type: "agent.created",
 
-agentId:id,
+agentId: id,
 
-timestamp:new Date(),
+timestamp: new Date(),
 
-payload:{
-name:id
+payload: {
+name: id
 }
 
 });
@@ -194,40 +179,37 @@ return agent;
 }
 
 async execute(
-request:AgentExecutionRequest
-):Promise<AgentExecutionResponse>{
+request: AgentExecutionRequest
+): Promise<AgentExecutionResponse> {
 
-const agent=
+const agent =
 this.agents.get(
 request.agentId
 );
 
-if(!agent){
+if (!agent) {
 
-throw new Error(
-`Agent not found: ${request.agentId}`
-);
+throw new Error(`Agent not found: ${request.agentId}`);
 
 }
 
 this.events.emit({
 
-id:crypto.randomUUID(),
+id: crypto.randomUUID(),
 
-type:"agent.started",
+type: "agent.started",
 
-agentId:agent.id,
+agentId: agent.id,
 
-timestamp:new Date(),
+timestamp: new Date(),
 
-payload:{
-goal:request.goal
+payload: {
+goal: request.goal
 }
 
 });
 
-
-const goal=
+const goal =
 this.goals.create(
 agent.id,
 request.goal
@@ -241,38 +223,35 @@ goal.id
 
 this.events.emit({
 
-id:crypto.randomUUID(),
+id: crypto.randomUUID(),
 
-type:"agent.completed",
+type: "agent.completed",
 
-agentId:agent.id,
+agentId: agent.id,
 
-timestamp:new Date(),
+timestamp: new Date(),
 
-payload:{
-status:"completed"
+payload: {
+status: "completed"
 }
 
 });
 
+return {
 
-return{
+agentId: agent.id,
 
-agentId:agent.id,
+status: "completed",
 
-status:"completed",
-
-finishedAt:new Date()
+finishedAt: new Date()
 
 };
 
 }
 
-
-
 registerTool(
-tool:import("../../tools").RuntimeTool
-){
+tool: import("../../tools").RuntimeTool
+) {
 
 return this.tools.register(
 tool
@@ -280,17 +259,16 @@ tool
 
 }
 
-
-getToolRegistry(){
+getToolRegistry() {
 
 return this.tools;
 
 }
 
-
-getState(){
+getState() {
 
 return {
+
 agents:
 Array.from(
 this.agents.keys()
@@ -305,7 +283,7 @@ this.planner.list(),
 tools:
 this.tools.list()
 .map(
-tool=>tool.name
+tool => tool.name
 ),
 
 loop:
@@ -315,13 +293,9 @@ this.loop.getState()
 
 }
 
-
-
-
-
 getSnapshot(
-id:string
-){
+id: string
+) {
 
 return this.context.snapshot
 .getSnapshot(
@@ -330,19 +304,17 @@ id
 
 }
 
-
-
 getHealth(
-id:string
-){
+id: string
+) {
 
-const snapshot=
+const snapshot =
 this.context.snapshot
 .getSnapshot(
 id
 );
 
-if(!snapshot){
+if (!snapshot) {
 
 return null;
 
@@ -355,7 +327,7 @@ snapshot
 
 }
 
-getHealthSummary(){
+getHealthSummary() {
 
 return this.context.snapshot
 .getAll()
@@ -369,26 +341,22 @@ snapshot
 
 }
 
-getSnapshots(){
-
+getSnapshots() {
 
 return this.context.snapshot
 .getAll();
 
 }
 
-
-getAgents(){
-
+getAgents() {
 
 return this.context.agentRegistry.getAll();
 
 }
 
-
 getAgent(
-id:string
-){
+id: string
+) {
 
 return this.context.agentRegistry.getById(
 id
@@ -396,22 +364,16 @@ id
 
 }
 
-
-getEventStore(){
-
+getEventStore() {
 
 return this.context.eventStore;
 
 }
 
+getRiskSignals() {
 
-
-
-getRiskSignals(){
-
-const engine=
+const engine =
 new RiskEngine();
-
 
 return this.context.eventStore
 .getAll()
@@ -421,25 +383,20 @@ engine.analyze(event)
 )
 .filter(
 signal =>
-signal!==null
+signal !== null
 );
 
 }
 
-
-
-getDecisionTraces(){
+getDecisionTraces() {
 
 return this.context.decisionStore.getAll();
 
 }
 
+getMetrics() {
 
-getMetrics(){
-
-
-
-const monitor=
+const monitor =
 new RuntimeMonitor(
 this.context.eventStore.getAll()
 );
@@ -448,20 +405,16 @@ return monitor.getMetrics();
 
 }
 
-
-getEventBus(){
-
-
+getEventBus() {
 
 return this.events;
 
 }
 
-
 createAgent(
-id:string,
-config?:unknown
-){
+id: string,
+config?: unknown
+) {
 
 return this.create(
 id,
@@ -471,13 +424,13 @@ config
 }
 
 runAgent(
-id:string,
-goal:string = ""
-){
+id: string,
+goal: string = ""
+) {
 
 return this.execute({
 
-agentId:id,
+agentId: id,
 
 goal
 
@@ -485,11 +438,10 @@ goal
 
 }
 
-
 startAgent(
-id:string,
-goal:string = ""
-){
+id: string,
+goal: string = ""
+) {
 
 return this.runAgent(
 id,
@@ -498,44 +450,51 @@ goal
 
 }
 
-
 completeAgent(
-id:string
-){
+id: string
+) {
 
 return {
-agentId:id,
-status:"COMPLETED",
-finishedAt:new Date()
+
+agentId: id,
+
+status: "COMPLETED",
+
+finishedAt: new Date()
+
 };
 
 }
-
 
 failAgent(
-id:string,
-error?:unknown
-){
+id: string,
+error?: unknown
+) {
 
 return {
-agentId:id,
-status:"FAILED",
+
+agentId: id,
+
+status: "FAILED",
+
 error
+
 };
 
 }
-
 
 stopAgent(
-id:string
-){
+id: string
+) {
 
 return {
-agentId:id,
-status:"STOPPED"
+
+agentId: id,
+
+status: "STOPPED"
+
 };
 
 }
-
 
 }

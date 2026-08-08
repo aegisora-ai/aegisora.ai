@@ -39,7 +39,6 @@ export interface ExecutionResult {
 }
 
 export class AgentExecutor {
-  private readonly providerManager: ProviderManager;
 
   constructor(
     private tasks: TaskManager,
@@ -48,9 +47,7 @@ export class AgentExecutor {
     private context: RuntimeContext,
     private providerRouter: ProviderRouter = new ProviderRouter(),
     private providerManager: ProviderManager = new ProviderManager(providerRouter),
-  ) {
-    this.providerManager = providerManager;
-  }
+  ) {}
 
   async execute(
     agent: Agent,
