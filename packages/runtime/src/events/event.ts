@@ -8,7 +8,8 @@ export type RuntimeEventType =
   | "tool.completed"
   | "step.completed"
   | "agent.completed"
-  | "agent.failed";
+  | "agent.failed"
+| "agent.stopped";
 
 
 export interface RuntimeEvent {

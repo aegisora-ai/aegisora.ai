@@ -37,19 +37,24 @@ type:event.type
 
 getMetrics(){
 
+const failureEvents =
+this.events.filter(
+e => e.type === "agent.failed"
+);
+
 return {
 
-total:this.events.length,
+total:
+this.events.length,
 
-last:this.events[this.events.length-1],
+last:
+this.events[this.events.length - 1],
 
-failures:this.events.filter(
-e=>String(e.type).includes("FAIL")
-).length
+failures:
+failureEvents.length
 
 };
 
 }
-
 
 }

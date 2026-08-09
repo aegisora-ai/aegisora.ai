@@ -9,14 +9,17 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "tsx test/run-all.ts"
   },
   "dependencies": {
     "@aegisora/core": "workspace:*",
     "@aegisora/observability": "workspace:*",
-    "@aegisora/policy-engine": "workspace:*"
+    "@aegisora/policy-engine": "workspace:*",
+    "@aegisora/security-engine": "workspace:*"
   },
   "devDependencies": {
+    "tsx": "^4",
     "typescript": "^5"
   }
 }

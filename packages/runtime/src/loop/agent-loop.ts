@@ -68,7 +68,12 @@ goal:string,
 ){
 
 this.state.status="running";
+this.state.iteration=0;
 this.state.startedAt=new Date();
+this.state.completedAt=undefined;
+this.state.lastAction=undefined;
+
+try {
 
 while(
 this.state.iteration <
@@ -82,7 +87,7 @@ this.planner.createFromGoal(
 goalId
 );
 
-const result:ExecutionResult =
+const result: ExecutionResult =
 await this.executor.execute(
 agent,
 plan
@@ -91,7 +96,7 @@ plan
 const observation =
 this.observer.observe({
 
-agentId:agent.id,
+agentId: agent.id,
 
 goal
 
@@ -105,36 +110,54 @@ result
 
 this.learning.learn({
 
-id:crypto.randomUUID(),
+id: crypto.randomUUID(),
 
-agentId:agent.id,
+agentId: agent.id,
 
-input:observation,
+input: observation,
 
-output:result,
+output: result,
 
-success:result.success,
+success: result.success,
 
-score:1,
+score: result.success ? 1 : 0,
 
 lesson:
 reflection.improvements.join("; "),
 
-createdAt:new Date()
+createdAt: new Date()
 
 });
 
-this.state.lastAction=
+this.state.lastAction =
 "learning-completed";
 
 break;
 
 }
 
-this.state.status="completed";
-this.state.completedAt=new Date();
+this.state.status =
+"completed";
+
+this.state.completedAt =
+new Date();
 
 return this.state;
+
+} catch (error) {
+
+this.state.status =
+"failed";
+
+this.state.completedAt =
+new Date();
+
+this.state.lastAction =
+"execution-failed";
+
+throw error;
+
+}
 
 }
 

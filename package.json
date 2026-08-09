@@ -8,7 +8,9 @@
     "build": "turbo build",
     "start": "next start",
     "lint": "turbo lint",
-    "test": "turbo test && pnpm exec tsx tests/diagnostic.ts && pnpm exec tsx tests/sdk-diagnostic.ts && pnpm exec tsx tests/test-sdk.ts"
+    "test": "turbo test && pnpm exec tsx tests/diagnostic.ts && pnpm exec tsx tests/sdk-diagnostic.ts && pnpm exec tsx tests/test-sdk.ts",
+    "typecheck": "turbo typecheck",
+    "verify": "pnpm build && pnpm typecheck && pnpm test"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

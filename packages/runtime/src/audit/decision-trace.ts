@@ -1,66 +1,38 @@
+﻿export interface DecisionTrace {
+  id: string;
+  agentId: string;
+  action: string;
 
+  decision:
+    | "allow"
+    | "block"
+    | "escalate";
 
-export interface DecisionTrace {
-
-
-id:string;
-
-
-agentId:string;
-
-
-action:string;
-
-
-decision:
-"allow"
-|
-"block";
-
-
-reason:string;
-
-
-timestamp:Date;
-
-
+  reason: string;
+  timestamp: Date;
+  riskScore?: number;
+  metadata?: Record<string, unknown>;
 }
-
 
 export class DecisionTraceStore {
+  private traces: DecisionTrace[] = [];
 
+  record(trace: DecisionTrace) {
+    this.traces.push({
+      ...trace,
+      metadata: trace.metadata
+        ? { ...trace.metadata }
+        : undefined,
+    });
+  }
 
-private traces:DecisionTrace[]=[];
+  getAll() {
+    return [...this.traces];
+  }
 
-
-record(
-trace:DecisionTrace
-){
-
-this.traces.push(trace);
-
+  getByAgent(agentId: string) {
+    return this.traces.filter(
+      (trace) => trace.agentId === agentId,
+    );
+  }
 }
-
-
-getAll(){
-
-return [
-...this.traces
-];
-
-}
-
-
-getByAgent(
-agentId:string
-){
-
-return this.traces.filter(
-t=>t.agentId===agentId
-);
-
-}
-
-
-}
-

@@ -1,4 +1,4 @@
-import {
+﻿import {
   Agent
 } from "../agent";
 
@@ -22,6 +22,10 @@ import {
 import { RuntimeContext } from "../context/runtime-context";
 
 import {
+  EnforcementGate
+} from "../enforcement";
+
+import {
   ProviderRouter,
   ProviderName,
   ProviderManager,
@@ -40,25 +44,33 @@ export interface ExecutionResult {
 
 export class AgentExecutor {
 
+  private enforcement: EnforcementGate;
+
   constructor(
     private tasks: TaskManager,
     private selector: ToolSelector,
     private planner: PlannerEngine,
     private context: RuntimeContext,
     private providerRouter: ProviderRouter = new ProviderRouter(),
-    private providerManager: ProviderManager = new ProviderManager(providerRouter),
-  ) {}
+    private providerManager: ProviderManager = new ProviderManager(
+      providerRouter
+    ),
+  ) {
+    this.enforcement = new EnforcementGate(context);
+  }
 
   async execute(
     agent: Agent,
     plan: AgentPlan
   ): Promise<ExecutionResult> {
+
     agent.start();
 
     let completed = 0;
     let lastOutput: unknown = undefined;
 
     for (const step of plan.steps) {
+
       lastOutput = await this.executeStep(
         agent,
         step,
@@ -87,7 +99,10 @@ export class AgentExecutor {
     step: PlanStep,
     planId: string,
   ): Promise<unknown> {
-    const selection = this.selector.select(step.description);
+
+    const selection = this.selector.select(
+      step.description
+    );
 
     console.log(
       "TOOL SELECTED:",
@@ -96,87 +111,185 @@ export class AgentExecutor {
       selection.confidence
     );
 
-    const policyDecision = this.context.policy.evaluate({
-      id: crypto.randomUUID(),
-      type: "tool.called",
-      agentId: agent.id,
-      timestamp: new Date(),
-      payload: {
-        tool: selection.tool.name
-      }
-    });
+    /*
+     * ----------------------------------------------------------
+     * AEGISORA ENFORCEMENT BOUNDARY
+     * ----------------------------------------------------------
+     *
+     * No tool execution may happen before the unified
+     * permission -> policy -> security enforcement gate.
+     *
+     * IMPORTANT:
+     * The actual step payload is passed into the gate.
+     */
 
-    this.context.decisionStore.record({
-      id: crypto.randomUUID(),
+    const enforcement = await this.enforcement.enforce({
       agentId: agent.id,
+      tool: selection.tool.name,
       action: "tool.execute",
-      decision: policyDecision.allowed ? "allow" : "block",
-      reason: policyDecision.reason,
-      timestamp: new Date()
+      input: step.description,
+      metadata: {
+        planId,
+        stepId: step.id,
+        confidence: selection.confidence,
+      },
     });
 
-    if (!policyDecision.allowed) {
-      throw new Error(policyDecision.reason);
+    console.log(
+      "ENFORCEMENT:",
+      enforcement.decision,
+      "RISK:",
+      enforcement.riskScore
+    );
+
+    if (enforcement.decision !== "ALLOW") {
+      throw new Error(
+        `[ENFORCEMENT:${enforcement.decision}] ${enforcement.reason}`
+      );
     }
 
-    const securityResult = this.context.security.check({
-      id: crypto.randomUUID(),
-      type: "tool.called",
-      agentId: agent.id,
-      timestamp: new Date(),
-      payload: {
-        tool: selection.tool.name
-      }
-    });
-
-    if (securityResult.decision === "block") {
-      throw new Error(securityResult.reason);
-    }
+    /*
+     * ----------------------------------------------------------
+     * Provider execution
+     * ----------------------------------------------------------
+     */
 
     const providerName: ProviderName = "openai";
-    const model = this.providerManager.getDefaultModel(providerName);
-    const requestId = crypto.randomUUID();
+
+    const model =
+      this.providerManager.getDefaultModel(
+        providerName
+      );
+
+    const requestId =
+      crypto.randomUUID();
 
     const providerContext: ProviderRuntimeContext = {
       requestId,
       prompt: step.description,
       agentId: agent.id,
       action: "agent.step",
+
       metadata: {
         planId,
         stepId: step.id,
         tool: selection.tool.name,
       },
-      riskScore: 0,
-      riskLevel: "LOW",
-      suspicious: false,
-      signals: [],
+
+      riskScore: enforcement.riskScore,
+
+      riskLevel:
+        enforcement.riskScore >= 90
+          ? "CRITICAL"
+          : enforcement.riskScore >= 70
+            ? "HIGH"
+            : enforcement.riskScore >= 40
+              ? "MEDIUM"
+              : "LOW",
+
+      suspicious:
+        enforcement.threats.length > 0,
+
+      signals:
+        enforcement.threats.map(
+          (threat) =>
+            `${threat.type}:${threat.severity}`
+        ),
+
       blocked: false,
+
       provider: providerName,
+
       startedAt: new Date(),
     };
 
-    const provider = this.providerRouter.resolve(providerName);
-    const providerResponse = await provider.generate(
-      {
-        model,
-        prompt: step.description,
-      },
-      providerContext,
-    );
+    const provider =
+      this.providerRouter.resolve(
+        providerName
+      );
 
-    providerContext.response = providerResponse.output;
-    providerContext.finishedAt = new Date();
+    const providerResponse =
+      await provider.generate(
+        {
+          model,
+          prompt: step.description,
+        },
+        providerContext,
+      );
 
-    const result = await selection.tool.execute(
-      {
+    providerContext.response =
+      providerResponse.output;
+
+    providerContext.finishedAt =
+      new Date();
+
+    /*
+     * ----------------------------------------------------------
+     * Actual tool execution
+     * ----------------------------------------------------------
+     *
+     * This is intentionally AFTER enforcement.
+     */
+
+    /*
+
+     * ----------------------------------------------------------
+
+     * Persist tool.called BEFORE actual tool execution
+
+     * ----------------------------------------------------------
+
+     *
+
+     * This records the execution attempt before the tool runs.
+
+     * It must survive even when the tool throws.
+
+     * Enforcement has already passed at this point.
+
+     */
+
+    this.context.eventBus.emit({
+
+      id: crypto.randomUUID(),
+
+      type: "tool.called",
+
+      agentId: agent.id,
+
+      timestamp: new Date(),
+
+      payload: {
+
+        tool: selection.tool.name,
+
         task: step.description,
-        reasoning: providerResponse.output,
+
+        planId,
+
+        stepId: step.id,
+
+        confidence: selection.confidence,
+
+        provider: providerName,
+
+        model,
+
       },
-      {
-        agentId: agent.id
-      }
-    );
+
+    });
+
+
+    const result =
+      await selection.tool.execute(
+        {
+          task: step.description,
+          reasoning: providerResponse.output,
+        },
+        {
+          agentId: agent.id
+        }
+      );
 
     console.log(
       "TOOL RESULT:",
@@ -194,6 +307,11 @@ export class AgentExecutor {
         model,
         reasoning: providerResponse.output,
         result,
+        enforcement: {
+          decision: enforcement.decision,
+          riskScore: enforcement.riskScore,
+          threats: enforcement.threats,
+        },
         completed: true
       }
     );
@@ -209,6 +327,10 @@ export class AgentExecutor {
       reasoning: providerResponse.output,
       tool: selection.tool.name,
       result,
+      enforcement: {
+        decision: enforcement.decision,
+        riskScore: enforcement.riskScore,
+      },
     };
   }
 }

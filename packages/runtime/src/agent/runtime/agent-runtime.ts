@@ -158,21 +158,10 @@ id,
 agent
 );
 
-this.events.emit({
-
-id: crypto.randomUUID(),
-
-type: "agent.created",
-
-agentId: id,
-
-timestamp: new Date(),
-
-payload: {
-name: id
-}
-
-});
+this.context.lifecycle.create(
+id,
+id
+);
 
 return agent;
 
@@ -193,21 +182,9 @@ throw new Error(`Agent not found: ${request.agentId}`);
 
 }
 
-this.events.emit({
-
-id: crypto.randomUUID(),
-
-type: "agent.started",
-
-agentId: agent.id,
-
-timestamp: new Date(),
-
-payload: {
-goal: request.goal
-}
-
-});
+this.context.lifecycle.start(
+agent.id
+);
 
 const goal =
 this.goals.create(
@@ -215,27 +192,17 @@ agent.id,
 request.goal
 );
 
+try {
+
 await this.loop.run(
 agent,
 goal.objective,
 goal.id
 );
 
-this.events.emit({
-
-id: crypto.randomUUID(),
-
-type: "agent.completed",
-
-agentId: agent.id,
-
-timestamp: new Date(),
-
-payload: {
-status: "completed"
-}
-
-});
+this.context.lifecycle.complete(
+agent.id
+);
 
 return {
 
@@ -246,6 +213,24 @@ status: "completed",
 finishedAt: new Date()
 
 };
+
+} catch (error) {
+
+const reason =
+error instanceof Error
+? error.message
+: String(error);
+
+this.context.lifecycle.fail(
+agent.id,
+reason
+);
+
+agent.fail();
+
+throw error;
+
+}
 
 }
 
@@ -453,48 +438,121 @@ goal
 completeAgent(
 id: string
 ) {
+const agent =
+this.agents.get(id);
+
+if (!agent) {
+throw new Error(
+`Agent not found: ${id}`
+);
+}
+
+const currentState =
+agent.getState().status;
+
+if (
+currentState === "completed" ||
+currentState === "failed" ||
+currentState === "stopped"
+) {
+throw new Error(
+`Cannot complete agent from terminal state: ${currentState}`
+);
+}
+
+this.context.lifecycle.complete(
+id
+);
+
+agent.complete();
 
 return {
-
 agentId: id,
-
 status: "COMPLETED",
-
 finishedAt: new Date()
-
 };
-
 }
 
 failAgent(
 id: string,
 error?: unknown
 ) {
+const agent =
+this.agents.get(id);
+
+if (!agent) {
+throw new Error(
+`Agent not found: ${id}`
+);
+}
+
+const currentState =
+agent.getState().status;
+
+if (
+currentState === "completed" ||
+currentState === "failed" ||
+currentState === "stopped"
+) {
+throw new Error(
+`Cannot fail agent from terminal state: ${currentState}`
+);
+}
+
+const reason =
+error instanceof Error
+? error.message
+: String(error ?? "Agent execution failed");
+
+this.context.lifecycle.fail(
+id,
+reason
+);
+
+agent.fail();
 
 return {
-
 agentId: id,
-
 status: "FAILED",
-
 error
-
 };
-
 }
 
 stopAgent(
 id: string
 ) {
+const agent =
+this.agents.get(id);
+
+if (!agent) {
+throw new Error(
+`Agent not found: ${id}`
+);
+}
+
+const currentState =
+agent.getState().status;
+
+if (
+currentState === "completed" ||
+currentState === "failed" ||
+currentState === "stopped"
+) {
+throw new Error(
+`Cannot stop agent from terminal state: ${currentState}`
+);
+}
+
+this.context.lifecycle.stop(
+id
+);
+
+agent.stop();
 
 return {
-
 agentId: id,
-
 status: "STOPPED"
-
 };
-
 }
 
 }

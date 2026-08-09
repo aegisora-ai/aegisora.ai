@@ -186,20 +186,30 @@ reason
 
 
 stop(
-id:string
+id: string
 ){
-
 
 this.context.agentRegistry.updateStatus(
 id,
 "stopped"
 );
 
+this.context.eventBus.emit({
+
+id: crypto.randomUUID(),
+
+type: "agent.stopped",
+
+agentId: id,
+
+timestamp: new Date(),
+
+payload: {}
+
+});
 
 }
 
 
 
 }
-
-

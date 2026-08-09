@@ -22,7 +22,8 @@ status:
 "idle" |
 "running" |
 "completed" |
-"failed";
+"failed" |
+"stopped";
 
 }
 
@@ -102,6 +103,16 @@ fail(){
 
 this.state.status =
 "failed";
+
+}
+
+/**
+ * Stop execution
+ */
+stop(){
+
+this.state.status =
+"stopped";
 
 }
 

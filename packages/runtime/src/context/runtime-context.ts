@@ -1,4 +1,4 @@
-
+﻿
 
 import {
 EventStore
@@ -163,5 +163,3 @@ this.eventStore
 
 
 }
-
-

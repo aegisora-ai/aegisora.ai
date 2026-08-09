@@ -1,0 +1,49 @@
+﻿import type { RuntimeContext } from "../context/runtime-context";
+
+export type EnforcementDecision =
+  | "ALLOW"
+  | "BLOCK"
+  | "ESCALATE";
+
+export interface EnforcementRequest {
+  agentId: string;
+  tool: string;
+  action: string;
+  input: unknown;
+  metadata?: Record<string, unknown>;
+}
+
+export interface EnforcementThreat {
+  type: string;
+  severity: string;
+  description: string;
+  score: number;
+}
+
+export interface EnforcementResult {
+  decision: EnforcementDecision;
+  reason: string;
+  riskScore: number;
+  threats: EnforcementThreat[];
+  permission: "allow" | "deny" | "review";
+  policy: "allow" | "block" | "escalate";
+  security: "allow" | "block" | "escalate";
+}
+
+export interface EnforcementAuditRecord {
+  agentId: string;
+  tool: string;
+  action: string;
+  decision: EnforcementDecision;
+  reason: string;
+  riskScore: number;
+  threats: EnforcementThreat[];
+  metadata?: Record<string, unknown>;
+}
+
+export interface EnforcementDependencies {
+  context: RuntimeContext;
+  audit?: {
+    record(record: EnforcementAuditRecord): Promise<unknown> | unknown;
+  };
+}
