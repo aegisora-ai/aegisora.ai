@@ -1,18 +1,14 @@
-import { spawnSync } from "node:child_process";
+﻿import { spawnSync } from "node:child_process";
 import { readdirSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const testDir =
-    join(
-        process.cwd(),
-        "packages",
-        "runtime",
-        "test"
-    );
+const __filename = fileURLToPath(import.meta.url);
+const testDir = dirname(__filename);
 
 const tests = readdirSync(testDir)
     .filter(
-        file =>
+        (file) =>
             file.endsWith(".ts") &&
             file !== "run-all.ts"
     )
@@ -26,9 +22,11 @@ for (const test of tests) {
     console.log(`RUNNING: ${test}`);
     console.log("============================================");
 
+    const testPath = join(testDir, test);
+
     const result = spawnSync(
         "pnpm",
-        ["exec", "tsx", join(testDir, test)],
+        ["exec", "tsx", testPath],
         {
             stdio: "inherit",
             shell: true
@@ -51,6 +49,7 @@ console.log("============================================");
 if (failed.length > 0) {
     console.error("");
     console.error("FAILED TESTS:");
+
     for (const test of failed) {
         console.error(`- ${test}`);
     }

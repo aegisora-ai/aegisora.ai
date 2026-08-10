@@ -1,4 +1,4 @@
-﻿import {
+import {
   Agent
 } from "../agent";
 
@@ -26,14 +26,9 @@ import {
 } from "../enforcement";
 
 import {
-  ProviderRouter,
-  ProviderName,
-  ProviderManager,
+  ProviderExecutionGateway,
+  type ProviderName,
 } from "../providers";
-
-import type {
-  ProviderRuntimeContext,
-} from "../types/context";
 
 export interface ExecutionResult {
   agentId: string;
@@ -51,10 +46,8 @@ export class AgentExecutor {
     private selector: ToolSelector,
     private planner: PlannerEngine,
     private context: RuntimeContext,
-    private providerRouter: ProviderRouter = new ProviderRouter(),
-    private providerManager: ProviderManager = new ProviderManager(
-      providerRouter
-    ),
+    private providerGateway: ProviderExecutionGateway =
+    new ProviderExecutionGateway(context),
   ) {
     this.enforcement = new EnforcementGate(context);
   }
@@ -156,72 +149,31 @@ export class AgentExecutor {
 
     const providerName: ProviderName = "openai";
 
-    const model =
-      this.providerManager.getDefaultModel(
-        providerName
-      );
+const model =
+  this.providerGateway.getDefaultModel(
+    providerName
+  );
 
-    const requestId =
-      crypto.randomUUID();
+const providerResponse =
+  await this.providerGateway.generate({
 
-    const providerContext: ProviderRuntimeContext = {
-      requestId,
+    agentId: agent.id,
+
+    provider: providerName,
+
+    request: {
       prompt: step.description,
-      agentId: agent.id,
-      action: "agent.step",
+    },
 
-      metadata: {
-        planId,
-        stepId: step.id,
-        tool: selection.tool.name,
-      },
+    metadata: {
+      planId,
+      stepId: step.id,
+      tool: selection.tool.name,
+      riskScore:
+        enforcement.riskScore,
+    },
 
-      riskScore: enforcement.riskScore,
-
-      riskLevel:
-        enforcement.riskScore >= 90
-          ? "CRITICAL"
-          : enforcement.riskScore >= 70
-            ? "HIGH"
-            : enforcement.riskScore >= 40
-              ? "MEDIUM"
-              : "LOW",
-
-      suspicious:
-        enforcement.threats.length > 0,
-
-      signals:
-        enforcement.threats.map(
-          (threat) =>
-            `${threat.type}:${threat.severity}`
-        ),
-
-      blocked: false,
-
-      provider: providerName,
-
-      startedAt: new Date(),
-    };
-
-    const provider =
-      this.providerRouter.resolve(
-        providerName
-      );
-
-    const providerResponse =
-      await provider.generate(
-        {
-          model,
-          prompt: step.description,
-        },
-        providerContext,
-      );
-
-    providerContext.response =
-      providerResponse.output;
-
-    providerContext.finishedAt =
-      new Date();
+  });
 
     /*
      * ----------------------------------------------------------

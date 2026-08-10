@@ -15,3 +15,11 @@ export type { ProviderName } from "./provider-router";
 export { ProviderManager } from "./provider-manager";
 
 export { providerConfigs } from "./provider-config";
+
+export {
+  ProviderExecutionGateway
+} from "./provider-execution-gateway";
+
+export type {
+  ProviderExecutionRequest
+} from "./provider-execution-gateway";

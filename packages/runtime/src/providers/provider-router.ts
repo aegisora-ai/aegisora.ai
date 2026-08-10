@@ -1,9 +1,18 @@
 import {
   BaseProvider,
+} from "./base-provider";
+
+import {
   OpenAIProvider,
+} from "./openai-provider";
+
+import {
   AnthropicProvider,
+} from "./anthropic-provider";
+
+import {
   GeminiProvider,
-} from "./index";
+} from "./gemini-provider";
 
 export type ProviderName = "openai" | "anthropic" | "gemini";
 

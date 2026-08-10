@@ -250,6 +250,10 @@ return this.tools;
 
 }
 
+getContext() {
+  return this.context;
+}
+
 getState() {
 
 return {

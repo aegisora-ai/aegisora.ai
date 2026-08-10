@@ -7,7 +7,10 @@
 
 import type { AgentRequest } from "@aegisora/core";
 
-import { ProviderRouter, ProviderName } from "../providers";
+import {
+  ProviderExecutionGateway,
+  type ProviderName,
+} from "../providers";
 
 import { ExecutionPipeline } from "../pipeline/execution-pipeline";
 
@@ -34,22 +37,22 @@ export class AegisoraRuntime {
 
   private pipeline: ExecutionPipeline;
 
-  private providerRouter: ProviderRouter;
-
   private middleware: MiddlewareManager;
 
   private agentRuntime: AgentRuntime;
 
-
-  constructor() {
+private providerGateway: ProviderExecutionGateway;constructor() {
 
     this.pipeline = new ExecutionPipeline();
-
-    this.providerRouter = new ProviderRouter();
 
     this.middleware = new MiddlewareManager();
 
     this.agentRuntime = new AgentRuntime();
+
+this.providerGateway =
+  new ProviderExecutionGateway(
+    this.agentRuntime.getContext()
+  );
 
 
     /**
@@ -148,16 +151,21 @@ export class AegisoraRuntime {
     }
 
 
-    const selectedProvider =
-      this.providerRouter.resolve(
-        provider
-      );
+    return this.providerGateway.generate({
 
+  agentId:
+    context.agentId ?? "runtime",
 
-    return selectedProvider.generate(
-      request,
-      context
-    );
+  provider,
+
+  request,
+
+  metadata:
+    context.metadata,
+
+  context,
+
+});
 
   }
 
@@ -168,7 +176,7 @@ export class AegisoraRuntime {
    */
   providers(): ProviderName[] {
 
-    return this.providerRouter.list();
+    return this.providerGateway.list();
 
   }
 
