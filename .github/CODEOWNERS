@@ -1,1 +1,18 @@
-* @ozereray
+# Aegisora Code Owners
+# This file dictates who needs to review changes to specific areas of the monorepo.
+
+# 🛡️ Default Owner (Fallback for everything)
+*                   @ozereray
+
+# ⚙️ Core Proxy & Security Engine
+/packages/core/     @ozereray
+/packages/policy/   @ozereray
+SECURITY.md         @ozereray
+
+# 🏗️ Architecture & Workflows
+/.github/           @ozereray
+ARCHITECTURE.md     @ozereray
+
+# 📚 Documentation
+/docs/              @ozereray
+README.md           @ozereray
