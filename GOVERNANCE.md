@@ -1,151 +1,30 @@
-# Governance
+# Aegisora Project Governance
 
-Aegisora is built as an open, community-driven project with a long-term vision.
+The Aegisora ecosystem is an open-source initiative driven by the community and guided by its Core Maintainers. Our goal is to build the definitive Zero-Trust Runtime Security Layer for AI Agents. 
 
-Our goal is to create the trusted runtime governance platform for autonomous AI systems through transparent collaboration.
+This document outlines how decisions are made, how contributions are evaluated, and how leadership is structured within the project.
 
----
+## 🏛️ Governance Model
 
-# Governance Model
+Aegisora currently operates under a **Maintainer-Led** governance model. As the project scales, we intend to transition to a distributed Steering Committee model (similar to CNCF projects) to ensure long-term sustainability and enterprise neutrality.
 
-Aegisora follows a maintainer-led governance model.
+### 1. Core Maintainers
+Core Maintainers are the architects of the Aegisora project. They hold write access to the repository, manage releases, and have final say on architectural decisions.
 
-Major architectural decisions are discussed publicly before implementation whenever possible.
+**Current Core Maintainers:**
+- [@ozereray](https://github.com/ozereray) - *Founder & Lead Architect*
 
-The project values transparency, technical excellence, and long-term maintainability over short-term feature growth.
+### 2. Contributors
+Contributors are community members who submit pull requests, report bugs, improve documentation, or help answer questions in the community. Anyone can become a contributor. Consistent and high-quality contributors may be invited to become Core Maintainers.
 
----
+## ⚖️ Decision Making Process
 
-# Core Principles
+1. **RFCs (Request for Comments):** Major architectural changes, new policy engines, or API modifications must start as an Issue tagged with `[RFC]`.
+2. **Community Discussion:** The community is encouraged to debate the pros and cons of the proposed architecture.
+3. **Consensus & Approval:** A Core Maintainer must approve the RFC before any code is written. We aim for consensus, but in the event of a technical deadlock, the Lead Architect holds the deciding vote to ensure system stability and security.
 
-Every decision should prioritize:
-
-- Security First
-- Community Before Individual Preference
-- Long-Term Maintainability
-- Simplicity
-- Developer Experience
-- Backward Compatibility
-
----
-
-# Roles
-
-## Contributors
-
-Anyone can contribute through:
-
-- Pull Requests
-- Documentation
-- Discussions
-- Bug Reports
-- Feature Proposals
-- Security Research
+## 🚀 Transitioning to a Foundation
+As Aegisora achieves widespread enterprise adoption, the governance model will evolve to include multi-organization representation, ensuring that no single corporate entity dictates the future of the project's open-source core.
 
 ---
-
-## Maintainers
-
-Maintainers are responsible for:
-
-- Reviewing Pull Requests
-- Protecting architecture quality
-- Managing releases
-- Reviewing RFCs
-- Mentoring contributors
-- Maintaining project direction
-
----
-
-## Core Team
-
-The Core Team defines:
-
-- Long-term vision
-- Major architecture decisions
-- Security direction
-- Release strategy
-- Governance evolution
-
----
-
-# Decision Process
-
-Small improvements:
-
-- Maintainer review
-- Standard Pull Request process
-
-Large changes:
-
-- RFC Discussion
-- Community Feedback
-- Core Team Review
-- Final Approval
-
----
-
-# RFC Process
-
-Significant features should begin as an RFC.
-
-Examples:
-
-- New runtime components
-- Plugin architecture changes
-- Security model updates
-- API breaking changes
-- SDK redesign
-
-RFC documents live under:
-
-docs/rfc/
-
----
-
-# Architecture Stability
-
-Breaking changes require:
-
-- Strong technical justification
-- Migration path
-- Documentation updates
-- Community discussion
-
----
-
-# Code Ownership
-
-Critical components may require approval from designated maintainers before merging.
-
-Future CODEOWNERS configuration will enforce review requirements.
-
----
-
-# Community Expectations
-
-We encourage:
-
-- Respectful discussions
-- Constructive feedback
-- Knowledge sharing
-- High-quality documentation
-- Mentorship
-
----
-
-# Transparency
-
-Project discussions should happen publicly whenever possible.
-
-Architecture decisions, roadmaps, and RFCs will remain open for community review.
-
----
-
-# Future Governance
-
-As Aegisora grows, governance may evolve toward a broader community-led model while preserving security, quality, and project vision.
-
----
-
-Thank you for helping build Aegisora.
+*For guidelines on how to submit code, please read our [CONTRIBUTING.md](CONTRIBUTING.md).*
