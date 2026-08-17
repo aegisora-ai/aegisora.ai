@@ -1,16 +1,20 @@
-# Contributing to Aegisora
+# Contributing to Aegisora 🛡️
 
 First of all, thank you for considering contributing to Aegisora.
 
-Our goal is not simply to build another AI security tool.
+Our goal is not simply to build another AI security tool. Our mission is to build the open runtime governance layer for autonomous AI systems. Every contribution—whether it's code, documentation, design, testing, security research, or discussion—helps move that mission forward.
 
-Our mission is to build the open runtime governance layer for autonomous AI systems.
+## 🌟 The Aegisora Ecosystem & Teams
 
-Every contribution—whether it's code, documentation, design, testing, security research, or discussion—helps move that mission forward.
+We recognize and reward our contributors. Consistent and high-quality contributions are the path to joining our official GitHub organization teams, which you can proudly display on your CV and LinkedIn.
+
+- **Community Contributors:** The entry point. Submit bug fixes, improve docs, or build basic integrations.
+- **Security Researchers:** For those who responsibly disclose vulnerabilities, improve our zero-trust architecture, and harden the proxy.
+- **Core Maintainers:** The elite architectural board. Hand-picked from our most dedicated and technically excellent contributors.
 
 ---
 
-# Before You Start
+## Before You Start
 
 Please read the following documents before opening a Pull Request.
 
@@ -21,7 +25,7 @@ Please read the following documents before opening a Pull Request.
 
 ---
 
-# Development Philosophy
+## Development Philosophy
 
 Every contribution should improve at least one of these areas:
 
@@ -36,32 +40,30 @@ If a contribution doesn't improve one of these pillars, it probably doesn't belo
 
 ---
 
-# Local Development
+## Local Development
 
-Clone the repository
+Clone the repository:
 
 ```bash
-git clone https://github.com/ozereray/aegisora.ai.git
+git clone https://github.com/aegisora-ai/aegisora.ai.git
 cd aegisora.ai
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Run development server
+Run development server:
 
 ```bash
 npm run dev
 ```
 
----
+### Branch Strategy
 
-# Branch Strategy
-
-Always create feature branches.
+Always create feature branches. Never work directly on `main`.
 
 ```
 feature/...
@@ -71,15 +73,9 @@ refactor/...
 security/...
 ```
 
-Never work directly on main.
-
----
-
-# Commit Convention
+### Commit Convention
 
 We follow Conventional Commits.
-
-Examples
 
 ```
 feat:
@@ -92,15 +88,11 @@ perf:
 security:
 ```
 
-Example
-
-```
-feat(policy): add risk scoring engine
-```
+Example: `feat(policy): add risk scoring engine`
 
 ---
 
-# Pull Requests
+## Pull Requests
 
 A Pull Request should:
 
@@ -112,7 +104,7 @@ A Pull Request should:
 
 ---
 
-# Coding Standards
+## Coding Standards
 
 We value:
 
@@ -122,15 +114,13 @@ We value:
 - modular architecture
 - security-first design
 
-Avoid unnecessary abstraction.
-
-Prefer clarity over cleverness.
+Avoid unnecessary abstraction. Prefer clarity over cleverness.
 
 ---
 
-# Architecture Principles
+## Architecture Principles
 
-Every new feature should respect the following principles.
+Every new feature should respect the following principles:
 
 - Zero Trust by Default
 - Policy Before Execution
@@ -141,7 +131,7 @@ Every new feature should respect the following principles.
 
 ---
 
-# Reporting Bugs
+## Reporting Bugs
 
 Please include:
 
@@ -153,7 +143,7 @@ Please include:
 
 ---
 
-# Feature Requests
+## Feature Requests
 
 Before opening a feature request:
 
@@ -164,15 +154,13 @@ Before opening a feature request:
 
 ---
 
-# Security Issues
+## Security Issues
 
-Please do not disclose security vulnerabilities publicly.
-
-See SECURITY.md for responsible disclosure instructions.
+Please do not disclose security vulnerabilities publicly. See `SECURITY.md` for responsible disclosure instructions.
 
 ---
 
-# Code Review
+## Code Review
 
 Every Pull Request is reviewed for:
 
@@ -182,26 +170,16 @@ Every Pull Request is reviewed for:
 - developer experience
 - documentation
 
-Passing CI does not automatically guarantee approval.
+Passing CI does not automatically guarantee approval. Due to our strict enterprise rules, all PRs require at least one approving review from a Core Maintainer before merging.
 
 ---
 
-# Community
+## Community
 
-Be respectful.
-
-Help other contributors.
-
-Review code.
-
-Improve documentation.
-
-Share ideas.
-
-Open source succeeds through collaboration.
+Be respectful. Help other contributors. Review code. Improve documentation. Share ideas. Open source succeeds through collaboration.
 
 ---
 
-# Thank You
+## Thank You
 
 Thank you for helping build the future of secure autonomous AI systems.
