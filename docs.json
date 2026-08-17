@@ -1,0 +1,39 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Aegisora",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "colors": {
+    "primary": "#204E75",
+    "light": "#204E75",
+    "dark": "#204E75"
+  },
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/aegisora-ai/aegisora.ai"
+    },
+    {
+      "name": "Discord",
+      "url": "https://discord.gg/8CM3PpQRT5"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "docs/introduction",
+        "docs/quickstart"
+      ]
+    },
+    {
+      "group": "Architecture",
+      "pages": [
+        "docs/core-concepts",
+        "docs/security-model"
+      ]
+    }
+  ]
+}
