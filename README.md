@@ -15,7 +15,13 @@
   </p>
 
   <p>
+    <a href="https://github.com/aegisora-ai/aegisora.ai/commits/main"><img src="https://img.shields.io/github/commit-activity/m/aegisora-ai/aegisora.ai" alt="GitHub commit activity"></a>
+    <a href="https://github.com/aegisora-ai/aegisora.ai/issues"><img src="https://img.shields.io/github/issues/aegisora-ai/aegisora.ai" alt="GitHub issues"></a>
+    <a href="https://github.com/aegisora-ai/aegisora.ai/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
+  </p>
+
+  <p>
     <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js"></a>
     <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-blue" alt="TypeScript"></a>
     <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/TailwindCSS-38B2AC" alt="Tailwind CSS"></a>
@@ -46,11 +52,11 @@ Conventional security systems force a binary outcome on every request: **allow**
 
 Aegisora resolves this with a three-state decision model:
 
-| State           | Trigger                                        | Outcome                                                                                                |
-| :-------------- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| ✅ **Allow**    | Low-risk, policy-compliant request             | Executes instantly via the deterministic fast-path (**< 10ms**)                                        |
-| 🚫 **Block**    | Clear policy violation or known attack pattern | Rejected immediately, fully logged                                                                     |
-| 🕵️ **Escalate** | Ambiguous or high-risk request                 | Routed to the **Human Review Queue** for asynchronous approval — without breaking the agent's workflow |
+| State | Trigger | Outcome |
+| :--- | :--- | :--- |
+| ✅ **Allow** | Low-risk, policy-compliant request | Executes instantly via the deterministic fast-path (**< 10ms**) |
+| 🚫 **Block** | Clear policy violation or known attack pattern | Rejected immediately, fully logged |
+| 🕵️ **Escalate** | Ambiguous or high-risk request | Routed to the **Human Review Queue** for asynchronous approval — without breaking the agent's workflow |
 
 ---
 
@@ -69,14 +75,14 @@ For a full breakdown of the request lifecycle and system internals, see [**ARCHI
 
 ## 🏗️ Tech Stack
 
-| Layer               | Technology             |
-| :------------------ | :--------------------- |
-| **Framework**       | Next.js (App Router)   |
-| **Language**        | TypeScript             |
-| **Styling**         | Tailwind CSS           |
-| **Database & Auth** | Supabase               |
-| **AI Integration**  | Groq API / LLM Proxies |
-| **Deployment**      | Vercel Edge Network    |
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | Next.js (App Router) |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS |
+| **Database & Auth** | Supabase |
+| **AI Integration** | Groq API / LLM Proxies |
+| **Deployment** | Vercel Edge Network |
 
 ---
 
@@ -87,22 +93,22 @@ For a full breakdown of the request lifecycle and system internals, see [**ARCHI
 1. **Clone the repository**
 
 ```bash
-   git clone https://github.com/ozereray/aegisora.ai.git
-   cd aegisora.ai
+git clone https://github.com/aegisora-ai/aegisora.ai.git
+cd aegisora.ai
 ```
 
 2. **Install dependencies**
 
 ```bash
-   npm install
-   # or
-   yarn install
+npm install
+# or
+yarn install
 ```
 
 3. **Configure environment variables**
 
 ```bash
-   cp .env.example .env.local
+cp .env.example .env.local
 ```
 
 Populate `.env.local` with your API keys and Supabase credentials.
@@ -110,9 +116,9 @@ Populate `.env.local` with your API keys and Supabase credentials.
 4. **Run the development server**
 
 ```bash
-   npm run dev
-   # or
-   yarn dev
+npm run dev
+# or
+yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
@@ -128,13 +134,13 @@ Aegisora is built in the open, and contributions of any size are welcome — fro
 3. Commit your changes
 4. Open a Pull Request
 
-Check the [Issues](https://github.com/ozereray/aegisora.ai/issues) tab for tasks labeled `good first issue`, and join the [Discord](https://discord.gg/8CM3PpQRT5) to connect with the community.
+Check the [Issues](https://github.com/aegisora-ai/aegisora.ai/issues) tab for tasks labeled `good first issue`, and join the [Discord](https://discord.gg/8CM3PpQRT5) to connect with the community.
 
 ---
 
 ## 📄 License
 
-This project is open-source under the [MIT License](LICENSE).
+This project is open-source under the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 
@@ -142,19 +148,7 @@ This project is open-source under the [MIT License](LICENSE).
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ozereray"><img src="https://avatars.githubusercontent.com/u/118771126?v=4?s=100" width="100px;" alt="Eray Özer"/><br /><sub><b>Eray Özer</b></sub></a><br /><a href="https://github.com/ozereray/aegisora.ai/commits?author=ozereray" title="Code">💻</a> <a href="https://github.com/ozereray/aegisora.ai/commits?author=ozereray" title="Documentation">📖</a> <a href="#maintenance-ozereray" title="Maintenance">🚧</a> <a href="#infra-ozereray" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:START -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
