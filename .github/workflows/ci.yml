@@ -1,0 +1,39 @@
+name: Aegisora CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-and-lint:
+    name: Build & Lint (Node 18)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛑 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: 📥 Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔎 Run Linter
+        run: pnpm lint
+
+      - name: 🏗️ Build Project
+        run: pnpm build
+        
+      # - name: 🧪 Run Tests
+      #   run: pnpm test
