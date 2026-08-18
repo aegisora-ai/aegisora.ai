@@ -1,3 +1,41 @@
+<p align="center">
+  <a href="https://github.com/SENIN_KULLANICI_ADIN/aegisora">
+    <!-- Logonu repoda "docs" veya "assets" klasörüne yükleyip yolunu buraya yazmalısın -->
+    <img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="120" height="120">
+  </a>
+</p>
+
+<h1 align="center">Aegisora</h1>
+
+<p align="center">
+  <strong>Zero-Latency Runtime Security Proxy for Autonomous AI Agents.</strong>
+</p>
+
+<p align="center">
+  <!-- MIT Lisans Rozeti -->
+  <a href="https://github.com/SENIN_KULLANICI_ADIN/aegisora/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
+  </a>
+  <!-- Versiyon Rozeti -->
+  <a href="https://github.com/SENIN_KULLANICI_ADIN/aegisora/releases">
+    <img src="https://img.shields.io/github/v/release/SENIN_KULLANICI_ADIN/aegisora?color=green&label=release" alt="Release">
+  </a>
+  <!-- X (Twitter) Takip Rozeti -->
+  <a href="https://x.com/SENIN_X_KULLANICI_ADIN">
+    <img src="https://img.shields.io/twitter/follow/SENIN_X_KULLANICI_ADIN?style=social" alt="X (Twitter) Follow">
+  </a>
+</p>
+
+<br/>
+
+Aegisora is an open-source, zero-trust runtime governance layer designed specifically for autonomous AI agents. Instead of relying on traditional allow/block firewalls that break non-deterministic agent workflows, Aegisora utilizes **Asynchronous Human Escalation** to pause, quarantine, and verify high-risk API calls and database queries before execution.
+
+---
+
+
+
+
+
 <div align="center">
 
   <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
