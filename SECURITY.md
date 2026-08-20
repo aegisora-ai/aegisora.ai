@@ -161,6 +161,6 @@ Future work includes:
 
 For all security-related questions:
 
-security@aegisora.ai
+security@aegisora.org
 
 Thank you for helping keep Aegisora secure.

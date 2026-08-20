@@ -1,14 +1,26 @@
-﻿import type { AgentRequest } from "@aegisora/core";
+import type { AgentRequest } from "@aegisora/core";
 
 export type PluginType =
   | "SECURITY"
   | "POLICY"
-  | "INTEGRATION";
+  | "INTEGRATION"
+  | "OBSERVABILITY";
 
 export type PluginDecision =
   | "ALLOW"
   | "BLOCK"
   | "ESCALATE";
+
+export type PluginPermission =
+  | "READ_CONTEXT"
+  | "ANALYZE_REQUEST"
+  | "EMIT_AUDIT";
+
+export interface PluginContext {
+  readonly pluginName: string;
+  readonly pluginVersion: string;
+  readonly permissions: readonly PluginPermission[];
+}
 
 export interface PluginAnalysisResult {
   riskScore: number;
@@ -25,17 +37,16 @@ export interface PluginAnalysisContext {
 
 export interface AegisoraPlugin {
   name: string;
-
   version: string;
-
   type: PluginType;
+  permissions?: readonly PluginPermission[];
 
-  initialize?(): Promise<void>;
+  initialize?(context: PluginContext): Promise<void>;
 
   analyze?(
     request: AgentRequest,
     context: PluginAnalysisContext,
-  ): Promise<PluginAnalysisResult>;
+  ): Promise<PluginAnalysisResult> | PluginAnalysisResult;
 
   destroy?(): Promise<void>;
 }
