@@ -49,3 +49,4 @@ coverage/
 _aegisora_recovery_backup/
 _*.cjs
 _*.txt
+__pycache__/
