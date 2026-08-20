@@ -43,6 +43,32 @@ async function main() {
         "Initial state: idle"
     );
 
+    console.log("[B] Starting agent lifecycle before canonical stop transition...");
+
+    runtime.getContext().lifecycle.start(
+        agentId
+    );
+
+    const runningAgent =
+        runtime.getAgent(agentId);
+
+    if (!runningAgent) {
+        throw new Error(
+            "Agent disappeared after lifecycle start."
+        );
+    }
+
+    if (runningAgent.status !== "running") {
+        throw new Error(
+            `Expected running before stop, got ${runningAgent.status}`
+        );
+    }
+
+    console.log(
+        "State before stop:",
+        runningAgent.status
+    );
+
     console.log("[B] Executing canonical stop transition...");
 
     const result =
@@ -236,9 +262,9 @@ async function main() {
         );
     }
 
-    if (metrics.total !== 2) {
+    if (metrics.total !== 3) {
         throw new Error(
-            `Expected exactly 2 events, got ${metrics.total}`
+            `Expected exactly 3 lifecycle events, got ${metrics.total}`
         );
     }
 

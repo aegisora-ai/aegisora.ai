@@ -1,6 +1,7 @@
-
+﻿
 
 import { RuntimeContext } from "../context/runtime-context";
+import { Agent } from "../agent/core/agent";
 
 
 export class AgentLifecycle {
@@ -13,26 +14,13 @@ private context:RuntimeContext
 
 
 create(
-id:string,
-name:string
+agent: Agent
 ){
 
 
-this.context.agentRegistry.register({
-
-id,
-
-name,
-
-status:"idle",
-
-createdAt:
-new Date(),
-
-updatedAt:
-new Date()
-
-});
+this.context.agentRegistry.register(
+agent
+);
 
 
 
@@ -46,24 +34,18 @@ type:
 
 "agent.created",
 
-agentId:
-
-id,
+agentId: agent.id,
 
 timestamp:
 
 new Date(),
 
-payload:{
-
-name
-
-}
+payload:{ name: agent.name }
 
 });
 
 
-return id;
+return agent.id;
 
 
 }
@@ -92,7 +74,7 @@ type:
 
 "agent.started",
 
-agentId:id,
+agentId: id,
 
 timestamp:
 
@@ -129,7 +111,7 @@ type:
 
 "agent.completed",
 
-agentId:id,
+agentId: id,
 
 timestamp:
 
@@ -167,7 +149,7 @@ type:
 
 "agent.failed",
 
-agentId:id,
+agentId: id,
 
 timestamp:
 

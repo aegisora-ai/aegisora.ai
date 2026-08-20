@@ -1,25 +1,11 @@
-import {
-AgentProfile
-} from "../identity";
+﻿export interface AgentNode {
 
+  readonly agentId: string;
 
-export interface AgentNode {
+  status:
+    | "online"
+    | "busy"
+    | "offline";
 
-
-profile:
-AgentProfile;
-
-
-status:
-"online" |
-"busy" |
-"offline";
-
-
-connectedAt:
-Date;
-
-
+  connectedAt: Date;
 }
-
-

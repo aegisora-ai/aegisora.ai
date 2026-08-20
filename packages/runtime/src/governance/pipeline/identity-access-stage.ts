@@ -1,4 +1,8 @@
-﻿import type {
+import {
+  PermissionEngine,
+} from "../../permissions";
+
+import type {
   ExecutionIntent,
 } from "../types/execution-intent";
 
@@ -20,6 +24,15 @@ export class IdentityAccessStage
 
   readonly order = 20;
 
+  private readonly permissions: PermissionEngine;
+
+  constructor(
+    permissions: PermissionEngine =
+      new PermissionEngine(),
+  ) {
+    this.permissions = permissions;
+  }
+
   async evaluate(
     intent: ExecutionIntent,
     _context: GovernanceContext,
@@ -36,6 +49,54 @@ export class IdentityAccessStage
       };
     }
 
+    const permission =
+      this.permissions.check({
+        agentId: intent.agentId,
+        resourceType:
+          intent.target.type === "provider"
+            ? "provider"
+            : "tool",
+        tool: intent.target.name,
+        action: intent.action,
+        metadata: intent.metadata,
+      });
+
+    if (permission.action === "deny") {
+      return {
+        decision: "BLOCK",
+        reason:
+          permission.reason ??
+          "Execution permission denied.",
+        riskScore: 100,
+        metadata: {
+          identityVerified: true,
+          actorId: intent.actor.id,
+          actorType: intent.actor.type,
+          permissionDecision: "deny",
+          permissionConfidence:
+            permission.confidence,
+        },
+      };
+    }
+
+    if (permission.action === "review") {
+      return {
+        decision: "ESCALATE",
+        reason:
+          permission.reason ??
+          "Execution requires permission review.",
+        riskScore: 50,
+        metadata: {
+          identityVerified: true,
+          actorId: intent.actor.id,
+          actorType: intent.actor.type,
+          permissionDecision: "review",
+          permissionConfidence:
+            permission.confidence,
+        },
+      };
+    }
+
     return {
       decision: "ALLOW",
 
@@ -43,6 +104,9 @@ export class IdentityAccessStage
         identityVerified: true,
         actorId: intent.actor.id,
         actorType: intent.actor.type,
+        permissionDecision: "allow",
+        permissionConfidence:
+          permission.confidence,
       },
     };
   }

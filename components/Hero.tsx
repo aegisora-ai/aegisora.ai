@@ -1,47 +1,18 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUp } from "lucide-react";
+import { ArrowRight, Shield, Activity } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 
+// Geliştirici odaklı daha teknik ifadeler
 const PHRASES = [
-  "Monitor agent tool calls with granular policy audits.",
-  "Enforce least-privilege API access for autonomous agents.",
-  "Block unauthorized data transfers and prompt injections.",
-  "Deploy a narrow control plane for enterprise AI safety.",
+  "Intercepting tool call: execute_sql_query...",
+  "Analyzing semantic intent for prompt injection...",
+  "Enforcing least-privilege API access...",
+  "Blocking unauthorized PII data transfer...",
+  "Generating immutable audit log...",
 ];
-
-// GPU-accelerated Aegisora Spark icon
-const AegisoraSpark = () => {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <motion.div
-      animate={
-        shouldReduceMotion
-          ? undefined
-          : {
-              rotate: [0, 180, 180, 360],
-              scale: [1, 1.25, 0.85, 1],
-            }
-      }
-      transition={{
-        duration: 3,
-        ease: "easeInOut",
-        times: [0, 0.4, 0.6, 1],
-        repeat: Infinity,
-      }}
-      className="w-5 h-5 flex-shrink-0 text-blue-400 will-change-transform"
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-        <path d="M11.25 1.5L12.75 1.5L12.75 9L19.5 4.5L20.25 5.5L14.25 10.5L22.5 11.25L22.5 12.75L14.25 13.5L20.25 18.5L19.5 19.5L12.75 15L12.75 22.5L11.25 22.5L11.25 15L4.5 19.5L3.75 18.5L9.75 13.5L1.5 12.75L1.5 11.25L9.75 10.5L3.75 5.5L4.5 4.5L11.25 9L11.25 1.5Z" />
-      </svg>
-    </motion.div>
-  );
-};
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -61,10 +32,10 @@ export default function Hero() {
           : fullText.substring(0, currentText.length + 1),
       );
 
-      setTypingSpeed(isDeleting ? 30 : 60);
+      setTypingSpeed(isDeleting ? 20 : 50);
 
       if (!isDeleting && currentText === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
+        setTimeout(() => setIsDeleting(true), 2500);
       } else if (isDeleting && currentText === "") {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);
@@ -77,56 +48,64 @@ export default function Hero() {
   }, [currentText, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflow-hidden font-sans">
+    <section className="relative w-full min-h-screen flex items-center justify-center pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflow-hidden font-sans">
+      {/* Arka Plan Işık Hüzmeleri (Glow Effects) */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <motion.div
           animate={
             shouldReduceMotion
               ? undefined
-              : {
-                  rotate: [0, 90, 0],
-                  scale: [1, 1.2, 1],
-                }
+              : { rotate: [0, 90, 0], scale: [1, 1.2, 1] }
           }
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] min-w-[300px] min-h-[300px] rounded-full bg-blue-600/15 blur-[90px] md:blur-[130px] will-change-transform"
+          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] min-w-[300px] min-h-[300px] rounded-full bg-blue-600/10 blur-[100px] will-change-transform"
         />
         <motion.div
           animate={
             shouldReduceMotion
               ? undefined
-              : {
-                  rotate: [0, -90, 0],
-                  scale: [1, 1.3, 1],
-                }
+              : { rotate: [0, -90, 0], scale: [1, 1.3, 1] }
           }
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] min-w-[350px] min-h-[350px] rounded-full bg-blue-500/10 blur-[100px] md:blur-[150px] will-change-transform"
+          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] min-w-[350px] min-h-[350px] rounded-full bg-blue-500/10 blur-[120px] will-change-transform"
         />
       </div>
 
-      <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center z-10 mx-auto">
+      <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center z-10 mx-auto">
+        {/* SOL KOLON: Metinler ve Butonlar */}
         <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-          <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-serif text-white leading-[1.08] tracking-tight mb-6">
-            Operational Control
-            <br />
-            <span className="text-blue-400">for AI Agents.</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
+            <Activity className="w-4 h-4" />
+            <span>Open Source AI Agent Security</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-[4.5rem] font-medium text-zinc-100 leading-[1.05] tracking-tight mb-6">
+            Operational <br className="hidden lg:block" />
+            Control for <br className="hidden lg:block" />
+            <span className="text-blue-500">AI Agents.</span>
           </h1>
 
-          <p className="text-zinc-400 font-mono text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-8 max-w-lg">
+          <p className="text-zinc-400 text-base sm:text-lg leading-relaxed mb-8 max-w-lg font-light">
             Stop selling abstract &quot;safety&quot;. Aegisora is the narrow
             control plane for agent tool and API calls. Enforce least-privilege
             access, block PII leaks, and generate readable audit logs—without
             the bloated black-box middleware.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[400px]">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Link
+              href="/login"
+              className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3.5 px-6 rounded-lg transition-colors text-sm font-medium shadow-lg shadow-blue-600/20"
+            >
+              Start building
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+
             <a
               href="https://github.com/ozereray/aegisora.ai"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="View Aegisora on GitHub"
-              className="w-full flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 transition-colors text-white py-3.5 px-4 rounded-xl text-[14px] font-medium shadow-sm border border-zinc-800"
+              className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 transition-colors text-zinc-100 py-3.5 px-6 rounded-lg text-sm font-medium border border-zinc-800 hover:border-zinc-700"
             >
               <svg
                 className="w-5 h-5"
@@ -142,43 +121,58 @@ export default function Hero() {
               </svg>
               View on GitHub
             </a>
-
-            <Link
-              href="/login"
-              className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white py-3.5 px-4 rounded-xl transition-colors text-[14px] font-medium shadow-lg shadow-blue-600/20"
-            >
-              Continue with work email
-            </Link>
           </div>
         </div>
 
-        <div className="lg:col-span-6 relative w-full max-w-[480px] lg:max-w-none mx-auto aspect-square lg:aspect-[4/4.5] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,102,238,0.25)] border border-zinc-800 bg-zinc-950">
-          <Image
-            src="/hero-visual.png"
-            alt="Aegisora Platform Preview"
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
-            priority
-          />
+        {/* SAĞ KOLON: Mühendislik Vizyonu (Terminal Görünümü) */}
+        <div className="lg:col-span-6 relative w-full mx-auto mt-8 lg:mt-0">
+          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-zinc-800 bg-[#0c0c0e]">
+            {/* Terminal Üst Barı (Mac stili) */}
+            <div className="flex items-center px-4 py-3 bg-zinc-900/80 border-b border-zinc-800">
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+              </div>
+              <div className="mx-auto flex items-center text-xs text-zinc-500 font-mono">
+                <Shield className="w-3 h-3 mr-2" />
+                aegisora-runtime-proxy
+              </div>
+            </div>
 
-          <div className="absolute bottom-6 left-6 right-6 z-20">
-            <div className="bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-[1.25rem] p-2 pl-4 flex items-center gap-3 shadow-2xl h-[46px]">
-              <AegisoraSpark />
-
-              <div className="text-zinc-200 text-[13px] font-medium flex-1 overflow-hidden whitespace-nowrap">
-                {currentText}
-                <span className="inline-block w-[1.5px] h-3.5 bg-blue-400 ml-[2px] animate-pulse align-middle"></span>
+            {/* Terminal Gövdesi ve Dinamik Yazı Efekti */}
+            <div className="p-5 font-mono text-sm leading-relaxed text-zinc-300 h-[280px] sm:h-[320px] flex flex-col">
+              <div className="text-zinc-500 mb-2">
+                # Aegisora Control Plane Initialized
+              </div>
+              <div className="text-blue-400 mb-4">
+                $ tail -f /var/log/aegisora/audit.log
               </div>
 
-              <Link
-                href="/get-started"
-                aria-label="Get Started with Aegisora"
-                className="p-2.5 bg-zinc-800 hover:bg-blue-600 rounded-xl transition-colors cursor-pointer flex-shrink-0 group outline-none flex items-center justify-center"
-              >
-                <ArrowUp className="w-4 h-4 text-white group-hover:text-white transition-colors" />
-              </Link>
+              <div className="flex-1 overflow-hidden">
+                <div className="flex gap-3 text-zinc-400 mb-2">
+                  <span className="text-zinc-600">14:02:41</span>
+                  <span className="text-green-400">[INFO]</span>
+                  <span>VPC network isolated.</span>
+                </div>
+                <div className="flex gap-3 text-zinc-400 mb-2">
+                  <span className="text-zinc-600">14:02:42</span>
+                  <span className="text-green-400">[INFO]</span>
+                  <span>Proxy intercepting port 8080.</span>
+                </div>
+                <div className="flex gap-3 text-zinc-200 mb-2">
+                  <span className="text-zinc-600">14:02:45</span>
+                  <span className="text-yellow-400">[WARN]</span>
+                  <span>
+                    {currentText}
+                    <span className="inline-block w-[2px] h-4 bg-blue-500 ml-1 animate-pulse align-middle"></span>
+                  </span>
+                </div>
+              </div>
             </div>
+
+            {/* Terminalin Altındaki Şık Mavi Glow Efekti */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
           </div>
         </div>
       </div>

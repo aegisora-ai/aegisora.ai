@@ -1,40 +1,22 @@
-export type PermissionAction =
+﻿export type PermissionAction =
+  | "allow"
+  | "deny"
+  | "review";
 
-"allow" |
-
-"deny" |
-
-"review";
-
-
+export type PermissionResourceType =
+  | "tool"
+  | "provider";
 
 export interface PermissionRequest {
-
-
-agentId:string;
-
-
-tool:string;
-
-
-action:string;
-
-
-metadata?:Record<string,unknown>;
-
+  agentId: string;
+  resourceType: PermissionResourceType;
+  tool: string;
+  action: string;
+  metadata?: Record<string, unknown>;
 }
 
-
-
 export interface PermissionResult {
-
-
-action:PermissionAction;
-
-
-reason:string;
-
-
-confidence:number;
-
+  action: PermissionAction;
+  reason: string;
+  confidence: number;
 }

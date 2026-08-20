@@ -1,4 +1,4 @@
-﻿import {
+import {
   GovernanceEngine,
   createExecutionIntent,
 } from "../src/governance";

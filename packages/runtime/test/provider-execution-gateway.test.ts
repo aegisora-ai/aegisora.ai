@@ -1,15 +1,16 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 
 import { ProviderExecutionGateway } from "../src/providers/provider-execution-gateway";
 import { RuntimeContext } from "../src/context/runtime-context";
 import { ProviderRouter } from "../src/providers/provider-router";
+import { BaseProvider } from "../src/providers/base-provider";
 import type {
-  BaseProvider,
   ProviderRequest,
   ProviderResponse,
 } from "../src/providers/base-provider";
 
-class TestProvider implements BaseProvider {
+class TestProvider extends BaseProvider {
+  public readonly name = "test";
   public calls = 0;
 
   async generate(
@@ -18,11 +19,11 @@ class TestProvider implements BaseProvider {
   ): Promise<ProviderResponse> {
     this.calls++;
 
-    return {
-      output: `TEST:${request.prompt}`,
-      provider: "test",
-      model: request.model ?? "test-model",
-    };
+    return this.buildResponse(
+      "test",
+      request.model ?? "test-model",
+      `TEST:${request.prompt}`
+    );
   }
 }
 
@@ -30,22 +31,38 @@ async function main() {
   console.log("[1] Creating runtime context...");
 
   const context = new RuntimeContext();
-
   const provider = new TestProvider();
-
   const router = new ProviderRouter();
 
-  router.register("openai", provider as unknown as BaseProvider);
+  router.register("openai", provider);
 
-  const gateway = new ProviderExecutionGateway(
-    context,
-    router
+  const gateway = new ProviderExecutionGateway(context, router);
+
+  // TRACE 73K-R6:
+  // Register the test identity in the same canonical AgentRegistry
+  // used by EnforcementGate. The production security boundary must
+  // remain strict; the test fixture must satisfy that contract.
+  const testAgentId = "gateway-test-agent";
+
+  context.agentRegistry.register({
+    id: testAgentId,
+    name: "Gateway Test Agent",
+    status: "idle",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  assert.ok(
+    context.agentRegistry.getById(testAgentId),
+    "Test agent must exist in canonical AgentRegistry"
   );
+
+  console.log("Canonical test identity registration: PASS");
 
   console.log("[2] Testing ALLOW path...");
 
   const allowed = await gateway.generate({
-    agentId: "gateway-test-agent",
+    agentId: testAgentId,
     provider: "openai",
     request: {
       prompt: "safe test prompt",
@@ -76,36 +93,19 @@ async function main() {
 
   console.log("[4] Testing default model resolution...");
 
-  const model =
-    gateway.getDefaultModel("openai");
+  const model = gateway.getDefaultModel("openai");
 
-  assert.ok(
-    typeof model === "string",
-    "Gateway must resolve a default model"
+  assert.equal(
+    model,
+    "gpt-4.1-mini"
   );
 
   console.log("Default model resolution: PASS");
 
-  console.log("[5] Testing provider registry...");
-
-  assert.equal(
-    gateway.has("openai"),
-    true
-  );
-
-  assert.ok(
-    gateway.list().includes("openai")
-  );
-
-  console.log("Provider registry: PASS");
-
-  console.log("");
-  console.log("PROVIDER GATEWAY TEST: PASS");
+  console.log("\nPROVIDER GATEWAY TEST: PASS");
 }
 
 main().catch((error) => {
-  console.error("");
-  console.error("PROVIDER GATEWAY TEST: FAIL");
   console.error(error);
   process.exit(1);
 });

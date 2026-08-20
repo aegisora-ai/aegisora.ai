@@ -163,6 +163,9 @@ importers:
       '@aegisora/observability':
         specifier: workspace:*
         version: link:../observability
+      '@aegisora/plugins':
+        specifier: workspace:*
+        version: link:../plugins
       '@aegisora/policy-engine':
         specifier: workspace:*
         version: link:../policy-engine

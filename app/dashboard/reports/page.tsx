@@ -151,7 +151,7 @@ End of Report.
     setIsGenerating(false);
   };
 
-  const handleDownload = (report: any) => {
+  const handleDownload = (report: { id: string; content: string }) => {
     setDownloadingId(report.id);
 
     setTimeout(() => {

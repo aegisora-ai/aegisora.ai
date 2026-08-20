@@ -1,4 +1,4 @@
-import { ProviderRouter } from "./provider-router";
+﻿import { ProviderRouter } from "./provider-router";
 import type { ProviderName } from "./provider-router";
 
 import { ProviderManager } from "./provider-manager";
@@ -11,6 +11,10 @@ import type {
 import { EnforcementGate } from "../enforcement";
 
 import { RuntimeContext } from "../context/runtime-context";
+
+import {
+  PermissionEngine
+} from "../permissions";
 
 import type {
   ProviderRuntimeContext,
@@ -34,15 +38,55 @@ export class ProviderExecutionGateway {
 
   private readonly enforcement: EnforcementGate;
 
+  private readonly router: ProviderRouter;
+
+  private readonly manager: ProviderManager;
+
+  private readonly providerExecutionToken?: symbol;
+
+  private readonly routerCapabilityOwned: boolean;
+
   constructor(
     private readonly context: RuntimeContext,
-    private readonly router: ProviderRouter = new ProviderRouter(),
-    private readonly manager: ProviderManager = new ProviderManager(
-      router
-    ),
+    routerOrToken?: ProviderRouter | symbol,
+    manager?: ProviderManager,
+    permissions: PermissionEngine = new PermissionEngine(),
+    providerExecutionToken?: symbol,
   ) {
+
+    let token: symbol | undefined;
+    let resolvedRouter: ProviderRouter;
+    let ownsRouterCapability = false;
+
+    if (typeof routerOrToken === "symbol") {
+      token = routerOrToken;
+      resolvedRouter = new ProviderRouter(token);
+      ownsRouterCapability = true;
+    } else if (routerOrToken && typeof routerOrToken.resolve === "function") {
+      resolvedRouter = routerOrToken;
+      token = providerExecutionToken;
+      ownsRouterCapability = token !== undefined;
+    } else {
+      token =
+        providerExecutionToken ??
+        Symbol("aegisora.provider.execution");
+
+      resolvedRouter = new ProviderRouter(token);
+      ownsRouterCapability = true;
+    }
+
+    this.router = resolvedRouter;
+
+    this.manager =
+      manager ??
+      new ProviderManager(resolvedRouter);
+
+    this.providerExecutionToken = token;
+    this.routerCapabilityOwned = ownsRouterCapability;
+
     this.enforcement = new EnforcementGate(
-      context
+      context,
+      permissions,
     );
   }
 
@@ -59,15 +103,31 @@ export class ProviderExecutionGateway {
     const providerName: ProviderName =
       input.provider ?? "openai";
 
-    const model =
-      input.request.model ??
-      this.manager.getDefaultModel(
-        providerName
-      );
+
+    /*
+     * ----------------------------------------------------------
+     * SECURITY ORDER INVARIANT
+     * ----------------------------------------------------------
+     *
+     * Provider/model resolution MUST NOT occur before
+     * enforcement.
+     *
+     * Unknown providers must first reach the governance
+     * boundary so PermissionEngine can BLOCK and audit them.
+     *
+     * Only the caller-provided model is visible to enforcement.
+     * Default model resolution happens only after ALLOW.
+     */
+
+    const requestedModel =
+      input.request.model;
 
     const enforcement =
       await this.enforcement.enforce({
         agentId: input.agentId,
+
+        resourceType:
+          "provider",
 
         tool:
           `provider:${providerName}`,
@@ -76,15 +136,44 @@ export class ProviderExecutionGateway {
           "provider.generate",
 
         input: {
-          model,
+          model: requestedModel,
           prompt: input.request.prompt,
         },
 
         metadata: {
-          ...(input.metadata ?? {}),
-          provider: providerName,
-          model,
-        },
+                  /*
+         * ----------------------------------------------------------
+         * CANONICAL METADATA BOUNDARY
+         * ----------------------------------------------------------
+         *
+         * input.metadata is untrusted caller-controlled data.
+         *
+         * Provider and model identity are security-sensitive fields
+         * and MUST NOT be inherited from caller metadata.
+         *
+         * Canonical provider identity comes from providerName.
+         *
+         * Canonical model identity comes ONLY from request.model.
+         *
+         * If request.model is absent, model remains absent during
+         * enforcement because default model resolution has not yet
+         * occurred.
+         */
+        ...Object.fromEntries(
+          Object.entries(input.metadata ?? {}).filter(
+            ([key]) =>
+              key !== "provider" &&
+              key !== "model"
+          )
+        ),
+
+        provider:
+          providerName,
+
+        ...(requestedModel !== undefined
+          ? { model: requestedModel }
+          : {}),
+      },
       });
 
     if (
@@ -94,6 +183,21 @@ export class ProviderExecutionGateway {
         `[ENFORCEMENT:${enforcement.decision}] ${enforcement.reason}`
       );
     }
+
+    /*
+     * ----------------------------------------------------------
+     * POST-ENFORCEMENT MODEL RESOLUTION
+     * ----------------------------------------------------------
+     *
+     * This is intentionally after the ALLOW gate.
+     * BLOCK / ESCALATE requests never call ProviderManager.
+     */
+
+    const model =
+      requestedModel ??
+      this.manager.getDefaultModel(
+        providerName
+      );
 
     const providerContext:
       ProviderRuntimeContext = {
@@ -156,9 +260,14 @@ export class ProviderExecutionGateway {
     };
 
     const provider =
-      this.router.resolve(
-        providerName
-      );
+      this.routerCapabilityOwned
+        ? this.router.resolve(
+            providerName,
+            this.providerExecutionToken,
+          )
+        : this.router.resolve(
+            providerName,
+          );
 
     const providerRequest:
       ProviderRequest = {

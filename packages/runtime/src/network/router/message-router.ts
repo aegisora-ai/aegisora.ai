@@ -1,88 +1,49 @@
-import {
-RoutedMessage
+﻿import {
+  RoutedMessage
 } from "./routed-message";
 
-
 import {
-AgentNetwork
+  AgentNetwork
 } from "../agent-network";
-
 
 export class MessageRouter {
 
+  constructor(
+    private readonly network: AgentNetwork
+  ) {}
 
+  route(
+    message: RoutedMessage
+  ) {
 
-constructor(
+    const target =
+      this.network.get(
+        message.to
+      );
 
-private network:
-AgentNetwork
+    if (target.status === "offline") {
+      throw new Error(
+        `Agent offline: ${message.to}`
+      );
+    }
 
-){}
+    return {
+      delivered: true,
+      agent: target.agentId,
+      messageId: message.id
+    };
+  }
 
+  broadcast(
+    message: RoutedMessage
+  ) {
 
-
-route(
-
-message:RoutedMessage
-
-){
-
-
-const target =
-this.network.get(
-message.to
-);
-
-
-
-if(target.status==="offline"){
-
-throw new Error(
-`Agent offline: ${message.to}`
-);
-
-}
-
-
-
-return {
-
-delivered:true,
-
-agent:
-target.profile.id,
-
-messageId:
-message.id
-
-};
-
-
-}
-
-
-
-broadcast(
-
-message:RoutedMessage
-
-){
-
-
-return this.network
-.list()
-.map(agent=>({
-
-agent:
-agent.profile.id,
-
-messageId:
-message.id
-
-}));
-
-}
-
-
+    return this.network
+      .list()
+      .map(agent => ({
+        agent: agent.agentId,
+        messageId: message.id
+      }));
+  }
 
 }

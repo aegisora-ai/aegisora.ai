@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 // Stripe istemcisi, en güncel API sürümü ve tip zorlamasıyla başlatıldı
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2025-03-31.basil" as any,
+  apiVersion: "2026-07-29.dahlia",
 });
 
 export async function POST(req: Request) {
@@ -54,10 +54,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Stripe Checkout Error:", error);
     return NextResponse.json(
-      { error: error.message || "Internal Server Error during checkout." },
+      { error: (error instanceof Error ? error.message : "Internal Server Error during checkout.") },
       { status: 500 },
     );
   }

@@ -1,84 +1,100 @@
-import {
-AgentMessage,
-MessageHandler
-} from "./message";
+﻿import {
+  AgentRegistry
+} from "../agents";
 
+import {
+  AgentMessage,
+  MessageHandler,
+} from "./message";
 
 export class MessageBus {
 
+  private handlers:
+    Map<string, MessageHandler[]>;
 
-private handlers:
-Map<string,MessageHandler[]>;
+  constructor(
+    private readonly registry: AgentRegistry
+  ) {
+    this.handlers = new Map();
+  }
 
+  /**
+   * Subscribe agent.
+   *
+   * Communication identity MUST originate
+   * from the canonical Runtime AgentRegistry.
+   */
+  subscribe(
+    agentId: string,
+    handler: MessageHandler,
+  ): void {
 
+    const registered =
+      this.registry.getById(agentId);
 
-constructor(){
+    if (!registered) {
+      throw new Error(
+        `Cannot subscribe unregistered agent: ${agentId}`
+      );
+    }
 
-this.handlers =
-new Map();
+    const existing =
+      this.handlers.get(agentId) ?? [];
 
+    existing.push(handler);
+
+    this.handlers.set(
+      agentId,
+      existing,
+    );
+  }
+
+  /**
+   * Send message.
+   *
+   * Both sender and recipient MUST be
+   * canonical registered runtime identities.
+   */
+  async send(
+    message: AgentMessage,
+  ): Promise<void> {
+
+    const sender =
+      this.registry.getById(message.from);
+
+    if (!sender) {
+      throw new Error(
+        `Unknown or unregistered sender identity: ${message.from}`
+      );
+    }
+
+    const recipient =
+      this.registry.getById(message.to);
+
+    if (!recipient) {
+      throw new Error(
+        `Unknown or unregistered recipient identity: ${message.to}`
+      );
+    }
+
+    const handlers =
+      this.handlers.get(message.to) ?? [];
+
+    for (const handler of handlers) {
+      await handler(message);
+    }
+  }
+
+  /**
+   * Connected / subscribed agents.
+   */
+  agents(): string[] {
+    return Array.from(
+      this.handlers.keys(),
+    );
+  }
 }
 
-
-
-/**
- * Subscribe agent
- */
-
-subscribe(
-agentId:string,
-handler:MessageHandler
-){
-
-const existing =
-this.handlers.get(agentId) ?? [];
-
-
-existing.push(handler);
-
-
-this.handlers.set(
-agentId,
-existing
-);
-
-}
-
-
-
-/**
- * Send message
- */
-
-async send(
-message:AgentMessage
-){
-
-const handlers =
-this.handlers.get(message.to) ?? [];
-
-
-for(const handler of handlers){
-
-await handler(message);
-
-}
-
-}
-
-
-
-/**
- * Connected agents
- */
-
-agents(){
-
-return Array.from(
-this.handlers.keys()
-);
-
-}
-
-
-}
+export type {
+  MessageHandler,
+} from "./message";

@@ -1,4 +1,5 @@
-﻿import { spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
+import { createRequire } from "node:module";
 import { readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -24,14 +25,17 @@ for (const test of tests) {
 
     const testPath = join(testDir, test);
 
-    const result = spawnSync(
-        "pnpm",
-        ["exec", "tsx", testPath],
-        {
-            stdio: "inherit",
-            shell: true
-        }
-    );
+    const require = createRequire(import.meta.url);
+const tsxCli = require.resolve("tsx/cli");
+
+const result = spawnSync(
+    process.execPath,
+    [tsxCli, testPath],
+    {
+        stdio: "inherit",
+        shell: false
+    }
+);
 
     if (result.status !== 0) {
         failed.push(test);

@@ -1,4 +1,4 @@
-﻿import {
+import {
   RuntimeEvent,
 } from "../events";
 
@@ -18,9 +18,31 @@ export class SecurityGuard {
     const payload =
       (event.payload as Record<string, unknown> | undefined) ?? {};
 
-    const input = String(
-      payload.input ?? "",
-    );
+const rawInput = payload.input;
+
+// Zero-trust execution validation:
+// tool.called events must carry an explicit input.
+// null/undefined input must never become an implicit valid request.
+if (
+  event.type === "tool.called" &&
+  (rawInput === null || rawInput === undefined)
+) {
+  return {
+    decision: "block",
+    reason: "Malformed execution input: input is required",
+  };
+}
+
+const input =
+  typeof rawInput === "string"
+    ? rawInput
+    : (() => {
+        try {
+          return JSON.stringify(rawInput);
+        } catch {
+          return String(rawInput);
+        }
+      })();
 
     const normalized = input
       .toLowerCase()
@@ -53,18 +75,104 @@ export class SecurityGuard {
     }
 
     // --------------------------------------------------------
-    // 2. Sensitive-data exfiltration detection
+// --------------------------------------------------------
+// 2. Privilege escalation detection
+// --------------------------------------------------------
+
+const privilegeEscalationPatterns = [
+  /\bgrant\s+(administrator|admin|root)\s+(privileges?|access)\b/i,
+  /\b(disable|bypass|circumvent)\s+(access\s+controls?|authorization|authentication)\b/i,
+  /\belevate\s+(user\s+)?permissions?\b/i,
+  /\b(escalate|elevate)\s+privileges?\b/i,
+  /\bpromote\s+.*\bto\s+(administrator|admin|root)\b/i,
+];
+
+if (
+  privilegeEscalationPatterns.some(
+    (pattern) => pattern.test(normalized),
+  )
+) {
+  return {
+    decision: "block",
+    reason: "Privilege escalation attempt detected",
+  };
+}
+
+// --------------------------------------------------------
+// 3. Command injection detection
+// --------------------------------------------------------
+
+const commandInjectionPatterns = [
+  /\brm\s+-rf\s+\//i,
+  /\bcurl\s+[^\\s]+.*\|\s*(sh|bash|zsh)\b/i,
+  /\bwget\s+[^\\s]+.*\|\s*(sh|bash|zsh)\b/i,
+  /(?:^|[\s;&|])(?:sudo|su)\s+-/i,
+  /;\s*(?:rm|curl|wget|chmod|chown|bash|sh|zsh)\b/i,
+  /&&\s*(?:rm|curl|wget|chmod|chown|bash|sh|zsh)\b/i,
+  /\|\|\s*(?:rm|curl|wget|chmod|chown|bash|sh|zsh)\b/i,
+];
+
+if (
+  commandInjectionPatterns.some(
+    (pattern) => pattern.test(normalized),
+  )
+) {
+  return {
+    decision: "block",
+    reason: "Command injection attempt detected",
+  };
+}
+
+// --------------------------------------------------------
+// 4. Sensitive-data exfiltration detection
+// --------------------------------------------------------
     // --------------------------------------------------------
 
     const emailPattern =
       /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 
     const transferPattern =
-      /\b(send|forward|share|upload|exfiltrate|export|leak)\b/i;
+  /\b(send|forward|share|upload|exfiltrate|export|leak|transmit|disclose|post|put|patch)\b/i;
+
+    const credentialPattern =
+      /\b(api[\s_-]?key|access[\s_-]?token|refresh[\s_-]?token|auth[\s_-]?token|bearer[\s_-]?token|password|passwd|secret|secret[\s_-]?credential|credentials?|private[\s_-]?key|client[\s_-]?secret|signing[\s_-]?key|session[\s_-]?token)\b/i;
+
+    const sensitiveDataPattern =
+      /\b(ssn|social[\s_-]?security|credit[\s_-]?card|card[\s_-]?number|bank[\s_-]?account|iban|passport|private[\s_-]?data|confidential)\b/i;
+
+    const emailExfiltration =
+      emailPattern.test(input) &&
+      transferPattern.test(input);
+
+    const credentialExfiltration =
+      credentialPattern.test(input) &&
+      transferPattern.test(input);
+
+    const sensitiveDataExfiltration =
+      sensitiveDataPattern.test(input) &&
+      transferPattern.test(input);
+
+/*
+ * URL / HTTP credential exfiltration detection.
+ * Credentials may be embedded directly in network
+ * requests or URLs without an explicit transfer verb.
+ */
+    const networkTransferPattern =
+      /\b(post|put|patch|get|http|https)\b/i;
+
+    const credentialUrlExfiltration =
+      credentialPattern.test(input) &&
+      (
+        networkTransferPattern.test(input) ||
+        /https?:\/\/[^\s]+/i.test(input)
+      );
+
 
     if (
-      emailPattern.test(input) &&
-      transferPattern.test(input)
+      emailExfiltration ||
+      credentialExfiltration ||
+      sensitiveDataExfiltration ||
+      credentialUrlExfiltration
     ) {
       return {
         decision: "block",
@@ -72,7 +180,6 @@ export class SecurityGuard {
           "Potential sensitive-data exfiltration detected",
       };
     }
-
     // --------------------------------------------------------
     // 3. Agent failure
     // --------------------------------------------------------

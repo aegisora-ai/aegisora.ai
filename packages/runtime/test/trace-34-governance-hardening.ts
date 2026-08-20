@@ -6,15 +6,41 @@ import {
   RuntimeContext,
 } from "../src/context/runtime-context";
 
+import {
+  Agent,
+} from "../src/agent/core/agent";
+
 async function main() {
-  const context = new RuntimeContext();
-  const gate = new EnforcementGate(context);
+  const context =
+    new RuntimeContext();
+
+  const registeredIds = [
+    "trace-34-safe",
+    "trace-34-restricted",
+    "trace-34-injection",
+    "trace-34-pii",
+  ];
+
+  for (const id of registeredIds) {
+    context.agentRegistry.register(
+      new Agent({
+        id,
+        name: id,
+      }),
+    );
+  }
+
+  const gate =
+    new EnforcementGate(
+      context,
+    );
 
   console.log("");
   console.log("[A] Safe execution...");
 
   const safe = await gate.enforce({
     agentId: "trace-34-safe",
+    resourceType: "tool",
     tool: "echo",
     action: "tool.execute",
     input: "hello world",
@@ -34,6 +60,7 @@ async function main() {
 
   const restricted = await gate.enforce({
     agentId: "trace-34-restricted",
+    resourceType: "tool",
     tool: "shell",
     action: "tool.execute",
     input: "echo hello",
@@ -53,6 +80,7 @@ async function main() {
 
   const injection = await gate.enforce({
     agentId: "trace-34-injection",
+    resourceType: "tool",
     tool: "echo",
     action: "tool.execute",
     input:
@@ -73,6 +101,7 @@ async function main() {
 
   const pii = await gate.enforce({
     agentId: "trace-34-pii",
+    resourceType: "tool",
     tool: "echo",
     action: "tool.execute",
     input:
@@ -93,6 +122,7 @@ async function main() {
 
   const identity = await gate.enforce({
     agentId: "",
+    resourceType: "tool",
     tool: "echo",
     action: "tool.execute",
     input: "hello",

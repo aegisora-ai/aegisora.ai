@@ -1,4 +1,4 @@
-import {
+﻿import {
 Agent
 } from "../agent";
 
@@ -73,6 +73,8 @@ this.state.startedAt=new Date();
 this.state.completedAt=undefined;
 this.state.lastAction=undefined;
 
+let lastExecutionResult: ExecutionResult | undefined;
+
 try {
 
 while(
@@ -87,8 +89,7 @@ this.planner.createFromGoal(
 goalId
 );
 
-const result: ExecutionResult =
-await this.executor.execute(
+lastExecutionResult = await this.executor.execute(
 agent,
 plan
 );
@@ -105,7 +106,7 @@ goal
 const reflection =
 this.reflection.reflect(
 agent.id,
-result
+lastExecutionResult
 );
 
 this.learning.learn({
@@ -116,11 +117,11 @@ agentId: agent.id,
 
 input: observation,
 
-output: result,
+output: lastExecutionResult,
 
-success: result.success,
+success: lastExecutionResult.success,
 
-score: result.success ? 1 : 0,
+score: lastExecutionResult.success ? 1 : 0,
 
 lesson:
 reflection.improvements.join("; "),
@@ -142,7 +143,11 @@ this.state.status =
 this.state.completedAt =
 new Date();
 
-return this.state;
+if (!lastExecutionResult) {
+throw new Error("AgentLoop completed without an ExecutionResult");
+}
+
+return lastExecutionResult;
 
 } catch (error) {
 

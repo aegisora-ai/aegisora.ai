@@ -1,165 +1,185 @@
-﻿
-
-import {
-EventStore
+﻿import {
+  EventStore
 } from "../observability";
 
 import {
-EventBus
+  EventBus
 } from "../events";
 
-
 import {
-DecisionTraceStore
+  DecisionTraceStore
 } from "../audit";
 
 import {
-RuntimePolicyEngine
+  RuntimePolicyEngine
 } from "../policy";
 
 import {
-SecurityGuard
+  SecurityGuard
 } from "../security";
 
 import {
-RiskEngine
+  RiskEngine
 } from "../security";
 
-
 import {
-RuntimeMonitor
+  RuntimeMonitor
 } from "../monitoring";
 
-
 import {
-AgentRegistry
+  AgentRegistry
 } from "../agents";
 
-
 import {
-AgentLifecycle
+  AgentLifecycle
 } from "../lifecycle";
 
-
 import {
-AgentSnapshotEngine
+  AgentSnapshotEngine
 } from "../snapshot";
 
 import {
-AgentHealthEngine
+  AgentHealthEngine
 } from "../health";
 
+import {
+  AgentNetwork,
+  MessageRouter
+} from "../network";
 
-
-
-
+import {
+  MessageBus
+} from "../communication";
 
 
 export class RuntimeContext {
 
+  eventStore:
+    EventStore;
 
-eventStore:
-EventStore;
+  eventBus:
+    EventBus;
 
+  decisionStore:
+    DecisionTraceStore;
 
-eventBus:
-EventBus;
+  policy:
+    RuntimePolicyEngine;
 
+  security:
+    SecurityGuard;
 
-decisionStore:
-DecisionTraceStore;
+  risk:
+    RiskEngine;
 
-policy:
-RuntimePolicyEngine;
+  monitor:
+    RuntimeMonitor;
 
-security:
-SecurityGuard;
+  agentRegistry:
+    AgentRegistry;
 
-risk:
-RiskEngine;
+  lifecycle:
+    AgentLifecycle;
 
+  snapshot:
+    AgentSnapshotEngine;
 
-monitor:
-RuntimeMonitor;
+  health:
+    AgentHealthEngine;
 
+  /**
+   * Canonical runtime network.
+   */
+  agentNetwork:
+    AgentNetwork;
 
-agentRegistry:
-AgentRegistry;
+  /**
+   * Canonical runtime message bus.
+   *
+   * MUST use the same AgentRegistry
+   * owned by RuntimeContext.
+   */
+  messageBus:
+    MessageBus;
 
-
-lifecycle:
-AgentLifecycle;
-
-
-snapshot:
-AgentSnapshotEngine;
-
-health:
-AgentHealthEngine;
-
-
-
-
-
-
-
-constructor(){
-
-
-this.eventStore=
-new EventStore();
-
-
-this.decisionStore=
-new DecisionTraceStore();
-
-this.policy=
-new RuntimePolicyEngine();
-
-this.security=
-new SecurityGuard();
-
-this.risk=
-new RiskEngine();
+  /**
+   * Canonical runtime message router.
+   */
+  messageRouter:
+    MessageRouter;
 
 
-this.monitor=
-new RuntimeMonitor(
-this.eventStore.getAll()
-);
+  constructor() {
 
+    this.eventStore =
+      new EventStore();
 
+    this.decisionStore =
+      new DecisionTraceStore();
 
-this.agentRegistry=
-new AgentRegistry();
+    this.policy =
+      new RuntimePolicyEngine();
 
+    this.security =
+      new SecurityGuard();
 
-this.lifecycle=
-new AgentLifecycle(
-this
-);
+    this.risk =
+      new RiskEngine();
 
+    this.monitor =
+      new RuntimeMonitor(
+        this.eventStore.getAll()
+      );
 
-this.snapshot=
-new AgentSnapshotEngine(
-this
-);
+    /**
+     * SINGLE CANONICAL IDENTITY AUTHORITY.
+     */
+    this.agentRegistry =
+      new AgentRegistry();
 
-this.health=
-new AgentHealthEngine();
+    /**
+     * NETWORK REUSES CANONICAL REGISTRY.
+     */
+    this.agentNetwork =
+      new AgentNetwork(
+        this.agentRegistry
+      );
 
+    /**
+     * COMMUNICATION REUSES
+     * CANONICAL REGISTRY.
+     */
+    this.messageBus =
+      new MessageBus(
+        this.agentRegistry
+      );
 
+    /**
+     * ROUTER USES CANONICAL NETWORK.
+     */
+    this.messageRouter =
+      new MessageRouter(
+        this.agentNetwork
+      );
 
+    this.lifecycle =
+      new AgentLifecycle(
+        this
+      );
 
+    this.snapshot =
+      new AgentSnapshotEngine(
+        this
+      );
 
+    this.health =
+      new AgentHealthEngine();
 
-this.eventBus=
-new EventBus(
-this.eventStore
-);
+    this.eventBus =
+      new EventBus(
+        this.eventStore
+      );
 
-
-}
-
+  }
 
 }

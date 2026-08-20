@@ -1,6 +1,10 @@
-import {
-RuntimeTool
-} from "../tool";
+﻿export interface ToolDescriptor {
+
+name:string;
+
+description:string;
+
+}
 
 
 export interface ToolSelectionContext {
@@ -8,14 +12,14 @@ export interface ToolSelectionContext {
 goal:string;
 
 availableTools:
-RuntimeTool[];
+ToolDescriptor[];
 
 }
 
 
 export interface ToolSelectionResult {
 
-tool:RuntimeTool;
+tool:ToolDescriptor;
 
 reason:string;
 

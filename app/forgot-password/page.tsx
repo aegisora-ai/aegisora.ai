@@ -38,10 +38,10 @@ export default function ForgotPasswordPage() {
         type: "success",
         text: "Check your email for the secure password reset link.",
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       setMessage({
         type: "error",
-        text: err.message || "Failed to send reset link.",
+        text: err instanceof Error ? err.message : "Failed to send reset link.",
       });
     } finally {
       setIsLoading(false);

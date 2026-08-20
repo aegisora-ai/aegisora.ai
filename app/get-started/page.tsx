@@ -54,8 +54,13 @@ export default function RegisterPage() {
       }
 
       router.push("/dashboard");
-    } catch (err: any) {
-      setErrorMsg(err.message || "Failed to create account. Please try again.");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Failed to create account. Please try again.";
+
+      setErrorMsg(message);
     } finally {
       setIsLoading(false);
     }

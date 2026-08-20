@@ -5,8 +5,13 @@ export type EnforcementDecision =
   | "BLOCK"
   | "ESCALATE";
 
+export type EnforcementResourceType =
+  | "tool"
+  | "provider";
+
 export interface EnforcementRequest {
   agentId: string;
+  resourceType: EnforcementResourceType;
   tool: string;
   action: string;
   input: unknown;
@@ -32,6 +37,7 @@ export interface EnforcementResult {
 
 export interface EnforcementAuditRecord {
   agentId: string;
+  resourceType: EnforcementResourceType;
   tool: string;
   action: string;
   decision: EnforcementDecision;

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Aegisora SDK Types
  *
  * Public developer SDK contracts.
@@ -15,6 +15,10 @@ export interface AgentResponse {
    * Runtime execution timestamp
    */
   timestamp?: Date;
+}
+
+export interface ProtectableAgent {
+  run(input: string): Promise<unknown>;
 }
 
 export interface ProtectedAgent {

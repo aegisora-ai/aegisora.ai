@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 // Tip Tanımlamaları
@@ -152,7 +152,7 @@ If no choices are needed, do not include this json block. Be professional, techn
     }
 
     return NextResponse.json({ result: cleanContent, options });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[Aegisora Core] API Route Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error during AI processing." },

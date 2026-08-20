@@ -22,14 +22,30 @@ export default function AdminPanel() {
   const [requests, setRequests] = useState<AccessRequest[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Not: Prodüksiyon ortamında bu şifre kontrolü kesinlikle Backend tarafında (API Route / DB) yapılmalıdır.
-    if (secret === "Mdse.1234") {
+
+    try {
+      const res = await fetch("/api/early-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "login",
+          adminSecret: secret,
+        }),
+      });
+
+      if (!res.ok) {
+        alert("Invalid Security Clearance!");
+        return;
+      }
+
+      setSecret("");
       setIsAuthenticated(true);
-      fetchRequests();
-    } else {
-      alert("Invalid Security Clearance!");
+      await fetchRequests();
+    } catch (error) {
+      console.error("Admin authentication failed:", error);
+      alert("Authentication service unavailable.");
     }
   };
 
@@ -54,7 +70,6 @@ export default function AdminPanel() {
         body: JSON.stringify({
           email,
           action: "approve",
-          adminSecret: "Mdse.1234",
         }),
       });
       const data = await res.json();

@@ -1,3 +1,26 @@
+type DashboardChartDatum = {
+  name?: string;
+  requests?: number;
+  blocked?: number;
+  latency?: number;
+  label?: string;
+};
+
+type DashboardTooltipPayload = {
+  payload: DashboardChartDatum;
+};
+
+type DashboardTooltipProps = {
+  active?: boolean;
+  payload?: DashboardTooltipPayload[];
+  label?: string | number;
+};
+
+type DashboardDotProps = {
+  cx?: number;
+  cy?: number;
+  payload?: DashboardChartDatum;
+};
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -204,7 +227,7 @@ const agentLatencyData = [
   { name: "Sales Assistant", latency: 54, requests: 3600 },
 ];
 
-const CustomTerminalTooltip = ({ active, payload, label }: any) => {
+const CustomTerminalTooltip = ({ active, payload, label }: DashboardTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
@@ -240,10 +263,16 @@ const CustomTerminalTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const CustomizedDot = (props: any) => {
-  const { cx, cy, payload } = props;
+const CustomizedDot = ({ cx, cy, payload }: DashboardDotProps) => {
+  if (
+    typeof cx !== "number" ||
+    typeof cy !== "number" ||
+    !payload
+  ) {
+    return null;
+  }
   const isCritical =
-    payload.blocked > 100 ||
+    (payload.blocked ?? 0) > 100 ||
     payload.label?.includes("Adversarial") ||
     payload.label?.includes("spike");
 

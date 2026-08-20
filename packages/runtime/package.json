@@ -15,6 +15,7 @@
   "dependencies": {
     "@aegisora/core": "workspace:*",
     "@aegisora/observability": "workspace:*",
+    "@aegisora/plugins": "workspace:*",
     "@aegisora/policy-engine": "workspace:*",
     "@aegisora/security-engine": "workspace:*"
   },

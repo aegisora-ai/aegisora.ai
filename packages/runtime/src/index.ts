@@ -237,3 +237,5 @@ export * from "./events";
 export * from "./api";
 
 export * from "./enforcement";
+export * from "./governance";
+export * from "./providers";

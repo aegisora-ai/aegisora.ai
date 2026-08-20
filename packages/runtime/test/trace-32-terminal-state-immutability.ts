@@ -28,6 +28,10 @@ async function main() {
         }
     );
 
+    runtime.getContext().lifecycle.start(
+        stoppedId
+    );
+
     runtime.stopAgent(
         stoppedId
     );
@@ -119,6 +123,10 @@ async function main() {
         }
     );
 
+    runtime.getContext().lifecycle.start(
+        stoppedFailureId
+    );
+
     runtime.stopAgent(
         stoppedFailureId
     );
@@ -196,6 +204,10 @@ async function main() {
         }
     );
 
+    runtime.getContext().lifecycle.start(
+        completedId
+    );
+
     runtime.completeAgent(
         completedId
     );
@@ -271,6 +283,10 @@ async function main() {
             trace: "32",
             path: "failed-to-completed"
         }
+    );
+
+    runtime.getContext().lifecycle.start(
+        failedId
     );
 
     runtime.failAgent(

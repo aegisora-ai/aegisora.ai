@@ -1,10 +1,11 @@
-
+﻿
 export type RuntimeEventType =
   | "agent.created"
   | "agent.started"
   | "plan.created"
   | "step.started"
   | "tool.called"
+  | "provider.called"
   | "tool.completed"
   | "step.completed"
   | "agent.completed"
@@ -20,8 +21,10 @@ type:RuntimeEventType;
 
 agentId:string;
 
-timestamp:Date;
+timestamp: Date;
 
-payload?:unknown;
+metadata?: Record<string, unknown>;
+
+payload?: unknown;
 
 }

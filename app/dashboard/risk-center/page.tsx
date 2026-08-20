@@ -70,7 +70,7 @@ export default function RiskCenterPage() {
           .select("policy_key, is_enabled");
 
         if (!polError && polData && polData.length > 0) {
-          const polMap: any = {};
+          const polMap: Record<string, boolean> = {};
           polData.forEach((p) => {
             polMap[p.policy_key] = p.is_enabled;
           });

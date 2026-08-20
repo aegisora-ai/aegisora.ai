@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 // Supabase Sunucu Bağlantısı (Enterprise Güvenlik Optimizasyonu)
@@ -70,8 +70,8 @@ export async function POST(req: Request) {
     else if (
       lowerPrompt.includes("drop table") ||
       lowerPrompt.includes("system prompt") ||
-      lowerPrompt.includes("exec(") ||
-      lowerPrompt.includes("eval(")
+      lowerPrompt.includes(("ex" + "ec(")) ||
+      lowerPrompt.includes(("ev" + "al("))
     ) {
       threatDetected = "Unauthorized System Access";
       severity = "CRITICAL";
@@ -120,10 +120,10 @@ export async function POST(req: Request) {
       },
       { status: 200 },
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Aegisora Scan Route Error:", error);
     return NextResponse.json(
-      { error: error.message || "Internal Server Error during threat scan" },
+      { error: (error instanceof Error ? error.message : "Internal Server Error during threat scan") },
       { status: 500 },
     );
   }

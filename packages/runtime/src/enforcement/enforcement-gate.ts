@@ -30,18 +30,57 @@ export class EnforcementGate {
   async enforce(
     request: EnforcementRequest,
   ): Promise<EnforcementResult> {
+    const correlationId = crypto.randomUUID();
+
     const metadata = {
       ...(request.metadata ?? {}),
-      tool: request.tool,
       action: request.action,
+      canonicalTool: request.tool,
+      correlationId,
     };
 
+        // --------------------------------------------------------
+    // 1. Identity authenticity
     // --------------------------------------------------------
-    // 1. Identity / access control
+    //
+    // RuntimeContext.AgentRegistry is the canonical source
+    // of runtime agent identity.
+    //
+    // Possessing an agentId string is NOT sufficient.
+    // The identity must correspond to a registered runtime agent.
+    //
+    // This check executes before permission, policy, security,
+    // risk analysis, and provider/tool execution.
+    // --------------------------------------------------------
+
+    const registeredAgent =
+      this.context.agentRegistry.getById(
+        request.agentId,
+      );
+
+    if (!registeredAgent) {
+      const result: EnforcementResult = {
+        decision: "BLOCK",
+        reason:
+          `Unknown or unregistered agent identity: ${request.agentId}`,
+        riskScore: 100,
+        threats: [],
+        permission: "deny",
+        policy: "allow",
+        security: "allow",
+      };
+
+      await this.audit(request, result, metadata);
+      return result;
+    }
+
+    // --------------------------------------------------------
+    // 2. Identity / access control
     // --------------------------------------------------------
 
     const permission = this.permissions.check({
       agentId: request.agentId,
+      resourceType: request.resourceType,
       tool: request.tool,
       action: request.action,
       metadata,
@@ -58,7 +97,7 @@ export class EnforcementGate {
         security: "allow",
       };
 
-      await this.audit(request, result);
+      await this.audit(request, result, metadata);
       return result;
     }
 
@@ -68,9 +107,10 @@ export class EnforcementGate {
 
     const event: RuntimeEvent = {
       id: crypto.randomUUID(),
-      type: "tool.called",
+      type: request.resourceType === "provider" ? "provider.called" : "tool.called",
       agentId: request.agentId,
       timestamp: new Date(),
+      metadata,
       payload: {
         tool: request.tool,
         action: request.action,
@@ -78,6 +118,8 @@ export class EnforcementGate {
         metadata,
       },
     };
+    // Canonical evidence emission occurs at the enforcement boundary.
+    this.context.eventBus.emit(event);
 
     // --------------------------------------------------------
     // 3. Policy enforcement
@@ -96,7 +138,7 @@ export class EnforcementGate {
         security: "allow",
       };
 
-      await this.audit(request, result);
+      await this.audit(request, result, metadata);
       return result;
     }
 
@@ -162,7 +204,7 @@ export class EnforcementGate {
         security: "block",
       };
 
-      await this.audit(request, result);
+      await this.audit(request, result, metadata);
       return result;
     }
 
@@ -181,7 +223,7 @@ export class EnforcementGate {
         security: "allow",
       };
 
-      await this.audit(request, result);
+      await this.audit(request, result, metadata);
       return result;
     }
 
@@ -200,7 +242,7 @@ export class EnforcementGate {
       security: "allow",
     };
 
-    await this.audit(request, result);
+    await this.audit(request, result, metadata);
 
     return result;
   }
@@ -221,16 +263,18 @@ export class EnforcementGate {
   private async audit(
     request: EnforcementRequest,
     result: EnforcementResult,
+    metadata: Record<string, unknown>,
   ): Promise<void> {
     const auditRecord: EnforcementAuditRecord = {
       agentId: request.agentId,
+      resourceType: request.resourceType,
       tool: request.tool,
       action: request.action,
       decision: result.decision,
       reason: result.reason,
       riskScore: result.riskScore,
       threats: result.threats,
-      metadata: request.metadata,
+      metadata,
     };
 
     this.context.decisionStore.record({
@@ -246,6 +290,7 @@ export class EnforcementGate {
       timestamp: new Date(),
       riskScore: auditRecord.riskScore,
       metadata: {
+        resourceType: auditRecord.resourceType,
         tool: auditRecord.tool,
         threats: auditRecord.threats,
         ...(auditRecord.metadata ?? {}),

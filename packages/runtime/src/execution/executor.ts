@@ -1,4 +1,4 @@
-import {
+﻿import {
   Agent
 } from "../agent";
 
@@ -12,7 +12,8 @@ import {
 } from "../tasks";
 
 import {
-  ToolSelector
+  ToolSelector,
+  ToolRegistry
 } from "../tools";
 
 import {
@@ -20,6 +21,7 @@ import {
 } from "../planner";
 
 import { RuntimeContext } from "../context/runtime-context";
+import { PermissionEngine } from "../permissions";
 
 import {
   EnforcementGate
@@ -46,10 +48,15 @@ export class AgentExecutor {
     private selector: ToolSelector,
     private planner: PlannerEngine,
     private context: RuntimeContext,
-    private providerGateway: ProviderExecutionGateway =
-    new ProviderExecutionGateway(context),
+    permissions: PermissionEngine = new PermissionEngine(),
+    private tools: ToolRegistry,
+    private executionToken: symbol,
+    private providerGateway: ProviderExecutionGateway
   ) {
-    this.enforcement = new EnforcementGate(context);
+    this.enforcement = new EnforcementGate(
+      context,
+      permissions,
+    );
   }
 
   async execute(
@@ -57,7 +64,6 @@ export class AgentExecutor {
     plan: AgentPlan
   ): Promise<ExecutionResult> {
 
-    agent.start();
 
     let completed = 0;
     let lastOutput: unknown = undefined;
@@ -73,7 +79,6 @@ export class AgentExecutor {
       completed++;
     }
 
-    agent.complete();
 
     return {
       agentId: agent.id,
@@ -118,6 +123,7 @@ export class AgentExecutor {
 
     const enforcement = await this.enforcement.enforce({
       agentId: agent.id,
+      resourceType: "tool",
       tool: selection.tool.name,
       action: "tool.execute",
       input: step.description,
@@ -149,10 +155,6 @@ export class AgentExecutor {
 
     const providerName: ProviderName = "openai";
 
-const model =
-  this.providerGateway.getDefaultModel(
-    providerName
-  );
 
 const providerResponse =
   await this.providerGateway.generate({
@@ -174,6 +176,7 @@ const providerResponse =
     },
 
   });
+    const model = providerResponse.model;
 
     /*
      * ----------------------------------------------------------
@@ -182,65 +185,17 @@ const providerResponse =
      *
      * This is intentionally AFTER enforcement.
      */
-
-    /*
-
-     * ----------------------------------------------------------
-
-     * Persist tool.called BEFORE actual tool execution
-
-     * ----------------------------------------------------------
-
-     *
-
-     * This records the execution attempt before the tool runs.
-
-     * It must survive even when the tool throws.
-
-     * Enforcement has already passed at this point.
-
-     */
-
-    this.context.eventBus.emit({
-
-      id: crypto.randomUUID(),
-
-      type: "tool.called",
-
-      agentId: agent.id,
-
-      timestamp: new Date(),
-
-      payload: {
-
-        tool: selection.tool.name,
-
-        task: step.description,
-
-        planId,
-
-        stepId: step.id,
-
-        confidence: selection.confidence,
-
-        provider: providerName,
-
-        model,
-
-      },
-
-    });
-
-
-    const result =
-      await selection.tool.execute(
+const result =
+      await this.tools.execute(
+        selection.tool.name,
         {
           task: step.description,
           reasoning: providerResponse.output,
         },
         {
           agentId: agent.id
-        }
+        },
+        this.executionToken,
       );
 
     console.log(

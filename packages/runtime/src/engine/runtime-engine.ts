@@ -7,10 +7,7 @@
 
 import type { AgentRequest } from "@aegisora/core";
 
-import {
-  ProviderExecutionGateway,
-  type ProviderName,
-} from "../providers";
+import { type ProviderName } from "../providers";
 
 import { ExecutionPipeline } from "../pipeline/execution-pipeline";
 
@@ -23,6 +20,7 @@ import {
 } from "../middleware";
 
 import { AgentRuntime } from "../agent";
+import { PluginLoader, PluginRegistry, type AegisoraPlugin } from "@aegisora/plugins";
 
 import type {
   ProviderRequest,
@@ -40,19 +38,17 @@ export class AegisoraRuntime {
   private middleware: MiddlewareManager;
 
   private agentRuntime: AgentRuntime;
+  private readonly pluginRegistry: PluginRegistry;
+  private readonly pluginLoader: PluginLoader;
 
-private providerGateway: ProviderExecutionGateway;constructor() {
+  constructor() {
 
     this.pipeline = new ExecutionPipeline();
 
-    this.middleware = new MiddlewareManager();
+    this.middleware = new MiddlewareManager();    this.agentRuntime = new AgentRuntime();
 
-    this.agentRuntime = new AgentRuntime();
-
-this.providerGateway =
-  new ProviderExecutionGateway(
-    this.agentRuntime.getContext()
-  );
+    this.pluginRegistry = new PluginRegistry();
+    this.pluginLoader = new PluginLoader(this.pluginRegistry);
 
 
     /**
@@ -106,6 +102,12 @@ this.providerGateway =
   ) {
 
 
+    if (!context.agentId?.trim()) {
+      throw new Error(
+        "Provider generation requires a registered agent identity"
+      );
+    }
+
     const runtimeContext: RuntimeMiddlewareContext = {
 
       request:
@@ -151,10 +153,10 @@ this.providerGateway =
     }
 
 
-    return this.providerGateway.generate({
+    return this.agentRuntime.getProviderGateway().generate({
 
   agentId:
-    context.agentId ?? "runtime",
+    context.agentId,
 
   provider,
 
@@ -176,7 +178,7 @@ this.providerGateway =
    */
   providers(): ProviderName[] {
 
-    return this.providerGateway.list();
+    return this.agentRuntime.getProviderGateway().list();
 
   }
 
@@ -186,7 +188,7 @@ this.providerGateway =
    * Register custom middleware
    */
   registerMiddleware(
-    middleware: any
+    middleware: import("../types/middleware").RuntimeMiddleware
   ) {
 
     this.middleware.register(

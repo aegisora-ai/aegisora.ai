@@ -1,4 +1,4 @@
-import {
+﻿import {
   BaseProvider,
   ProviderRequest,
   ProviderResponse,
@@ -7,6 +7,10 @@ import {
 import type { ProviderRuntimeContext } from "../types/context";
 
 import { ProviderClient } from "./provider-client";
+
+import type {
+  AnthropicMessagesResponse,
+} from "./provider-responses";
 
 export class AnthropicProvider extends BaseProvider {
   readonly name = "anthropic";
@@ -27,36 +31,29 @@ export class AnthropicProvider extends BaseProvider {
       );
     }
 
-    const result: any = await this.client.post(
-      "https://api.anthropic.com/v1/messages",
-
-      {
-        model: request.model,
-
-        max_tokens: request.maxTokens ?? 1000,
-
-        temperature: request.temperature ?? 0.7,
-
-        messages: [
-          {
-            role: "user",
-            content: request.prompt,
-          },
-        ],
-      },
-
-      {
-        "x-api-key": apiKey,
-
-        "anthropic-version": "2023-06-01",
-      },
-    );
+    const result =
+      await this.client.post<AnthropicMessagesResponse>(
+        "https://api.anthropic.com/v1/messages",
+        {
+          model: request.model,
+          max_tokens: request.maxTokens ?? 1000,
+          temperature: request.temperature ?? 0.7,
+          messages: [
+            {
+              role: "user",
+              content: request.prompt,
+            },
+          ],
+        },
+        {
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+        },
+      );
 
     return this.buildResponse(
       this.name,
-
       request.model,
-
       result.content?.[0]?.text ?? "",
     );
   }

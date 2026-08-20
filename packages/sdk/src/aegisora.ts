@@ -1,14 +1,21 @@
-import type { AgentInput, AgentResponse, ProtectedAgent } from "./types";
+﻿import type {
+  AgentInput,
+  AgentResponse,
+  ProtectedAgent,
+  ProtectableAgent,
+} from "./types";
 
 export class Aegisora {
-  static protect(agent: any): ProtectedAgent {
+  static protect(agent: ProtectableAgent): ProtectedAgent {
     return {
       async run(input: AgentInput): Promise<AgentResponse> {
         const result = await agent.run(input.input);
 
         return {
-          output: result,
-
+          output:
+            typeof result === "string"
+              ? result
+              : JSON.stringify(result),
           timestamp: new Date(),
         };
       },

@@ -1,4 +1,4 @@
-import {
+﻿import {
 AgentMemory
 } from "../../memory";
 
@@ -31,7 +31,7 @@ status:
 export class Agent {
 
 
-readonly id:string;
+  readonly id!:string;
 
 readonly name:string;
 
@@ -43,30 +43,72 @@ private memory:AgentMemory;
 
 
 
-constructor(
-config:AgentConfig
+  constructor(
+    config:AgentConfig
+  ){
+
+    Object.defineProperty(this, "id", {
+      value: config.id,
+      writable: false,
+      enumerable: true,
+      configurable: false,
+    });
+
+    this.name =
+      config.name;
+
+    this.state = {
+      status:"idle"
+    };
+
+    this.memory =
+      new AgentMemory();
+  }
+
+private transition(
+nextStatus: AgentState["status"]
 ){
 
-this.id =
-config.id;
+const current =
+this.state.status;
 
+const allowed: Record<
+AgentState["status"],
+AgentState["status"][]
+> = {
 
-this.name =
-config.name;
+idle: [
+"running"
+],
 
+running: [
+"completed",
+"failed",
+"stopped"
+],
 
-this.state = {
+completed: [],
 
-status:"idle"
+failed: [],
+
+stopped: []
 
 };
 
+if (
+!allowed[current].includes(nextStatus)
+){
 
-this.memory =
-new AgentMemory();
+throw new Error(
+`Illegal agent lifecycle transition: ${current} -> ${nextStatus}`
+);
 
 }
 
+this.state.status =
+nextStatus;
+
+}
 
 
 /**
@@ -75,8 +117,9 @@ new AgentMemory();
 
 start(){
 
-this.state.status =
-"running";
+this.transition(
+"running"
+);
 
 }
 
@@ -88,8 +131,9 @@ this.state.status =
 
 complete(){
 
-this.state.status =
-"completed";
+this.transition(
+"completed"
+);
 
 }
 
@@ -101,8 +145,9 @@ this.state.status =
 
 fail(){
 
-this.state.status =
-"failed";
+this.transition(
+"failed"
+);
 
 }
 
@@ -111,8 +156,9 @@ this.state.status =
  */
 stop(){
 
-this.state.status =
-"stopped";
+this.transition(
+"stopped"
+);
 
 }
 
@@ -124,7 +170,10 @@ this.state.status =
 
 getState(){
 
-return this.state;
+return {
+status:
+this.state.status
+};
 
 }
 

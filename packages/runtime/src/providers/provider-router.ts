@@ -1,4 +1,4 @@
-import {
+﻿import {
   BaseProvider,
 } from "./base-provider";
 
@@ -17,9 +17,13 @@ import {
 export type ProviderName = "openai" | "anthropic" | "gemini";
 
 export class ProviderRouter {
+
+  #executionToken: symbol;
+
   private providers: Map<ProviderName, BaseProvider>;
 
-  constructor() {
+  constructor(executionToken: symbol) {
+    this.#executionToken = executionToken;
     this.providers = new Map();
 
     this.register("openai", new OpenAIProvider());
@@ -33,7 +37,17 @@ export class ProviderRouter {
     this.providers.set(name, provider);
   }
 
-  resolve(name?: ProviderName): BaseProvider {
+  resolve(
+    name?: ProviderName,
+    authorization?: symbol,
+  ): BaseProvider {
+
+    if (authorization !== this.#executionToken) {
+      throw new Error(
+        "[ENFORCEMENT:BLOCK] Direct provider resolution is not authorized."
+      );
+    }
+
     const selected = name ?? "openai";
 
     const provider = this.providers.get(selected);

@@ -93,9 +93,13 @@ export default function AgentsPage() {
       setNewRole("");
       setNewModel("llama-3.3-70b");
       fetchAgents();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error creating agent:", err);
-      alert("Failed to register agent: " + err.message);
+
+      const message =
+        err instanceof Error ? err.message : String(err);
+
+      alert("Failed to register agent: " + message);
     } finally {
       setIsSubmitting(false);
     }
@@ -106,7 +110,7 @@ export default function AgentsPage() {
       const { error } = await supabase.from("agents").delete().eq("id", id);
       if (error) throw error;
       setAgents((prev) => prev.filter((a) => a.id !== id));
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error deleting agent:", err);
     }
   };

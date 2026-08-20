@@ -1,4 +1,4 @@
-import {
+﻿import {
   BaseProvider,
   ProviderRequest,
   ProviderResponse,
@@ -7,6 +7,10 @@ import {
 import type { ProviderRuntimeContext } from "../types/context";
 
 import { ProviderClient } from "./provider-client";
+
+import type {
+  OpenAIChatCompletionResponse,
+} from "./provider-responses";
 
 export class OpenAIProvider extends BaseProvider {
   readonly name = "openai";
@@ -27,28 +31,24 @@ export class OpenAIProvider extends BaseProvider {
       );
     }
 
-    const result: any = await this.client.post(
-      "https://api.openai.com/v1/chat/completions",
-
-      {
-        model: request.model,
-
-        messages: [
-          {
-            role: "user",
-            content: request.prompt,
-          },
-        ],
-
-        temperature: request.temperature ?? 0.7,
-
-        max_tokens: request.maxTokens ?? 1000,
-      },
-
-      {
-        Authorization: `Bearer ${apiKey}`,
-      },
-    );
+    const result =
+      await this.client.post<OpenAIChatCompletionResponse>(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: request.model,
+          messages: [
+            {
+              role: "user",
+              content: request.prompt,
+            },
+          ],
+          temperature: request.temperature ?? 0.7,
+          max_tokens: request.maxTokens ?? 1000,
+        },
+        {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      );
 
     return this.buildResponse(
       this.name,

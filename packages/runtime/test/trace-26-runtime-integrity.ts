@@ -177,6 +177,33 @@ async function main() {
     );
 
     console.log("");
+    console.log("[E] Starting failure-path agent before canonical failure transition...");
+
+    runtime.getContext().lifecycle.start(
+        failureId
+    );
+
+    const failureRunning =
+        runtime.getAgent(failureId);
+
+    if (!failureRunning) {
+        throw new Error(
+            "Failure agent disappeared after start."
+        );
+    }
+
+    if (failureRunning.status !== "running") {
+        throw new Error(
+            `Expected failure agent running before fail, got ${failureRunning.status}`
+        );
+    }
+
+    console.log(
+        "Failure state before fail:",
+        failureRunning.status
+    );
+
+    console.log("");
     console.log("[E] Executing canonical failure transition...");
 
     const failureResult =
@@ -272,6 +299,34 @@ async function main() {
             trace: "26",
             path: "stop"
         }
+    );
+
+    console.log(
+        "Starting stop-path agent before canonical stop transition..."
+    );
+
+    runtime.getContext().lifecycle.start(
+        stopId
+    );
+
+    const stopRunning =
+        runtime.getAgent(stopId);
+
+    if (!stopRunning) {
+        throw new Error(
+            "Stop agent disappeared after start."
+        );
+    }
+
+    if (stopRunning.status !== "running") {
+        throw new Error(
+            `Expected stop agent running before stop, got ${stopRunning.status}`
+        );
+    }
+
+    console.log(
+        "Stop state before stop:",
+        stopRunning.status
     );
 
     console.log(
