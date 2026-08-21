@@ -1,3 +1,5 @@
+﻿"use client";
+
 type DashboardChartDatum = {
   name?: string;
   requests?: number;
@@ -21,8 +23,6 @@ type DashboardDotProps = {
   cy?: number;
   payload?: DashboardChartDatum;
 };
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
@@ -253,7 +253,7 @@ const CustomTerminalTooltip = ({ active, payload, label }: DashboardTooltipProps
           </div>
           {data.label && (
             <div className="mt-2 pt-2 border-t border-zinc-800 text-[11px] text-amber-400 bg-amber-500/10 px-2.5 py-1.5 rounded-lg border border-amber-500/20">
-              ⚡ {data.label}
+              âš¡ {data.label}
             </div>
           )}
         </div>
@@ -437,7 +437,7 @@ export default function CommandCenterPage() {
         </div>
       </div>
 
-      {/* METRİK KARTLARI */}
+      {/* METRÄ°K KARTLARI */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
         <Link
           href="/dashboard/agents"
@@ -526,11 +526,11 @@ export default function CommandCenterPage() {
         </Link>
       </div>
 
-      {/* GRAFİK 1: NETWORK TELEMETRY */}
+      {/* GRAFÄ°K 1: NETWORK TELEMETRY */}
       <div
         ref={chartContainerRef}
         className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2.5rem] p-6 sm:p-8 flex flex-col shadow-2xl select-none relative z-10 overflow-hidden"
-        title="Grafik üzerinde fare tekerleğini (wheel) kullanarak zaman aralığını dinamik olarak değiştirebilirsin (Zoom In/Out)"
+        title="Grafik Ã¼zerinde fare tekerleÄŸini (wheel) kullanarak zaman aralÄ±ÄŸÄ±nÄ± dinamik olarak deÄŸiÅŸtirebilirsin (Zoom In/Out)"
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,102,238,0.05)_0%,transparent_50%)] pointer-events-none" />
 
@@ -541,7 +541,7 @@ export default function CommandCenterPage() {
               Operational Telemetry & Policy Blocks
             </h3>
             <p className="text-[11px] font-mono text-zinc-500 mt-1 uppercase tracking-widest">
-              Total Agent Requests vs Blocked Unauthorized Calls • Range:{" "}
+              Total Agent Requests vs Blocked Unauthorized Calls â€¢ Range:{" "}
               <span className="text-blue-400 font-bold">{timeframe}</span>{" "}
               (Scroll Wheel to Zoom)
             </p>
@@ -619,7 +619,7 @@ export default function CommandCenterPage() {
         </div>
       </div>
 
-      {/* ALT GRAFİKLER */}
+      {/* ALT GRAFÄ°KLER */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
         {/* PIE CHART */}
         <div className="bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 rounded-[2.5rem] p-6 sm:p-8 flex flex-col shadow-2xl relative overflow-hidden">
@@ -758,7 +758,7 @@ export default function CommandCenterPage() {
               href="/dashboard/agents"
               className="text-blue-400 hover:text-white font-semibold transition-colors underline underline-offset-4"
             >
-              View Fleet →
+              View Fleet â†’
             </Link>
           </div>
         </div>
@@ -766,3 +766,5 @@ export default function CommandCenterPage() {
     </div>
   );
 }
+
+

@@ -1,4 +1,4 @@
-{
+﻿{
     "compilerOptions":  {
                             "target":  "ES2017",
                             "lib":  [
@@ -26,7 +26,8 @@
                                           "@/*":  [
                                                       "./*"
                                                   ]
-                                      }
+                                      },
+                            "baseUrl":  "."
                         },
     "include":  [
                     "next-env.d.ts",
@@ -38,6 +39,8 @@
                 ],
     "exclude":  [
                     "node_modules",
-                    "tests"
+                    "tests",
+                    "examples",
+                    "packages/**/test"
                 ]
 }
