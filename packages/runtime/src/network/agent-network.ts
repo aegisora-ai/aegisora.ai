@@ -1,4 +1,4 @@
-﻿import {
+import {
   AgentRegistry
 } from "../agents";
 

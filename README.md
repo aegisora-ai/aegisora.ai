@@ -12,11 +12,11 @@
 
   <p>
     <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
-    &nbsp;·&nbsp;
+    &nbsp;Â·&nbsp;
     <a href="./ARCHITECTURE.md"><strong>Architecture</strong></a>
-    &nbsp;·&nbsp;
+    &nbsp;Â·&nbsp;
     <a href="./SECURITY.md"><strong>Security</strong></a>
-    &nbsp;·&nbsp;
+    &nbsp;Â·&nbsp;
     <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
   </p>
 
@@ -117,51 +117,51 @@ pnpm test
 
 The repository includes runtime security, provider-boundary, identity, lifecycle, and SDK integration tests.
 
-## g��� Overview
+## gï¿½ï¿½ï¿½ Overview
 
-As enterprises grant autonomous AI agents direct access to critical databases, internal tools, and production infrastructure, the attack surface for prompt injection, data exfiltration, and unauthorized action execution grows exponentially — and traditional security tooling was never designed to govern non-deterministic, self-directed software.
+As enterprises grant autonomous AI agents direct access to critical databases, internal tools, and production infrastructure, the attack surface for prompt injection, data exfiltration, and unauthorized action execution grows exponentially â€” and traditional security tooling was never designed to govern non-deterministic, self-directed software.
 
 **Aegisora** sits between your AI agents and the systems they act upon as a real-time, zero-trust enforcement layer.
 
-Every tool call, every action, and every output is intercepted, evaluated against policy, and logged — **before** it ever touches production.
+Every tool call, every action, and every output is intercepted, evaluated against policy, and logged â€” **before** it ever touches production.
 
 Our core design philosophy is solving what we call the **Binary Trap**: the false choice between blindly allowing an agent action and blindly blocking it.
 
-Instead of forcing a black-and-white decision on ambiguous or high-risk requests, Aegisora introduces a third state — **asynchronous human escalation** — so security teams get a governance layer that flexes with real-world ambiguity instead of breaking the workflow.
+Instead of forcing a black-and-white decision on ambiguous or high-risk requests, Aegisora introduces a third state â€” **asynchronous human escalation** â€” so security teams get a governance layer that flexes with real-world ambiguity instead of breaking the workflow.
 
 ---
 
-## g�?� The Problem We Solve
+## gï¿½?ï¿½ The Problem We Solve
 
 Conventional security systems force a binary outcome on every request: **allow** or **block**.
 
 For deterministic, low-risk traffic this works.
 
-For autonomous AI agents making judgment calls in ambiguous, high-stakes situations, it doesn't — organizations are left choosing between over-blocking (killing agent productivity) or over-permitting (accepting unacceptable risk).
+For autonomous AI agents making judgment calls in ambiguous, high-stakes situations, it doesn't â€” organizations are left choosing between over-blocking (killing agent productivity) or over-permitting (accepting unacceptable risk).
 
 Aegisora resolves this with a three-state decision model:
 
 | **State**        | **Trigger**                                    | **Outcome**                                                                                        |
 | ---------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| ✅ **Allow**      | Low-risk, policy-compliant request             | Executes instantly via the deterministic fast-path (**< 10ms**)                                    |
-| g��� **Block**     | Clear policy violation or known attack pattern | Rejected immediately and fully logged                                                              |
-| g���️ **Escalate** | Ambiguous or high-risk request                 | Routed to the **Human Review Queue** for asynchronous approval without breaking the agent workflow |
+| âœ… **Allow**      | Low-risk, policy-compliant request             | Executes instantly via the deterministic fast-path (**< 10ms**)                                    |
+| gï¿½ï¿½ï¿½ **Block**     | Clear policy violation or known attack pattern | Rejected immediately and fully logged                                                              |
+| gï¿½ï¿½ï¿½ï¸ **Escalate** | Ambiguous or high-risk request                 | Routed to the **Human Review Queue** for asynchronous approval without breaking the agent workflow |
 
 ---
 
-## g���️ Core Capabilities
+## gï¿½ï¿½ï¿½ï¸ Core Capabilities
 
-* **Zero-Trust Action Proxy** — Every agent action and tool call is intercepted and validated in real time before execution; nothing reaches production systems unchecked.
+* **Zero-Trust Action Proxy** â€” Every agent action and tool call is intercepted and validated in real time before execution; nothing reaches production systems unchecked.
 
-* **The Human Review Queue** — High-risk or ambiguous actions are escalated asynchronously for human approval instead of being blindly blocked, preserving agent throughput while keeping a human in the loop for consequential decisions.
+* **The Human Review Queue** â€” High-risk or ambiguous actions are escalated asynchronously for human approval instead of being blindly blocked, preserving agent throughput while keeping a human in the loop for consequential decisions.
 
-* **Prompt Injection Firewall** — Detects and neutralizes adversarial inputs designed to override system instructions or hijack agent behavior.
+* **Prompt Injection Firewall** â€” Detects and neutralizes adversarial inputs designed to override system instructions or hijack agent behavior.
 
-* **PII Data Masking** — Automatically detects and redacts sensitive data such as credit card numbers, national IDs/SSNs, email addresses, and other regulated data classes from agent inputs and outputs before it can leak.
+* **PII Data Masking** â€” Automatically detects and redacts sensitive data such as credit card numbers, national IDs/SSNs, email addresses, and other regulated data classes from agent inputs and outputs before it can leak.
 
-* **Live Telemetry & Reasoning Trace** — Full observability into agent workflows, decision paths, and policy outcomes (approved / flagged / blocked) as they happen, with a complete audit trail for compliance.
+* **Live Telemetry & Reasoning Trace** â€” Full observability into agent workflows, decision paths, and policy outcomes (approved / flagged / blocked) as they happen, with a complete audit trail for compliance.
 
-* **Execution Integrity Proofs** — Cryptographic provenance for workload execution, enabling verifiable, tamper-evident audit records.
+* **Execution Integrity Proofs** â€” Cryptographic provenance for workload execution, enabling verifiable, tamper-evident audit records.
 
 For a full breakdown of the request lifecycle and system internals, see [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
@@ -169,7 +169,7 @@ For our threat model and disclosure policy, see [`SECURITY.md`](./SECURITY.md).
 
 ---
 
-## g���️ Tech Stack
+## gï¿½ï¿½ï¿½ï¸ Tech Stack
 
 | **Layer**           | **Technology**         |
 | ------------------- | ---------------------- |
@@ -182,7 +182,7 @@ For our threat model and disclosure policy, see [`SECURITY.md`](./SECURITY.md).
 
 ---
 
-## g��� Getting Started Locally
+## gï¿½ï¿½ï¿½ Getting Started Locally
 
 ### Prerequisites
 
@@ -237,9 +237,9 @@ Open http://localhost:3000 to view the application.
 
 ---
 
-## g��� Contributing
+## gï¿½ï¿½ï¿½ Contributing
 
-Aegisora is built in the open, and contributions of any size are welcome — from fixing a typo to designing a new detection rule for the policy engine.
+Aegisora is built in the open, and contributions of any size are welcome â€” from fixing a typo to designing a new detection rule for the policy engine.
 
 ### Contribution Workflow
 
@@ -264,19 +264,19 @@ See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow and coding stan
 
 ---
 
-## g��� License
+## gï¿½ï¿½ï¿½ License
 
 This project is open-source under the [MIT License](./LICENSE).
 
 ---
 
-## ✨ Contributors
+## âœ¨ Contributors
 
 Thanks to all the people who contribute to Aegisora.
 
 This project follows the [all-contributors](https://allcontributors.org/) specification.
 
-Contributions of any kind are welcome — code, documentation, testing, security research, integrations, ideas, and more.
+Contributions of any kind are welcome â€” code, documentation, testing, security research, integrations, ideas, and more.
 
 <a href="https://github.com/aegisora-ai/aegisora.ai/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=aegisora-ai/aegisora.ai" alt="Aegisora contributors">
@@ -297,13 +297,25 @@ Contributions of any kind are welcome — code, documentation, testing, security
 <a href="https://github.com/aegisora-ai/aegisora.ai">
   GitHub
 </a>
-&nbsp;·&nbsp;
+&nbsp;Â·&nbsp;
 <a href="https://aegisora-ai.vercel.app">
   Live Demo
 </a>
-&nbsp;·&nbsp;
+&nbsp;Â·&nbsp;
 <a href="https://discord.gg/8CM3PpQRT5">
   Discord
 </a>
 
 </div>
+
+## Published release
+
+All 9 Aegisora packages are publicly available on npm at  .1.2.
+
+### Install
+
+```bash
+npm install @aegisora/sdk@0.1.2
+```
+
+Aegisora evaluates consequential agent actions through identity, permission, policy, security, risk, enforcement, decision, and audit boundaries before protected execution proceeds.

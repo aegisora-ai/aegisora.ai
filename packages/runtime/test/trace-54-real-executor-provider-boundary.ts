@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 
 import { AgentExecutor } from "../src/execution/executor";
 import { RuntimeContext } from "../src/context/runtime-context";

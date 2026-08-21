@@ -36,4 +36,3 @@ AGENT_CALLED:
 
 export type RuntimeEventTypeValue =
 typeof RuntimeEventType[keyof typeof RuntimeEventType];
-

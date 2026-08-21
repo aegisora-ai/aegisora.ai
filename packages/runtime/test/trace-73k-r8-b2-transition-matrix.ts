@@ -1,4 +1,4 @@
-﻿import { Agent } from "../src/agent/core/agent";
+import { Agent } from "../src/agent/core/agent";
 
 function pass(message: string) {
   console.log(`PASS: ${message}`);

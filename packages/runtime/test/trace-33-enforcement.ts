@@ -1,4 +1,4 @@
-﻿import {
+import {
   EnforcementGate,
 } from "../src/enforcement";
 

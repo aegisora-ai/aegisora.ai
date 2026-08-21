@@ -1,4 +1,4 @@
-﻿export interface ToolDescriptor {
+export interface ToolDescriptor {
 
 name:string;
 

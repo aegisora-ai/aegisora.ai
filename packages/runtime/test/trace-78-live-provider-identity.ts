@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 
 import { RuntimeContext } from "../src/context/runtime-context";
 import { EnforcementGate } from "../src/enforcement/enforcement-gate";

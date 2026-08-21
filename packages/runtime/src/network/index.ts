@@ -17,4 +17,3 @@ export type {
 RoutedMessage,
 MessageType
 } from "./router";
-

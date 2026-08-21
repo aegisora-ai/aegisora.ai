@@ -1,4 +1,4 @@
-﻿import { Agent } from "../src/agent/core/agent";
+import { Agent } from "../src/agent/core/agent";
 import { AgentRegistry } from "../src/agents/agent-registry";
 import { EnforcementGate } from "../src/enforcement/enforcement-gate";
 import { RuntimeContext } from "../src/context/runtime-context";

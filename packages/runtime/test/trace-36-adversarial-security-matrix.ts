@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 
 import { GovernanceEngine } from "../src/governance/governance-engine";
 import type { ExecutionIntent } from "../src/governance/types";

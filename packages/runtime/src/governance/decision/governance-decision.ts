@@ -1,4 +1,4 @@
-﻿export type GovernanceDecision =
+export type GovernanceDecision =
   | "ALLOW"
   | "BLOCK"
   | "ESCALATE";

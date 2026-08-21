@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   RuntimeMiddleware,
   RuntimeMiddlewareContext,
 } from "../types/middleware";

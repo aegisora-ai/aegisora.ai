@@ -1,4 +1,4 @@
-﻿import {
+import {
   MessageBus,
   MessageHandler,
 } from "./message-bus";

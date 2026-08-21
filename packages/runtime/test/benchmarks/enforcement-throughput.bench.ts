@@ -1,4 +1,4 @@
-﻿import { AgentRuntime } from "../../src";
+import { AgentRuntime } from "../../src";
 
 async function main() {
   const runtime = new AgentRuntime();

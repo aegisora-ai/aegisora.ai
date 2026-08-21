@@ -1,4 +1,4 @@
-﻿export interface OpenAIChatCompletionResponse {
+export interface OpenAIChatCompletionResponse {
   choices?: Array<{
     message?: {
       content?: string | null;

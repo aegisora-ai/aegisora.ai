@@ -1,4 +1,4 @@
-﻿import {
+import {
   RuntimeTool,
   ToolContext
 } from "./tool";

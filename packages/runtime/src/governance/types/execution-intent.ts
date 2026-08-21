@@ -1,4 +1,4 @@
-﻿export type ExecutionActorType =
+export type ExecutionActorType =
   | "agent"
   | "human"
   | "system";

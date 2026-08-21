@@ -1,4 +1,4 @@
-﻿export {
+export {
   EnforcementGate,
 } from "./enforcement-gate";
 

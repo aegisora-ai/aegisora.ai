@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   ExecutionIntent,
 } from "../types/execution-intent";
 

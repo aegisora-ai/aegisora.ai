@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { AgentRuntime } from "../src/agent/runtime/agent-runtime";
 import { RuntimePolicyEngine } from "../src/policy/policy-engine";
 

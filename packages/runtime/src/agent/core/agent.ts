@@ -1,4 +1,4 @@
-﻿import {
+import {
 AgentMemory
 } from "../../memory";
 

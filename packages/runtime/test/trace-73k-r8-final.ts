@@ -1,4 +1,4 @@
-﻿import { Agent } from "../src/agent/core/agent";
+import { Agent } from "../src/agent/core/agent";
 import { AgentRegistry } from "../src/agents/agent-registry";
 
 function pass(message: string) {

@@ -1,4 +1,4 @@
-﻿import {
+import {
   BaseProvider,
 } from "./base-provider";
 

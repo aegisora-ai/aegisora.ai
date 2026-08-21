@@ -1,4 +1,4 @@
-﻿import { AgentRuntime } from "../src/agent/runtime/agent-runtime";
+import { AgentRuntime } from "../src/agent/runtime/agent-runtime";
 
 function pass(message: string) {
   console.log(`PASS: ${message}`);

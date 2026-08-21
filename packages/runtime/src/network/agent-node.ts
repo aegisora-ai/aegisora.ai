@@ -1,4 +1,4 @@
-﻿export interface AgentNode {
+export interface AgentNode {
 
   readonly agentId: string;
 

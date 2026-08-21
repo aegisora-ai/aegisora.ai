@@ -1,4 +1,4 @@
-﻿export {
+export {
 Agent,
 AgentRuntime,
 AgentManager

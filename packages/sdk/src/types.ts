@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Aegisora SDK Types
  *
  * Public developer SDK contracts.

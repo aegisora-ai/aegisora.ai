@@ -1,4 +1,4 @@
-﻿import { ProviderRouter } from "./provider-router";
+import { ProviderRouter } from "./provider-router";
 import type { ProviderName } from "./provider-router";
 
 import { ProviderManager } from "./provider-manager";

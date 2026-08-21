@@ -1,12 +1,16 @@
 {
     "name":  "@aegisora/runtime",
-    "version":  "0.1.0",
+    "version":  "0.1.2",
     "description":  "Aegisora runtime governance engine for autonomous AI agents.",
     "license":  "MIT",
-    "main":  "./src/index.ts",
-    "types":  "./src/index.ts",
+    "main":  "./dist/index.js",
+    "types":  "./dist/index.d.ts",
     "exports":  {
-                    ".":  "./src/index.ts"
+                    ".":  {
+                              "types":  "./dist/index.d.ts",
+                              "require":  "./dist/index.js",
+                              "default":  "./dist/index.js"
+                          }
                 },
     "scripts":  {
                     "build":  "tsc",
@@ -22,5 +26,10 @@
     "devDependencies":  {
                             "tsx":  "^4",
                             "typescript":  "^5"
-                        }
+                        },
+    "files":  [
+                  "dist",
+                  "README.md",
+                  "LICENSE"
+              ]
 }

@@ -9,4 +9,3 @@ content:string;
 createdAt:Date;
 
 }
-

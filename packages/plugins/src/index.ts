@@ -1,4 +1,4 @@
-﻿export { PluginRegistry } from "./registry/plugin-registry";
+export { PluginRegistry } from "./registry/plugin-registry";
 
 export { PluginLoader } from "./loader/plugin-loader";
 

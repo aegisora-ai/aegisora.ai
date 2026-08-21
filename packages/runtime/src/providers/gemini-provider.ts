@@ -1,4 +1,4 @@
-﻿import {
+import {
   BaseProvider,
   ProviderRequest,
   ProviderResponse,

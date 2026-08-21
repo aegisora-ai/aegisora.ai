@@ -7,4 +7,3 @@ export type {
 RoutedMessage,
 MessageType
 } from "./routed-message";
-

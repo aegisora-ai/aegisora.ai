@@ -1,4 +1,4 @@
-﻿export interface DecisionTrace {
+export interface DecisionTrace {
   id: string;
   agentId: string;
   action: string;
