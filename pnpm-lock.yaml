@@ -141,6 +141,9 @@ importers:
         specifier: workspace:*
         version: link:../security-engine
     devDependencies:
+      tsx:
+        specifier: ^4.23.10
+        version: 4.23.10
       typescript:
         specifier: ^5
         version: 5.9.3

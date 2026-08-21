@@ -1,4 +1,4 @@
-﻿import { ToolRegistry, ToolSelector, EchoTool } from "../../tools";
+import { ToolRegistry, ToolSelector, EchoTool } from "../../tools";
 
 import { Agent } from "..";
 
@@ -56,7 +56,10 @@ export class AgentRuntime {
 
   private tools = new ToolRegistry(this.toolExecutionToken);
 
-  private permissions = new PermissionEngine(this.tools);
+  private permissions = new PermissionEngine(
+    this.tools,
+    this.context.agentRegistry,
+  );
 
   private enforcement = new EnforcementGate(this.context, this.permissions);
 
@@ -168,6 +171,23 @@ export class AgentRuntime {
 
       throw error;
     }
+  }
+
+  async runProtectedAgent(agentId: string, input: string, runner: (input: string) => Promise<unknown>) {
+    const agent = this.context.agentRegistry.getById(agentId);
+    if (!agent) throw new Error(`Agent not found: ${agentId}`);
+    const requestId = crypto.randomUUID();
+    const enforcement = await this.enforcement.enforce({
+      agentId,
+      resourceType: "agent",
+      tool: `agent:${agentId}`,
+      action: "agent.run",
+      input,
+      metadata: { requestId, protected: true, capability: "agent.run" },
+    });
+    if (enforcement.decision !== "ALLOW") throw new Error(`BLOCKED`);
+    const output = await runner(input);
+    return { output, requestId, decision: enforcement.decision, riskScore: enforcement.riskScore, threats: enforcement.threats, timestamp: new Date() };
   }
 
   getProviderGateway() {

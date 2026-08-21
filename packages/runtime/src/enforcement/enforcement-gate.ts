@@ -1,4 +1,4 @@
-﻿import { RuntimeContext } from "../context/runtime-context";
+import { RuntimeContext } from "../context/runtime-context";
 import type { RuntimeEvent } from "../events";
 import { PermissionEngine } from "../permissions";
 
@@ -107,7 +107,12 @@ export class EnforcementGate {
 
     const event: RuntimeEvent = {
       id: crypto.randomUUID(),
-      type: request.resourceType === "provider" ? "provider.called" : "tool.called",
+      type:
+        request.resourceType === "provider"
+          ? "provider.called"
+          : request.resourceType === "agent"
+            ? "agent.called"
+            : "tool.called",
       agentId: request.agentId,
       timestamp: new Date(),
       metadata,

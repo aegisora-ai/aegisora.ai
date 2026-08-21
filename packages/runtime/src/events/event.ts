@@ -1,4 +1,4 @@
-﻿
+
 export type RuntimeEventType =
   | "agent.created"
   | "agent.started"
@@ -6,6 +6,7 @@ export type RuntimeEventType =
   | "step.started"
   | "tool.called"
   | "provider.called"
+  | "agent.called"
   | "tool.completed"
   | "step.completed"
   | "agent.completed"

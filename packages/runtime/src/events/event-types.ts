@@ -24,7 +24,10 @@ AGENT_STOPPED:
 
 
 TOOL_CALLED:
-"tool.called"
+"tool.called",
+
+AGENT_CALLED:
+"agent.called"
 
 
 } as const;

@@ -99,7 +99,30 @@ if (
 }
 
 // --------------------------------------------------------
-// 3. Command injection detection
+    // --------------------------------------------------------
+    // 2A. Governance / security-control bypass detection
+    // --------------------------------------------------------
+
+    const governanceBypassPatterns = [
+      /\b(bypass|circumvent|disable)\s+(the\s+)?governance\b/i,
+      /\b(bypass|circumvent|disable)\s+(the\s+)?security\s+controls?\b/i,
+      /\b(bypass|circumvent|disable)\s+(the\s+)?security\s+policy\b/i,
+      /\bignore\s+(all\s+)?security\s+polic(?:y|ies)\s+and\s+bypass\b/i,
+    ];
+
+    if (
+      governanceBypassPatterns.some(
+        (pattern) => pattern.test(normalized),
+      )
+    ) {
+      return {
+        decision: "block",
+        reason: "Governance bypass attempt detected",
+      };
+    }
+
+    // --------------------------------------------------------
+    // // 3. Command injection detection
 // --------------------------------------------------------
 
 const commandInjectionPatterns = [

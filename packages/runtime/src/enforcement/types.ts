@@ -1,4 +1,4 @@
-﻿import type { RuntimeContext } from "../context/runtime-context";
+import type { RuntimeContext } from "../context/runtime-context";
 
 export type EnforcementDecision =
   | "ALLOW"
@@ -7,7 +7,8 @@ export type EnforcementDecision =
 
 export type EnforcementResourceType =
   | "tool"
-  | "provider";
+  | "provider"
+  | "agent";
 
 export interface EnforcementRequest {
   agentId: string;

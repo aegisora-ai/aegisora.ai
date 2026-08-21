@@ -1,11 +1,12 @@
-﻿export type PermissionAction =
+export type PermissionAction =
   | "allow"
   | "deny"
   | "review";
 
 export type PermissionResourceType =
   | "tool"
-  | "provider";
+  | "provider"
+  | "agent";
 
 export interface PermissionRequest {
   agentId: string;

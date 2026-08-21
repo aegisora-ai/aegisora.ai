@@ -239,3 +239,5 @@ export * from "./api";
 export * from "./enforcement";
 export * from "./governance";
 export * from "./providers";
+
+export * from "./policy";

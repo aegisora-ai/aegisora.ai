@@ -1,4 +1,4 @@
-﻿import {
+import {
   PermissionRequest,
   PermissionResult,
 } from "./permission";
@@ -6,6 +6,8 @@
 import {
   ToolRegistry,
 } from "../tools";
+
+import type { AgentRegistry } from "../agents";
 
 /*
  * ------------------------------------------------------------
@@ -44,6 +46,20 @@ const KNOWN_PROVIDERS = new Set([
 
 const PROVIDER_ACTION = "provider.generate";
 const TOOL_ACTION = "tool.execute";
+const AGENT_ACTION = "agent.run";
+
+function extractAgent(tool: string): string | undefined {
+  const prefix = "agent:";
+  if (!tool.startsWith(prefix)) {
+    return undefined;
+  }
+
+  const agentId = tool.slice(prefix.length).trim();
+
+  return agentId.length > 0
+    ? agentId
+    : undefined;
+}
 
 function extractProvider(tool: string): string | undefined {
 
@@ -63,6 +79,7 @@ function extractProvider(tool: string): string | undefined {
 export class PermissionEngine {
 
   private readonly toolRegistry?: ToolRegistry;
+  private readonly agentRegistry?: AgentRegistry;
 
   /**
    * Runtime capability authority.
@@ -75,8 +92,10 @@ export class PermissionEngine {
    */
   constructor(
     toolRegistry?: ToolRegistry,
+    agentRegistry?: AgentRegistry,
   ) {
     this.toolRegistry = toolRegistry;
+    this.agentRegistry = agentRegistry;
   }
 
   check(
@@ -150,6 +169,43 @@ export class PermissionEngine {
         action: "allow",
         reason:
           `Provider capability granted: ${provider}`,
+        confidence: 0.99,
+      };
+    }
+
+    /*
+     * ----------------------------------------------------------
+     * AGENT CAPABILITY
+     * ----------------------------------------------------------
+     */
+
+    if (action === AGENT_ACTION) {
+      const agentId = extractAgent(tool);
+
+      if (!agentId) {
+        return {
+          action: "deny",
+          reason: `Invalid agent capability: ${request.tool}`,
+          confidence: 1,
+        };
+      }
+
+      const registered =
+        this.agentRegistry?.getById(agentId);
+
+      if (!registered) {
+        return {
+          action: "deny",
+          reason:
+            `Access denied for unregistered agent: ${agentId}`,
+          confidence: 1,
+        };
+      }
+
+      return {
+        action: "allow",
+        reason:
+          `Agent capability granted: ${agentId}`,
         confidence: 0.99,
       };
     }
