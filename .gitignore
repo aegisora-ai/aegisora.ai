@@ -50,3 +50,13 @@ _aegisora_recovery_backup/
 _*.cjs
 _*.txt
 __pycache__/
+
+# Local debug backups
+*.backup
+*.before-auth.ts
+*.broken-auth-patch.ts
+*.corrupt-copy.ts
+
+# Local generated
+tsconfig.resolved.json
+

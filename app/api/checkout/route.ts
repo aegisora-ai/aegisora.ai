@@ -1,5 +1,6 @@
 ﻿import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { requireUser } from "@/utils/supabase/auth-guard";
 
 // Stripe istemcisi, en güncel API sürümü ve tip zorlamasıyla başlatıldı
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
@@ -8,6 +9,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 
 export async function POST(req: Request) {
   try {
+
+    const user = await requireUser();
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status:401 }
+      );
+    }
     const body = await req.json();
     const { planName } = body;
 
@@ -62,3 +72,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
