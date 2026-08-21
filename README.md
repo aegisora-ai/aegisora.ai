@@ -135,14 +135,6 @@ cd aegisora.ai
 pnpm install
 ```
 
-Or with npm / yarn:
-
-```bash
-npm install
-# or
-yarn install
-```
-
 ### 2. Configure Environment Variables
 
 Copy the example environment file:
