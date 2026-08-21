@@ -14,12 +14,6 @@ interface GroqRequestPayload {
 
 export async function POST(req: Request) {
   try {
-
-    const user = await requireUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
     const body: GroqRequestPayload = await req.json();
     const messages = body.messages;
 
@@ -56,12 +50,6 @@ export async function POST(req: Request) {
     // 📊 Veritabanından Anlık Enterprise Telemetri Verilerini Çekelim
     let dbContextSummary = "No active database context available.";
     try {
-
-    const user = await requireUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
       const [agentsRes, incidentsRes, policiesRes] = await Promise.all([
         supabase.from("agents").select("id, name, model, risk_level, status"),
         supabase
@@ -150,12 +138,6 @@ If no choices are needed, do not include this json block. Be professional, techn
     const jsonMatch = rawContent.match(/```json\s*([\s\S]*?)\s*```/);
     if (jsonMatch) {
       try {
-
-    const user = await requireUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
         const parsed = JSON.parse(jsonMatch[1]);
         if (parsed && Array.isArray(parsed.options)) {
           options = parsed.options;
@@ -179,4 +161,5 @@ If no choices are needed, do not include this json block. Be professional, techn
     );
   }
 }
+
 
