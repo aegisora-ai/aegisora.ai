@@ -1,12 +1,9 @@
 <div align="center">
-  <table>
-    <tr>
-      <!-- Marka İsmi (Büyük font ayarlı ve sol tarafta) -->
-      <td><h1 style="font-size: 3.5rem; margin: 0; padding-right: 15px;">Aegisora</h1></td>
-      <!-- Logo (Sağ tarafta) -->
-      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="100" height="100"></td>
-    </tr>
-  </table>
+  <!-- Başlık ve Logo Bölümü (Kutusuz, yan yana ve dikeyde ortalanmış) -->
+  <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
+    <h1 style="font-size: 3.5rem; margin: 0; border: none; padding: 0; line-height: 1;">Aegisora</h1>
+    <img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="85" height="85" style="display: inline-block; vertical-align: middle;">
+  </div>
 
   <p>
     <strong>Open-source runtime security for AI agents.</strong>
@@ -17,38 +14,38 @@
   </p>
 
   <p>
-    <a href="https://opensource.org/licenses/MIT">
-      <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+    <a href="https://opensource.org">
+      <img src="https://shields.io" alt="MIT License">
     </a>
-    <a href="https://github.com/aegisora-ai/aegisora.ai/releases">
-      <img src="https://img.shields.io/github/v/release/aegisora-ai/aegisora.ai?color=green&label=release" alt="Release">
+    <a href="https://github.com">
+      <img src="https://shields.io" alt="Release">
     </a>
-    <a href="https://github.com/aegisora-ai/aegisora.ai/actions">
-      <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI Status">
+    <a href="https://github.com">
+      <img src="https://shields.io" alt="CI Status">
     </a>
   </p>
   <p>
     <a href="https://nextjs.org">
-      <img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js">
+      <img src="https://shields.io" alt="Next.js">
     </a>
-    <a href="https://www.typescriptlang.org/">
-      <img src="https://img.shields.io/badge/TypeScript-blue" alt="TypeScript">
+    <a href="https://typescriptlang.org">
+      <img src="https://shields.io" alt="TypeScript">
     </a>
     <a href="https://tailwindcss.com">
-      <img src="https://img.shields.io/badge/TailwindCSS-38B2AC" alt="Tailwind CSS">
+      <img src="https://shields.io" alt="Tailwind CSS">
     </a>
-    <a href="https://discord.gg/8CM3PpQRT5">
-      <img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord">
+    <a href="https://discord.gg">
+      <img src="https://shields.io" alt="Discord">
     </a>
   </p>
   <p>
-    <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
-      <img src="https://img.shields.io/badge/Product%20Hunt-Featured%20on%20PH-FF6154?style=for-the-badge&logo=producthunt&logoColor=white" alt="Product Hunt Featured">
+    <a href="https://producthunt.com" target="_blank">
+      <img src="https://shields.io" alt="Product Hunt Featured">
     </a>
   </p>
 
   <p>
-    <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+    <a href="https://vercel.app"><strong>Live Demo</strong></a>
     &nbsp;·&nbsp;
     <a href="#-how-risk-classification-works"><strong>How It Works</strong></a>
     &nbsp;·&nbsp;
@@ -56,7 +53,7 @@
     &nbsp;·&nbsp;
     <a href="./SECURITY.md"><strong>Security</strong></a>
     &nbsp;·&nbsp;
-    <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
+    <a href="https://discord.gg"><strong>Discord</strong></a>
   </p>
 </div>
 
