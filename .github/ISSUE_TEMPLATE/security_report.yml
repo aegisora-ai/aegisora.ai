@@ -1,16 +1,48 @@
 name: Security Report
-description: Report a security concern
+description: Report a suspected security issue privately
 title: "[Security]: "
 labels:
-  - security
 
-body:
-  - type: markdown
-    attributes:
-      value: |
-        Please DO NOT disclose vulnerabilities publicly.
+* security
+  body:
 
-  - type: textarea
-    id: issue
-    attributes:
-      label: Security Issue
+* type: markdown
+  attributes:
+  value: |
+  ## Important
+
+  ```
+  **Do not include vulnerability details, exploit code, credentials, secrets, or sensitive information in this public issue.**
+
+  Security vulnerabilities should be reported privately according to:
+
+  [`SECURITY.md`](../../SECURITY.md)
+
+  Security reports submitted publicly may expose users to unnecessary risk.
+  ```
+
+* type: checkboxes
+  id: acknowledgement
+  attributes:
+  label: Acknowledgement
+  options:
+  - label: I understand that this is a public GitHub issue and will not include sensitive vulnerability details here.
+  required: true
+
+* type: textarea
+  id: summary
+  attributes:
+  label: High-Level Summary
+  description: Provide only a non-sensitive high-level description of the category of issue.
+  placeholder: Example: authorization bypass affecting a runtime endpoint
+  validations:
+  required: true
+
+* type: textarea
+  id: private_report
+  attributes:
+  label: Private Report
+  description: Confirm that you have submitted or will submit the full report through the process in SECURITY.md.
+  placeholder: Provide confirmation or the private reporting reference, without including sensitive details.
+  validations:
+  required: true
