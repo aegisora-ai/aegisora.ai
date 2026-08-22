@@ -1,5 +1,9 @@
+```typescript
 import { NextResponse } from "next/server";
-import { createHmac, timingSafeEqual } from "node:crypto";
+import {
+  createHmac,
+  timingSafeEqual,
+} from "node:crypto";
 
 interface EarlyAccessRequest {
   email: string;
@@ -14,6 +18,9 @@ interface RequestBody {
 }
 
 declare global {
+  // Temporary in-memory storage.
+  // This should eventually be replaced with persistent storage.
+  // See the migration note at the bottom of this file.
   var _earlyAccessRequests: EarlyAccessRequest[] | undefined;
 }
 
@@ -25,57 +32,190 @@ const requests = global._earlyAccessRequests;
 
 const ADMIN_SECRET = process.env.AEGISORA_ADMIN_SECRET;
 
-function createAdminSession(): string {
+const ADMIN_COOKIE_NAME = "aegisora_admin";
+const SESSION_TTL_SECONDS = 60 * 60 * 8;
+
+const SESSION_CONTEXT = "aegisora-admin-session";
+
+function getRequiredAdminSecret(): string {
   if (!ADMIN_SECRET) {
-    throw new Error("AEGISORA_ADMIN_SECRET is not configured");
+    throw new Error(
+      "AEGISORA_ADMIN_SECRET is not configured",
+    );
   }
 
-  return createHmac("sha256", ADMIN_SECRET)
-    .update("aegisora-admin-session")
+  return ADMIN_SECRET;
+}
+
+function normalizeEmail(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+function isValidEmail(email: string): boolean {
+  if (email.length < 3 || email.length > 320) {
+    return false;
+  }
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function createSessionToken(): string {
+  const secret = getRequiredAdminSecret();
+
+  const expiresAt =
+    Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
+
+  const payload = `${expiresAt}:${SESSION_CONTEXT}`;
+
+  const signature = createHmac("sha256", secret)
+    .update(payload)
     .digest("hex");
+
+  return `${expiresAt}.${signature}`;
 }
 
 function isAdminAuthenticated(request: Request): boolean {
-  const expected = createAdminSession();
-  const provided = request.headers
-    .get("cookie")
-    ?.match(/aegisora_admin=([^;]+)/)?.[1];
+  try {
+    const secret = getRequiredAdminSecret();
 
-  if (!provided) return false;
+    const cookieHeader = request.headers.get("cookie");
 
-  const a = Buffer.from(provided);
-  const b = Buffer.from(expected);
+    if (!cookieHeader) {
+      return false;
+    }
 
-  return a.length === b.length && timingSafeEqual(a, b);
+    const match = cookieHeader.match(
+      new RegExp(
+        `(?:^|;\\s*)${ADMIN_COOKIE_NAME}=([^;]+)`,
+      ),
+    );
+
+    const token = match?.[1];
+
+    if (!token) {
+      return false;
+    }
+
+    const [expiresAtRaw, providedSignature] =
+      token.split(".");
+
+    const expiresAt = Number(expiresAtRaw);
+
+    if (
+      !Number.isSafeInteger(expiresAt) ||
+      expiresAt <= Math.floor(Date.now() / 1000)
+    ) {
+      return false;
+    }
+
+    if (!providedSignature) {
+      return false;
+    }
+
+    const payload = `${expiresAt}:${SESSION_CONTEXT}`;
+
+    const expectedSignature = createHmac(
+      "sha256",
+      secret,
+    )
+      .update(payload)
+      .digest("hex");
+
+    const providedBuffer = Buffer.from(
+      providedSignature,
+      "utf8",
+    );
+
+    const expectedBuffer = Buffer.from(
+      expectedSignature,
+      "utf8",
+    );
+
+    if (
+      providedBuffer.length !== expectedBuffer.length
+    ) {
+      return false;
+    }
+
+    return timingSafeEqual(
+      providedBuffer,
+      expectedBuffer,
+    );
+  } catch (error) {
+    console.error(
+      "[Aegisora Admin] Session validation failed:",
+      error,
+    );
+
+    return false;
+  }
+}
+
+function unauthorizedResponse() {
+  return NextResponse.json(
+    { error: "Unauthorized" },
+    { status: 401 },
+  );
+}
+
+function badRequestResponse(message: string) {
+  return NextResponse.json(
+    { error: message },
+    { status: 400 },
+  );
+}
+
+function applyNoStore(
+  response: NextResponse,
+): NextResponse {
+  response.headers.set("Cache-Control", "no-store");
+  return response;
 }
 
 export async function GET(request: Request) {
   try {
     if (!isAdminAuthenticated(request)) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 },
+      return unauthorizedResponse();
+    }
+
+    const url = new URL(request.url);
+    const emailParam = url.searchParams.get("email");
+
+    if (emailParam) {
+      const email = normalizeEmail(emailParam);
+
+      if (!isValidEmail(email)) {
+        return badRequestResponse(
+          "Invalid email address",
+        );
+      }
+
+      const found = requests.find(
+        (entry) => entry.email === email,
+      );
+
+      return applyNoStore(
+        NextResponse.json({
+          exists: Boolean(found),
+          status: found?.status ?? "none",
+        }),
       );
     }
 
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get("email");
-
-    if (email) {
-      const found = requests.find((r) => r.email === email);
-
-      return NextResponse.json({
-        exists: !!found,
-        status: found ? found.status : "none",
-      });
-    }
-
-    return NextResponse.json(requests);
+    return applyNoStore(
+      NextResponse.json({
+        requests,
+        count: requests.length,
+      }),
+    );
   } catch (error: unknown) {
-    console.error("Early Access GET Error:", error);
+    console.error(
+      "[Aegisora Admin] GET error:",
+      error,
+    );
 
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Internal server error" },
       { status: 500 },
     );
   }
@@ -84,54 +224,125 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as RequestBody;
-    const { email, action, adminSecret } = body;
 
-    // Admin login
+    const action =
+      typeof body.action === "string"
+        ? body.action.trim()
+        : "";
+
+    const email =
+      typeof body.email === "string"
+        ? normalizeEmail(body.email)
+        : null;
+
+    /*
+     * Admin login
+     */
     if (action === "login") {
-      if (
-        typeof adminSecret !== "string" ||
-        !ADMIN_SECRET ||
-        adminSecret !== ADMIN_SECRET
-      ) {
-        return NextResponse.json(
-          { error: "Unauthorized access credentials" },
-          { status: 401 },
-        );
+      const providedSecret =
+        typeof body.adminSecret === "string"
+          ? body.adminSecret
+          : null;
+
+      const expectedSecret = getRequiredAdminSecret();
+
+      if (!providedSecret) {
+        return unauthorizedResponse();
       }
 
-      const response = NextResponse.json({ success: true });
+      const providedBuffer = Buffer.from(
+        providedSecret,
+        "utf8",
+      );
 
-      response.cookies.set("aegisora_admin", createAdminSession(), {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/",
-        maxAge: 60 * 60 * 8,
+      const expectedBuffer = Buffer.from(
+        expectedSecret,
+        "utf8",
+      );
+
+      const isValid =
+        providedBuffer.length === expectedBuffer.length &&
+        timingSafeEqual(
+          providedBuffer,
+          expectedBuffer,
+        );
+
+      if (!isValid) {
+        return unauthorizedResponse();
+      }
+
+      const response = NextResponse.json({
+        success: true,
+        expires_in: SESSION_TTL_SECONDS,
       });
 
-      return response;
+      response.cookies.set(
+        ADMIN_COOKIE_NAME,
+        createSessionToken(),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          path: "/",
+          maxAge: SESSION_TTL_SECONDS,
+        },
+      );
+
+      return applyNoStore(response);
     }
 
-    if (!email || typeof email !== "string") {
-      return NextResponse.json(
-        { error: "Valid email is required" },
-        { status: 400 },
+    /*
+     * Admin logout
+     */
+    if (action === "logout") {
+      const response = NextResponse.json({
+        success: true,
+      });
+
+      response.cookies.set(
+        ADMIN_COOKIE_NAME,
+        "",
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          path: "/",
+          maxAge: 0,
+        },
+      );
+
+      return applyNoStore(response);
+    }
+
+    /*
+     * Everything below this point requires admin auth.
+     */
+    if (!isAdminAuthenticated(request)) {
+      return unauthorizedResponse();
+    }
+
+    if (!email) {
+      return badRequestResponse(
+        "Valid email is required",
       );
     }
 
-    // Admin approval
+    if (!isValidEmail(email)) {
+      return badRequestResponse(
+        "Invalid email address",
+      );
+    }
+
+    /*
+     * Admin approval
+     */
     if (action === "approve") {
-      if (!isAdminAuthenticated(request)) {
-        return NextResponse.json(
-          { error: "Unauthorized" },
-          { status: 401 },
-        );
-      }
+      const existing = requests.find(
+        (entry) => entry.email === email,
+      );
 
-      const target = requests.find((r) => r.email === email);
-
-      if (target) {
-        target.status = "approved";
+      if (existing) {
+        existing.status = "approved";
       } else {
         requests.push({
           email,
@@ -140,33 +351,53 @@ export async function POST(request: Request) {
         });
       }
 
-      return NextResponse.json({
-        success: true,
-        requests,
-      });
+      return applyNoStore(
+        NextResponse.json({
+          success: true,
+          status: "approved",
+          requests,
+        }),
+      );
     }
 
-    // Normal early-access request
-    const existing = requests.find((r) => r.email === email);
+    /*
+     * Normal early-access request
+     */
+    if (action === "" || action === "request") {
+      const existing = requests.find(
+        (entry) => entry.email === email,
+      );
 
-    if (!existing) {
-      requests.push({
-        email,
-        status: "pending",
-        date: new Date().toISOString(),
-      });
+      if (!existing) {
+        requests.push({
+          email,
+          status: "pending",
+          date: new Date().toISOString(),
+        });
+      }
+
+      return applyNoStore(
+        NextResponse.json({
+          success: true,
+          status:
+            existing?.status ?? "pending",
+        }),
+      );
     }
 
-    return NextResponse.json({
-      success: true,
-      status: existing ? existing.status : "pending",
-    });
+    return badRequestResponse(
+      "Unsupported action",
+    );
   } catch (error: unknown) {
-    console.error("Early Access POST Error:", error);
+    console.error(
+      "[Aegisora Admin] POST error:",
+      error,
+    );
 
     return NextResponse.json(
-      { error: "Server error processing request" },
+      { error: "Internal server error" },
       { status: 500 },
     );
   }
 }
+```
