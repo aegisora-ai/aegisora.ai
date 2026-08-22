@@ -521,14 +521,97 @@ See [`CONTRIBUTING.md`](./CONTRIBUTING.md) or join the [Discord community](https
 
 ## 🛡️ Core Capabilities
 
-- **Zero-Trust Action Proxy** — Every agent action and tool call is intercepted and validated in real time before execution; nothing reaches production systems unchecked.
-- **The Human Review Queue** — High-risk or ambiguous actions are escalated asynchronously for human approval instead of being blindly blocked, preserving agent throughput while keeping a human in the loop for consequential decisions.
-- **Prompt Injection Firewall** — Detects and neutralizes adversarial inputs designed to override system instructions or hijack agent behavior.
-- **PII Data Masking** — Automatically detects and redacts sensitive data such as credit card numbers, national IDs/SSNs, email addresses, and other regulated data classes from agent inputs and outputs before it can leak.
-- **Live Telemetry & Reasoning Trace** — Full observability into agent workflows, decision paths, and policy outcomes (approved / flagged / blocked) as they happen, with a complete audit trail for compliance.
-- **Execution Integrity Proofs** — Cryptographic provenance for workload execution, enabling verifiable, tamper-evident audit records.
+Aegisora is built as a runtime security layer for AI agents.
 
-For our threat model and disclosure policy, see [`SECURITY.md`](./SECURITY.md).
+### 🔐 Runtime Action Security
+
+Every agent action can pass through Aegisora before execution.
+
+* Tool calls
+* API requests
+* Database operations
+* File operations
+* External service calls
+
+Aegisora evaluates the action against policy before it reaches the target system.
+
+### ⚖️ Three-State Enforcement
+
+Every request can produce one of three outcomes:
+
+**✅ ALLOW**
+Safe, policy-compliant actions continue immediately.
+
+**⛔ BLOCK**
+Clear violations and known attack patterns are rejected.
+
+**⏸️ ESCALATE**
+Ambiguous or high-risk actions are routed to human review.
+
+### 🧠 Policy & Risk Engine
+
+Build policies around:
+
+* Agent identity
+* Tool permissions
+* Resource scope
+* Data sensitivity
+* Rate limits
+* Session context
+* Known attack patterns
+
+Policies are designed to be explicit, inspectable and extensible.
+
+### 🛡️ Prompt Injection Protection
+
+Aegisora can evaluate agent inputs and actions for patterns associated with prompt injection and adversarial behavior.
+
+The goal is to prevent untrusted instructions from silently turning into privileged actions.
+
+### 🔒 PII Protection
+
+Sensitive information can be detected and protected across agent workflows.
+
+Examples include:
+
+* Email addresses
+* Payment information
+* National IDs / SSNs
+* Other sensitive data classes
+
+### 📡 Telemetry & Audit Trails
+
+Security decisions should be observable.
+
+Aegisora records enforcement activity so developers and security teams can inspect:
+
+* What the agent attempted
+* Which policy was evaluated
+* What signals were detected
+* What decision was made
+* Why the decision occurred
+
+### 🔏 Execution Integrity
+
+Aegisora is designed to provide cryptographic provenance for execution records, helping make security and audit data tamper-evident.
+
+### 🧩 Built for Extension
+
+Open-source developers can extend Aegisora with:
+
+* New policies
+* Detection rules
+* Integrations
+* Agent frameworks
+* Security tests
+* Benchmarks
+* Developer tooling
+
+> **Aegisora is not another agent framework.**
+> **It is the security and governance layer that sits around the agent.**
+
+See [`SECURITY.md`](./SECURITY.md) for the threat model and security policy.
+
 
 ---
 
