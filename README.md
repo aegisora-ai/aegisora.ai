@@ -105,20 +105,20 @@ Aegisora adds a zero-trust enforcement layer between the agent and those systems
 
 ---
 
-## Table of Contents
+# README.md — Table of Contents
 
-- [Overview](#-overview)
-- [Why Aegisora — Enterprise Value](#-why-aegisora--enterprise-value)
-- [The Problem We Solve](#-the-problem-we-solve)
-- [How Risk Classification Works](#-how-risk-classification-works)
-- [The Human Review Queue — Efficiency by Design](#-the-human-review-queue--efficiency-by-design)
-- [Metrics & Benchmarks](#-metrics--benchmarks)
-- [Core Capabilities](#️-core-capabilities)
-- [Tech Stack](#-tech-stack)
-- [Quickstart](#-quickstart)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contributors](#-contributors)
+* [Overview](#-overview)
+* [Why Aegisora](#-why-aegisora)
+* [The Problem We Solve](#-the-problem-we-solve)
+* [How Risk Classification Works](#-how-risk-classification-works)
+* [Human Review Queue](#-human-review-queue)
+* [Metrics & Benchmarks](#-metrics--benchmarks)
+* [Core Capabilities](#️-core-capabilities)
+* [Tech Stack](#-tech-stack)
+* [Quickstart](#-quickstart)
+* [Contributing](#-contributing)
+* [License](#-license)
+
 
 ---
 
