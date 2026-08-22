@@ -758,13 +758,6 @@ Pick a good first issue
      ↓
 Submit a PR
 ```
-
-Aegisora is intentionally designed so developers can experiment with the runtime, add policies, improve detection rules, build integrations and contribute security test cases.
-
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the complete contribution workflow.
-
----
-
 ## 📄 License
 
 This project is open-source under the [MIT License](./LICENSE).
