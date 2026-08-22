@@ -1,28 +1,103 @@
 name: Bug Report
-description: Report a bug
+description: Report a reproducible problem in Aegisora
 title: "[Bug]: "
 labels:
-  - bug
 
-body:
-  - type: textarea
-    id: description
-    attributes:
-      label: Description
-    validations:
-      required: true
+* bug
+  body:
 
-  - type: textarea
-    id: reproduce
-    attributes:
-      label: Steps to Reproduce
+* type: markdown
+  attributes:
+  value: |
+  Thanks for reporting a bug.
 
-  - type: textarea
-    id: expected
-    attributes:
-      label: Expected Behavior
+  ```
+  Before submitting:
+  - Search existing issues.
+  - Make sure the problem is reproducible.
+  - Remove secrets, credentials, API keys, and private information.
 
-  - type: textarea
-    id: environment
-    attributes:
-      label: Environment
+  **Do not use this form to report security vulnerabilities.**
+  Follow SECURITY.md for private security disclosure.
+  ```
+
+* type: textarea
+  id: summary
+  attributes:
+  label: Problem Summary
+  description: Describe the problem clearly and briefly.
+  placeholder: What went wrong?
+  validations:
+  required: true
+
+* type: textarea
+  id: reproduction
+  attributes:
+  label: Steps to Reproduce
+  description: Provide the smallest reproducible sequence possible.
+  placeholder: |
+  1. Start Aegisora with ...
+  2. Configure ...
+  3. Execute ...
+  4. Observe ...
+  validations:
+  required: true
+
+* type: textarea
+  id: expected
+  attributes:
+  label: Expected Behavior
+  description: What did you expect to happen?
+  validations:
+  required: true
+
+* type: textarea
+  id: actual
+  attributes:
+  label: Actual Behavior
+  description: What actually happened?
+  validations:
+  required: true
+
+* type: input
+  id: version
+  attributes:
+  label: Aegisora Version
+  placeholder: e.g. 0.1.2 or commit SHA
+
+* type: input
+  id: node
+  attributes:
+  label: Node.js Version
+  placeholder: e.g. 20.x
+
+* type: input
+  id: pnpm
+  attributes:
+  label: pnpm Version
+  placeholder: e.g. 11.x
+
+* type: input
+  id: os
+  attributes:
+  label: Operating System
+  placeholder: e.g. Ubuntu 24.04, macOS 15, Windows 11
+
+* type: textarea
+  id: logs
+  attributes:
+  label: Relevant Logs
+  description: Remove credentials, secrets, tokens, and private data before posting.
+  render: shell
+
+* type: textarea
+  id: environment
+  attributes:
+  label: Environment
+  description: Include relevant deployment, browser, database, or integration details.
+
+* type: textarea
+  id: additional
+  attributes:
+  label: Additional Context
+  description: Add screenshots, minimal examples, links, or other useful context.
