@@ -134,19 +134,54 @@ Instead of relying on traditional allow/block firewalls that break non-determini
 
 ---
 
-## 💼 Why Aegisora — Enterprise Value
+## 🔥 Why Aegisora?
 
-Security tooling is only worth adopting if it makes the organization **faster and safer at the same time**. If a governance layer reduces incidents but multiplies the number of tickets a human has to review, it has simply moved the cost from "security risk" to "operational overhead" — and most enterprises will correctly reject that trade.
+AI agents don't just generate text.
 
-Aegisora is designed around a single constraint: **automation coverage should increase, and human review load should trend down over time**, not up. Concretely, this means:
+They call APIs.
+They query databases.
+They execute tools.
+They access files and production systems.
 
-- **Most traffic never reaches a human.** The deterministic fast-path (Allow) and the hard-block path (Block) are designed to resolve the large majority of requests without any manual step, because they are backed by explicit, auditable policy rules rather than ad-hoc judgment calls.
-- **Escalation is a last resort, not a default.** A request only reaches the Human Review Queue when it cannot be confidently classified as low-risk or as a clear violation. This is the same principle used in fraud detection and content moderation pipelines at scale: humans review the ambiguous tail, not the whole distribution.
-- **Every escalation ships with context, not just a request.** Reviewers see the reasoning trace, the policy rule(s) that triggered ambiguity, and prior similar decisions — cutting the time needed to resolve each case compared to reviewing a raw request cold.
-- **Policies are meant to tighten over time.** As an organization approves or rejects escalated cases, those decisions are logged and can be fed back into policy rules, narrowing the set of requests that require escalation in the future. See [Metrics & Benchmarks](#-metrics--benchmarks) for how we plan to measure this in production deployments.
-- **Everything is auditable by default.** For regulated industries, the cost of manual review is often not the review itself but the compliance documentation around it. Aegisora's audit trail is generated automatically as a byproduct of enforcement, not as a separate task.
+That creates a problem:
 
-> **Honest scope note:** Aegisora reduces review load primarily by (a) auto-resolving the clear-cut majority of requests and (b) making each escalated review faster and better-informed. It does not eliminate human review for genuinely ambiguous, high-stakes actions — nor should it. The goal is a governance layer that scales sublinearly with agent traffic, not one that removes accountability.
+**Who decides whether an agent is actually allowed to perform an action?**
+
+Aegisora sits directly in the runtime path and makes that decision **before the action executes.**
+
+### The Aegisora Difference
+
+| Approach                  | Runtime Enforcement | Human Review | Audit Trail |
+| ------------------------- | :-----------------: | :----------: | :---------: |
+| Traditional guardrails    |          ⚠️         |       ❌      |      ⚠️     |
+| API gateways              |          ✅          |       ❌      |      ✅      |
+| Manual approval workflows |          ✅          |       ✅      |      ⚠️     |
+| **Aegisora**              |        **✅**        |     **✅**    |    **✅**    |
+
+### One Runtime Decision
+
+Every intercepted action enters the same decision model:
+
+**✅ ALLOW** — safe and policy-compliant actions continue immediately.
+
+**⛔ BLOCK** — clear violations and known attack patterns are stopped.
+
+**⏸️ ESCALATE** — ambiguous or high-risk actions are sent to human review.
+
+This avoids the traditional **"allow everything or block everything"** problem.
+
+### Built for Developers
+
+Aegisora is open source because agent security should be:
+
+* **Inspectable** — understand exactly what happens at runtime.
+* **Extensible** — build your own policies, detectors and integrations.
+* **Testable** — reproduce and verify security decisions.
+* **Community-driven** — contribute rules, integrations, benchmarks and code.
+
+> **The goal isn't to stop AI agents.**
+> **The goal is to let them act safely.**
+
 
 ---
 
