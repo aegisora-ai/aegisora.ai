@@ -471,19 +471,51 @@ It exists to make **safe automation possible at higher levels of autonomy.**
 
 ## 📊 Metrics & Benchmarks
 
-We know that claims of "improved efficiency" or "high classification accuracy" are only meaningful when backed by numbers — and we'd rather be transparent about what's measured today than publish figures that haven't been validated in production.
+Security claims should be backed by evidence.
 
-**Status: benchmarking in progress.** The following metrics are the ones we consider necessary to evaluate Aegisora for enterprise adoption, and are being tracked as part of our roadmap:
+Aegisora is intentionally transparent about what has been measured, what is still being benchmarked, and where the community can help.
 
-| Metric | What it tells you | Status |
-| --- | --- | --- |
-| Classification precision/recall (Allow vs. Block vs. Escalate) | How often the engine's automated decision matches the decision a human reviewer would have made | 🚧 In progress |
-| Escalation rate over time, per policy set | Whether the Human Review Queue volume actually decreases as policies mature | 🚧 In progress |
-| Median time-to-resolution per escalated case | Whether context pre-assembly measurably speeds up manual review vs. a cold request | 🚧 In progress |
-| False-block rate | How often legitimate, safe actions are incorrectly blocked (productivity cost) | 🚧 In progress |
-| False-allow rate | How often risky actions are incorrectly auto-approved (security cost) | 🚧 In progress |
+### Current Benchmark Status
 
-If you're evaluating Aegisora for production use and can share (even anonymized) traffic patterns or a pilot deployment, we'd like to work with you to populate this table with real numbers — see [Contributing](#-contributing) or reach out on [Discord](https://discord.gg/8CM3PpQRT5). We will update this section as soon as we have data we're confident stands behind these claims, rather than before.
+| Metric                            | What it measures                                | Status         |
+| --------------------------------- | ----------------------------------------------- | -------------- |
+| Classification precision / recall | Accuracy of Allow / Block / Escalate decisions  | 🚧 In progress |
+| Escalation rate                   | How often actions require human review          | 🚧 In progress |
+| Time to review                    | How quickly escalated decisions can be resolved | 🚧 In progress |
+| False-block rate                  | Legitimate actions incorrectly blocked          | 🚧 In progress |
+| False-allow rate                  | Risky actions incorrectly allowed               | 🚧 In progress |
+
+### Why we're publishing this
+
+We do **not** want to publish impressive-looking security numbers without reproducible evidence.
+
+Instead, we are building benchmarks that can be:
+
+* Reproduced
+* Tested against real workloads
+* Improved by contributors
+* Compared across policy configurations
+* Used to identify regressions
+
+### Help us benchmark Aegisora
+
+Open-source security tooling gets stronger when more people test it.
+
+You can contribute by:
+
+* Adding attack and abuse cases
+* Creating evaluation datasets
+* Testing new policy rules
+* Reporting false positives
+* Reporting false negatives
+* Running Aegisora against real agent workflows
+* Sharing anonymized benchmark results
+
+> **Our goal is not to claim that Aegisora is secure.**
+> **Our goal is to build a security system that can be continuously tested, challenged and improved in public.**
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) or join the [Discord community](https://discord.gg/8CM3PpQRT5).
+
 
 ---
 
