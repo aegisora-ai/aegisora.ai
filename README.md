@@ -185,24 +185,92 @@ Aegisora is open source because agent security should be:
 
 ---
 
-## ❌ The Problem We Solve
+## 🎯 The Problem We Solve
 
-Conventional security systems force a binary outcome on every request: **allow** or **block**.
+AI agents are becoming software that can **act**, not just generate.
 
-For deterministic, low-risk traffic, this works fine. But for autonomous AI agents making judgment calls in ambiguous, high-stakes situations, it doesn't — organizations are left choosing between:
+They can:
 
-- **Over-blocking**, which kills agent productivity, or
-- **Over-permitting**, which means accepting unacceptable risk.
+* Call internal and external APIs
+* Query databases
+* Execute tools
+* Read and write files
+* Trigger workflows
+* Perform actions in production systems
 
-Our core design philosophy is solving what we call the **Binary Trap** — the false choice between blindly allowing an agent action and blindly blocking it. Instead of forcing a black-and-white decision on ambiguous or high-risk requests, Aegisora introduces a third state so security teams get a governance layer that flexes with real-world ambiguity instead of breaking the workflow.
+That means a prompt-injection attack, a compromised tool, or an overly-permissive agent policy can become a **real system action**.
 
-### Three-State Decision Model
+### The Binary Trap
 
-| **State**       | **Trigger**                                    | **Outcome**                                                                                       |
-| ---------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| ✅ **Allow**     | Low-risk, policy-compliant request               | Executes instantly via the deterministic fast-path (**< 10ms**)                                  |
-| ⛔ **Block**     | Clear policy violation or known attack pattern   | Rejected immediately and fully logged                                                             |
-| ⏸️ **Escalate**  | Ambiguous or high-risk request                   | Routed to the **Human Review Queue** for asynchronous approval, without breaking the agent workflow |
+Most security systems eventually reduce an action to:
+
+**ALLOW** or **BLOCK**
+
+That works for simple, deterministic requests.
+
+But autonomous agents constantly encounter situations that are:
+
+* Too risky to allow automatically
+* Too legitimate to block outright
+* Too ambiguous for a deterministic rule
+
+Blocking everything destroys agent productivity.
+
+Allowing everything creates unacceptable risk.
+
+### Aegisora adds a third state
+
+Instead of forcing every action into a binary decision, Aegisora introduces:
+
+| Decision        | What happens                                                          |
+| --------------- | --------------------------------------------------------------------- |
+| ✅ **ALLOW**     | Safe, policy-compliant actions continue immediately.                  |
+| ⛔ **BLOCK**     | Clear violations and known attack patterns are stopped.               |
+| ⏸️ **ESCALATE** | Ambiguous or high-risk actions are paused and routed to human review. |
+
+This creates a simple runtime rule:
+
+> **Don't trust the agent. Don't block the agent. Govern the action.**
+
+Every decision is evaluated **before execution** and recorded in the audit trail.
+
+---
+
+### Example
+
+An AI agent wants to:
+
+```text
+DELETE production_database
+```
+
+Aegisora evaluates the request.
+
+```text
+┌─────────────────────────────┐
+│       AI AGENT ACTION       │
+│  DELETE production_database │
+└──────────────┬──────────────┘
+               │
+               ▼
+        ┌───────────────┐
+        │   AEGISORA    │
+        │ Policy Engine │
+        └───────┬───────┘
+                │
+                ▼
+          ⏸️ ESCALATE
+                │
+                ▼
+          Human Review
+```
+
+The agent doesn't get unrestricted access.
+
+The action doesn't have to be blindly blocked either.
+
+**Aegisora governs the decision at runtime.**
+
 
 ---
 
