@@ -1,7 +1,7 @@
 <div align="center">
   <table>
     <tr>
-      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="60" height="60"></td>
+      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="90" height="90"></td>
       <td><h1>Aegisora</h1></td>
     </tr>
   </table>
@@ -60,7 +60,6 @@
 
 > **Aegisora sits between your AI agent and the systems it can act on.**
 > Every tool call is evaluated at runtime before execution.
-
 ```text
                     AI AGENT
                        │
