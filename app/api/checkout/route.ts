@@ -1,75 +1,221 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { requireUser } from "@/utils/supabase/auth-guard";
 
-// Stripe istemcisi, en güncel API sürümü ve tip zorlamasıyla başlatıldı
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2026-07-29.dahlia",
-});
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+if (!stripeSecretKey) {
+  console.error("[Aegisora Billing] STRIPE_SECRET_KEY is not configured.");
+}
+
+const stripe = stripeSecretKey
+  ? new Stripe(stripeSecretKey)
+  : null;
+
+type PlanKey = "starter" | "business" | "enterprise";
+
+interface CheckoutPayload {
+  planName?: unknown;
+}
+
+const PLAN_PRICES: Record<PlanKey, string | undefined> = {
+  starter: process.env.STRIPE_PRICE_STARTER,
+  business: process.env.STRIPE_PRICE_BUSINESS,
+  enterprise: process.env.STRIPE_PRICE_ENTERPRISE,
+};
+
+function normalizePlanName(value: unknown): PlanKey | null {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const normalized = value.trim().toLowerCase();
+
+  switch (normalized) {
+    case "starter":
+      return "starter";
+
+    case "pro":
+    case "business":
+      return "business";
+
+    case "global":
+    case "enterprise":
+      return "enterprise";
+
+    default:
+      return null;
+  }
+}
+
+function getPlanPriceId(plan: PlanKey): string | null {
+  const priceId = PLAN_PRICES[plan];
+
+  if (!priceId || !priceId.startsWith("price_")) {
+    return null;
+  }
+
+  return priceId;
+}
+
+function getIdempotencyKey(request: Request): string {
+  const provided =
+    request.headers.get("Idempotency-Key") ??
+    request.headers.get("X-Idempotency-Key");
+
+  if (
+    provided &&
+    provided.length >= 8 &&
+    provided.length <= 255
+  ) {
+    return provided;
+  }
+
+  // Fallback: this prevents malformed/missing keys from breaking
+  // checkout, but clients should still provide their own key when
+  // retry protection is important.
+  return crypto.randomUUID();
+}
 
 export async function POST(req: Request) {
   try {
-
     const user = await requireUser();
 
     if (!user) {
       return NextResponse.json(
         { error: "Unauthorized" },
-        { status:401 }
+        { status: 401 },
       );
     }
-    const body = await req.json();
-    const { planName } = body;
 
-    if (!planName) {
+    if (!stripe) {
       return NextResponse.json(
-        { error: "Plan name is required for checkout session creation." },
+        { error: "Billing service is not configured" },
+        { status: 503 },
+      );
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+    if (!baseUrl) {
+      console.error(
+        "[Aegisora Billing] NEXT_PUBLIC_BASE_URL is not configured.",
+      );
+
+      return NextResponse.json(
+        { error: "Billing service is not configured" },
+        { status: 503 },
+      );
+    }
+
+    let body: CheckoutPayload;
+
+    try {
+      body = (await req.json()) as CheckoutPayload;
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid JSON request body" },
         { status: 400 },
       );
     }
 
-    // Enterprise SaaS Standartı: Aylık birim fiyatlar (Cents cinsinden)
-    let unitAmount = 4900; // Starter: $49/mo
-    if (planName.includes("Pro") || planName.includes("Business"))
-      unitAmount = 19900; // Business: $199/mo
-    if (planName.includes("Global") || planName.includes("Enterprise"))
-      unitAmount = 49900; // Enterprise: $499/mo
+    const plan = normalizePlanName(body.planName);
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
-    // B2B SaaS için 'mode: subscription' olarak güncellendi (Tek seferlik payment yerine)
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
+    if (!plan) {
+      return NextResponse.json(
         {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: `Aegisora - ${planName}`,
-              description:
-                "Enterprise Zero-Trust AI Governance & Runtime Protection",
-              tax_code: "txcd_10103000",
-            },
-            unit_amount: unitAmount,
-            recurring: {
-              interval: "month", // Aylık abonelik modeli
-            },
-          },
-          quantity: 1,
+          error:
+            "Invalid plan. Supported plans are starter, business, and enterprise.",
         },
-      ],
-      mode: "subscription",
-      success_url: `${baseUrl}/dashboard/billing?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/dashboard/billing?canceled=true`,
-    });
+        { status: 400 },
+      );
+    }
 
-    return NextResponse.json({ url: session.url });
-  } catch (error: unknown) {
-    console.error("Stripe Checkout Error:", error);
+    const priceId = getPlanPriceId(plan);
+
+    if (!priceId) {
+      console.error(
+        `[Aegisora Billing] Missing Stripe price configuration for plan: ${plan}`,
+      );
+
+      return NextResponse.json(
+        { error: "Selected plan is temporarily unavailable" },
+        { status: 503 },
+      );
+    }
+
+    const session = await stripe.checkout.sessions.create(
+      {
+        mode: "subscription",
+
+        payment_method_types: ["card"],
+
+        line_items: [
+          {
+            price: priceId,
+            quantity: 1,
+          },
+        ],
+
+        client_reference_id: user.id,
+
+        customer_email: user.email ?? undefined,
+
+        metadata: {
+          user_id: user.id,
+          plan,
+        },
+
+        subscription_data: {
+          metadata: {
+            user_id: user.id,
+            plan,
+          },
+        },
+
+        success_url:
+          `${baseUrl}/dashboard/billing` +
+          "?success=true&session_id={CHECKOUT_SESSION_ID}",
+
+        cancel_url:
+          `${baseUrl}/dashboard/billing?canceled=true`,
+      },
+      {
+        idempotencyKey: getIdempotencyKey(req),
+      },
+    );
+
+    if (!session.url) {
+      console.error(
+        "[Aegisora Billing] Stripe returned a checkout session without a URL.",
+      );
+
+      return NextResponse.json(
+        { error: "Unable to create checkout session" },
+        { status: 502 },
+      );
+    }
+
     return NextResponse.json(
-      { error: (error instanceof Error ? error.message : "Internal Server Error during checkout.") },
-      { status: 500 },
+      {
+        url: session.url,
+      },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      },
+    );
+  } catch (error: unknown) {
+    console.error(
+      "[Aegisora Billing] Checkout creation failed:",
+      error,
+    );
+
+    return NextResponse.json(
+      { error: "Unable to create checkout session" },
+      { status: 502 },
     );
   }
 }
-
