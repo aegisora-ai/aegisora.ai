@@ -1,5 +1,3 @@
-# `app/admin/page.tsx`
-
 ```tsx
 "use client";
 
@@ -62,7 +60,6 @@ export default function AdminPanel() {
       setIsAuthenticated(true);
     } catch (error) {
       console.error("[Aegisora Admin] Failed to fetch requests:", error);
-
       setRequests([]);
     } finally {
       setIsLoading(false);
@@ -138,10 +135,7 @@ export default function AdminPanel() {
         throw new Error(`Logout failed with status ${res.status}`);
       }
     } catch (error) {
-      console.error(
-        "[Aegisora Admin] Logout failed:",
-        error,
-      );
+      console.error("[Aegisora Admin] Logout failed:", error);
     } finally {
       setIsAuthenticated(false);
       setRequests([]);
