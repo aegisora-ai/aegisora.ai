@@ -1,8 +1,11 @@
 <div align="center">
-  <a href="https://github.com/aegisora-ai/aegisora.ai">
-    <img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="60" height="60">
-  </a>
-  <h1>Aegisora</h1>
+  <table>
+    <tr>
+      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="60" height="60"></td>
+      <td><h1>Aegisora</h1></td>
+    </tr>
+  </table>
+
   <p>
     <strong>Open-source runtime security for AI agents.</strong>
   </p>
