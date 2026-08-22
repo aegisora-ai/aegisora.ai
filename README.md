@@ -40,6 +40,9 @@
     <a href="https://github.com/aegisora-ai/aegisora.ai/releases">
       <img src="https://img.shields.io/github/v/release/aegisora-ai/aegisora.ai?color=green&label=release" alt="Release">
     </a>
+    <a href="https://github.com/aegisora-ai/aegisora.ai/actions">
+      <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI Status">
+    </a>
     <a href="https://nextjs.org">
       <img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js">
     </a>
@@ -221,7 +224,7 @@ Allowing everything creates unacceptable risk.
 Instead of forcing every action into a binary decision, Aegisora introduces:
 
 | Decision        | What happens                                                          |
-| --------------- | --------------------------------------------------------------------- |
+| ---------------- | ---------------------------------------------------------------------- |
 | ✅ **ALLOW**     | Safe, policy-compliant actions continue immediately.                  |
 | ⛔ **BLOCK**     | Clear violations and known attack patterns are stopped.               |
 | ⏸️ **ESCALATE** | Ambiguous or high-risk actions are paused and routed to human review. |
@@ -469,37 +472,45 @@ It exists to make **safe automation possible at higher levels of autonomy.**
 
 ## 📊 Metrics & Benchmarks
 
-Security claims should be backed by evidence.
+Security claims should be backed by evidence. Aegisora is intentionally transparent about what has been measured, what is still being benchmarked, and where the community can help.
 
-Aegisora is intentionally transparent about what has been measured, what is still being benchmarked, and where the community can help.
+### Current Test Suite Results
 
-### Current Benchmark Status
+**71 / 71 runtime tests passing** — full adversarial suite covering the enforcement boundary itself, not just happy-path behavior. See [`docs/benchmarks.md`](./docs/benchmarks.md) for the full methodology and reproduction steps.
 
-| Metric                            | What it measures                                | Status         |
-| --------------------------------- | ----------------------------------------------- | -------------- |
-| Classification precision / recall | Accuracy of Allow / Block / Escalate decisions  | 🚧 In progress |
-| Escalation rate                   | How often actions require human review          | 🚧 In progress |
-| Time to review                    | How quickly escalated decisions can be resolved | 🚧 In progress |
-| False-block rate                  | Legitimate actions incorrectly blocked          | 🚧 In progress |
-| False-allow rate                  | Risky actions incorrectly allowed               | 🚧 In progress |
+| Category | What it verifies | Result |
+| --- | --- | --- |
+| Agent lifecycle integrity | Terminal states (`completed`/`failed`/`stopped`) cannot be re-entered or overwritten | 12/12 passed |
+| Enforcement side-effect boundary | Unknown or forged agent identity is blocked *before* any tool side-effect executes | 4/4 passed |
+| Real executor integration | Full runtime dependency graph (registry → selector → permission engine → enforcement gate → gateway) wires and executes correctly | 6/6 passed |
+| Provider identity immutability | Metadata cannot spoof or override the canonical request provider | 3/3 passed |
+| Model identity immutability | Metadata cannot spoof the canonical or default-resolved model | 3/3 passed |
+| Post-governance / post-resolution integrity | Neither explicit nor default-resolved models can be tampered with after the enforcement decision | 9/9 passed |
+| Cross-provider resolution authority | OpenAI/Anthropic routing stays request-authoritative; attacker metadata cannot redirect execution | 9/9 passed |
+| Protected agent execution boundary | Registered agents cross the boundary; forged identities are blocked pre-execution | 2/2 passed |
 
-### Why we're publishing this
+Reproduce locally:
 
-We do **not** want to publish impressive-looking security numbers without reproducible evidence.
+```bash
+npm test
+```
 
-Instead, we are building benchmarks that can be:
+### Still in progress
 
-* Reproduced
-* Tested against real workloads
-* Improved by contributors
-* Compared across policy configurations
-* Used to identify regressions
+We do **not** want to publish impressive-looking security numbers without reproducible evidence. The following are measured on the runtime's internal enforcement logic (above) but not yet benchmarked against external, real-world traffic:
+
+| Metric | What it measures | Status |
+| --- | --- | --- |
+| Classification precision / recall | Accuracy of Allow / Block / Escalate decisions on real-world attack corpora | 🚧 In progress |
+| Escalation rate | How often actions require human review | 🚧 In progress |
+| Time to review | How quickly escalated decisions can be resolved | 🚧 In progress |
+| False-block rate | Legitimate actions incorrectly blocked | 🚧 In progress |
+| False-allow rate | Risky actions incorrectly allowed | 🚧 In progress |
+| Code coverage | % of runtime/policy engine covered by tests | 🚧 In progress |
 
 ### Help us benchmark Aegisora
 
-Open-source security tooling gets stronger when more people test it.
-
-You can contribute by:
+Open-source security tooling gets stronger when more people test it. You can contribute by:
 
 * Adding attack and abuse cases
 * Creating evaluation datasets
@@ -707,7 +718,7 @@ cp .env.example .env.local
 At minimum, configure:
 
 | Variable                    | Purpose                         |
-| --------------------------- | ------------------------------- |
+| --------------------------- | -------------------------------- |
 | `NEXT_PUBLIC_SUPABASE_URL`  | Supabase project URL            |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-side Supabase access     |
 | `GROQ_API_KEY`              | Default demo inference provider |
