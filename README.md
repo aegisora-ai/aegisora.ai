@@ -765,33 +765,6 @@ See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the complete contribution workflo
 
 ---
 
-## 🤝 Contributing
-
-Aegisora is built in the open, and contributions of any size are welcome — from fixing a typo to designing a new detection rule for the policy engine, to helping us validate the metrics in the [Benchmarks](#-metrics--benchmarks) section above.
-
-### Contribution Workflow
-
-1. Fork the repository.
-2. Create a feature branch:
-
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-
-3. Make your changes.
-4. Add or update tests where appropriate.
-5. Commit your changes.
-6. Push your branch.
-7. Open a Pull Request.
-
-Check the [Issues](https://github.com/aegisora-ai/aegisora.ai/issues) tab for tasks labeled `good first issue`.
-
-Join the [Discord](https://discord.gg/8CM3PpQRT5) community to connect with contributors and discuss the project.
-
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow and coding standards.
-
----
-
 ## 📄 License
 
 This project is open-source under the [MIT License](./LICENSE).
