@@ -1,41 +1,118 @@
-# Default repository ownership
+# Aegisora CODEOWNERS
 
-# Replace @YOUR_GITHUB_USERNAME with the maintainer or team responsible
+#
 
-# for reviewing repository-wide changes.
+# Default ownership and review responsibilities for the repository.
 
-* @YOUR_GITHUB_USERNAME
+# The repository owner is responsible for reviewing changes unless
+
+# a more specific rule below applies.
+
+# -------------------------------------------------------------------
+
+# Default ownership
+
+# -------------------------------------------------------------------
+
+* @ozereray
+
+# -------------------------------------------------------------------
 
 # Documentation
 
-README.md @YOUR_GITHUB_USERNAME
-ARCHITECTURE.md @YOUR_GITHUB_USERNAME
-SECURITY.md @YOUR_GITHUB_USERNAME
-CONTRIBUTING.md @YOUR_GITHUB_USERNAME
-GOVERNANCE.md @YOUR_GITHUB_USERNAME
-ROADMAP.md @YOUR_GITHUB_USERNAME
-PLUGIN_SYSTEM.md @YOUR_GITHUB_USERNAME
-CHANGELOG.md @YOUR_GITHUB_USERNAME
-CODE_OF_CONDUCT.md @YOUR_GITHUB_USERNAME
-SUPPORT.md @YOUR_GITHUB_USERNAME
+# -------------------------------------------------------------------
 
-# GitHub infrastructure
+README.md @ozereray
+ARCHITECTURE.md @ozereray
+SECURITY.md @ozereray
+CONTRIBUTING.md @ozereray
+GOVERNANCE.md @ozereray
+ROADMAP.md @ozereray
+PLUGIN_SYSTEM.md @ozereray
+CHANGELOG.md @ozereray
+CODE_OF_CONDUCT.md @ozereray
+SUPPORT.md @ozereray
+AGENTS.md @ozereray
 
-.github/ @YOUR_GITHUB_USERNAME
+# -------------------------------------------------------------------
 
-# Application and runtime code
+# GitHub configuration
 
-app/ @YOUR_GITHUB_USERNAME
+# -------------------------------------------------------------------
 
-# Configuration and project tooling
+.github/ @ozereray
 
-*.json @YOUR_GITHUB_USERNAME
-*.ts @YOUR_GITHUB_USERNAME
-*.tsx @YOUR_GITHUB_USERNAME
+.github/CODEOWNERS @ozereray
+.github/PULL_REQUEST_TEMPLATE.md @ozereray
 
-# Security-sensitive files
+# Issue templates
 
-SECURITY.md @YOUR_GITHUB_USERNAME
-.github/workflows/codeql.yml @YOUR_GITHUB_USERNAME
-.github/workflows/ci.yml @YOUR_GITHUB_USERNAME
-.github/workflows/release.yml @YOUR_GITHUB_USERNAME
+.github/ISSUE_TEMPLATE/ @ozereray
+
+# CI / security / release workflows
+
+.github/workflows/ @ozereray
+.github/workflows/ci.yml @ozereray
+.github/workflows/codeql.yml @ozereray
+.github/workflows/release.yml @ozereray
+
+# -------------------------------------------------------------------
+
+# Application
+
+# -------------------------------------------------------------------
+
+app/ @ozereray
+
+# -------------------------------------------------------------------
+
+# Shared configuration and project tooling
+
+# -------------------------------------------------------------------
+
+*.json @ozereray
+*.ts @ozereray
+*.tsx @ozereray
+*.mjs @ozereray
+*.cjs @ozereray
+
+# -------------------------------------------------------------------
+
+# Security-sensitive project files
+
+# -------------------------------------------------------------------
+
+SECURITY.md @ozereray
+LICENSE @ozereray
+.gitattributes @ozereray
+.gitignore @ozereray
+
+# -------------------------------------------------------------------
+
+# Dependency and release configuration
+
+# -------------------------------------------------------------------
+
+package.json @ozereray
+pnpm-lock.yaml @ozereray
+pnpm-workspace.yaml @ozereray
+turbo.json @ozereray
+
+# -------------------------------------------------------------------
+
+# Repository governance
+
+# -------------------------------------------------------------------
+
+CODE_OF_CONDUCT.md @ozereray
+CONTRIBUTING.md @ozereray
+GOVERNANCE.md @ozereray
+ROADMAP.md @ozereray
+
+# -------------------------------------------------------------------
+
+# Important: more specific rules take precedence over broad rules
+
+# above. Keep security-sensitive ownership explicit.
+
+# -------------------------------------------------------------------
