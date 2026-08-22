@@ -273,19 +273,109 @@ The action doesn't have to be blindly blocked either.
 
 
 ---
-
 ## 🧠 How Risk Classification Works
 
-Every intercepted action — a tool call, a database query, an outbound API request — is evaluated by the **Policy & Risk Engine** before execution. The decision pipeline works as follows:
+Every action that passes through Aegisora is evaluated **before execution**.
 
-1. **Static policy match** — The request is checked against explicit, deterministic rules (allow-lists, deny-lists, scoped permissions per agent identity, rate limits, data-class restrictions). A match here resolves the request immediately as **Allow** or **Block**, with no ambiguity and no human involvement.
-2. **Signal extraction** — For requests that don't match a static rule outright, Aegisora extracts risk signals: the sensitivity class of the data or system being touched, the agent's prior behavior in the session, deviation from its declared task, and known adversarial patterns (see [Prompt Injection Firewall](#️-core-capabilities)).
-3. **Confidence scoring** — Signals are combined into a confidence score. Requests above the "safe" threshold resolve as **Allow**; requests above the "clear violation" threshold resolve as **Block**; everything in between — where the system cannot confidently say either way — is routed to **Escalate**.
-4. **Full trace logging** — Regardless of outcome, the signals, the rule(s) evaluated, and the resulting score are written to the audit log. This is what allows reviewers (and auditors) to see *why* a decision was made, not just *what* was decided.
+The goal is simple:
 
-This threshold-based design is intentional: it means the **size of the Escalate bucket is a tunable policy decision**, not a fixed property of the system. Organizations can start conservative (wider escalation net while trust is being established) and narrow it deliberately as policies are validated — rather than trusting an opaque model's judgment from day one.
+> **Make the safest decision possible without unnecessarily stopping the agent.**
 
-For the full technical breakdown of the request lifecycle, see [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+### Runtime Decision Flow
+
+```text
+Agent Action
+     │
+     ▼
+┌─────────────────────┐
+│  Policy Evaluation  │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│   Risk Signals      │
+│                     │
+│ • Permissions       │
+│ • Data sensitivity  │
+│ • Agent identity    │
+│ • Session context   │
+│ • Attack patterns   │
+│ • Policy violations │
+└──────────┬──────────┘
+           │
+           ▼
+     Decision Engine
+           │
+    ┌──────┼───────┐
+    ▼      ▼       ▼
+  ALLOW  BLOCK  ESCALATE
+```
+
+### 1. Policy Match
+
+Aegisora first checks deterministic policy rules such as:
+
+* Allow-lists and deny-lists
+* Agent permissions
+* Tool permissions
+* Data-class restrictions
+* Rate limits
+* Resource scope
+
+Clear matches can immediately produce an **ALLOW** or **BLOCK** decision.
+
+### 2. Risk Signals
+
+Actions that cannot be resolved by deterministic rules are evaluated using contextual signals.
+
+These can include:
+
+* What resource the agent is accessing
+* What data is involved
+* The agent's declared identity
+* Previous actions in the session
+* Deviation from the expected workflow
+* Known adversarial or injection patterns
+
+### 3. Confidence & Decision
+
+The collected signals are evaluated against policy thresholds.
+
+```text
+Low Risk
+   │
+   └──► ✅ ALLOW
+
+Clear Violation
+   │
+   └──► ⛔ BLOCK
+
+Ambiguous / High Risk
+   │
+   └──► ⏸️ ESCALATE
+```
+
+### 4. Full Audit Trail
+
+Every decision is recorded.
+
+The audit trail can include:
+
+* The original action
+* The agent identity
+* Policies evaluated
+* Risk signals
+* Final decision
+* Escalation context
+* Timestamp
+
+This makes every enforcement decision **observable, explainable and auditable**.
+
+### Why this matters
+
+Aegisora is designed around a simple principle:
+
+> **Agents should be autonomous in execution, but never unrestricted in authority.**
 
 ---
 
