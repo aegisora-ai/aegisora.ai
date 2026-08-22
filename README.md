@@ -1,36 +1,14 @@
-# Aegisora
-
 <div align="center">
-
   <a href="https://github.com/aegisora-ai/aegisora.ai">
-    <img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="120" height="120">
+    <img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="60" height="60">
   </a>
-
+  <h1>Aegisora</h1>
   <p>
     <strong>Open-source runtime security for AI agents.</strong>
   </p>
-
   <p>
     Intercept every agent action before execution and decide:
     <strong>ALLOW</strong>, <strong>BLOCK</strong>, or <strong>ESCALATE</strong>.
-  </p>
-
-  <p>
-    <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
-    &nbsp;·&nbsp;
-    <a href="#-how-risk-classification-works"><strong>How It Works</strong></a>
-    &nbsp;·&nbsp;
-    <a href="./ARCHITECTURE.md"><strong>Architecture</strong></a>
-    &nbsp;·&nbsp;
-    <a href="./SECURITY.md"><strong>Security</strong></a>
-    &nbsp;·&nbsp;
-    <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
-  </p>
-
-  <p>
-    <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
-      <img src="https://img.shields.io/badge/Product%20Hunt-Featured%20on%20PH-FF6154?style=for-the-badge&logo=producthunt&logoColor=white" alt="Product Hunt Featured">
-    </a>
   </p>
 
   <p>
@@ -43,6 +21,8 @@
     <a href="https://github.com/aegisora-ai/aegisora.ai/actions">
       <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI Status">
     </a>
+  </p>
+  <p>
     <a href="https://nextjs.org">
       <img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js">
     </a>
@@ -56,7 +36,23 @@
       <img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord">
     </a>
   </p>
+  <p>
+    <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
+      <img src="https://img.shields.io/badge/Product%20Hunt-Featured%20on%20PH-FF6154?style=for-the-badge&logo=producthunt&logoColor=white" alt="Product Hunt Featured">
+    </a>
+  </p>
 
+  <p>
+    <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+    &nbsp;·&nbsp;
+    <a href="#-how-risk-classification-works"><strong>How It Works</strong></a>
+    &nbsp;·&nbsp;
+    <a href="./ARCHITECTURE.md"><strong>Architecture</strong></a>
+    &nbsp;·&nbsp;
+    <a href="./SECURITY.md"><strong>Security</strong></a>
+    &nbsp;·&nbsp;
+    <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
+  </p>
 </div>
 
 > **Aegisora sits between your AI agent and the systems it can act on.**
