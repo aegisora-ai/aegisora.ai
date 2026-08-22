@@ -632,15 +632,21 @@ See [`SECURITY.md`](./SECURITY.md) for the threat model and security policy.
 
 ## 🚀 Quickstart
 
-There are two ways to get started, depending on what you're trying to do.
+Get Aegisora running in minutes.
 
-### Option A — Add the SDK to an existing project
+There are two ways to start.
 
-Use this if you already have an agent and want to govern its actions through Aegisora.
+### Option A — Add Aegisora to an existing agent
+
+Already have an AI agent?
+
+Install the SDK:
 
 ```bash
 npm install @aegisora/sdk
 ```
+
+Then create a governed agent:
 
 ```typescript
 import { AegisoraClient } from "@aegisora/sdk";
@@ -658,70 +664,106 @@ const result = await agent.run(
 console.log(result);
 ```
 
-**Expected behavior:**
-- Safe requests are allowed and completed through the governed runtime.
-- Security-sensitive requests are intercepted by the enforcement layer and can be blocked or escalated before completion.
+Your agent's actions can then be evaluated by Aegisora before execution.
 
-All Aegisora packages are published on npm under the [`@aegisora`](https://www.npmjs.com/org/aegisora) scope. See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the full package list and what each one covers.
+```text
+Agent
+  │
+  ▼
+Aegisora
+  │
+  ├── ✅ ALLOW
+  ├── ⛔ BLOCK
+  └── ⏸️ ESCALATE
+```
 
-### Option B — Run the full demo/dashboard locally
+### Option B — Run the full open-source demo
 
-Use this if you want to explore the Human Review Queue, telemetry dashboard, and policy engine yourself.
+Explore the runtime, policy engine, telemetry and Human Review Queue locally.
 
-#### Prerequisites
+#### Requirements
 
-- Node.js 18+
-- pnpm (recommended), npm, or yarn
-- Git
+* Node.js 18+
+* pnpm, npm, or yarn
+* Git
 
-#### 1. Clone and install
+#### 1. Clone the repository
 
 ```bash
 git clone https://github.com/aegisora-ai/aegisora.ai.git
 cd aegisora.ai
+```
+
+#### 2. Install dependencies
+
+```bash
 pnpm install
 ```
 
-#### 2. Configure environment variables
+#### 3. Configure environment variables
 
 ```bash
 cp .env.example .env.local
 ```
 
-At minimum, `.env.local` requires:
+At minimum, configure:
 
-| Variable | Purpose |
-| --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL, used for auth and policy/audit storage |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-side Supabase key, used by the enforcement layer |
-| `GROQ_API_KEY` | Inference key for the default demo agent/provider |
+| Variable                    | Purpose                         |
+| --------------------------- | ------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`  | Supabase project URL            |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-side Supabase access     |
+| `GROQ_API_KEY`              | Default demo inference provider |
 
-See `.env.example` for the complete list.
+> Never commit `.env.local`, API keys, access tokens, or other secrets.
 
-> **Important:** Never commit `.env.local`, API keys, access tokens, or other secrets to the repository.
-
-#### 3. Build and verify
+#### 4. Build and verify
 
 ```bash
 pnpm build
 pnpm typecheck
+pnpm test
 ```
 
-#### 4. Run the development server
+#### 5. Start the development server
 
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Then open:
 
-#### 5. Run the test suite
+**http://localhost:3000**
 
-```bash
-pnpm test
+### What should you see?
+
+You can explore:
+
+* Agent actions
+* Policy decisions
+* Allow / Block / Escalate outcomes
+* Human review
+* Telemetry
+* Audit information
+
+### Your first contribution
+
+Once Aegisora is running, the easiest way to contribute is:
+
+```text
+Run Aegisora
+     ↓
+Find a problem
+     ↓
+Open an issue
+     ↓
+Pick a good first issue
+     ↓
+Submit a PR
 ```
 
-The repository includes runtime security, provider-boundary, identity, lifecycle, and SDK integration tests.
+Aegisora is intentionally designed so developers can experiment with the runtime, add policies, improve detection rules, build integrations and contribute security test cases.
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the complete contribution workflow.
 
 ---
 
