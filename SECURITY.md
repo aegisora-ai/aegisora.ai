@@ -1,166 +1,218 @@
 # Security Policy
 
-Security is the foundation of Aegisora.
+Security is a core design principle of Aegisora.
 
-Our mission is to build the trusted runtime governance layer for autonomous AI systems. Because of this, security is not a feature—it is our primary design principle.
-
----
-
-# Supported Versions
-
-We actively support the latest stable release.
-
-Security fixes are prioritized for:
-
-| Version            | Supported |
-| ------------------ | --------- |
-| Latest Release     | ✅        |
-| Development Branch | ✅        |
-| Older Releases     | ❌        |
+Aegisora is designed to provide a runtime governance layer between autonomous AI agents and the systems they can affect. Security issues should therefore be treated seriously, investigated responsibly, and disclosed in a way that protects users and contributors.
 
 ---
 
-# Reporting a Vulnerability
+## Supported Versions
 
-Please do **NOT** report security vulnerabilities through public GitHub issues.
+Aegisora currently prioritizes security fixes for:
 
-Instead, report them privately.
+| Version                 | Supported |
+| ----------------------- | --------- |
+| Latest stable release   | ✅         |
+| Main development branch | ✅         |
+| Older releases          | ❌         |
 
-Contact:
-
-security@aegisora.ai
-
-(Temporary email until the Security Response Team is established.)
-
-Include:
-
-- vulnerability description
-- reproduction steps
-- impact assessment
-- proof of concept (if available)
-- suggested mitigation (optional)
+Security support for older releases may vary depending on the severity and impact of the issue.
 
 ---
 
-# Our Security Principles
+## Reporting a Vulnerability
 
-Every contribution should strengthen at least one of these principles.
+Please **do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.**
 
-- Zero Trust by Default
-- Least Privilege
-- Defense in Depth
-- Policy Before Execution
-- Human-in-the-Loop
-- Secure by Design
-- Privacy by Default
-- Complete Auditability
+Security vulnerabilities should be reported privately so they can be investigated before public disclosure.
 
----
+### Security Contact
 
-# Scope
+**[security@aegisora.ai](mailto:security@aegisora.ai)**
 
-Examples of security issues include:
+Please use this address for confidential vulnerability reports.
 
-- Prompt Injection
-- Jailbreak Techniques
-- Tool Abuse
-- Unauthorized Function Calls
-- Policy Bypass
-- PII Leakage
-- Secret Exposure
-- Remote Code Execution
-- Sandbox Escape
-- Supply Chain Attacks
-- Dependency Vulnerabilities
-- Authentication Bypass
-- Authorization Issues
+> This security contact is currently the project's designated reporting channel while the security response process continues to mature.
+
+### What to Include
+
+A useful security report should include, where possible:
+
+* A clear description of the vulnerability
+* Reproduction steps
+* Affected component, endpoint, or feature
+* Expected behavior
+* Actual behavior
+* Security impact
+* Proof of concept or minimal reproduction
+* Suggested mitigation, if known
+
+Please do not include unnecessary personal data, credentials, API keys, or other sensitive information in a report.
 
 ---
 
-# Response Process
+## Security Response Process
 
-Every valid report follows this lifecycle.
+Security reports are handled through the following general process:
 
-1. Acknowledgement
-2. Initial Assessment
-3. Risk Classification
-4. Fix Development
-5. Security Review
-6. Responsible Disclosure
-7. Public Advisory (if applicable)
+1. **Acknowledgement** — confirm that the report has been received.
+2. **Initial Assessment** — reproduce and validate the reported behavior.
+3. **Risk Classification** — determine severity, exploitability, and affected scope.
+4. **Remediation** — develop and test an appropriate fix or mitigation.
+5. **Security Review** — verify the remediation and assess related attack paths.
+6. **Coordinated Disclosure** — determine an appropriate disclosure plan with the reporter when applicable.
+7. **Public Advisory** — publish relevant details after remediation and disclosure coordination when appropriate.
 
----
-
-# Disclosure Policy
-
-We believe in responsible disclosure.
-
-Please allow reasonable time before publicly discussing vulnerabilities.
+Response timing may vary depending on severity, complexity, and the information available in the report.
 
 ---
 
-# Security Goals
+## Security Principles
 
-Aegisora aims to provide:
+Aegisora follows these security principles:
 
-- Runtime Protection
-- Policy Enforcement
-- Agent Governance
-- Human Oversight
-- Audit Trails
-- Compliance Support
-- Execution Integrity
+* **Zero Trust by Default**
+* **Least Privilege**
+* **Defense in Depth**
+* **Policy Before Execution**
+* **Human-in-the-Loop**
+* **Secure by Design**
+* **Privacy by Default**
+* **Observable by Design**
 
----
-
-# Security Research
-
-We welcome collaboration with:
-
-- Security Researchers
-- AI Safety Researchers
-- Red Teams
-- Academic Institutions
-- Enterprise Security Teams
-
-Responsible research is always encouraged.
+The objective is to prevent autonomous agent actions from becoming unrestricted system actions.
 
 ---
 
-# AI-Specific Threat Model
+## Security Scope
 
-Aegisora focuses on defending against modern AI threats, including:
+Security reports may include, but are not limited to:
 
-- Prompt Injection
-- Indirect Prompt Injection
-- Prompt Leakage
-- Tool Hijacking
-- Memory Poisoning
-- Context Manipulation
-- Agent-to-Agent Abuse
-- Multi-Agent Escalation
-- Data Exfiltration
-- Autonomous Misuse
-
----
-
-# Security Roadmap
-
-Future work includes:
-
-- Formal Threat Modeling
-- Security Benchmarks
-- Independent Security Audits
-- Bug Bounty Program
-- Cryptographic Integrity Verification
-- Enterprise Compliance Frameworks
+* Prompt injection
+* Indirect prompt injection
+* Tool abuse
+* Unauthorized function calls
+* Policy bypass
+* Privilege escalation
+* Authentication bypass
+* Authorization issues
+* PII leakage
+* Secret exposure
+* Data exfiltration
+* Remote code execution
+* Sandbox escape
+* Supply-chain vulnerabilities
+* Dependency vulnerabilities
+* Unsafe agent-to-agent interactions
+* Runtime enforcement bypasses
 
 ---
 
-# Contact
+## AI-Specific Threat Model
 
-For all security-related questions:
+Aegisora is designed with modern AI-specific threats in mind, including:
 
-security@aegisora.org
+* Prompt injection
+* Indirect prompt injection
+* Prompt leakage
+* Context manipulation
+* Tool hijacking
+* Memory poisoning
+* Agent identity abuse
+* Agent-to-agent abuse
+* Multi-agent escalation
+* Data exfiltration
+* Autonomous misuse
+* Excessive agent permissions
+* Unsafe tool execution
 
-Thank you for helping keep Aegisora secure.
+The threat model will evolve as new attack techniques and agent architectures emerge.
+
+---
+
+## Security Goals
+
+Aegisora aims to strengthen:
+
+* Runtime protection
+* Policy enforcement
+* Agent governance
+* Human oversight
+* Auditability
+* Execution integrity
+* Security observability
+* Privacy protection
+
+These goals describe the project's security direction and should not be interpreted as a guarantee that every threat is prevented.
+
+---
+
+## Security Research
+
+We welcome responsible security research and collaboration with:
+
+* Security researchers
+* AI security researchers
+* AI safety researchers
+* Red teams
+* Academic institutions
+* Enterprise security teams
+* Open-source security contributors
+
+Please coordinate potentially sensitive findings privately before publishing details that could enable exploitation.
+
+---
+
+## Responsible Disclosure
+
+We support responsible disclosure.
+
+Please provide a reasonable opportunity for a vulnerability to be investigated and, where practical, remediated before publicly disclosing technical exploitation details.
+
+The appropriate disclosure timeline may depend on:
+
+* Severity
+* Exploitability
+* Whether exploitation is already occurring
+* Availability of a mitigation
+* Complexity of remediation
+* Potential impact on users
+
+---
+
+## Security Roadmap
+
+Future security work may include:
+
+* Formal threat modeling
+* Expanded security benchmarks
+* Independent security audits
+* Bug bounty programs
+* Cryptographic integrity verification
+* Additional runtime enforcement controls
+* Enterprise security and compliance documentation
+
+Roadmap items are not guarantees of future implementation or certification.
+
+---
+
+## Security Documentation
+
+Additional security and architecture information is available in:
+
+* [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+* [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+* [`GOVERNANCE.md`](./GOVERNANCE.md)
+* [`ROADMAP.md`](./ROADMAP.md)
+
+---
+
+## Contact
+
+For confidential security reports and security-related questions:
+
+**[security@aegisora.ai](mailto:security@aegisora.ai)**
+
+Please do not include passwords, API keys, private credentials, or unrelated sensitive information in your initial report.
+
+Thank you for helping improve the security of Aegisora.
