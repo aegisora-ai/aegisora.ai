@@ -105,8 +105,6 @@ Aegisora adds a zero-trust enforcement layer between the agent and those systems
 
 ---
 
----
-
 ## Table of Contents
 
 - [Overview](#-overview)
