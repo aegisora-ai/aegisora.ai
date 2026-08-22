@@ -1,1 +1,41 @@
-* @ozereray
+# Default repository ownership
+
+# Replace @YOUR_GITHUB_USERNAME with the maintainer or team responsible
+
+# for reviewing repository-wide changes.
+
+* @YOUR_GITHUB_USERNAME
+
+# Documentation
+
+README.md @YOUR_GITHUB_USERNAME
+ARCHITECTURE.md @YOUR_GITHUB_USERNAME
+SECURITY.md @YOUR_GITHUB_USERNAME
+CONTRIBUTING.md @YOUR_GITHUB_USERNAME
+GOVERNANCE.md @YOUR_GITHUB_USERNAME
+ROADMAP.md @YOUR_GITHUB_USERNAME
+PLUGIN_SYSTEM.md @YOUR_GITHUB_USERNAME
+CHANGELOG.md @YOUR_GITHUB_USERNAME
+CODE_OF_CONDUCT.md @YOUR_GITHUB_USERNAME
+SUPPORT.md @YOUR_GITHUB_USERNAME
+
+# GitHub infrastructure
+
+.github/ @YOUR_GITHUB_USERNAME
+
+# Application and runtime code
+
+app/ @YOUR_GITHUB_USERNAME
+
+# Configuration and project tooling
+
+*.json @YOUR_GITHUB_USERNAME
+*.ts @YOUR_GITHUB_USERNAME
+*.tsx @YOUR_GITHUB_USERNAME
+
+# Security-sensitive files
+
+SECURITY.md @YOUR_GITHUB_USERNAME
+.github/workflows/codeql.yml @YOUR_GITHUB_USERNAME
+.github/workflows/ci.yml @YOUR_GITHUB_USERNAME
+.github/workflows/release.yml @YOUR_GITHUB_USERNAME
