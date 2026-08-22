@@ -1,13 +1,10 @@
 <div align="center">
 
-  <h1>
-    <img src="assets/aegisora-logo.png"
-         alt="Aegisora"
-         width="76"
-         height="76"
-         align="middle">
-    Aegisora
-  </h1>
+  <img
+    src="assets/aegisora-readme-header.png"
+    alt="Aegisora"
+    width="720"
+  />
 
   <p>
     <strong>Open-source runtime security for AI agents.</strong>
@@ -20,36 +17,44 @@
 
   <p>
     <a href="https://opensource.org/licenses/MIT">
-      <img src="https://img.shields.io/badge/License-MIT-blue.svg">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
     </a>
     <a href="https://github.com/aegisora-ai/aegisora.ai/releases">
-      <img src="https://img.shields.io/github/v/release/aegisora-ai/aegisora.ai?color=green&label=release">
+      <img src="https://img.shields.io/github/v/release/aegisora-ai/aegisora.ai?color=green&label=release" alt="Release">
     </a>
     <a href="https://github.com/aegisora-ai/aegisora.ai/actions">
-      <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI">
+      <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI">
     </a>
     <a href="https://nextjs.org">
-      <img src="https://img.shields.io/badge/Next.js-14%2B-black">
+      <img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js">
     </a>
     <a href="https://www.typescriptlang.org/">
-      <img src="https://img.shields.io/badge/TypeScript-blue">
+      <img src="https://img.shields.io/badge/TypeScript-blue" alt="TypeScript">
     </a>
     <a href="https://tailwindcss.com">
-      <img src="https://img.shields.io/badge/TailwindCSS-38B2AC">
+      <img src="https://img.shields.io/badge/TailwindCSS-38B2AC" alt="Tailwind CSS">
     </a>
     <a href="https://discord.gg/8CM3PpQRT5">
-      <img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white">
+      <img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord">
     </a>
   </p>
 
   <p>
-    <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+    <a href="https://aegisora-ai.vercel.app">
+      <strong>Live Demo</strong>
+    </a>
     &nbsp;·&nbsp;
-    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/ARCHITECTURE.md"><strong>Architecture</strong></a>
+    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/ARCHITECTURE.md">
+      <strong>Architecture</strong>
+    </a>
     &nbsp;·&nbsp;
-    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/SECURITY.md"><strong>Security</strong></a>
+    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/SECURITY.md">
+      <strong>Security</strong>
+    </a>
     &nbsp;·&nbsp;
-    <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
+    <a href="https://discord.gg/8CM3PpQRT5">
+      <strong>Discord</strong>
+    </a>
   </p>
 
 </div>
