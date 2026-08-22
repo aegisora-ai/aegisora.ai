@@ -40,7 +40,9 @@ jobs:
       - name: Verify release tag
         shell: bash
         run: |
-          if [[ "${{ github.ref }}" != "refs/tags/v"* ]]; then
-            echo "Error: Release workflow must be triggered by a version tag (v*.*.*)"
+          VERSION="${GITHUB_REF_NAME#v}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: $GITHUB_REF_NAME"
             exit 1
           fi
+          echo "Validated release tag: $VERSION"
