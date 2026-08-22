@@ -1,21 +1,67 @@
 name: Feature Request
-description: Suggest a feature
+description: Propose an improvement or new capability for Aegisora
 title: "[Feature]: "
 labels:
-  - enhancement
 
-body:
-  - type: textarea
-    id: problem
-    attributes:
-      label: Problem
+* enhancement
+  body:
 
-  - type: textarea
-    id: solution
-    attributes:
-      label: Proposed Solution
+* type: markdown
+  attributes:
+  value: |
+  Thanks for helping shape Aegisora.
 
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternatives
+  ```
+  For large architectural changes, consider starting a GitHub Discussion or RFC before implementation.
+
+  Please focus on the problem and user value rather than only the implementation.
+  ```
+
+* type: textarea
+  id: problem
+  attributes:
+  label: Problem
+  description: What problem are you trying to solve?
+  placeholder: Describe the current limitation or unmet need.
+  validations:
+  required: true
+
+* type: textarea
+  id: users
+  attributes:
+  label: Who Benefits?
+  description: Which users, developers, or organizations would benefit from this feature?
+  validations:
+  required: true
+
+* type: textarea
+  id: proposal
+  attributes:
+  label: Proposed Solution
+  description: Describe the behavior or capability you would like to see.
+  validations:
+  required: true
+
+* type: textarea
+  id: alternatives
+  attributes:
+  label: Alternatives Considered
+  description: What alternative approaches have you considered?
+
+* type: textarea
+  id: security
+  attributes:
+  label: Security Considerations
+  description: Could this feature affect agent permissions, policy enforcement, tool execution, data access, or other security boundaries?
+
+* type: textarea
+  id: compatibility
+  attributes:
+  label: Compatibility Considerations
+  description: Could this change affect existing APIs, integrations, deployments, or users?
+
+* type: textarea
+  id: additional
+  attributes:
+  label: Additional Context
+  description: Add examples, diagrams, links, prototypes, or related discussions.
