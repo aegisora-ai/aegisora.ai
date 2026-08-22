@@ -800,12 +800,6 @@ This project is open-source under the [MIT License](./LICENSE).
 
 ---
 
-## 🤝 Contributing
-
-Aegisora is built in the open.
-
-We welcome contributions of every size — from documentation fixes and security test cases to new integrations, policies and runtime features.
-
 ### 🚀 Make Your First Contribution
 
 You do **not** need to understand the entire codebase before contributing.
