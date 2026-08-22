@@ -758,6 +758,7 @@ Pick a good first issue
      ↓
 Submit a PR
 ```
+---
 ## 📄 License
 
 This project is open-source under the [MIT License](./LICENSE).
