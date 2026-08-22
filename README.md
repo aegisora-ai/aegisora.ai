@@ -800,15 +800,103 @@ This project is open-source under the [MIT License](./LICENSE).
 
 ---
 
-## ✨ Contributors
+## 🤝 Contributing
 
-Thanks to all the people who contribute to Aegisora. This project follows the [all-contributors](https://allcontributors.org/) specification.
+Aegisora is built in the open.
 
-Contributions of any kind are welcome — code, documentation, testing, security research, integrations, ideas, and more.
+We welcome contributions of every size — from documentation fixes and security test cases to new integrations, policies and runtime features.
 
-<a href="https://github.com/aegisora-ai/aegisora.ai/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=aegisora-ai/aegisora.ai" alt="Aegisora contributors">
-</a>
+### 🚀 Make Your First Contribution
+
+You do **not** need to understand the entire codebase before contributing.
+
+A simple first contribution can look like this:
+
+```text id="p5t9a1"
+1. Pick an issue
+       ↓
+2. Understand the problem
+       ↓
+3. Make a small change
+       ↓
+4. Add or update tests
+       ↓
+5. Open a pull request
+```
+
+### Good places to start
+
+Look for issues labeled:
+
+* `good first issue`
+* `help wanted`
+* `documentation`
+* `security`
+* `testing`
+
+You can also contribute without writing core code.
+
+Ideas include:
+
+* Add a new security policy
+* Add an attack / abuse test case
+* Add an agent-framework integration
+* Improve documentation
+* Improve examples
+* Add benchmark cases
+* Report a false positive
+* Report a false negative
+* Improve developer tooling
+
+### 🛠️ Development Workflow
+
+```bash
+git clone https://github.com/aegisora-ai/aegisora.ai.git
+cd aegisora.ai
+pnpm install
+
+git checkout -b feature/your-feature
+
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+Then commit your changes and open a pull request.
+
+### 💬 Join the Community
+
+Have an idea, question or security finding?
+
+Join the [Discord community](https://discord.gg/8CM3PpQRT5).
+
+You can also use:
+
+* [GitHub Issues](https://github.com/aegisora-ai/aegisora.ai/issues)
+* [GitHub Discussions](https://github.com/aegisora-ai/aegisora.ai/discussions)
+* [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+### 🔐 Security Contributions
+
+Found a security issue?
+
+Please follow the responsible disclosure process described in [`SECURITY.md`](./SECURITY.md).
+
+> **Aegisora gets better every time someone tests it, challenges it, documents it or contributes code.**
+
+### 🌍 Build With Us
+
+Aegisora is not intended to be built by one person.
+
+We want developers to help shape:
+
+* Runtime policies
+* Detection rules
+* Agent integrations
+* Security benchmarks
+* Developer tooling
+* Documentation
+* The future architecture of open-source agent security
 
 ---
 
