@@ -1,15 +1,17 @@
-<div align="center">
 
-  <img
-    src="assets/aegisora-readme-header.png"
-    alt="Aegisora"
-    width="720"
-  />
+fd44b21b-0c2a-4773-9965-3b91b420482d.png
+781fc933-8207-4c29-91ec-9b8bee406f71.png
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="90" height="90"></td>
+      <td><h1>Aegisora</h1></td>
+    </tr>
+  </table>
 
   <p>
     <strong>Open-source runtime security for AI agents.</strong>
   </p>
-
   <p>
     Intercept every agent action before execution and decide:
     <strong>ALLOW</strong>, <strong>BLOCK</strong>, or <strong>ESCALATE</strong>.
@@ -23,8 +25,10 @@
       <img src="https://img.shields.io/github/v/release/aegisora-ai/aegisora.ai?color=green&label=release" alt="Release">
     </a>
     <a href="https://github.com/aegisora-ai/aegisora.ai/actions">
-      <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI">
+      <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI Status">
     </a>
+  </p>
+  <p>
     <a href="https://nextjs.org">
       <img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js">
     </a>
@@ -38,852 +42,803 @@
       <img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord">
     </a>
   </p>
-
   <p>
-    <a href="https://aegisora-ai.vercel.app">
-      <strong>Live Demo</strong>
-    </a>
-    &nbsp;·&nbsp;
-    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/ARCHITECTURE.md">
-      <strong>Architecture</strong>
-    </a>
-    &nbsp;·&nbsp;
-    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/SECURITY.md">
-      <strong>Security</strong>
-    </a>
-    &nbsp;·&nbsp;
-    <a href="https://discord.gg/8CM3PpQRT5">
-      <strong>Discord</strong>
+    <a href="https://www.producthunt.com/posts/aegisora" target="_blank">
+      <img src="https://img.shields.io/badge/Product%20Hunt-Featured%20on%20PH-FF6154?style=for-the-badge&logo=producthunt&logoColor=white" alt="Product Hunt Featured">
     </a>
   </p>
 
+  <p>
+    <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
+    &nbsp;·&nbsp;
+    <a href="#-how-risk-classification-works"><strong>How It Works</strong></a>
+    &nbsp;·&nbsp;
+    <a href="./ARCHITECTURE.md"><strong>Architecture</strong></a>
+    &nbsp;·&nbsp;
+    <a href="./SECURITY.md"><strong>Security</strong></a>
+    &nbsp;·&nbsp;
+    <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
+  </p>
 </div>
 
-> **Aegisora sits between your AI agent and the systems it can act on.**  
+> **Aegisora sits between your AI agent and the systems it can act on.**
 > Every tool call is evaluated at runtime before execution.
-```text
-                    AI AGENT
-                       │
-                       ▼
-              ┌─────────────────┐
-              │    AEGISORA     │
-              │ Runtime Control │
-              └────────┬────────┘
-                       │
-             ┌─────────┼─────────┐
-             ▼         ▼         ▼
-           ALLOW     BLOCK    ESCALATE
-                                  │
-                                  ▼
-                           Human Review
-```
+,  bana şu kodu dzeltbenim istediim şekidle göüksün logomun yeri ve marka ismimin ismi Aegisora bneimki onu düzelteceiz guardrails örnek almaniçi verdim kodu yazar mısın red me dosanın baş kımı kodu  
 
-### Why Aegisora?
+a60aa94e-82c5-4990-a293-7834247b78cb.png
+bak logo ve yazı küçük be orantısız bunu çöz 
 
-AI agents can call tools, APIs, databases, and production systems autonomously.
+39c9b09f-a733-4399-bc8c-215382a7ea2a.png
+verdiğin yenisini yaptım bu şekidle oldu 
 
-Aegisora adds a zero-trust enforcement layer between the agent and those systems:
+9aabf8d7-45e1-4bb6-82be-365c748ce7d1.png
+bak bu şedle oldu hala olmadın  
 
-* **Allow** safe, policy-compliant actions instantly.
-* **Block** clear violations and known attack patterns.
-* **Escalate** ambiguous or high-risk actions to human review.
-* **Audit** every decision and its reasoning.
+dc93444e-3885-4d11-9680-e49d76b5dcdd.png
+bak bu şekdile ya büyüt buunu ve logo nun ebatı ile yazını ebatını dengele sadece bunu sitiyroum başka yerleri bozma bu adar neden yapamıyrosun 
 
-**Open source. Inspectable. Extensible. Built for developers.**
+2dfcfdc1-cf56-4a57-98db-9bae7da7ef06.png
+logo byüüd yazı küçük kaldı onu düzlet 
 
-<p align="center">
-  <a href="https://aegisora-ai.vercel.app">
-    <strong>▶ Try the live demo</strong>
-  </a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/aegisora-ai/aegisora.ai">
-    <strong>★ Explore the source</strong>
-  </a>
-  &nbsp;·&nbsp;
-  <a href="https://discord.gg/8CM3PpQRT5">
-    <strong>Join the community</strong>
-  </a>
-</p>
+9262269c-4b39-4eac-8f82-b44734ddde3f.png
+bana bu o-fontda AYNSIIN BİRBEİR AYNI FONT OLCUAK SOLAD AEGİSORA NIN LOGOSU VMAVİ SAĞDA DA BU FONTDA Aegisora yazısını ekler misin görsel oluştur  
 
----
-
-# README.md — Table of Contents
-
-* [Overview](#-overview)
-* [Why Aegisora](#-why-aegisora)
-* [The Problem We Solve](#-the-problem-we-solve)
-* [How Risk Classification Works](#-how-risk-classification-works)
-* [Human Review Queue](#-human-review-queue)
-* [Metrics & Benchmarks](#-metrics--benchmarks)
-* [Core Capabilities](#️-core-capabilities)
-* [Tech Stack](#-tech-stack)
-* [Quickstart](#-quickstart)
-* [Contributing](#-contributing)
-* [License](#-license)
+Edit
 
 
----
+Evet, anladım. Burada amacımız sadece README'yi “güzel” yapmak değil; Aegisora'nın GitHub reposunu global, ciddi bir open-source security project gibi göstermek.
 
-## 🎯 Overview
+Ben birkaç güçlü global repo örneğine baktım. Özellikle Ruff, README mimarisi açısından çok iyi bir referans. Ruff; üstte çok net ürün tanımı, güçlü görsel/benchmark, kısa değer önerisi, ardından Table of Contents ve düzenli dokümantasyon akışı kullanıyor. 
 
-As enterprises grant autonomous AI agents direct access to critical databases, internal tools, and production infrastructure, the attack surface for prompt injection, data exfiltration, and unauthorized action execution grows exponentially — and traditional security tooling was never designed to govern non-deterministic, self-directed software.
+FastAPI de başka bir iyi referans: ürünün ne olduğu ilk bakışta anlaşılıyor ve özellikler doğrudan kullanıcı değerine bağlanıyor. 
 
-**Aegisora** is an open-source, zero-trust runtime governance layer built specifically for autonomous AI agents. It sits between your AI agents and the systems they act upon as a real-time enforcement layer — every tool call, every action, and every output is intercepted, evaluated against policy, and logged **before** it ever touches production.
+Aegisora için benim seçimim: Ruff + modern security-project yaklaşımı
+Ama Ruff'ı birebir kopyalamayacağız. Onun README düzenini Aegisora'nın alanına uyarlayacağız.
 
-Instead of relying on traditional allow/block firewalls that break non-deterministic agent workflows, Aegisora uses **Asynchronous Human Escalation** to pause, quarantine, and verify only the requests that genuinely need a human judgment call — not every request.
+Aegisora için README'nin yapısını şöyle kurardım:
 
----
+┌──────────────────────────────────────────────┐
+│                                              │
+│          [ AEGISORA LOGO + WORDMARK ]        │
+│                                              │
+│       Open-source runtime security           │
+│              for AI agents                   │
+│                                              │
+│     ALLOW · BLOCK · ESCALATE                │
+│                                              │
+│ [MIT] [Release] [CI] [TypeScript] [Discord] │
+│                                              │
+│      Live Demo · Docs · Architecture         │
+│                                              │
+└──────────────────────────────────────────────┘
 
-## 🔥 Why Aegisora?
+Aegisora sits between your AI agent
+and the systems it can act on.
 
-AI agents don't just generate text.
-
-They call APIs.
-They query databases.
-They execute tools.
-They access files and production systems.
-
-That creates a problem:
-
-**Who decides whether an agent is actually allowed to perform an action?**
-
-Aegisora sits directly in the runtime path and makes that decision **before the action executes.**
-
-### The Aegisora Difference
-
-| Approach                  | Runtime Enforcement | Human Review | Audit Trail |
-| ------------------------- | :-----------------: | :----------: | :---------: |
-| Traditional guardrails    |          ⚠️         |       ❌      |      ⚠️     |
-| API gateways              |          ✅          |       ❌      |      ✅      |
-| Manual approval workflows |          ✅          |       ✅      |      ⚠️     |
-| **Aegisora**              |        **✅**        |     **✅**    |    **✅**    |
-
-### One Runtime Decision
-
-Every intercepted action enters the same decision model:
-
-**✅ ALLOW** — safe and policy-compliant actions continue immediately.
-
-**⛔ BLOCK** — clear violations and known attack patterns are stopped.
-
-**⏸️ ESCALATE** — ambiguous or high-risk actions are sent to human review.
-
-This avoids the traditional **"allow everything or block everything"** problem.
-
-### Built for Developers
-
-Aegisora is open source because agent security should be:
-
-* **Inspectable** — understand exactly what happens at runtime.
-* **Extensible** — build your own policies, detectors and integrations.
-* **Testable** — reproduce and verify security decisions.
-* **Community-driven** — contribute rules, integrations, benchmarks and code.
-
-> **The goal isn't to stop AI agents.**
-> **The goal is to let them act safely.**
-
-
----
-
-## 🎯 The Problem We Solve
-
-AI agents are becoming software that can **act**, not just generate.
-
-They can:
-
-* Call internal and external APIs
-* Query databases
-* Execute tools
-* Read and write files
-* Trigger workflows
-* Perform actions in production systems
-
-That means a prompt-injection attack, a compromised tool, or an overly-permissive agent policy can become a **real system action**.
-
-### The Binary Trap
-
-Most security systems eventually reduce an action to:
-
-**ALLOW** or **BLOCK**
-
-That works for simple, deterministic requests.
-
-But autonomous agents constantly encounter situations that are:
-
-* Too risky to allow automatically
-* Too legitimate to block outright
-* Too ambiguous for a deterministic rule
-
-Blocking everything destroys agent productivity.
-
-Allowing everything creates unacceptable risk.
-
-### Aegisora adds a third state
-
-Instead of forcing every action into a binary decision, Aegisora introduces:
-
-| Decision        | What happens                                                          |
-| ---------------- | ---------------------------------------------------------------------- |
-| ✅ **ALLOW**     | Safe, policy-compliant actions continue immediately.                  |
-| ⛔ **BLOCK**     | Clear violations and known attack patterns are stopped.               |
-| ⏸️ **ESCALATE** | Ambiguous or high-risk actions are paused and routed to human review. |
-
-This creates a simple runtime rule:
-
-> **Don't trust the agent. Don't block the agent. Govern the action.**
-
-Every decision is evaluated **before execution** and recorded in the audit trail.
-
----
-
-### Example
-
-An AI agent wants to:
-
-```text
-DELETE production_database
-```
-
-Aegisora evaluates the request.
-
-```text
-┌─────────────────────────────┐
-│       AI AGENT ACTION       │
-│  DELETE production_database │
-└──────────────┬──────────────┘
-               │
-               ▼
+              AGENT
+                │
+                ▼
         ┌───────────────┐
         │   AEGISORA    │
-        │ Policy Engine │
-        └───────┬───────┘
+        │ Runtime Guard │
+        └───────────────┘
                 │
-                ▼
-          ⏸️ ESCALATE
-                │
-                ▼
-          Human Review
-```
+        ┌───────┼────────┐
+        ▼       ▼        ▼
+      ALLOW    BLOCK   ESCALATE
 
-The agent doesn't get unrestricted access.
+──────────────────────────────────────────────
 
-The action doesn't have to be blindly blocked either.
+## Why Aegisora?
 
-**Aegisora governs the decision at runtime.**
+## How It Works
 
+[ büyük mimari görsel ]
 
----
-## 🧠 How Risk Classification Works
+## Security Model
 
-Every action that passes through Aegisora is evaluated **before execution**.
+[ security flow görseli ]
 
-The goal is simple:
-
-> **Make the safest decision possible without unnecessarily stopping the agent.**
-
-### Runtime Decision Flow
-
-```text
-Agent Action
-     │
-     ▼
-┌─────────────────────┐
-│  Policy Evaluation  │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│   Risk Signals      │
-│                     │
-│ • Permissions       │
-│ • Data sensitivity  │
-│ • Agent identity    │
-│ • Session context   │
-│ • Attack patterns   │
-│ • Policy violations │
-└──────────┬──────────┘
-           │
-           ▼
-     Decision Engine
-           │
-    ┌──────┼───────┐
-    ▼      ▼       ▼
-  ALLOW  BLOCK  ESCALATE
-```
-
-### 1. Policy Match
-
-Aegisora first checks deterministic policy rules such as:
-
-* Allow-lists and deny-lists
-* Agent permissions
-* Tool permissions
-* Data-class restrictions
-* Rate limits
-* Resource scope
-
-Clear matches can immediately produce an **ALLOW** or **BLOCK** decision.
-
-### 2. Risk Signals
-
-Actions that cannot be resolved by deterministic rules are evaluated using contextual signals.
-
-These can include:
-
-* What resource the agent is accessing
-* What data is involved
-* The agent's declared identity
-* Previous actions in the session
-* Deviation from the expected workflow
-* Known adversarial or injection patterns
-
-### 3. Confidence & Decision
-
-The collected signals are evaluated against policy thresholds.
-
-```text
-Low Risk
-   │
-   └──► ✅ ALLOW
-
-Clear Violation
-   │
-   └──► ⛔ BLOCK
-
-Ambiguous / High Risk
-   │
-   └──► ⏸️ ESCALATE
-```
-
-### 4. Full Audit Trail
-
-Every decision is recorded.
-
-The audit trail can include:
-
-* The original action
-* The agent identity
-* Policies evaluated
-* Risk signals
-* Final decision
-* Escalation context
-* Timestamp
-
-This makes every enforcement decision **observable, explainable and auditable**.
-
-### Why this matters
-
-Aegisora is designed around a simple principle:
-
-> **Agents should be autonomous in execution, but never unrestricted in authority.**
-
----
-
-## 🧑‍⚖️ Human Review Queue
-
-Not every dangerous action should be automatically blocked.
-
-Not every ambiguous action should be automatically allowed.
-
-Aegisora introduces a third runtime outcome:
-
-> **ESCALATE**
-
-When the policy engine cannot confidently allow or block an action, Aegisora can pause the action and send it to a **Human Review Queue**.
-
-### How it works
-
-```text
-AI Agent
-   │
-   ▼
-Aegisora
-   │
-   ├── ✅ ALLOW ───────► Execute
-   │
-   ├── ⛔ BLOCK ───────► Reject
-   │
-   └── ⏸️ ESCALATE
-           │
-           ▼
-      Human Review
-           │
-      ┌────┴────┐
-      ▼         ▼
-   APPROVE     DENY
-      │         │
-      ▼         ▼
-   Execute     Reject
-```
-
-### Why escalation exists
-
-Consider an agent attempting to perform:
-
-```text id="74p4j6"
-transfer_funds(
-  destination = "new_bank_account",
-  amount = "$25,000"
-)
-```
-
-This might be legitimate.
-
-It might also be dangerous.
-
-A simple binary security layer has two choices:
-
-**Allow it** — and accept the risk.
-
-**Block it** — and potentially break a legitimate workflow.
-
-Aegisora can instead:
-
-**ESCALATE → Human Review → Approve or Deny**
-
-### Review context
-
-The reviewer should not have to reconstruct what happened from raw logs.
-
-Aegisora is designed to provide the context surrounding the decision, including:
-
-* Agent identity
-* Requested action
-* Target resource
-* Relevant policy rules
-* Risk signals
-* Previous session context
-* Reason for escalation
-* Audit history
-
-This makes human review a **decision point**, not a manual investigation.
-
-### The goal
-
-The Human Review Queue is not meant to replace automation.
-
-It exists to make **safe automation possible at higher levels of autonomy.**
-
-> **Automate the obvious. Block the dangerous. Escalate the ambiguous.**
-
-
----
-
-## 📊 Metrics & Benchmarks
-
-Security claims should be backed by evidence. Aegisora is intentionally transparent about what has been measured, what is still being benchmarked, and where the community can help.
-
-### Current Test Suite Results
-
-**71 / 71 runtime tests passing** — full adversarial suite covering the enforcement boundary itself, not just happy-path behavior. See [`docs/benchmarks.md`](./docs/benchmarks.md) for the full methodology and reproduction steps.
-
-| Category | What it verifies | Result |
-| --- | --- | --- |
-| Agent lifecycle integrity | Terminal states (`completed`/`failed`/`stopped`) cannot be re-entered or overwritten | 12/12 passed |
-| Enforcement side-effect boundary | Unknown or forged agent identity is blocked *before* any tool side-effect executes | 4/4 passed |
-| Real executor integration | Full runtime dependency graph (registry → selector → permission engine → enforcement gate → gateway) wires and executes correctly | 6/6 passed |
-| Provider identity immutability | Metadata cannot spoof or override the canonical request provider | 3/3 passed |
-| Model identity immutability | Metadata cannot spoof the canonical or default-resolved model | 3/3 passed |
-| Post-governance / post-resolution integrity | Neither explicit nor default-resolved models can be tampered with after the enforcement decision | 9/9 passed |
-| Cross-provider resolution authority | OpenAI/Anthropic routing stays request-authoritative; attacker metadata cannot redirect execution | 9/9 passed |
-| Protected agent execution boundary | Registered agents cross the boundary; forged identities are blocked pre-execution | 2/2 passed |
-
-Reproduce locally:
+## Quick Start
 
 ```bash
-npm test
-```
+...
+Example
+...
+Architecture
+[ architecture diagram ]
 
-### Still in progress
+Policy & Governance
+...
 
-We do **not** want to publish impressive-looking security numbers without reproducible evidence. The following are measured on the runtime's internal enforcement logic (above) but not yet benchmarked against external, real-world traffic:
+Risk Classification
+...
 
-| Metric | What it measures | Status |
-| --- | --- | --- |
-| Classification precision / recall | Accuracy of Allow / Block / Escalate decisions on real-world attack corpora | 🚧 In progress |
-| Escalation rate | How often actions require human review | 🚧 In progress |
-| Time to review | How quickly escalated decisions can be resolved | 🚧 In progress |
-| False-block rate | Legitimate actions incorrectly blocked | 🚧 In progress |
-| False-allow rate | Risky actions incorrectly allowed | 🚧 In progress |
-| Code coverage | % of runtime/policy engine covered by tests | 🚧 In progress |
+Audit & Observability
+...
 
-### Help us benchmark Aegisora
+Supported Providers
+OpenAI · Anthropic · Gemini · ...
 
-Open-source security tooling gets stronger when more people test it. You can contribute by:
+Roadmap
+...
 
-* Adding attack and abuse cases
-* Creating evaluation datasets
-* Testing new policy rules
-* Reporting false positives
-* Reporting false negatives
-* Running Aegisora against real agent workflows
-* Sharing anonymized benchmark results
+Contributing
+...
 
-> **Our goal is not to claim that Aegisora is secure.**
-> **Our goal is to build a security system that can be continuously tested, challenged and improved in public.**
+Security
+...
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) or join the [Discord community](https://discord.gg/8CM3PpQRT5).
+License
 
+### Özellikle 4 tane görsel üretelim
 
----
+Burada senin Aegisora markasını ciddi şekilde öne çıkarabiliriz.
 
-## 🛡️ Core Capabilities
+**1. README Header**
 
-Aegisora is built as a runtime security layer for AI agents.
+Az önce yaptığımız:
 
-### 🔐 Runtime Action Security
+`assets/aegisora-readme-header.png`
 
-Every agent action can pass through Aegisora before execution.
+Logo + Aegisora wordmark.
 
-* Tool calls
-* API requests
-* Database operations
-* File operations
-* External service calls
-
-Aegisora evaluates the action against policy before it reaches the target system.
-
-### ⚖️ Three-State Enforcement
-
-Every request can produce one of three outcomes:
-
-**✅ ALLOW**
-Safe, policy-compliant actions continue immediately.
-
-**⛔ BLOCK**
-Clear violations and known attack patterns are rejected.
-
-**⏸️ ESCALATE**
-Ambiguous or high-risk actions are routed to human review.
-
-### 🧠 Policy & Risk Engine
-
-Build policies around:
-
-* Agent identity
-* Tool permissions
-* Resource scope
-* Data sensitivity
-* Rate limits
-* Session context
-* Known attack patterns
-
-Policies are designed to be explicit, inspectable and extensible.
-
-### 🛡️ Prompt Injection Protection
-
-Aegisora can evaluate agent inputs and actions for patterns associated with prompt injection and adversarial behavior.
-
-The goal is to prevent untrusted instructions from silently turning into privileged actions.
-
-### 🔒 PII Protection
-
-Sensitive information can be detected and protected across agent workflows.
-
-Examples include:
-
-* Email addresses
-* Payment information
-* National IDs / SSNs
-* Other sensitive data classes
-
-### 📡 Telemetry & Audit Trails
-
-Security decisions should be observable.
-
-Aegisora records enforcement activity so developers and security teams can inspect:
-
-* What the agent attempted
-* Which policy was evaluated
-* What signals were detected
-* What decision was made
-* Why the decision occurred
-
-### 🔏 Execution Integrity
-
-Aegisora is designed to provide cryptographic provenance for execution records, helping make security and audit data tamper-evident.
-
-### 🧩 Built for Extension
-
-Open-source developers can extend Aegisora with:
-
-* New policies
-* Detection rules
-* Integrations
-* Agent frameworks
-* Security tests
-* Benchmarks
-* Developer tooling
-
-> **Aegisora is not another agent framework.**
-> **It is the security and governance layer that sits around the agent.**
-
-See [`SECURITY.md`](./SECURITY.md) for the threat model and security policy.
-
-
----
-
-## 🧰 Tech Stack
-
-| **Layer**           | **Technology**            |
-| --------------------- | ---------------------------- |
-| **Framework**        | Next.js (App Router)          |
-| **Language**         | TypeScript                     |
-| **Styling**          | Tailwind CSS                    |
-| **Database & Auth**  | Supabase                         |
-| **AI Integration**   | Groq API (default), pluggable LLM proxy interface |
-| **Deployment**       | Vercel Edge Network                |
-
-> Groq is the default inference provider used in the demo and reference deployment. The `AegisoraClient` SDK interface is provider-agnostic — see [`ARCHITECTURE.md`](./ARCHITECTURE.md) for how to configure alternative LLM providers.
-
----
-
-## 🚀 Quickstart
-
-Get Aegisora running in minutes.
-
-There are two ways to start.
-
-### Option A — Add Aegisora to an existing agent
-
-Already have an AI agent?
-
-Install the SDK:
-
-```bash
-npm install @aegisora/sdk
-```
-
-Then create a governed agent:
-
-```typescript
-import { AegisoraClient } from "@aegisora/sdk";
-
-const client = new AegisoraClient();
-
-const agent = client.agent({
-  name: "my-governed-agent",
-});
-
-const result = await agent.run(
-  "Summarize this harmless developer test."
-);
-
-console.log(result);
-```
-
-Your agent's actions can then be evaluated by Aegisora before execution.
+**2. Runtime Architecture**
 
 ```text
+AI AGENT
+   ↓
+AEGISORA RUNTIME
+   ↓
+SECURITY
+   ↓
+POLICY
+   ↓
+RISK
+   ↓
+DECISION
+ ↙ ↓ ↘
+ALLOW BLOCK ESCALATE
+   ↓
+EXECUTION
+   ↓
+AUDIT / EVIDENCE
+Bu README'nin en önemli görsellerinden biri olur.
+
+3. Security Flow
+
+Mesela:
+
 Agent
+  │
+  ▼
+Tool Call
   │
   ▼
 Aegisora
   │
-  ├── ✅ ALLOW
-  ├── ⛔ BLOCK
-  └── ⏸️ ESCALATE
-```
+  ├── Identity
+  ├── Permission
+  ├── Policy
+  ├── Risk
+  └── Context
+        │
+        ▼
+    Decision
+   /    |     \
+ALLOW BLOCK ESCALATE
+4. Real-world example
 
-### Option B — Run the full open-source demo
+Örneğin:
 
-Explore the runtime, policy engine, telemetry and Human Review Queue locally.
+Agent: "Transfer €8,000 to supplier"
 
-#### Requirements
+        ↓
 
-* Node.js 18+
-* pnpm, npm, or yarn
-* Git
+Aegisora Runtime
 
-#### 1. Clone the repository
+        ↓
 
-```bash
+Policy:
+financial.transfer
+limit = €5,000
+
+        ↓
+
+BLOCK
+Bu, projenin ne yaptığını tek bakışta anlatır.
+
+Farkımız ne olacak?
+Şu an README'n “küçük bir GitHub projesi” hissi veriyor.
+
+Hedeflediğimiz yeni README ise:
+
+“Bu gerçekten production-grade bir AI security infrastructure projesi.”
+
+hissini vermeli.
+
+Bunu özellikle senin mevcut Aegisora konseptine göre yapacağım; yani rastgele section eklemeyeceğiz. README'nin bütün akışı:
+
+Problem → Aegisora → Runtime Enforcement → Architecture → Security → Quick Start → Example → Governance → Audit → Integrations → Contributing
+
+şeklinde olacak.
+
+Ruff'ın README'sinde de ürünün ne yaptığı çok hızlı anlaşılabiliyor, ardından Getting Started, Configuration, Contributing, Support ve kullanıcılar gibi bölümlere geçiliyor. 
+
+Benim önerim
+Referans repo: Ruff
+
+Yapısal ikinci referans: FastAPI
+
+Görsel dil: Aegisora'nın kendi dark security identity'si
+
+Yani sonunda Ruff'ın profesyonel README disiplinine + Aegisora'nın cybersecurity branding'ine sahip bir README oluşturacağız. Bu, Guardrails AI'nin sadece üst başlığını taklit etmekten çok daha güçlü olur.
+
+Bir sonraki adımda mevcut README'nin tamamını temel alıp Aegisora için sıfırdan profesyonel README mimarisini ve hangi görselleri hangi sırada ekleyeceğimizi çıkaralım.
+
+
+
+Pasted markdown(1).md
+File
+bu şekilde orjinal read me yi aldım 
+
+Evet. Bu dosya Ruff’ın orijinal README’si ve artık elimizde referans alacağımız gerçek yapı var. Özellikle Ruff’ın README’sinde üst bölümde badge’ler, tek cümlelik ürün tanımı, güçlü bir benchmark/görsel alanı, ardından özellikler ve hızlı başlangıç geliyor; sonra Table of Contents, Getting Started, Configuration, Rules, Contributing, Support, Acknowledgements ve License bölümleri devam ediyor. 
+
+
+Aegisora için aynısını kopyalamayacağız. Ruff’ın profesyonel bilgi mimarisini alıp Aegisora’nın AI security/runtime ürününe uyarlayacağız.
+
+Benim önerdiğim nihai README sırası şu:
+
+Aegisora Header / Logo
+        ↓
+Badges
+        ↓
+One-line product definition
+        ↓
+Core runtime/security visual
+        ↓
+Why Aegisora?
+        ↓
+How It Works
+        ↓
+Architecture
+        ↓
+Quick Start
+        ↓
+First Policy / First Tool Call
+        ↓
+Security Model
+        ↓
+Risk Classification
+        ↓
+Audit & Evidence
+        ↓
+Supported Providers / Integrations
+        ↓
+Configuration
+        ↓
+Examples
+        ↓
+Roadmap
+        ↓
+Contributing
+        ↓
+Security
+        ↓
+Support / Discord
+        ↓
+License
+Ruff'tan özellikle alacağımız 5 şey
+1. İlk ekran çok güçlü olacak.
+Ruff daha ilk satırlarda projenin ne olduğunu söylüyor: “An extremely fast Python linter and code formatter...” ve hemen ardından görsel/benchmark alanına geçiyor. 
+
+
+Aegisora'da bunun karşılığı:
+
+Open-source runtime security and governance for AI agents.
+
+ve hemen altında:
+
+Intercept every agent action before execution and decide: ALLOW, BLOCK, or ESCALATE.
+
+Ardından bizim hazırladığımız Aegisora runtime architecture görseli gelecek.
+
+2. Özellikleri kuru bir liste değil, değer önerisi olarak vereceğiz.
+
+Ruff özelliklerini kısa, okunabilir ve somut maddeler halinde sıralıyor. 
+
+
+Aegisora'da örneğin:
+
+⚡ Runtime enforcement for every tool call
+🛡️ Zero-trust execution boundaries
+📜 Policy-based governance
+⚖️ Risk-aware ALLOW / BLOCK / ESCALATE decisions
+🔐 Permission and capability controls
+🧾 Immutable audit evidence
+🔌 Provider-agnostic integrations
+🌎 Open-source and self-hostable
+Tabii bunların sadece gerçekten implement edilmiş olanlarını yazacağız.
+
+3. “How it works” bölümü Aegisora'nın merkezi olacak.
+
+Ruff ürününü kullanım üzerinden anlatıyor; Aegisora'da bunun çok daha görsel olması gerekiyor.
+
+Örneğin:
+
+AI AGENT
+   │
+   │ tool call
+   ▼
+┌─────────────────────────────┐
+│         AEGISORA            │
+│                             │
+│ Identity                    │
+│ Permission                  │
+│ Policy                      │
+│ Risk Assessment             │
+│ Context                     │
+└──────────────┬──────────────┘
+               │
+        ┌──────┼──────┐
+        ▼      ▼      ▼
+      ALLOW  BLOCK  ESCALATE
+               │
+               ▼
+           EXECUTION
+               │
+               ▼
+        AUDIT / EVIDENCE
+Burada bir profesyonel architecture SVG/PNG hazırlamak çok daha etkili olur.
+
+4. Quick Start Ruff tarzında gerçekten çalıştırılabilir olacak.
+
+Ruff README'sinde Getting Started altında installation ve usage doğrudan gerçek komutlarla gösteriliyor. 
+
+
+Aegisora'da da:
+
 git clone https://github.com/aegisora-ai/aegisora.ai.git
 cd aegisora.ai
-```
-
-#### 2. Install dependencies
-
-```bash
 pnpm install
-```
-
-#### 3. Configure environment variables
-
-```bash
-cp .env.example .env.local
-```
-
-At minimum, configure:
-
-| Variable                    | Purpose                         |
-| --------------------------- | -------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`  | Supabase project URL            |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-side Supabase access     |
-| `GROQ_API_KEY`              | Default demo inference provider |
-
-> Never commit `.env.local`, API keys, access tokens, or other secrets.
-
-#### 4. Build and verify
-
-```bash
-pnpm build
-pnpm typecheck
-pnpm test
-```
-
-#### 5. Start the development server
-
-```bash
 pnpm dev
-```
+sonra ilk governance policy örneği ve ilk tool-call örneği gelecek.
 
-Then open:
+Burada uydurma komut kullanmayacağız; mevcut repo'daki gerçek package scripts ve API'lere göre yazacağız.
 
-**http://localhost:3000**
+5. “Who's Using Aegisora?” gibi bölüm ancak gerçek kullanıcılar varsa gelecek.
 
-### What should you see?
+Ruff bunu çok güçlü kullanıyor ve büyük projeleri listeliyor. 
 
-You can explore:
 
-* Agent actions
-* Policy decisions
-* Allow / Block / Escalate outcomes
-* Human review
-* Telemetry
-* Audit information
+Aegisora'da şu an doğrulanmış gerçek kullanıcı/şirket yoksa böyle bir bölüm eklememeliyiz. Onun yerine daha erken aşamada:
 
-### Your first contribution
+Integrations
 
-Once Aegisora is running, the easiest way to contribute is:
+OpenAI
+Anthropic
+Gemini
+Custom Tools
+MCP
+...
+gibi gerçekten desteklenen entegrasyonları göstermek daha profesyonel olur.
 
-```text
-Run Aegisora
-     ↓
-Find a problem
-     ↓
-Open an issue
-     ↓
-Pick a good first issue
-     ↓
-Submit a PR
-```
----
-## 📄 License
+Görsel tarafında da Ruff'ın yaklaşımını uyarlayalım
+Ruff README'sinde üstte benchmark sonucu için ayrı bir görsel alanı bulunuyor. 
 
-This project is open-source under the [MIT License](./LICENSE).
 
----
-## 🤝 Contributing
+Aegisora için bunun karşılığı olarak 3 ana görsel yeterli:
 
-### 🚀 Make Your First Contribution
+assets/aegisora-readme-header.png
+Logo + Aegisora wordmark.
 
-You do **not** need to understand the entire codebase before contributing.
+assets/aegisora-runtime-architecture.png
+Agent → Aegisora → Security → Policy → Risk → Decision → Execution → Audit.
 
-A simple first contribution can look like this:
+assets/aegisora-security-flow.png
+Tool call'un nasıl ALLOW/BLOCK/ESCALATE kararına dönüştüğünü gösteren security flow.
 
-```text id="p5t9a1"
-1. Pick an issue
-       ↓
-2. Understand the problem
-       ↓
-3. Make a small change
-       ↓
-4. Add or update tests
-       ↓
-5. Open a pull request
-```
+Böylece README görsel olarak güçlü, ama reklam broşürü gibi de görünmez.
 
-### Good places to start
+Ve en önemlisi: Ruff'ın düzenini Aegisora'nın teknik gerçekliğine göre uyarlayacağız. Ruff'ın README'sinde örneğin Configuration ve Rules ürünün temel parçaları olduğu için ayrı başlıklar var. 
 
-Look for issues labeled:
+ Aegisora'da ise bunların karşılığı Security Model, Policy, Risk Classification, Audit Evidence olacak.
 
-* `good first issue`
-* `help wanted`
-* `documentation`
-* `security`
-* `testing`
+Bence artık sonraki adım mevcut Aegisora README'nin tamamını bu mimariye göre yeniden kurmak. Bunu yaparken sadece mevcut projede gerçekten bulunan özellikleri kullanacağız; eksik olanları “varmış” gibi yazmayacağız.
 
-You can also contribute without writing core code.
 
-Ideas include:
+tam olarak kusurusz bir şekdie readme.md dosyasını olutlruru musun bana ver  
 
-* Add a new security policy
-* Add an attack / abuse test case
-* Add an agent-framework integration
-* Improve documentation
-* Improve examples
-* Add benchmark cases
-* Report a false positive
-* Report a false negative
-* Improve developer tooling
+Hazırladım. README'yi Ruff'ın profesyonel yapısını referans alarak Aegisora'nın mevcut konseptine göre yeniden organize ettim; özellikle runtime security, policy, permission, risk, ALLOW/BLOCK/ESCALATE, audit/evidence, architecture, quick start ve contributing akışını merkeze aldım. Ruff'ın referans README'sindeki üst bölüm ve dokümantasyon yapısını temel aldım. 
 
-### 🛠️ Development Workflow
 
-```bash
+
+Not: README içinde assets/aegisora-readme-header.png ve assets/aegisora-runtime-architecture.png referansları bulunuyor; bunları repo içindeki assets/ klasörüne eklediğimizde görsel yapı doğrudan çalışacak. 
+
+
+
+Library
+/
+README_Aegisora_Professional.md
+
+
+<div align="center">
+
+<p> <img src="assets/aegisora-readme-header.png" alt="Aegisora" width="760" /> </p>
+
+<p> <strong>Open-source runtime security for AI agents.</strong> </p>
+
+<p> Intercept every agent action before execution and decide: <strong>ALLOW</strong>, <strong>BLOCK</strong>, or <strong>ESCALATE</strong>. </p>
+
+<p> <a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"> </a> <a href="https://github.com/aegisora-ai/aegisora.ai/releases"> <img src="https://img.shields.io/github/v/release/aegisora-ai/aegisora.ai?color=green&label=release" alt="Release"> </a> <a href="https://github.com/aegisora-ai/aegisora.ai/actions"> <img src="https://img.shields.io/github/actions/workflow/status/aegisora-ai/aegisora.ai/ci.yml?branch=main&label=CI" alt="CI status"> </a> <a href="https://nextjs.org"> <img src="https://img.shields.io/badge/Next.js-14%2B-black" alt="Next.js"> </a> <a href="https://www.typescriptlang.org/"> <img src="https://img.shields.io/badge/TypeScript-blue" alt="TypeScript"> </a> <a href="https://tailwindcss.com"> <img src="https://img.shields.io/badge/TailwindCSS-38B2AC" alt="Tailwind CSS"> </a> <a href="https://discord.gg/8CM3PpQRT5"> <img src="https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white" alt="Discord"> </a> </p>
+
+<p> <a href="https://www.producthunt.com/posts/aegisora" target="_blank"> <img src="https://img.shields.io/badge/Product%20Hunt-Featured%20on%20PH-FF6154?style=for-the-badge&logo=producthunt&logoColor=white" alt="Product Hunt Featured" /> </a> </p>
+
+<p> <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a> &nbsp;·&nbsp; <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/ARCHITECTURE.md"><strong>Architecture</strong></a> &nbsp;·&nbsp; <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/SECURITY.md"><strong>Security</strong></a> &nbsp;·&nbsp; <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a> </p>
+
+</div>
+
+Aegisora sits between your AI agent and the systems it can act on.
+Every tool call is evaluated at runtime before execution.
+
+Why Aegisora?
+AI agents can do more than generate text. They can call tools, access services, execute workflows, and take actions in external systems.
+
+That makes runtime control a security boundary.
+
+Aegisora provides an open-source runtime layer for evaluating agent actions before execution, applying governance policies, assessing risk, enforcing permissions, and producing an explicit decision:
+
+ALLOW · BLOCK · ESCALATE
+
+The goal is simple:
+
+Let agents act — but never let them act without runtime control.
+
+How It Works
+Aegisora is designed to sit directly between an AI agent and the systems it can reach.
+
+┌──────────────────────┐
+│       AI AGENT       │
+└──────────┬───────────┘
+           │
+           │  Tool / Action Request
+           ▼
+┌───────────────────────────────┐
+│           AEGISORA            │
+│        Runtime Security       │
+│                               │
+│  Identity · Permission        │
+│  Policy · Context · Risk      │
+└──────────────┬────────────────┘
+               │
+               ▼
+        ┌───────────────┐
+        │    DECISION   │
+        └───────┬───────┘
+                │
+        ┌───────┼────────┐
+        ▼       ▼        ▼
+      ALLOW   BLOCK   ESCALATE
+        │       │        │
+        └───────┼────────┘
+                ▼
+          EXECUTION
+                │
+                ▼
+        AUDIT / EVIDENCE
+For the visual architecture overview, see ARCHITECTURE.md.
+
+<p align="center"> <img src="assets/aegisora-runtime-architecture.png" alt="Aegisora runtime architecture" width="900" /> </p>
+
+Core Capabilities
+Runtime interception — evaluate agent actions before execution.
+
+Policy enforcement — apply explicit governance rules to agent behavior.
+
+Permission control — restrict what an agent can do and which execution surfaces it can reach.
+
+Risk assessment — evaluate actions in context before they are executed.
+
+Decision enforcement — return ALLOW, BLOCK, or ESCALATE.
+
+Zero-trust execution — treat every agent action as requiring an explicit runtime decision.
+
+Audit and evidence — record security decisions as auditable runtime evidence.
+
+Provider-aware governance — designed to operate across modern AI provider integrations.
+
+Runtime Security Model
+Aegisora treats an agent's ability to act as a controlled capability rather than an implicit privilege.
+
+Every request moves through a runtime decision path:
+
+Agent Action
+     │
+     ▼
+┌──────────────┐
+│ Interception │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│   Security   │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│    Policy    │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│ Risk Assess. │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│   Decision   │
+└──────┬───────┘
+       │
+   ┌───┼────────┐
+   ▼   ▼        ▼
+ ALLOW BLOCK  ESCALATE
+       │
+       ▼
+   Execution
+       │
+       ▼
+ Audit / Evidence
+This creates a clear enforcement boundary between the agent's reasoning and the external systems it can affect.
+
+Decision Model
+Aegisora uses three explicit runtime outcomes:
+
+Decision	Meaning
+ALLOW	The requested action satisfies the applicable security and governance requirements and may proceed.
+BLOCK	The requested action violates a security or governance requirement and must not execute.
+ESCALATE	The requested action requires additional review, control, or handling before execution.
+The important property is that the decision happens before the action is executed.
+
+Risk Classification
+Aegisora evaluates agent actions in context rather than treating every tool call as equivalent.
+
+The runtime can use factors such as:
+
+requested capability,
+
+selected tool or execution surface,
+
+applicable policy,
+
+permissions,
+
+contextual risk,
+
+and the consequences of allowing the action.
+
+The result feeds the runtime decision:
+
+LOW / ACCEPTABLE RISK
+        │
+        ▼
+      ALLOW
+
+HIGH / DISALLOWED RISK
+        │
+        ▼
+      BLOCK
+
+REQUIRES ADDITIONAL CONTROL
+        │
+        ▼
+    ESCALATE
+For the detailed implementation and security model, see SECURITY.md.
+
+Governance Policies
+Policies define what an agent is allowed to do at runtime.
+
+A policy can be used to express governance requirements around:
+
+permitted capabilities,
+
+restricted actions,
+
+execution boundaries,
+
+risk thresholds,
+
+and escalation conditions.
+
+The intent is to keep governance explicit, reviewable, and enforceable at runtime instead of relying only on prompts or application-level conventions.
+
+Audit & Evidence
+Runtime decisions should be observable and explainable.
+
+Aegisora records security decisions as audit/evidence data so teams can understand:
+
+WHO
+  ↓
+requested WHAT
+  ↓
+using WHICH capability
+  ↓
+under WHICH policy
+  ↓
+with WHICH risk assessment
+  ↓
+resulting in WHICH decision
+This provides a traceable security boundary for agent activity.
+
+Supported Providers
+Aegisora is designed to work with modern AI agent stacks and provider integrations.
+
+Current provider integrations include:
+
+OpenAI
+
+Anthropic
+
+Gemini
+
+The runtime model is intended to remain provider-agnostic: the security and governance decision should be enforced at the runtime boundary rather than being tied to a single model provider.
+
+Quick Start
+Clone the repository and install the dependencies:
+
 git clone https://github.com/aegisora-ai/aegisora.ai.git
 cd aegisora.ai
 pnpm install
+Start the development environment:
 
-git checkout -b feature/your-feature
+pnpm dev
+Then open the local development URL reported by Next.js.
 
-pnpm typecheck
-pnpm test
-pnpm build
-```
+For the live project, see the Live Demo.
 
-Then commit your changes and open a pull request.
+Project Structure
+At a high level, Aegisora is organized around a runtime enforcement path:
 
-### 💬 Join the Community
+Agent
+  │
+  ▼
+Runtime Gateway
+  │
+  ├── Security
+  │
+  ├── Policy
+  │
+  ├── Permission
+  │
+  ├── Risk Assessment
+  │
+  └── Decision
+        │
+        ├── ALLOW
+        ├── BLOCK
+        └── ESCALATE
+              │
+              ▼
+          Execution
+              │
+              ▼
+        Audit / Evidence
+See ARCHITECTURE.md for the detailed architecture.
 
-Have an idea, question or security finding?
+Examples
+Allow a permitted action
+Agent
+  │
+  └── Request tool execution
+            │
+            ▼
+        Aegisora
+            │
+            ├── policy: permitted
+            ├── permission: valid
+            └── risk: acceptable
+                    │
+                    ▼
+                  ALLOW
+                    │
+                    ▼
+                Execute
+Block a disallowed action
+Agent
+  │
+  └── Request tool execution
+            │
+            ▼
+        Aegisora
+            │
+            ├── policy: denied
+            └── risk: unacceptable
+                    │
+                    ▼
+                  BLOCK
+Escalate an ambiguous action
+Agent
+  │
+  └── Request tool execution
+            │
+            ▼
+        Aegisora
+            │
+            ├── policy: requires review
+            └── risk: unresolved
+                    │
+                    ▼
+                ESCALATE
+Security
+Security is a first-class part of the project.
 
-Join the [Discord community](https://discord.gg/8CM3PpQRT5).
+For the detailed security model, threat considerations, and security guidance, see SECURITY.md.
 
-You can also use:
+Please do not disclose security-sensitive information in public issues. For responsible disclosure, follow the project's security guidance.
 
-* [GitHub Issues](https://github.com/aegisora-ai/aegisora.ai/issues)
-* [GitHub Discussions](https://github.com/aegisora-ai/aegisora.ai/discussions)
-* [CONTRIBUTING.md](./CONTRIBUTING.md)
+Architecture
+The core architectural principle is:
 
-### 🔐 Security Contributions
+Agent → Runtime Gateway → Security → Policy → Decision → Execution
 
-Found a security issue?
+Aegisora is designed to enforce governance before an agent action crosses into the systems it can affect.
 
-Please follow the responsible disclosure process described in [`SECURITY.md`](./SECURITY.md).
+See ARCHITECTURE.md for the full architecture documentation.
 
-> **Aegisora gets better every time someone tests it, challenges it, documents it or contributes code.**
+Roadmap
+Aegisora is being developed as an open-source runtime security and governance layer for autonomous AI agents.
 
-### 🌍 Build With Us
+The project roadmap focuses on strengthening:
 
-Aegisora is not intended to be built by one person.
+runtime policy enforcement,
 
-We want developers to help shape:
+permission and capability controls,
 
-* Runtime policies
-* Detection rules
-* Agent integrations
-* Security benchmarks
-* Developer tooling
-* Documentation
-* The future architecture of open-source agent security
+contextual risk assessment,
 
----
+auditability and evidence,
+
+provider and tool integrations,
+
+and production-grade governance.
+
+See the repository's Issues and Releases for the current project status.
+
+Contributing
+Contributions are welcome.
+
+Before opening a pull request:
+
+Review the existing architecture and security model.
+
+Keep runtime enforcement behavior explicit and testable.
+
+Add or update tests for security-sensitive changes.
+
+Keep documentation aligned with the implementation.
+
+Explain the motivation and impact of non-trivial changes.
+
+For project discussion and community collaboration, join the Aegisora Discord.
+
+Community
+GitHub: https://github.com/aegisora-ai/aegisora.ai
+
+Live Demo: https://aegisora-ai.vercel.app
+
+Discord: https://discord.gg/8CM3PpQRT5
+
+Product Hunt: https://www.producthunt.com/posts/aegisora
+
+License
+Aegisora is released under the MIT License.
 
 <div align="center">
 
 <strong>Aegisora</strong>
 
-<br>
+<br />
 
-<em>The Zero-Trust Runtime Security & Governance Layer for Autonomous AI Agents</em>
+Zero-Trust Security for AI Agents.
 
-<br><br>
+<br /><br />
 
-<a href="https://github.com/aegisora-ai/aegisora.ai">GitHub</a>
-&nbsp;·&nbsp;
-<a href="https://aegisora-ai.vercel.app">Live Demo</a>
-&nbsp;·&nbsp;
-<a href="https://discord.gg/8CM3PpQRT5">Discord</a>
+<a href="https://github.com/aegisora-ai/aegisora.ai"> GitHub </a> · <a href="https://aegisora-ai.vercel.app"> Live Demo </a> · <a href="https://discord.gg/8CM3PpQRT5"> Discord </a>
 
 </div>
+
