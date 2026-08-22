@@ -1,8 +1,10 @@
 <div align="center">
   <table>
     <tr>
-      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="90" height="90"></td>
-      <td><h1>Aegisora</h1></td>
+      <!-- Marka İsmi (Büyük font ayarlı ve sol tarafta) -->
+      <td><h1 style="font-size: 3.5rem; margin: 0; padding-right: 15px;">Aegisora</h1></td>
+      <!-- Logo (Sağ tarafta) -->
+      <td><img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="100" height="100"></td>
     </tr>
   </table>
 
@@ -60,6 +62,7 @@
 
 > **Aegisora sits between your AI agent and the systems it can act on.**
 > Every tool call is evaluated at runtime before execution.
+
 ```text
                     AI AGENT
                        │
