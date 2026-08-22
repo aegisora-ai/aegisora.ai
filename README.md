@@ -797,6 +797,7 @@ See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the full workflow and coding stan
 This project is open-source under the [MIT License](./LICENSE).
 
 ---
+## 🤝 Contributing
 
 ### 🚀 Make Your First Contribution
 
