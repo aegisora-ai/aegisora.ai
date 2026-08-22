@@ -1,13 +1,18 @@
+# Aegisora
+
 <div align="center">
 
   <a href="https://github.com/aegisora-ai/aegisora.ai">
     <img src="assets/aegisora-logo.png" alt="Aegisora Logo" width="120" height="120">
   </a>
 
-  <h1>Aegisora</h1>
+  <p>
+    <strong>Open-source runtime security for AI agents.</strong>
+  </p>
 
   <p>
-    <strong>The Zero-Trust Runtime Security & Governance Layer for Autonomous AI Agents</strong>
+    Intercept every agent action before execution and decide:
+    <strong>ALLOW</strong>, <strong>BLOCK</strong>, or <strong>ESCALATE</strong>.
   </p>
 
   <p>
@@ -49,15 +54,56 @@
     </a>
   </p>
 
-  <!-- ALL-CONTRIBUTORS-BADGE:START -->
-  <p>
-    <a href="#-contributors">
-      <img src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square" alt="All Contributors">
-    </a>
-  </p>
-  <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 </div>
+
+> **Aegisora sits between your AI agent and the systems it can act on.**
+> Every tool call is evaluated at runtime before execution.
+
+```text
+                    AI AGENT
+                       │
+                       ▼
+              ┌─────────────────┐
+              │    AEGISORA     │
+              │ Runtime Control │
+              └────────┬────────┘
+                       │
+             ┌─────────┼─────────┐
+             ▼         ▼         ▼
+           ALLOW     BLOCK    ESCALATE
+                                  │
+                                  ▼
+                           Human Review
+```
+
+### Why Aegisora?
+
+AI agents can call tools, APIs, databases, and production systems autonomously.
+
+Aegisora adds a zero-trust enforcement layer between the agent and those systems:
+
+* **Allow** safe, policy-compliant actions instantly.
+* **Block** clear violations and known attack patterns.
+* **Escalate** ambiguous or high-risk actions to human review.
+* **Audit** every decision and its reasoning.
+
+**Open source. Inspectable. Extensible. Built for developers.**
+
+<p align="center">
+  <a href="https://aegisora-ai.vercel.app">
+    <strong>▶ Try the live demo</strong>
+  </a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/aegisora-ai/aegisora.ai">
+    <strong>★ Explore the source</strong>
+  </a>
+  &nbsp;·&nbsp;
+  <a href="https://discord.gg/8CM3PpQRT5">
+    <strong>Join the community</strong>
+  </a>
+</p>
+
+---
 
 ---
 
