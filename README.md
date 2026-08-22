@@ -379,19 +379,93 @@ Aegisora is designed around a simple principle:
 
 ---
 
-## 🧑‍⚖️ The Human Review Queue — Efficiency by Design
+## 🧑‍⚖️ Human Review Queue
 
-The question that matters most for adoption isn't "does Aegisora add a review step?" — it's **"does the total human effort go down compared to how this is handled today?"** Here's the structural comparison:
+Not every dangerous action should be automatically blocked.
 
-| | **Status quo (no governance layer / manual gatekeeping)** | **With Aegisora** |
-| --- | --- | --- |
-| **What gets reviewed** | Either nothing is reviewed (risk is simply accepted), or every sensitive action requires manual sign-off regardless of actual risk | Only requests the Policy & Risk Engine cannot confidently resolve |
-| **Context available to reviewer** | Raw request, reconstructed manually from logs or by asking the requester | Full reasoning trace: which signals fired, which policy came close to matching, prior similar decisions |
-| **Time to resolve a review** | Variable and often slow — requires the reviewer to reconstruct context first | Reduced, because context is pre-assembled by the engine |
-| **Review volume over time** | Flat or grows linearly with agent traffic | Designed to shrink as approved/rejected escalations are fed back into policy rules |
-| **Auditability** | Manual, often reconstructed after the fact for compliance | Automatic byproduct of every decision, Allow/Block/Escalate alike |
+Not every ambiguous action should be automatically allowed.
 
-The Human Review Queue is not a replacement for automation — it is the mechanism that lets automation expand safely. Every case a security team resolves and encodes back into policy is a case that no longer needs to reach a human next time it occurs.
+Aegisora introduces a third runtime outcome:
+
+> **ESCALATE**
+
+When the policy engine cannot confidently allow or block an action, Aegisora can pause the action and send it to a **Human Review Queue**.
+
+### How it works
+
+```text
+AI Agent
+   │
+   ▼
+Aegisora
+   │
+   ├── ✅ ALLOW ───────► Execute
+   │
+   ├── ⛔ BLOCK ───────► Reject
+   │
+   └── ⏸️ ESCALATE
+           │
+           ▼
+      Human Review
+           │
+      ┌────┴────┐
+      ▼         ▼
+   APPROVE     DENY
+      │         │
+      ▼         ▼
+   Execute     Reject
+```
+
+### Why escalation exists
+
+Consider an agent attempting to perform:
+
+```text id="74p4j6"
+transfer_funds(
+  destination = "new_bank_account",
+  amount = "$25,000"
+)
+```
+
+This might be legitimate.
+
+It might also be dangerous.
+
+A simple binary security layer has two choices:
+
+**Allow it** — and accept the risk.
+
+**Block it** — and potentially break a legitimate workflow.
+
+Aegisora can instead:
+
+**ESCALATE → Human Review → Approve or Deny**
+
+### Review context
+
+The reviewer should not have to reconstruct what happened from raw logs.
+
+Aegisora is designed to provide the context surrounding the decision, including:
+
+* Agent identity
+* Requested action
+* Target resource
+* Relevant policy rules
+* Risk signals
+* Previous session context
+* Reason for escalation
+* Audit history
+
+This makes human review a **decision point**, not a manual investigation.
+
+### The goal
+
+The Human Review Queue is not meant to replace automation.
+
+It exists to make **safe automation possible at higher levels of autonomy.**
+
+> **Automate the obvious. Block the dangerous. Escalate the ambiguous.**
+
 
 ---
 
