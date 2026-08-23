@@ -14,10 +14,9 @@
 *.ttf binary
 *.otf binary
 
-# Ignore frontend directories from language statistics
-frontend/** linguist-vendored
-app/** linguist-vendored
-src/** linguist-vendored
-*.ts linguist-vendored=true
-*.tsx linguist-vendored=true
-*.js linguist-vendored=true
+# --- THE NUCLEAR OPTION FOR LANGUAGE STATS ---
+# 1. Ignore ALL files in the repository for language statistics
+* linguist-detectable=false
+
+# 2. Explicitly ONLY allow Python files to be counted
+*.py linguist-detectable=true
