@@ -52,11 +52,11 @@
 
   <p>
     <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
-    &nbsp;┬À&nbsp;
+    &nbsp;·&nbsp;
     <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/ARCHITECTURE.md"><strong>Architecture</strong></a>
-    &nbsp;┬À&nbsp;
+    &nbsp;·&nbsp;
     <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/SECURITY.md"><strong>Security</strong></a>
-    &nbsp;┬À&nbsp;
+    &nbsp;·&nbsp;
     <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
   </p>
 
@@ -75,11 +75,11 @@ That makes runtime control a security boundary.
 
 Aegisora provides an open-source runtime layer for evaluating agent actions **before execution**, applying governance policies, assessing risk, enforcing permissions, and producing an explicit decision:
 
-**ALLOW ┬À BLOCK ┬À ESCALATE**
+**ALLOW · BLOCK · ESCALATE**
 
 The goal is simple:
 
-> **Let agents act ÔÇö but never let them act without runtime control.**
+> **Let agents act — but never let them act without runtime control.**
 
 ---
 
@@ -88,34 +88,34 @@ The goal is simple:
 Aegisora is designed to sit directly between an AI agent and the systems it can reach.
 
 ```text
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé       AI AGENT       Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-           Ôöé
-           Ôöé  Tool / Action Request
-           Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé           AEGISORA            Ôöé
-Ôöé        Runtime Security       Ôöé
-Ôöé                               Ôöé
-Ôöé  Identity ┬À Permission        Ôöé
-Ôöé  Policy ┬À Context ┬À Risk      Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-               Ôöé
-               Ôû╝
-        ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-        Ôöé    DECISION   Ôöé
-        ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-                Ôöé
-        ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-        Ôû╝       Ôû╝        Ôû╝
+┌──────────────────────┐
+│       AI AGENT       │
+└──────────┬───────────┘
+           │
+           │  Tool / Action Request
+           ▼
+┌───────────────────────────────┐
+│           AEGISORA            │
+│        Runtime Security       │
+│                               │
+│  Identity · Permission        │
+│  Policy · Context · Risk      │
+└──────────────┬────────────────┘
+               │
+               ▼
+        ┌───────────────┐
+        │    DECISION   │
+        └───────┬───────┘
+                │
+        ┌───────┼────────┐
+        ▼       ▼        ▼
       ALLOW   BLOCK   ESCALATE
-        Ôöé       Ôöé        Ôöé
-        ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-                Ôû╝
+        │       │        │
+        └───────┼────────┘
+                ▼
           EXECUTION
-                Ôöé
-                Ôû╝
+                │
+                ▼
         AUDIT / EVIDENCE
 ```
 
@@ -133,14 +133,14 @@ For the visual architecture overview, see [`ARCHITECTURE.md`](./ARCHITECTURE.md)
 
 ## Core Capabilities
 
-- **Runtime interception** ÔÇö evaluate agent actions before execution.
-- **Policy enforcement** ÔÇö apply explicit governance rules to agent behavior.
-- **Permission control** ÔÇö restrict what an agent can do and which execution surfaces it can reach.
-- **Risk assessment** ÔÇö evaluate actions in context before they are executed.
-- **Decision enforcement** ÔÇö return `ALLOW`, `BLOCK`, or `ESCALATE`.
-- **Zero-trust execution** ÔÇö treat every agent action as requiring an explicit runtime decision.
-- **Audit and evidence** ÔÇö record security decisions as auditable runtime evidence.
-- **Provider-aware governance** ÔÇö designed to operate across modern AI provider integrations.
+- **Runtime interception** — evaluate agent actions before execution.
+- **Policy enforcement** — apply explicit governance rules to agent behavior.
+- **Permission control** — restrict what an agent can do and which execution surfaces it can reach.
+- **Risk assessment** — evaluate actions in context before they are executed.
+- **Decision enforcement** — return `ALLOW`, `BLOCK`, or `ESCALATE`.
+- **Zero-trust execution** — treat every agent action as requiring an explicit runtime decision.
+- **Audit and evidence** — record security decisions as auditable runtime evidence.
+- **Provider-aware governance** — designed to operate across modern AI provider integrations.
 
 ---
 
@@ -152,36 +152,36 @@ Every request moves through a runtime decision path:
 
 ```text
 Agent Action
-     Ôöé
-     Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé Interception Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-       Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé   Security   Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-       Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé    Policy    Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-       Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé Risk Assess. Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-       Ôû╝
-ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-Ôöé   Decision   Ôöé
-ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöİ
-       Ôöé
-   ÔöîÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
-   Ôû╝   Ôû╝        Ôû╝
+     │
+     ▼
+┌──────────────┐
+│ Interception │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│   Security   │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│    Policy    │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│ Risk Assess. │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│   Decision   │
+└──────┬───────┘
+       │
+   ┌───┼────────┐
+   ▼   ▼        ▼
  ALLOW BLOCK  ESCALATE
-       Ôöé
-       Ôû╝
+       │
+       ▼
    Execution
-       Ôöé
-       Ôû╝
+       │
+       ▼
  Audit / Evidence
 ```
 
@@ -220,18 +220,18 @@ The result feeds the runtime decision:
 
 ```text
 LOW / ACCEPTABLE RISK
-        Ôöé
-        Ôû╝
+        │
+        ▼
       ALLOW
 
 HIGH / DISALLOWED RISK
-        Ôöé
-        Ôû╝
+        │
+        ▼
       BLOCK
 
 REQUIRES ADDITIONAL CONTROL
-        Ôöé
-        Ôû╝
+        │
+        ▼
     ESCALATE
 ```
 
@@ -263,15 +263,15 @@ Aegisora records security decisions as audit/evidence data so teams can understa
 
 ```text
 WHO
-  Ôåô
+  ↓
 requested WHAT
-  Ôåô
+  ↓
 using WHICH capability
-  Ôåô
+  ↓
 under WHICH policy
-  Ôåô
+  ↓
 with WHICH risk assessment
-  Ôåô
+  ↓
 resulting in WHICH decision
 ```
 
@@ -321,28 +321,28 @@ At a high level, Aegisora is organized around a runtime enforcement path:
 
 ```text
 Agent
-  Ôöé
-  Ôû╝
+  │
+  ▼
 Runtime Gateway
-  Ôöé
-  Ôö£ÔöÇÔöÇ Security
-  Ôöé
-  Ôö£ÔöÇÔöÇ Policy
-  Ôöé
-  Ôö£ÔöÇÔöÇ Permission
-  Ôöé
-  Ôö£ÔöÇÔöÇ Risk Assessment
-  Ôöé
-  ÔööÔöÇÔöÇ Decision
-        Ôöé
-        Ôö£ÔöÇÔöÇ ALLOW
-        Ôö£ÔöÇÔöÇ BLOCK
-        ÔööÔöÇÔöÇ ESCALATE
-              Ôöé
-              Ôû╝
+  │
+  ├── Security
+  │
+  ├── Policy
+  │
+  ├── Permission
+  │
+  ├── Risk Assessment
+  │
+  └── Decision
+        │
+        ├── ALLOW
+        ├── BLOCK
+        └── ESCALATE
+              │
+              ▼
           Execution
-              Ôöé
-              Ôû╝
+              │
+              ▼
         Audit / Evidence
 ```
 
@@ -356,20 +356,20 @@ See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the detailed architecture.
 
 ```text
 Agent
-  Ôöé
-  ÔööÔöÇÔöÇ Request tool execution
-            Ôöé
-            Ôû╝
+  │
+  └── Request tool execution
+            │
+            ▼
         Aegisora
-            Ôöé
-            Ôö£ÔöÇÔöÇ policy: permitted
-            Ôö£ÔöÇÔöÇ permission: valid
-            ÔööÔöÇÔöÇ risk: acceptable
-                    Ôöé
-                    Ôû╝
+            │
+            ├── policy: permitted
+            ├── permission: valid
+            └── risk: acceptable
+                    │
+                    ▼
                   ALLOW
-                    Ôöé
-                    Ôû╝
+                    │
+                    ▼
                 Execute
 ```
 
@@ -377,16 +377,16 @@ Agent
 
 ```text
 Agent
-  Ôöé
-  ÔööÔöÇÔöÇ Request tool execution
-            Ôöé
-            Ôû╝
+  │
+  └── Request tool execution
+            │
+            ▼
         Aegisora
-            Ôöé
-            Ôö£ÔöÇÔöÇ policy: denied
-            ÔööÔöÇÔöÇ risk: unacceptable
-                    Ôöé
-                    Ôû╝
+            │
+            ├── policy: denied
+            └── risk: unacceptable
+                    │
+                    ▼
                   BLOCK
 ```
 
@@ -394,16 +394,16 @@ Agent
 
 ```text
 Agent
-  Ôöé
-  ÔööÔöÇÔöÇ Request tool execution
-            Ôöé
-            Ôû╝
+  │
+  └── Request tool execution
+            │
+            ▼
         Aegisora
-            Ôöé
-            Ôö£ÔöÇÔöÇ policy: requires review
-            ÔööÔöÇÔöÇ risk: unresolved
-                    Ôöé
-                    Ôû╝
+            │
+            ├── policy: requires review
+            └── risk: unresolved
+                    │
+                    ▼
                 ESCALATE
 ```
 
@@ -423,7 +423,7 @@ Please do not disclose security-sensitive information in public issues. For resp
 
 The core architectural principle is:
 
-> **Agent ÔåÆ Runtime Gateway ÔåÆ Security ÔåÆ Policy ÔåÆ Decision ÔåÆ Execution**
+> **Agent → Runtime Gateway → Security → Policy → Decision → Execution**
 
 Aegisora is designed to enforce governance before an agent action crosses into the systems it can affect.
 
@@ -492,11 +492,11 @@ Aegisora is released under the [MIT License](./LICENSE).
   <a href="https://github.com/aegisora-ai/aegisora.ai">
     GitHub
   </a>
-  ┬À
+  ·
   <a href="https://aegisora-ai.vercel.app">
     Live Demo
   </a>
-  ┬À
+  ·
   <a href="https://discord.gg/8CM3PpQRT5">
     Discord
   </a>
