@@ -13,3 +13,10 @@
 *.woff2 binary
 *.ttf binary
 *.otf binary
+
+# Ignore frontend files from language statistics to highlight Python
+*.ts linguist-vendored
+*.tsx linguist-vendored
+*.js linguist-vendored
+*.jsx linguist-vendored
+*.css linguist-vendored
