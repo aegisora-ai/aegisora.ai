@@ -200,7 +200,7 @@ Roadmap items are not guarantees of future implementation or certification.
 
 Additional security and architecture information is available in:
 
-* [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+* [`Architecture documentation`](./docs/)
 * [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 * [`GOVERNANCE.md`](./GOVERNANCE.md)
 * [`ROADMAP.md`](./ROADMAP.md)

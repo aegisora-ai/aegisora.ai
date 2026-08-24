@@ -170,4 +170,4 @@ Before a release, maintainers may reorganize these entries into the appropriate 
 * [Releases](https://github.com/aegisora-ai/aegisora.ai/releases)
 * [Issues](https://github.com/aegisora-ai/aegisora.ai/issues)
 * [Contributing](./CONTRIBUTING.md)
-* [Security](./SECURITY.md)
+* [Security](./docs/security/validation.md)

@@ -15,13 +15,13 @@ Our goal is to make contribution accessible without compromising security, relia
 Please read these documents before making a contribution:
 
 * [`README.md`](./README.md)
-* [`ARCHITECTURE.md`](./ARCHITECTURE.md)
-* [`SECURITY.md`](./SECURITY.md)
+* [`Architecture documentation`](./docs/)
+* [`Security Policy`](./docs/security/validation.md)
 * [`GOVERNANCE.md`](./GOVERNANCE.md)
 * [`ROADMAP.md`](./ROADMAP.md)
 * [`LICENSE`](./LICENSE)
 
-For security vulnerabilities, **do not open a public issue**. Follow the process in [`SECURITY.md`](./SECURITY.md).
+For security vulnerabilities, **do not open a public issue**. Follow the process in [`Security Policy`](./docs/security/validation.md).
 
 ---
 
@@ -411,7 +411,7 @@ Examples include:
 
 Do **not** publicly disclose exploitable vulnerabilities through GitHub issues or pull requests.
 
-Follow [`SECURITY.md`](./SECURITY.md) for vulnerability reporting.
+Follow [`Security Policy`](./docs/security/validation.md) for vulnerability reporting.
 
 Security-sensitive changes may receive additional review before merging.
 

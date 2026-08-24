@@ -52,11 +52,11 @@
 
   <p>
     <a href="https://aegisora-ai.vercel.app"><strong>Live Demo</strong></a>
-    &nbsp;Â·&nbsp;
-    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/ARCHITECTURE.md"><strong>Architecture</strong></a>
-    &nbsp;Â·&nbsp;
-    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/SECURITY.md"><strong>Security</strong></a>
-    &nbsp;Â·&nbsp;
+    &nbsp;·&nbsp;
+    <a href="https://github.com/aegisora-ai/aegisora.ai/tree/main/docs"><strong>Architecture</strong></a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/aegisora-ai/aegisora.ai/blob/main/docs/security/validation.md"><strong>Security</strong></a>
+    &nbsp;·&nbsp;
     <a href="https://discord.gg/8CM3PpQRT5"><strong>Discord</strong></a>
   </p>
 
@@ -75,11 +75,11 @@ That makes runtime control a security boundary.
 
 Aegisora provides an open-source runtime layer for evaluating agent actions **before execution**, applying governance policies, assessing risk, enforcing permissions, and producing an explicit decision:
 
-**ALLOW Â· BLOCK Â· ESCALATE**
+**ALLOW · BLOCK · ESCALATE**
 
 The goal is simple:
 
-> **Let agents act â€” but never let them act without runtime control.**
+> **Let agents act — but never let them act without runtime control.**
 
 ---
 
@@ -88,42 +88,42 @@ The goal is simple:
 Aegisora is designed to sit directly between an AI agent and the systems it can reach.
 
 ```text
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚       AI AGENT       â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-           â”‚
-           â”‚  Tool / Action Request
-           â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚           AEGISORA            â”‚
-â”‚        Runtime Security       â”‚
-â”‚                               â”‚
-â”‚  Identity Â· Permission        â”‚
-â”‚  Policy Â· Context Â· Risk      â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-               â”‚
-               â–¼
-        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-        â”‚    DECISION   â”‚
-        â””â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-                â”‚
-        â”Œâ”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”
-        â–¼       â–¼        â–¼
+┌──────────────────────┐
+│       AI AGENT       │
+└──────────┬───────────┘
+           │
+           │  Tool / Action Request
+           ▼
+┌───────────────────────────────┐
+│           AEGISORA            │
+│        Runtime Security       │
+│                               │
+│  Identity · Permission        │
+│  Policy · Context · Risk      │
+└──────────────┬────────────────┘
+               │
+               ▼
+        ┌───────────────┐
+        │    DECISION   │
+        └───────┬───────┘
+                │
+        ┌───────┼────────┐
+        ▼       ▼        ▼
       ALLOW   BLOCK   ESCALATE
-        â”‚       â”‚        â”‚
-        â””â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                â–¼
+        │       │        │
+        └───────┼────────┘
+                ▼
           EXECUTION
-                â”‚
-                â–¼
+                │
+                ▼
         AUDIT / EVIDENCE
 ```
 
-For the visual architecture overview, see [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+For the visual architecture overview, see [`Architecture documentation`](./docs/).
 
 <p align="center">
   <img
-    src="assets/architecture.png"
+    src="docs/assets/aegisora-architecture.png"
     alt="Aegisora runtime architecture"
     width="900"
   />
@@ -133,14 +133,14 @@ For the visual architecture overview, see [`ARCHITECTURE.md`](./ARCHITECTURE.md)
 
 ## Core Capabilities
 
-- **Runtime interception** â€” evaluate agent actions before execution.
-- **Policy enforcement** â€” apply explicit governance rules to agent behavior.
-- **Permission control** â€” restrict what an agent can do and which execution surfaces it can reach.
-- **Risk assessment** â€” evaluate actions in context before they are executed.
-- **Decision enforcement** â€” return `ALLOW`, `BLOCK`, or `ESCALATE`.
-- **Zero-trust execution** â€” treat every agent action as requiring an explicit runtime decision.
-- **Audit and evidence** â€” record security decisions as auditable runtime evidence.
-- **Provider-aware governance** â€” designed to operate across modern AI provider integrations.
+- **Runtime interception** — evaluate agent actions before execution.
+- **Policy enforcement** — apply explicit governance rules to agent behavior.
+- **Permission control** — restrict what an agent can do and which execution surfaces it can reach.
+- **Risk assessment** — evaluate actions in context before they are executed.
+- **Decision enforcement** — return `ALLOW`, `BLOCK`, or `ESCALATE`.
+- **Zero-trust execution** — treat every agent action as requiring an explicit runtime decision.
+- **Audit and evidence** — record security decisions as auditable runtime evidence.
+- **Provider-aware governance** — designed to operate across modern AI provider integrations.
 
 ---
 
@@ -152,36 +152,36 @@ Every request moves through a runtime decision path:
 
 ```text
 Agent Action
-     â”‚
-     â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ Interception â”‚
-â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-       â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚   Security   â”‚
-â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-       â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚    Policy    â”‚
-â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-       â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ Risk Assess. â”‚
-â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-       â–¼
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚   Decision   â”‚
-â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
-       â”‚
-   â”Œâ”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”
-   â–¼   â–¼        â–¼
+     │
+     ▼
+┌──────────────┐
+│ Interception │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│   Security   │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│    Policy    │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│ Risk Assess. │
+└──────┬───────┘
+       ▼
+┌──────────────┐
+│   Decision   │
+└──────┬───────┘
+       │
+   ┌───┼────────┐
+   ▼   ▼        ▼
  ALLOW BLOCK  ESCALATE
-       â”‚
-       â–¼
+       │
+       ▼
    Execution
-       â”‚
-       â–¼
+       │
+       ▼
  Audit / Evidence
 ```
 
@@ -220,22 +220,22 @@ The result feeds the runtime decision:
 
 ```text
 LOW / ACCEPTABLE RISK
-        â”‚
-        â–¼
+        │
+        ▼
       ALLOW
 
 HIGH / DISALLOWED RISK
-        â”‚
-        â–¼
+        │
+        ▼
       BLOCK
 
 REQUIRES ADDITIONAL CONTROL
-        â”‚
-        â–¼
+        │
+        ▼
     ESCALATE
 ```
 
-For the detailed implementation and security model, see [`SECURITY.md`](./SECURITY.md).
+For the detailed implementation and security model, see [`Security documentation`](./docs/security/validation.md).
 
 ---
 
@@ -263,15 +263,15 @@ Aegisora records security decisions as audit/evidence data so teams can understa
 
 ```text
 WHO
-  â†“
+  ↓
 requested WHAT
-  â†“
+  ↓
 using WHICH capability
-  â†“
+  ↓
 under WHICH policy
-  â†“
+  ↓
 with WHICH risk assessment
-  â†“
+  ↓
 resulting in WHICH decision
 ```
 
@@ -321,32 +321,32 @@ At a high level, Aegisora is organized around a runtime enforcement path:
 
 ```text
 Agent
-  â”‚
-  â–¼
+  │
+  ▼
 Runtime Gateway
-  â”‚
-  â”œâ”€â”€ Security
-  â”‚
-  â”œâ”€â”€ Policy
-  â”‚
-  â”œâ”€â”€ Permission
-  â”‚
-  â”œâ”€â”€ Risk Assessment
-  â”‚
-  â””â”€â”€ Decision
-        â”‚
-        â”œâ”€â”€ ALLOW
-        â”œâ”€â”€ BLOCK
-        â””â”€â”€ ESCALATE
-              â”‚
-              â–¼
+  │
+  ├── Security
+  │
+  ├── Policy
+  │
+  ├── Permission
+  │
+  ├── Risk Assessment
+  │
+  └── Decision
+        │
+        ├── ALLOW
+        ├── BLOCK
+        └── ESCALATE
+              │
+              ▼
           Execution
-              â”‚
-              â–¼
+              │
+              ▼
         Audit / Evidence
 ```
 
-See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the detailed architecture.
+See [`Architecture documentation`](./docs/) for the detailed architecture.
 
 ---
 
@@ -356,20 +356,20 @@ See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the detailed architecture.
 
 ```text
 Agent
-  â”‚
-  â””â”€â”€ Request tool execution
-            â”‚
-            â–¼
+  │
+  └── Request tool execution
+            │
+            ▼
         Aegisora
-            â”‚
-            â”œâ”€â”€ policy: permitted
-            â”œâ”€â”€ permission: valid
-            â””â”€â”€ risk: acceptable
-                    â”‚
-                    â–¼
+            │
+            ├── policy: permitted
+            ├── permission: valid
+            └── risk: acceptable
+                    │
+                    ▼
                   ALLOW
-                    â”‚
-                    â–¼
+                    │
+                    ▼
                 Execute
 ```
 
@@ -377,16 +377,16 @@ Agent
 
 ```text
 Agent
-  â”‚
-  â””â”€â”€ Request tool execution
-            â”‚
-            â–¼
+  │
+  └── Request tool execution
+            │
+            ▼
         Aegisora
-            â”‚
-            â”œâ”€â”€ policy: denied
-            â””â”€â”€ risk: unacceptable
-                    â”‚
-                    â–¼
+            │
+            ├── policy: denied
+            └── risk: unacceptable
+                    │
+                    ▼
                   BLOCK
 ```
 
@@ -394,16 +394,16 @@ Agent
 
 ```text
 Agent
-  â”‚
-  â””â”€â”€ Request tool execution
-            â”‚
-            â–¼
+  │
+  └── Request tool execution
+            │
+            ▼
         Aegisora
-            â”‚
-            â”œâ”€â”€ policy: requires review
-            â””â”€â”€ risk: unresolved
-                    â”‚
-                    â–¼
+            │
+            ├── policy: requires review
+            └── risk: unresolved
+                    │
+                    ▼
                 ESCALATE
 ```
 
@@ -413,7 +413,7 @@ Agent
 
 Security is a first-class part of the project.
 
-For the detailed security model, threat considerations, and security guidance, see [`SECURITY.md`](./SECURITY.md).
+For the detailed security model, threat considerations, and security guidance, see [`Security documentation`](./docs/security/validation.md).
 
 Please do not disclose security-sensitive information in public issues. For responsible disclosure, follow the project's security guidance.
 
@@ -423,11 +423,11 @@ Please do not disclose security-sensitive information in public issues. For resp
 
 The core architectural principle is:
 
-> **Agent â†’ Runtime Gateway â†’ Security â†’ Policy â†’ Decision â†’ Execution**
+> **Agent → Runtime Gateway → Security → Policy → Decision → Execution**
 
 Aegisora is designed to enforce governance before an agent action crosses into the systems it can affect.
 
-See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the full architecture documentation.
+See [`Architecture documentation`](./docs/) for the full architecture documentation.
 
 ---
 
@@ -492,11 +492,11 @@ Aegisora is released under the [MIT License](./LICENSE).
   <a href="https://github.com/aegisora-ai/aegisora.ai">
     GitHub
   </a>
-  Â·
+  ·
   <a href="https://aegisora-ai.vercel.app">
     Live Demo
   </a>
-  Â·
+  ·
   <a href="https://discord.gg/8CM3PpQRT5">
     Discord
   </a>

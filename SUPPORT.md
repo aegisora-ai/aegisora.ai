@@ -13,9 +13,9 @@ Aegisora is an open-source project, and good support starts with providing enoug
 Before opening a support request:
 
 1. Read the [`README.md`](./README.md).
-2. Check [`ARCHITECTURE.md`](./ARCHITECTURE.md) for system design questions.
+2. Check [`Architecture`](./docs/) for system design questions.
 3. Check [`CONTRIBUTING.md`](./CONTRIBUTING.md) for development and contribution questions.
-4. Check [`SECURITY.md`](./SECURITY.md) for security-related issues.
+4. Check [`Security Policy`](./docs/security/validation.md) for security-related issues.
 5. Search existing GitHub Issues and Discussions.
 
 You may find that your question has already been answered.
@@ -34,7 +34,7 @@ Use the following channels for the appropriate type of request.
 | Feature request          | GitHub Discussions or GitHub Issues    |
 | Documentation problem    | GitHub Issues                          |
 | Development question     | GitHub Discussions                     |
-| Security vulnerability   | [`SECURITY.md`](./SECURITY.md)         |
+| Security vulnerability   | [`Security Policy`](./docs/security/validation.md)         |
 | Contribution question    | [`CONTRIBUTING.md`](./CONTRIBUTING.md) |
 | Governance question      | [`GOVERNANCE.md`](./GOVERNANCE.md)     |
 
@@ -61,7 +61,7 @@ Before creating an issue:
 
 Do not use public Issues to report security vulnerabilities.
 
-See [`SECURITY.md`](./SECURITY.md) for the security disclosure process.
+See [`Security Policy`](./docs/security/validation.md) for the security disclosure process.
 
 ---
 
@@ -156,7 +156,7 @@ Do **not** report security vulnerabilities through:
 * Pull Requests
 * Public chat messages
 
-Use the private reporting process described in [`SECURITY.md`](./SECURITY.md).
+Use the private reporting process described in [`Security Policy`](./docs/security/validation.md).
 
 Examples of security-sensitive reports include:
 
@@ -236,9 +236,9 @@ pnpm build
 Review:
 
 * [`README.md`](./README.md)
-* [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+* [`Architecture`](./docs/)
 * [`CONTRIBUTING.md`](./CONTRIBUTING.md)
-* [`SECURITY.md`](./SECURITY.md)
+* [`Security Policy`](./docs/security/validation.md)
 
 If the issue persists, open a GitHub Issue with the relevant diagnostic information.
 
@@ -309,7 +309,7 @@ Response times may vary depending on:
 
 A lack of immediate response does not mean that a report has been ignored.
 
-For critical security issues, follow [`SECURITY.md`](./SECURITY.md) rather than relying on public support channels.
+For critical security issues, follow [`Security Policy`](./docs/security/validation.md) rather than relying on public support channels.
 
 ---
 
@@ -319,8 +319,8 @@ For critical security issues, follow [`SECURITY.md`](./SECURITY.md) rather than 
 * [GitHub Issues](https://github.com/aegisora-ai/aegisora.ai/issues)
 * [GitHub Discussions](https://github.com/aegisora-ai/aegisora.ai/discussions)
 * [Contributing Guide](./CONTRIBUTING.md)
-* [Security Policy](./SECURITY.md)
-* [Architecture](./ARCHITECTURE.md)
+* [Security Policy](./docs/security/validation.md)
+* [Architecture](./docs/)
 * [Governance](./GOVERNANCE.md)
 * [Roadmap](./ROADMAP.md)
 * [Code of Conduct](./CODE_OF_CONDUCT.md)

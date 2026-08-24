@@ -222,7 +222,7 @@ Examples include:
 
 Security vulnerabilities should **not** be disclosed through public governance discussions.
 
-Follow [`SECURITY.md`](./SECURITY.md) for vulnerability reporting.
+Follow [`Security Policy`](./docs/security/validation.md) for vulnerability reporting.
 
 Security considerations may justify confidential review when public discussion would increase exploitation risk.
 
@@ -420,9 +420,9 @@ The governance model exists to protect a few simple principles:
 ## Related Documentation
 
 * [`README.md`](./README.md)
-* [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+* [`Architecture documentation`](./docs/)
 * [`CONTRIBUTING.md`](./CONTRIBUTING.md)
-* [`SECURITY.md`](./SECURITY.md)
+* [`Security Policy`](./docs/security/validation.md)
 * [`ROADMAP.md`](./ROADMAP.md)
 * [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
 

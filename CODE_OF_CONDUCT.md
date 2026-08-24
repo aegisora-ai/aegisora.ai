@@ -60,7 +60,7 @@ The following behavior is not acceptable:
 * Retaliation against someone who makes a good-faith report
 * Deliberate attempts to bypass community or security procedures
 
-Security research and vulnerability disclosure must also follow [`SECURITY.md`](./SECURITY.md).
+Security research and vulnerability disclosure must also follow [`Security Policy`](./docs/security/validation.md).
 
 ---
 
@@ -85,7 +85,7 @@ Community members may also be held accountable for behavior outside official pro
 
 Security vulnerabilities must not be used as a reason to publicly shame or target contributors.
 
-Potential vulnerabilities should be reported privately according to [`SECURITY.md`](./SECURITY.md).
+Potential vulnerabilities should be reported privately according to [`Security Policy`](./docs/security/validation.md).
 
 Good-faith security research, including responsible testing, is welcomed.
 
@@ -97,7 +97,7 @@ Do not publicly disclose exploitable vulnerability details before coordinated di
 
 If you experience or witness behavior that violates this Code of Conduct, report it privately to the Aegisora project maintainers.
 
-For security vulnerabilities, use the dedicated reporting process in [`SECURITY.md`](./SECURITY.md).
+For security vulnerabilities, use the dedicated reporting process in [`Security Policy`](./docs/security/validation.md).
 
 For community and conduct concerns, use the project's designated maintainer communication channel.
 
@@ -205,7 +205,7 @@ This Code of Conduct works together with the project's other governance document
 
 * [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 * [`GOVERNANCE.md`](./GOVERNANCE.md)
-* [`SECURITY.md`](./SECURITY.md)
+* [`Security Policy`](./docs/security/validation.md)
 * [`README.md`](./README.md)
 
 Security procedures take precedence over public discussion when disclosure could create risk.
