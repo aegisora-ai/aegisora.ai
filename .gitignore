@@ -1,4 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+﻿# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 node_modules/
@@ -60,3 +60,21 @@ __pycache__/
 # Local generated
 tsconfig.resolved.json
 
+
+# Local environment
+.env.local
+# Generated TypeScript build state
+tsconfig.tsbuildinfo
+# Local debug / recovery artifacts
+_policy_resolution.txt
+_json_check.cjs
+_recover_typecheck.cjs
+_repair_json_bom.cjs
+_validate_json.cjs
+# Backup files
+*.bak
+
+website/.next
+
+# Local website workspace (not part of OSS runtime repository)
+/website/

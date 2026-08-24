@@ -1,0 +1,14 @@
+﻿{
+  "name": "aegisora",
+  "version": "0.1.2",
+  "private": true,
+  "description": "Zero-trust runtime security and governance for AI agents.",
+  "license": "MIT",
+  "packageManager": "pnpm@11.20.0",
+  "scripts": {
+    "build": "pnpm --filter \"@aegisora/*\" build",
+    "typecheck": "pnpm --filter \"@aegisora/*\" typecheck",
+    "test": "pnpm --filter \"@aegisora/*\" test",
+    "verify": "pnpm build && pnpm typecheck && pnpm test"
+  }
+}

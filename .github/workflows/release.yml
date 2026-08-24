@@ -13,9 +13,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  validate:
-    name: Validate Release
+  core:
+    name: Validate Core Release
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,19 +31,79 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          cache-dependency-path: core/pnpm-lock.yaml
 
-      - name: Install dependencies
+      - name: Install core dependencies
+        working-directory: core
         run: pnpm install --frozen-lockfile
 
-      - name: Validate project
-        run: pnpm verify
+      - name: Build core
+        working-directory: core
+        run: pnpm build
 
-      - name: Verify release tag
+      - name: Typecheck core
+        working-directory: core
+        run: pnpm typecheck
+
+      - name: Runtime regression tests
+        working-directory: core
+        run: pnpm --filter @aegisora/runtime test
+
+  website:
+    name: Validate Website Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.20.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: website/pnpm-lock.yaml
+
+      - name: Install website dependencies
+        working-directory: website
+        run: pnpm install --frozen-lockfile
+
+      - name: Create CI environment
+        working-directory: website
+        shell: bash
+        run: |
+          cat > .env.local <<'EOF'
+          NEXT_PUBLIC_BASE_URL=http://localhost:3000
+          NEXT_PUBLIC_SUPABASE_URL=https://ci-placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY=ci-placeholder-anon-key
+          EOF
+
+      - name: Typecheck website
+        working-directory: website
+        run: pnpm typecheck
+
+      - name: Build website
+        working-directory: website
+        run: pnpm build
+
+  tag:
+    name: Validate Release Tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate semantic version tag
         shell: bash
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
+
           if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Invalid release tag: $GITHUB_REF_NAME"
             exit 1
           fi
+
           echo "Validated release tag: $VERSION"

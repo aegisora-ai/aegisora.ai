@@ -1,7 +1,0 @@
-packages:
-  - "packages/*"
-allowBuilds:
-  core-js: true
-  esbuild: false
-  sharp: true
-  unrs-resolver: true

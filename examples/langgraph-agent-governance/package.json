@@ -1,0 +1,22 @@
+{
+  "name": "@aegisora/example-langgraph-agent-governance",
+  "version": "0.1.2",
+  "private": true,
+  "description": "Runnable LangGraph integration example for Aegisora SDK.",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "start": "tsx index.ts",
+    "test": "tsx index.ts"
+  },
+  "dependencies": {
+    "@aegisora/sdk": "workspace:*",
+    "@langchain/langgraph": "^1.4.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}

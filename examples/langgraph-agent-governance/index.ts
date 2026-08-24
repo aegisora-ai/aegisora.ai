@@ -1,45 +1,64 @@
-import { StateGraph, END } from "@langchain/langgraph";
-import { Aegisora } from "@aegisora/core";
+﻿import { Annotation, END, START, StateGraph } from "@langchain/langgraph";
+import { Aegisora } from "@aegisora/sdk";
 
-// 1. Initialize Aegisora Zero-Trust Proxy
-const aegisora = new Aegisora({
-    apiKey: process.env.AEGISORA_API_KEY
+const State = Annotation.Root({
+  goal: Annotation<string>(),
+  status: Annotation<string>(),
+  output: Annotation<string>(),
 });
 
-// 2. Define the Tool Execution Node in LangGraph
-async function executeToolNode(state: any) {
-    const toolCall = state.currentToolCall;
-    console.log(`[LangGraph] Intercepting tool call: ${toolCall.name}...`);
-
-    // 🛡️ Aegisora Enforcement Layer
-    const governance = await aegisora.enforce({
-        agentId: "finance-agent-prod",
-        action: toolCall.name,
-        payload: toolCall.arguments,
-    });
-
-    // Handle the 3-State Governance Decision
-    switch (governance.state) {
-        case "BLOCK":
-            console.error(`[Aegisora] 🛑 Blocked: ${governance.reason}`);
-            return { status: "FAILED", result: "Action blocked by security policy." };
-
-        case "ESCALATE":
-            console.warn(`[Aegisora] ⏳ Escalated: Routing to Human Review (Ticket: ${governance.ticketId})`);
-            return { status: "PAUSED_FOR_HUMAN_REVIEW", ticketId: governance.ticketId };
-
-        case "ALLOW":
-            console.log(`[Aegisora] ✅ Allowed. Executing tool...`);
-            return { status: "SUCCESS", result: "Mock execution successful" };
-
-        default:
-            throw new Error("Unknown governance state");
+const protectedAgent = Aegisora.protect({
+  async run(input: string) {
+    if (!input.trim()) {
+      throw new Error("Goal is required.");
     }
+
+    return {
+      message: `Aegisora protected execution completed for: ${input}`,
+    };
+  },
+});
+
+async function executeAgentNode(state: typeof State.State) {
+  const result = await protectedAgent.run({ input: state.goal });
+
+  return {
+    status: "SUCCESS",
+    output: result.output,
+  };
 }
 
-// 3. Build the standard LangGraph Workflow
-const workflow = new StateGraph({ channels: {} })
-    .addNode("tools", executeToolNode)
-    .addEdge("tools", END);
+const workflow = new StateGraph(State)
+  .addNode("execute", executeAgentNode)
+  .addEdge(START, "execute")
+  .addEdge("execute", END);
 
 export const app = workflow.compile();
+
+async function main() {
+  const goal = process.env.AEGISORA_EXAMPLE_GOAL ??
+    "Run a protected LangGraph agent action.";
+
+  const result = await app.invoke({
+    goal,
+    status: "",
+    output: "",
+  });
+
+  if (result.status !== "SUCCESS") {
+    throw new Error(`Example failed with status: ${result.status}`);
+  }
+
+  console.log("============================================================");
+  console.log("AEGISORA LANGGRAPH EXAMPLE");
+  console.log("============================================================");
+  console.log(`STATUS=${result.status}`);
+  console.log(`OUTPUT=${result.output}`);
+  console.log("EXAMPLE_RESULT=PASS");
+}
+
+main().catch((error) => {
+  console.error("EXAMPLE_RESULT=FAIL");
+  console.error(error instanceof Error ? error.stack : String(error));
+  process.exitCode = 1;
+});
