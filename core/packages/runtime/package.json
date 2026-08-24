@@ -1,36 +1,37 @@
 {
-    "name": "@aegisora/runtime",
-    "version": "0.1.2",
-    "description": "Aegisora runtime governance engine for autonomous AI agents.",
-    "license": "MIT",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "require": "./dist/index.js",
-            "default": "./dist/index.js"
-        }
-    },
-    "scripts": {
-        "build": "tsc",
-        "test": "tsx test/run-all.ts"
-    },
-    "dependencies": {
-        "@aegisora/core": "workspace:*",
-        "@aegisora/observability": "workspace:*",
-        "@aegisora/plugins": "workspace:*",
-        "@aegisora/policy-engine": "workspace:*",
-        "@aegisora/security-engine": "workspace:*"
-    },
-    "devDependencies": {
-        "@types/node": "^20.19.43",
-        "tsx": "^4",
-        "typescript": "^5"
-    },
-    "files": [
-        "dist",
-        "README.md",
-        "LICENSE"
-    ]
+    "name":  "@aegisora/runtime",
+    "version":  "0.1.2",
+    "description":  "Aegisora runtime governance engine for autonomous AI agents.",
+    "license":  "MIT",
+    "main":  "./dist/index.js",
+    "types":  "./dist/index.d.ts",
+    "exports":  {
+                    ".":  {
+                              "types":  "./dist/index.d.ts",
+                              "require":  "./dist/index.js",
+                              "default":  "./dist/index.js"
+                          }
+                },
+    "scripts":  {
+                    "build":  "tsc",
+                    "test":  "tsx test/run-all.ts",
+                    "test:live":  "tsx test/trace-94-live-groq-governance.ts"
+                },
+    "dependencies":  {
+                         "@aegisora/core":  "workspace:*",
+                         "@aegisora/observability":  "workspace:*",
+                         "@aegisora/plugins":  "workspace:*",
+                         "@aegisora/policy-engine":  "workspace:*",
+                         "@aegisora/security-engine":  "workspace:*"
+                     },
+    "devDependencies":  {
+                            "@types/node":  "^20.19.43",
+                            "tsx":  "^4",
+                            "typescript":  "^5"
+                        },
+    "files":  [
+                  "dist",
+                  "README.md",
+                  "LICENSE"
+              ]
 }

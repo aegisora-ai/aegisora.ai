@@ -1,23 +1,14 @@
-name: CI
+name: Live Provider Validation
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  oss:
-    name: OSS Build + Typecheck + Test + Example
+  groq:
+    name: Live Groq Governance
     runs-on: ubuntu-latest
 
     steps:
@@ -39,14 +30,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test
-
-      - name: Example smoke test
-        run: pnpm --filter "@aegisora/example-langgraph-agent-governance" start
+      - name: Run live provider governance test
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: pnpm test:live

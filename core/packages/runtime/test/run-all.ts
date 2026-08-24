@@ -11,7 +11,8 @@ const tests = readdirSync(testDir)
     .filter(
         (file) =>
             file.endsWith(".ts") &&
-            file !== "run-all.ts"
+            file !== "run-all.ts" &&
+            file !== "trace-94-live-groq-governance.ts"
     )
     .sort();
 
