@@ -1,4 +1,4 @@
-name: Release Validation
+name: Release Validation and Publish
 
 on:
   push:
@@ -7,19 +7,24 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  oss:
+
+  validate:
     name: Validate OSS Release
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -29,9 +34,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
+
+      - name: Verify Node and npm
+        shell: bash
+        run: |
+          node --version
+          npm --version
+
+          node -e "
+            const major = Number(process.versions.node.split('.')[0]);
+            if (major < 24) process.exit(1);
+          "
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -46,7 +62,7 @@ jobs:
         run: pnpm test
 
       - name: Example smoke test
-        run: pnpm --filter "@aegisora/example-langgraph-agent-governance" start
+        run: pnpm --filter "@aegisora/example-langgraph-agent-governance" test
 
       - name: Validate release tag
         shell: bash
@@ -59,3 +75,165 @@ jobs:
           fi
 
           echo "Validated release tag: $VERSION"
+
+      - name: Validate package versions
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+
+          packages=(
+            "core/packages/audit/package.json"
+            "core/packages/core/package.json"
+            "core/packages/observability/package.json"
+            "core/packages/plugins/package.json"
+            "core/packages/policy-engine/package.json"
+            "core/packages/runtime/package.json"
+            "core/packages/sdk/package.json"
+            "core/packages/security-engine/package.json"
+            "core/packages/storage/package.json"
+          )
+
+          for file in "${packages[@]}"; do
+            PACKAGE_VERSION=$(node -p "require('./$file').version")
+
+            if [[ "$PACKAGE_VERSION" != "$VERSION" ]]; then
+              echo "Version mismatch:"
+              echo "  file: $file"
+              echo "  expected: $VERSION"
+              echo "  actual: $PACKAGE_VERSION"
+              exit 1
+            fi
+
+            echo "PASS $file -> $PACKAGE_VERSION"
+          done
+
+      - name: Validate package metadata
+        shell: bash
+        run: |
+          packages=(
+            "core/packages/audit/package.json"
+            "core/packages/core/package.json"
+            "core/packages/observability/package.json"
+            "core/packages/plugins/package.json"
+            "core/packages/policy-engine/package.json"
+            "core/packages/runtime/package.json"
+            "core/packages/sdk/package.json"
+            "core/packages/security-engine/package.json"
+            "core/packages/storage/package.json"
+          )
+
+          for file in "${packages[@]}"; do
+            node - <<NODE
+            const fs = require("fs");
+
+            const file = "$file";
+            const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+
+            if (!pkg.name) throw new Error(file + ": missing name");
+            if (!pkg.version) throw new Error(file + ": missing version");
+            if (!pkg.license) throw new Error(file + ": missing license");
+            if (!pkg.repository) throw new Error(file + ": missing repository");
+            if (!pkg.bugs) throw new Error(file + ": missing bugs");
+            if (!pkg.homepage) throw new Error(file + ": missing homepage");
+            if (!pkg.exports) throw new Error(file + ": missing exports");
+            if (!pkg.types) throw new Error(file + ": missing types");
+            if (!Array.isArray(pkg.files) || pkg.files.length === 0) {
+              throw new Error(file + ": missing files whitelist");
+            }
+
+            console.log("PASS " + file);
+NODE
+          done
+
+      - name: Pack packages
+        shell: bash
+        run: |
+          packages=(
+            "core/packages/audit"
+            "core/packages/core"
+            "core/packages/observability"
+            "core/packages/plugins"
+            "core/packages/policy-engine"
+            "core/packages/runtime"
+            "core/packages/sdk"
+            "core/packages/security-engine"
+            "core/packages/storage"
+          )
+
+          for dir in "${packages[@]}"; do
+            echo "Packing $dir"
+            (
+              cd "$dir"
+              npm pack --dry-run
+            )
+          done
+
+  publish:
+    name: Publish packages to npm
+    needs: validate
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.20.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish @aegisora/audit
+        working-directory: core/packages/audit
+        run: npm publish --access public
+
+      - name: Publish @aegisora/core
+        working-directory: core/packages/core
+        run: npm publish --access public
+
+      - name: Publish @aegisora/observability
+        working-directory: core/packages/observability
+        run: npm publish --access public
+
+      - name: Publish @aegisora/plugins
+        working-directory: core/packages/plugins
+        run: npm publish --access public
+
+      - name: Publish @aegisora/policy-engine
+        working-directory: core/packages/policy-engine
+        run: npm publish --access public
+
+      - name: Publish @aegisora/runtime
+        working-directory: core/packages/runtime
+        run: npm publish --access public
+
+      - name: Publish @aegisora/sdk
+        working-directory: core/packages/sdk
+        run: npm publish --access public
+
+      - name: Publish @aegisora/security-engine
+        working-directory: core/packages/security-engine
+        run: npm publish --access public
+
+      - name: Publish @aegisora/storage
+        working-directory: core/packages/storage
+        run: npm publish --access public

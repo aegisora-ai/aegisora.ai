@@ -1,6 +1,6 @@
 {
     "name": "@aegisora/storage",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Persistence layer for Aegisora AI governance platform.",
     "license": "MIT",
     "main": "./dist/index.js",
@@ -26,5 +26,13 @@
         "dist",
         "README.md",
         "LICENSE"
-    ]
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aegisora-ai/aegisora.git"
+    },
+    "bugs": {
+        "url": "https://github.com/aegisora-ai/aegisora/issues"
+    },
+    "homepage": "https://docs.aegisora.ai"
 }

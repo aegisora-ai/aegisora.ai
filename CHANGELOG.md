@@ -8,6 +8,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+---
+
+## [0.1.3] - 2026-08-26
+
 ### Security
 
 * Hardened registered-agent identity enforcement.
@@ -166,8 +170,8 @@ Before a release, maintainers may reorganize these entries into the appropriate 
 
 ## Links
 
-* [Aegisora Repository](https://github.com/aegisora-ai/aegisora.ai)
-* [Releases](https://github.com/aegisora-ai/aegisora.ai/releases)
-* [Issues](https://github.com/aegisora-ai/aegisora.ai/issues)
+* [Aegisora Repository](https://github.com/aegisora-ai/aegisora)
+* [Releases](https://github.com/aegisora-ai/aegisora/releases)
+* [Issues](https://github.com/aegisora-ai/aegisora/issues)
 * [Contributing](./CONTRIBUTING.md)
 * [Security](./docs/security/validation.md)
