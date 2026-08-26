@@ -1,35 +1,35 @@
 {
-    "name":  "@aegisora/sdk",
-    "version":  "0.1.3",
-    "description":  "Developer SDK for protecting AI agents with Aegisora runtime governance.",
-    "license":  "MIT",
-    "main":  "./dist/index.js",
-    "types":  "./dist/index.d.ts",
-    "scripts":  {
-                    "build":  "tsc",
-                    "typecheck":  "tsc --noEmit"
-                },
-    "dependencies":  {
-                         "@aegisora/core":  "workspace:*",
-                         "@aegisora/runtime":  "workspace:*",
-                         "@aegisora/security-engine":  "workspace:*",
-                         "@aegisora/policy-engine":  "workspace:*",
-                         "@aegisora/audit":  "workspace:*"
-                     },
-    "devDependencies":  {
-                            "typescript":  "^5"
-                        },
-    "exports":  {
-                    ".":  {
-                              "types":  "./dist/index.d.ts",
-                              "require":  "./dist/index.js"
-                          }
-                },
-    "files":  [
-                  "dist",
-                  "README.md",
-                  "LICENSE"
-              ],
+    "name": "@aegisora/sdk",
+    "version": "0.1.4",
+    "description": "Developer SDK for protecting AI agents with Aegisora runtime governance.",
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@aegisora/audit": "workspace:*",
+        "@aegisora/core": "workspace:*",
+        "@aegisora/policy-engine": "workspace:*",
+        "@aegisora/runtime": "workspace:*",
+        "@aegisora/security-engine": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "^5"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/aegisora-ai/aegisora.git"

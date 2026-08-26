@@ -1,6 +1,6 @@
 {
     "name": "@aegisora/audit",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "description": "Audit logging system for Aegisora AI governance runtime.",
     "license": "MIT",
     "main": "./dist/index.js",

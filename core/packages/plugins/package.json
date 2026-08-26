@@ -1,35 +1,35 @@
 {
-    "name":  "@aegisora/plugins",
-    "version":  "0.1.3",
-    "description":  "Plugin system for extending Aegisora AI governance runtime.",
-    "license":  "MIT",
-    "main":  "./dist/index.js",
-    "types":  "./dist/index.d.ts",
-    "scripts":  {
-                    "build":  "tsc",
-                    "typecheck":  "tsc --noEmit",
-                    "test":  "tsx test/plugin-system.test.ts"
-                },
-    "dependencies":  {
-                         "@aegisora/core":  "workspace:*",
-                         "@aegisora/security-engine":  "workspace:*",
-                         "@aegisora/policy-engine":  "workspace:*"
-                     },
-    "devDependencies":  {
-                            "tsx":  "^4.23.10",
-                            "typescript":  "^5"
-                        },
-    "exports":  {
-                    ".":  {
-                              "types":  "./dist/index.d.ts",
-                              "require":  "./dist/index.js"
-                          }
-                },
-    "files":  [
-                  "dist",
-                  "README.md",
-                  "LICENSE"
-              ],
+    "name": "@aegisora/plugins",
+    "version": "0.1.4",
+    "description": "Plugin system for extending Aegisora AI governance runtime.",
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "typecheck": "tsc --noEmit",
+        "test": "tsx test/plugin-system.test.ts"
+    },
+    "dependencies": {
+        "@aegisora/core": "workspace:*",
+        "@aegisora/policy-engine": "workspace:*",
+        "@aegisora/security-engine": "workspace:*"
+    },
+    "devDependencies": {
+        "tsx": "^4.23.10",
+        "typescript": "^5"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/aegisora-ai/aegisora.git"
