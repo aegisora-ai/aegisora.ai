@@ -1,63 +1,70 @@
-﻿# Aegisora Security Evidence Register
+# Aegisora Security Evidence Register
 
 ## Purpose
 
-Framework for tracking evidence demonstrating that security controls operate as designed.
+Framework for tracking evidence demonstrating that security controls operate
+as designed.
 
 This register defines the evidence model; it is not itself evidence.
 
-## Evidence Classes
+---
 
-| ID | Evidence class | Example |
-|---|---|---|
-| E-001 | Architecture | Security boundary diagrams |
-| E-002 | Code | Enforcement gate implementation |
-| E-003 | Test | Security regression tests |
-| E-004 | CI | Build/typecheck/test results |
-| E-005 | SAST | CodeQL results |
-| E-006 | Dependency | Lockfile and dependency review |
-| E-007 | Release | Release validation workflow |
-| E-008 | Package | npm metadata and tarball audits |
-| E-009 | Audit | Runtime decision/event records |
-| E-010 | Incident | Incident timeline and remediation |
-| E-011 | Vulnerability | Vulnerability lifecycle evidence |
-| E-012 | Access | Repository/environment access reviews |
-| E-013 | Operations | Backup and recovery tests |
-| E-014 | Training | Security training records |
-| E-015 | External Assurance | Penetration test / audit reports |
+## Evidence Levels
 
-## Evidence Metadata
+| Level | Meaning |
+|---|---|
+| L0 | Undefined |
+| L1 | Documented |
+| L2 | Implemented |
+| L3 | Measured |
+| L4 | Independently Assured |
 
-Each evidence item should contain:
+The engineering target is L3 for critical technical controls.
+
+---
+
+## R4 Machine-Readable Evidence
+
+Security Readiness CI generates:
 
 ```text
-evidence_id
-control_id
-owner
-source
-created_at
-reviewed_at
-environment
-result
-retention
+security-evidence/
+├── manifest.json
+├── summary.json
+├── controls.json
+├── packages.json
+├── tests.json
+├── risks.json
+└── git.json
 ```
 
-## Current Evidence Sources
+Each CI run produces a machine-readable evidence package with:
 
-Repository-level evidence includes Git history, CI workflows, CodeQL runs, release workflows, package validation, runtime security tests, package tarball audits, SECURITY.md, architecture documentation, and governance documentation.
+- workflow identity
+- commit identity
+- build result
+- typecheck result
+- test result
+- tarball audit result
+- secret scan result
+- CODEOWNERS result
+- package metadata
+- tracked security risks
+- measured control mappings
 
-## Evidence To Formalize
+---
 
-- control-owner assignments
-- recurring access reviews
-- formal risk register
-- formal security review cadence
-- backup/recovery evidence
-- penetration testing
-- independent assurance
-- security training
-- vendor/subprocessor inventory
+## Evidence Retention
 
-## Rule
+CI evidence artifacts are retained according to the workflow retention
+policy. The current Security Readiness workflow retains generated evidence
+for 90 days.
 
-A control should become externally auditable only after a durable evidence source has been identified.
+---
+
+## L3 Rule
+
+A critical technical control may be considered L3 only when a durable
+machine-readable evidence source records the control outcome.
+
+R4 implements the initial automated L3 evidence pipeline.

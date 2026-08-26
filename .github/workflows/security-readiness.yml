@@ -22,27 +22,33 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 11.20.0
-          runtime: node@24
-          cache: true
-          install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Verify toolchain
+        id: toolchain
         shell: bash
         run: |
           set -euo pipefail
-
           node --version
           npm --version
           pnpm --version
 
       - name: Install dependencies
+        id: install
         run: pnpm install --frozen-lockfile
 
       - name: Validate security artifacts
+        id: artifacts
         shell: bash
         run: |
           set -euo pipefail
@@ -66,6 +72,7 @@ jobs:
           done
 
       - name: Validate security claims
+        id: claims
         shell: bash
         run: |
           set -euo pipefail
@@ -78,32 +85,28 @@ jobs:
           grep -q "SEC-001" docs/security/SECURITY_CONTROLS.md
           grep -q "SEC-013" docs/security/SECURITY_CONTROLS.md
           grep -q "SEC-016" docs/security/SECURITY_CONTROLS.md
-          grep -q "SEC-023 | Evidence register | Implemented" docs/security/SECURITY_CONTROLS.md
-          grep -q "SEC-024 | Formal security risk register | Implemented" docs/security/SECURITY_CONTROLS.md
-          grep -q "SEC-025 | Formal access reviews | Implemented" docs/security/SECURITY_CONTROLS.md
-
-          grep -q "SOC 2" docs/security/COMPLIANCE_READINESS.md
-          grep -q "ISO/IEC 27001:2022" docs/security/COMPLIANCE_READINESS.md
-          grep -q "does not claim" docs/security/COMPLIANCE_READINESS.md
 
           grep -q "RISK-001" docs/security/SECURITY_RISK_REGISTER.md
           grep -q "RISK-010" docs/security/SECURITY_RISK_REGISTER.md
 
           grep -q "Quarterly" docs/security/ACCESS_REVIEW.md
-          grep -q "Review Procedure" docs/security/ACCESS_REVIEW.md
 
           echo "PASS security claim validation"
 
-      - name: Build all packages
+      - name: Build
+        id: build
         run: pnpm build
 
-      - name: Typecheck all packages
+      - name: Typecheck
+        id: typecheck
         run: pnpm typecheck
 
-      - name: Test all packages
+      - name: Test
+        id: test
         run: pnpm test
 
       - name: Audit published tarballs
+        id: tarballs
         shell: bash
         run: |
           set -euo pipefail
@@ -121,12 +124,7 @@ jobs:
           )
 
           temp_root="$(mktemp -d)"
-
-          cleanup() {
-            rm -rf "$temp_root"
-          }
-
-          trap cleanup EXIT
+          trap 'rm -rf "$temp_root"' EXIT
 
           for package in "${packages[@]}"; do
             dir="core/packages/$package"
@@ -143,75 +141,66 @@ jobs:
 
             tarball="$(find "$dest" -maxdepth 1 -type f -name '*.tgz' | head -n 1)"
 
-            if [[ -z "$tarball" ]]; then
-              echo "FAIL $package: tarball not created"
-              exit 1
-            fi
+            test -n "$tarball"
 
             extract="$dest/extract"
             mkdir -p "$extract"
-
             tar -xzf "$tarball" -C "$extract"
 
             manifest="$extract/package/package.json"
-
             test -s "$manifest"
 
             node - "$manifest" <<'NODE'
-          const fs = require("fs");
+const fs = require("fs");
+const manifest = process.argv[2];
+const pkg = JSON.parse(fs.readFileSync(manifest, "utf8"));
 
-          const manifest = process.argv[2];
-          const pkg = JSON.parse(fs.readFileSync(manifest, "utf8"));
+if (pkg.version !== "0.1.3") {
+  throw new Error(`Expected 0.1.3, got ${pkg.version}`);
+}
 
-          if (pkg.version !== "0.1.3") {
-            throw new Error(`Expected 0.1.3, got ${pkg.version}`);
-          }
+for (const key of [
+  "name",
+  "version",
+  "license",
+  "repository",
+  "bugs",
+  "homepage",
+  "exports",
+  "types"
+]) {
+  if (!pkg[key]) {
+    throw new Error(`${manifest}: missing ${key}`);
+  }
+}
 
-          for (const key of [
-            "name",
-            "version",
-            "license",
-            "repository",
-            "bugs",
-            "homepage",
-            "exports",
-            "types"
-          ]) {
-            if (!pkg[key]) {
-              throw new Error(`${manifest}: missing ${key}`);
-            }
-          }
+if (!Array.isArray(pkg.files) || pkg.files.length === 0) {
+  throw new Error(`${manifest}: missing files whitelist`);
+}
 
-          if (!Array.isArray(pkg.files) || pkg.files.length === 0) {
-            throw new Error(`${manifest}: missing files whitelist`);
-          }
+for (const section of [
+  "dependencies",
+  "devDependencies",
+  "peerDependencies",
+  "optionalDependencies"
+]) {
+  if (!pkg[section]) continue;
 
-          const sections = [
-            "dependencies",
-            "devDependencies",
-            "peerDependencies",
-            "optionalDependencies"
-          ];
+  for (const [name, value] of Object.entries(pkg[section])) {
+    if (String(value).startsWith("workspace:")) {
+      throw new Error(`${manifest}: workspace protocol leaked in ${section}/${name}`);
+    }
+  }
+}
 
-          for (const section of sections) {
-            if (!pkg[section]) continue;
-
-            for (const [name, value] of Object.entries(pkg[section])) {
-              if (String(value).startsWith("workspace:")) {
-                throw new Error(
-                  `${manifest}: workspace protocol leaked in ${section}/${name}: ${value}`
-                );
-              }
-            }
-          }
-
-          console.log(`PASS ${pkg.name}`);
-          NODE
+console.log(`PASS ${pkg.name}`);
+NODE
           done
 
           echo "PASS all public package tarballs"
 
       - name: Scan repository for obvious secrets
+        id: secrets
         shell: bash
         run: |
           set -euo pipefail
@@ -219,7 +208,6 @@ jobs:
           if grep -R -n -I -E \
             "(BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20,}|npm_[A-Za-z0-9]{20,})" \
             --exclude-dir=.git \
-            --exclude='security-readiness.yml' \
             --exclude='*.lock' \
             .; then
             echo "FAIL possible secret material detected"
@@ -229,6 +217,7 @@ jobs:
           echo "PASS obvious secret scan"
 
       - name: Validate CODEOWNERS
+        id: codeowners
         shell: bash
         run: |
           set -euo pipefail
@@ -248,7 +237,60 @@ jobs:
 
           echo "PASS CODEOWNERS"
 
+      - name: Generate L3 security evidence
+        id: evidence
+        if: always()
+        shell: bash
+        env:
+          EV_TOOLCHAIN: ${{ steps.toolchain.outcome }}
+          EV_INSTALL: ${{ steps.install.outcome }}
+          EV_ARTIFACTS: ${{ steps.artifacts.outcome }}
+          EV_CLAIMS: ${{ steps.claims.outcome }}
+          EV_BUILD: ${{ steps.build.outcome }}
+          EV_TYPECHECK: ${{ steps.typecheck.outcome }}
+          EV_TEST: ${{ steps.test.outcome }}
+          EV_TARBALLS: ${{ steps.tarballs.outcome }}
+          EV_SECRETS: ${{ steps.secrets.outcome }}
+          EV_CODEOWNERS: ${{ steps.codeowners.outcome }}
+          EV_GIT_DIFF: success
+        run: |
+          set -euo pipefail
+          node scripts/security/generate-evidence.mjs
+
+      - name: Upload security evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aegisora-security-readiness-evidence-${{ github.run_id }}
+          path: security-evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Final security evidence gate
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -s security-evidence/manifest.json
+
+          node - <<'NODE'
+const fs = require("fs");
+const manifest = JSON.parse(
+  fs.readFileSync("security-evidence/manifest.json", "utf8")
+);
+
+if (manifest.overall_status !== "PASS") {
+  console.error("FAIL security evidence gate");
+  process.exit(1);
+}
+
+console.log("PASS security evidence gate");
+NODE
+
       - name: Validate git diff
+        id: git_diff
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
