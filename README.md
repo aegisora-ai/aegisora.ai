@@ -489,7 +489,7 @@ Aegisora is released under the [MIT License](./LICENSE).
 
   <br /><br />
 
-  <a href="https://github.com/aegisora-ai/aegisora.ai">
+  <a href="https://github.com/aegisora-ai/aegisora">
     GitHub
   </a>
   ·
