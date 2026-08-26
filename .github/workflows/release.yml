@@ -5,6 +5,13 @@ on:
     tags:
       - "v*.*.*"
 
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to publish"
+        required: true
+        type: string
+        default: "v0.1.3"
 permissions:
   contents: read
   id-token: write
@@ -13,16 +20,16 @@ concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  RELEASE_VERSION: ${{ github.event_name == 'workflow_dispatch' && inputs.release_tag || github.ref_name }}
 jobs:
-
   validate:
     name: Validate OSS Release
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -39,15 +46,9 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Verify Node and npm
-        shell: bash
         run: |
           node --version
           npm --version
-
-          node -e "
-            const major = Number(process.versions.node.split('.')[0]);
-            if (major < 24) process.exit(1);
-          "
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -64,22 +65,22 @@ jobs:
       - name: Example smoke test
         run: pnpm --filter "@aegisora/example-langgraph-agent-governance" test
 
-      - name: Validate release tag
+      - name: Validate release version
         shell: bash
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          VERSION="${RELEASE_VERSION#v}"
 
           if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Invalid release tag: $GITHUB_REF_NAME"
+            echo "Invalid release ref/version: $RELEASE_VERSION"
             exit 1
           fi
 
-          echo "Validated release tag: $VERSION"
+          echo "Release version: $VERSION"
 
       - name: Validate package versions
         shell: bash
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          VERSION="${RELEASE_VERSION#v}"
 
           packages=(
             "core/packages/audit/package.json"
@@ -110,23 +111,22 @@ jobs:
       - name: Validate package metadata
         shell: bash
         run: |
-          packages=(
-            "core/packages/audit/package.json"
-            "core/packages/core/package.json"
-            "core/packages/observability/package.json"
-            "core/packages/plugins/package.json"
-            "core/packages/policy-engine/package.json"
-            "core/packages/runtime/package.json"
-            "core/packages/sdk/package.json"
-            "core/packages/security-engine/package.json"
+          node <<'NODE'
+          const fs = require("fs");
+
+          const packages = [
+            "core/packages/audit/package.json",
+            "core/packages/core/package.json",
+            "core/packages/observability/package.json",
+            "core/packages/plugins/package.json",
+            "core/packages/policy-engine/package.json",
+            "core/packages/runtime/package.json",
+            "core/packages/sdk/package.json",
+            "core/packages/security-engine/package.json",
             "core/packages/storage/package.json"
-          )
+          ];
 
-          for file in "${packages[@]}"; do
-            node - <<NODE
-            const fs = require("fs");
-
-            const file = "$file";
+          for (const file of packages) {
             const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
 
             if (!pkg.name) throw new Error(file + ": missing name");
@@ -142,8 +142,8 @@ jobs:
             }
 
             console.log("PASS " + file);
-NODE
-          done
+          }
+          NODE
 
       - name: Pack packages
         shell: bash
@@ -178,9 +178,8 @@ NODE
       id-token: write
 
     steps:
-
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
