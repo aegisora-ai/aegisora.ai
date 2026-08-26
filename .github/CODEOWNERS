@@ -1,118 +1,28 @@
-# Aegisora CODEOWNERS
-
+﻿# Aegisora security-sensitive ownership rules
 #
+# Current repository owner:
+# @ozereray
+#
+# Replace this with organization-owned GitHub teams after those teams
+# are formally created and verified.
 
-# Default ownership and review responsibilities for the repository.
+# Security policy and readiness artifacts
+/SECURITY.md @ozereray
+/docs/security/ @ozereray
 
-# The repository owner is responsible for reviewing changes unless
+# CI and release security controls
+/.github/workflows/ @ozereray
 
-# a more specific rule below applies.
+# Runtime security boundary
+/core/packages/runtime/ @ozereray
 
-# -------------------------------------------------------------------
+# Policy and security engines
+/core/packages/policy-engine/ @ozereray
+/core/packages/security-engine/ @ozereray
 
-# Default ownership
+# SDK execution surface
+/core/packages/sdk/ @ozereray
 
-# -------------------------------------------------------------------
-
-* @ozereray
-
-# -------------------------------------------------------------------
-
-# Documentation
-
-# -------------------------------------------------------------------
-
-README.md @ozereray
-ARCHITECTURE.md @ozereray
-SECURITY.md @ozereray
-CONTRIBUTING.md @ozereray
-GOVERNANCE.md @ozereray
-ROADMAP.md @ozereray
-PLUGIN_SYSTEM.md @ozereray
-CHANGELOG.md @ozereray
-CODE_OF_CONDUCT.md @ozereray
-SUPPORT.md @ozereray
-AGENTS.md @ozereray
-
-# -------------------------------------------------------------------
-
-# GitHub configuration
-
-# -------------------------------------------------------------------
-
-.github/ @ozereray
-
-.github/CODEOWNERS @ozereray
-.github/PULL_REQUEST_TEMPLATE.md @ozereray
-
-# Issue templates
-
-.github/ISSUE_TEMPLATE/ @ozereray
-
-# CI / security / release workflows
-
-.github/workflows/ @ozereray
-.github/workflows/ci.yml @ozereray
-.github/workflows/codeql.yml @ozereray
-.github/workflows/release.yml @ozereray
-
-# -------------------------------------------------------------------
-
-# Application
-
-# -------------------------------------------------------------------
-
-app/ @ozereray
-
-# -------------------------------------------------------------------
-
-# Shared configuration and project tooling
-
-# -------------------------------------------------------------------
-
-*.json @ozereray
-*.ts @ozereray
-*.tsx @ozereray
-*.mjs @ozereray
-*.cjs @ozereray
-
-# -------------------------------------------------------------------
-
-# Security-sensitive project files
-
-# -------------------------------------------------------------------
-
-SECURITY.md @ozereray
-LICENSE @ozereray
-.gitattributes @ozereray
-.gitignore @ozereray
-
-# -------------------------------------------------------------------
-
-# Dependency and release configuration
-
-# -------------------------------------------------------------------
-
-package.json @ozereray
-pnpm-lock.yaml @ozereray
-pnpm-workspace.yaml @ozereray
-turbo.json @ozereray
-
-# -------------------------------------------------------------------
-
-# Repository governance
-
-# -------------------------------------------------------------------
-
-CODE_OF_CONDUCT.md @ozereray
-CONTRIBUTING.md @ozereray
-GOVERNANCE.md @ozereray
-ROADMAP.md @ozereray
-
-# -------------------------------------------------------------------
-
-# Important: more specific rules take precedence over broad rules
-
-# above. Keep security-sensitive ownership explicit.
-
-# -------------------------------------------------------------------
+# Release metadata
+/CHANGELOG.md @ozereray
+/core/packages/*/package.json @ozereray
