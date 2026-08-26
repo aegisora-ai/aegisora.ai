@@ -76,4 +76,5 @@ _validate_json.cjs
 
 website/.next
 
-
+# Generated security evidence
+security-evidence/
