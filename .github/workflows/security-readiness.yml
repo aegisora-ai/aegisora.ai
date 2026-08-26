@@ -151,50 +151,50 @@ jobs:
             test -s "$manifest"
 
             node - "$manifest" <<'NODE'
-const fs = require("fs");
-const manifest = process.argv[2];
-const pkg = JSON.parse(fs.readFileSync(manifest, "utf8"));
+            const fs = require("fs");
+            const manifest = process.argv[2];
+            const pkg = JSON.parse(fs.readFileSync(manifest, "utf8"));
 
-if (pkg.version !== "0.1.3") {
-  throw new Error(`Expected 0.1.3, got ${pkg.version}`);
-}
+            if (pkg.version !== "0.1.3") {
+              throw new Error(`Expected 0.1.3, got ${pkg.version}`);
+            }
 
-for (const key of [
-  "name",
-  "version",
-  "license",
-  "repository",
-  "bugs",
-  "homepage",
-  "exports",
-  "types"
-]) {
-  if (!pkg[key]) {
-    throw new Error(`${manifest}: missing ${key}`);
-  }
-}
+            for (const key of [
+              "name",
+              "version",
+              "license",
+              "repository",
+              "bugs",
+              "homepage",
+              "exports",
+              "types"
+            ]) {
+              if (!pkg[key]) {
+                throw new Error(`${manifest}: missing ${key}`);
+              }
+            }
 
-if (!Array.isArray(pkg.files) || pkg.files.length === 0) {
-  throw new Error(`${manifest}: missing files whitelist`);
-}
+            if (!Array.isArray(pkg.files) || pkg.files.length === 0) {
+              throw new Error(`${manifest}: missing files whitelist`);
+            }
 
-for (const section of [
-  "dependencies",
-  "devDependencies",
-  "peerDependencies",
-  "optionalDependencies"
-]) {
-  if (!pkg[section]) continue;
+            for (const section of [
+              "dependencies",
+              "devDependencies",
+              "peerDependencies",
+              "optionalDependencies"
+            ]) {
+              if (!pkg[section]) continue;
 
-  for (const [name, value] of Object.entries(pkg[section])) {
-    if (String(value).startsWith("workspace:")) {
-      throw new Error(`${manifest}: workspace protocol leaked in ${section}/${name}`);
-    }
-  }
-}
+              for (const [name, value] of Object.entries(pkg[section])) {
+                if (String(value).startsWith("workspace:")) {
+                  throw new Error(`${manifest}: workspace protocol leaked in ${section}/${name}`);
+                }
+              }
+            }
 
-console.log(`PASS ${pkg.name}`);
-NODE
+            console.log(`PASS ${pkg.name}`);
+            NODE
           done
 
           echo "PASS all public package tarballs"
@@ -275,18 +275,18 @@ NODE
           test -s security-evidence/manifest.json
 
           node - <<'NODE'
-const fs = require("fs");
-const manifest = JSON.parse(
-  fs.readFileSync("security-evidence/manifest.json", "utf8")
-);
+          const fs = require("fs");
+          const manifest = JSON.parse(
+            fs.readFileSync("security-evidence/manifest.json", "utf8")
+          );
 
-if (manifest.overall_status !== "PASS") {
-  console.error("FAIL security evidence gate");
-  process.exit(1);
-}
+          if (manifest.overall_status !== "PASS") {
+            console.error("FAIL security evidence gate");
+            process.exit(1);
+          }
 
-console.log("PASS security evidence gate");
-NODE
+          console.log("PASS security evidence gate");
+          NODE
 
       - name: Validate git diff
         id: git_diff
