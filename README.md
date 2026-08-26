@@ -493,7 +493,7 @@ Aegisora is released under the [MIT License](./LICENSE).
     GitHub
   </a>
   ·
-  <a href="https://aegisora-ai.vercel.app">
+  <a href="https://aegisora.org">
     Live Demo
   </a>
   ·
