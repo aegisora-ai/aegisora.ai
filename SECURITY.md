@@ -216,3 +216,23 @@ For confidential security reports and security-related questions:
 Please do not include passwords, API keys, private credentials, or unrelated sensitive information in your initial report.
 
 Thank you for helping improve the security of Aegisora.
+
+---
+
+## Security Readiness Artifacts
+
+- [Threat Model](./docs/security/THREAT_MODEL.md)
+- [Security Controls](./docs/security/SECURITY_CONTROLS.md)
+- [Incident Response](./docs/security/INCIDENT_RESPONSE.md)
+- [Vulnerability Management](./docs/security/VULNERABILITY_MANAGEMENT.md)
+- [Compliance Readiness](./docs/security/COMPLIANCE_READINESS.md)
+- [Evidence Register](./docs/security/EVIDENCE_REGISTER.md)
+
+These artifacts describe the project's security baseline and readiness work.
+They do not constitute independent certification, attestation, or a guarantee that every threat is prevented.
+
+- [Security Risk Register](./docs/security/SECURITY_RISK_REGISTER.md)
+- [Access Review Procedure](./docs/security/ACCESS_REVIEW.md)
+
+Security readiness is continuously validated by
+[Security Readiness CI](./.github/workflows/security-readiness.yml).
