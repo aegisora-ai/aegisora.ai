@@ -1,0 +1,411 @@
+openapi: 3.1.0
+
+info:
+  title: Aegisora Governance API
+  version: 1.5.0-v1alpha1
+  description: Versioned cross-language governance and enforcement contract.
+
+servers:
+  - url: http://localhost:8000
+    description: Local development
+
+tags:
+  - name: Execution
+  - name: Policy
+  - name: Audit
+  - name: Review
+  - name: Health
+
+paths:
+  /v1alpha1/execution/intent:
+    post:
+      operationId: submitExecutionIntent
+      tags:
+        - Execution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecutionIntent"
+      responses:
+        "200":
+          description: Governance decision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DecisionEnvelope"
+
+  /v1alpha1/policies/bundles:
+    post:
+      operationId: publishPolicyBundle
+      tags:
+        - Policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyBundle"
+      responses:
+        "201":
+          description: Policy bundle published
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyBundle"
+
+  /v1alpha1/policies/active:
+    get:
+      operationId: getActivePolicyVersion
+      tags:
+        - Policy
+      responses:
+        "200":
+          description: Active policy version
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActivePolicyVersion"
+
+  /v1alpha1/audit/events:
+    post:
+      operationId: ingestAuditEvents
+      tags:
+        - Audit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuditEventBatch"
+      responses:
+        "202":
+          description: Audit events accepted
+
+  /v1alpha1/reviews:
+    post:
+      operationId: createReviewRequest
+      tags:
+        - Review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewRequest"
+      responses:
+        "201":
+          description: Review request created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewRequest"
+
+  /v1alpha1/health:
+    get:
+      operationId: getHealth
+      tags:
+        - Health
+      responses:
+        "200":
+          description: Service health
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /v1alpha1/readiness:
+    get:
+      operationId: getReadiness
+      tags:
+        - Health
+      responses:
+        "200":
+          description: Service readiness
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+components:
+  schemas:
+
+    Decision:
+      type: string
+      enum:
+        - ALLOW
+        - BLOCK
+        - ESCALATE
+
+    CapabilityRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - capability
+      properties:
+        capability:
+          type: string
+          minLength: 1
+        provider:
+          type: string
+        model:
+          type: string
+        route:
+          type: string
+
+    ExecutionIntent:
+      type: object
+      additionalProperties: false
+      required:
+        - request_id
+        - agent_claim
+        - capability_request
+        - input
+        - context
+      properties:
+        request_id:
+          type: string
+          minLength: 1
+        correlation_id:
+          type: string
+          minLength: 1
+        agent_claim:
+          type: string
+          minLength: 1
+        capability_request:
+          $ref: "#/components/schemas/CapabilityRequest"
+        input:
+          type: object
+        context:
+          type: object
+
+    DecisionEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+        - decision_id
+        - request_id
+        - correlation_id
+        - decision
+        - reason_code
+        - risk
+        - policy_version
+        - policy_digest
+        - evaluated_at
+      properties:
+        decision_id:
+          type: string
+          minLength: 1
+        request_id:
+          type: string
+          minLength: 1
+        correlation_id:
+          type: string
+          minLength: 1
+        decision:
+          $ref: "#/components/schemas/Decision"
+        allowed:
+          type: boolean
+          description: Compatibility field derived from decision.
+        reason_code:
+          type: string
+          minLength: 1
+        risk:
+          type: object
+        policy_version:
+          type: string
+          minLength: 1
+        policy_digest:
+          type: string
+          minLength: 1
+        evaluated_at:
+          type: string
+          format: date-time
+
+    PolicyScope:
+      type: object
+      additionalProperties: false
+      required:
+        - tenant
+      properties:
+        tenant:
+          type: string
+          minLength: 1
+        agent:
+          type: string
+        capability:
+          type: string
+
+    PolicyBundle:
+      type: object
+      additionalProperties: false
+      required:
+        - bundle_id
+        - scope
+        - version
+        - digest
+        - expires_at
+        - signature
+        - policy
+      properties:
+        bundle_id:
+          type: string
+          minLength: 1
+        scope:
+          $ref: "#/components/schemas/PolicyScope"
+        version:
+          type: string
+          minLength: 1
+        digest:
+          type: string
+          minLength: 1
+        expires_at:
+          type: string
+          format: date-time
+        signature:
+          type: string
+          minLength: 1
+        policy:
+          type: object
+
+    AuditEvent:
+      type: object
+      additionalProperties: false
+      required:
+        - event_id
+        - request_id
+        - correlation_id
+        - decision_id
+        - policy_version
+        - event_type
+        - occurred_at
+      properties:
+        event_id:
+          type: string
+          minLength: 1
+        request_id:
+          type: string
+          minLength: 1
+        correlation_id:
+          type: string
+          minLength: 1
+        decision_id:
+          type: string
+          minLength: 1
+        policy_version:
+          type: string
+          minLength: 1
+        event_type:
+          type: string
+          minLength: 1
+        occurred_at:
+          type: string
+          format: date-time
+        payload:
+          type: object
+
+    AuditEventBatch:
+      type: object
+      additionalProperties: false
+      required:
+        - events
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/AuditEvent"
+
+    ReviewRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - review_id
+        - request_id
+        - correlation_id
+        - decision
+        - status
+        - created_at
+      properties:
+        review_id:
+          type: string
+          minLength: 1
+        request_id:
+          type: string
+          minLength: 1
+        correlation_id:
+          type: string
+          minLength: 1
+        decision:
+          type: string
+          const: ESCALATE
+        status:
+          type: string
+          enum:
+            - PENDING
+            - APPROVED
+            - DENIED
+        created_at:
+          type: string
+          format: date-time
+
+    ApprovalToken:
+      type: object
+      additionalProperties: false
+      required:
+        - token_id
+        - request_id
+        - policy_version
+        - expires_at
+        - single_use
+      properties:
+        token_id:
+          type: string
+          minLength: 1
+        request_id:
+          type: string
+          minLength: 1
+        policy_version:
+          type: string
+          minLength: 1
+        expires_at:
+          type: string
+          format: date-time
+        single_use:
+          type: boolean
+          const: true
+
+    HealthStatus:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - contract_version
+      properties:
+        status:
+          type: string
+          enum:
+            - healthy
+            - ready
+            - not_ready
+        contract_version:
+          type: string
+          const: v1alpha1
+
+    ActivePolicyVersion:
+      type: object
+      additionalProperties: false
+      required:
+        - version
+        - digest
+        - expires_at
+      properties:
+        version:
+          type: string
+          minLength: 1
+        digest:
+          type: string
+          minLength: 1
+        expires_at:
+          type: string
+          format: date-time
