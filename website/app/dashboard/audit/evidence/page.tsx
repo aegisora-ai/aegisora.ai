@@ -22,19 +22,19 @@ export default function EvidencePage() {
             placeholder="Search cryptographic evidence..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           <Filter className="w-3.5 h-3.5" /> More Filters
         </button>
       </div>
 
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-4 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Evidence ID</th>
                 <th className="px-4 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Timestamp</th>
                 <th className="px-4 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Decision Ref</th>
@@ -44,14 +44,14 @@ export default function EvidencePage() {
             </thead>
             <tbody>
               {mockEvidence.map((ev) => (
-                <tr key={ev.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={ev.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-4 py-3 text-[12px] font-mono text-muted-foreground group-hover:text-primary transition-colors flex items-center gap-2">
                     <FileSignature className="w-3.5 h-3.5 text-zinc-500" /> {ev.id}
                   </td>
                   <td className="px-4 py-3 text-[12px] font-mono text-muted-foreground">{ev.timestamp}</td>
                   <td className="px-4 py-3 text-[12px] font-mono text-primary underline decoration-primary/30 underline-offset-2">{ev.decisionRef}</td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center gap-1.5 bg-[#09090b] border border-border px-2 py-1 rounded w-fit">
+                    <div className="flex items-center gap-1.5 bg-[#09090b] border b order-border px-2 py-1 rounded w-fit">
                       <FileCode2 className="w-3 h-3 text-muted-foreground" />
                       <span className="text-[11px] font-mono text-muted-foreground truncate max-w-[120px]">{ev.hash}</span>
                     </div>

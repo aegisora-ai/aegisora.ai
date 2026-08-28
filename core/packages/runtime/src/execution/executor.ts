@@ -37,6 +37,26 @@ export interface ExecutionResult {
   success: boolean;
   steps: number;
   output: unknown;
+  traceId?: string;
+  decisionId?: string;
+  executionId?: string;
+  evidenceId?: string;
+}
+
+interface AgentStepResult {
+  provider: ProviderName;
+  model: string;
+  reasoning: string;
+  tool: string;
+  result: unknown;
+  enforcement: {
+    decision: string;
+    riskScore: number;
+  };
+  traceId?: string;
+  decisionId?: string;
+  executionId?: string;
+  evidenceId?: string;
 }
 
 export class AgentExecutor {
@@ -64,21 +84,31 @@ export class AgentExecutor {
     plan: AgentPlan
   ): Promise<ExecutionResult> {
 
-
     let completed = 0;
     let lastOutput: unknown = undefined;
 
+    let lastTraceId: string | undefined;
+    let lastDecisionId: string | undefined;
+    let lastExecutionId: string | undefined;
+    let lastEvidenceId: string | undefined;
+
     for (const step of plan.steps) {
 
-      lastOutput = await this.executeStep(
+      const stepResult = await this.executeStep(
         agent,
         step,
         plan.id,
       );
 
+      lastOutput = stepResult;
+
+      lastTraceId = stepResult.traceId;
+      lastDecisionId = stepResult.decisionId;
+      lastExecutionId = stepResult.executionId;
+      lastEvidenceId = stepResult.evidenceId;
+
       completed++;
     }
-
 
     return {
       agentId: agent.id,
@@ -88,15 +118,18 @@ export class AgentExecutor {
         planId: plan.id,
         goal: plan.goalId,
         lastOutput,
-      }
+      },
+      traceId: lastTraceId,
+      decisionId: lastDecisionId,
+      executionId: lastExecutionId,
+      evidenceId: lastEvidenceId,
     };
   }
-
-  private async executeStep(
+private async executeStep(
     agent: Agent,
     step: PlanStep,
     planId: string,
-  ): Promise<unknown> {
+  ): Promise<AgentStepResult> {
 
     const selection = this.selector.select(
       step.description

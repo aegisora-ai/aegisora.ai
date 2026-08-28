@@ -303,6 +303,35 @@ export class AgentRuntime {
     return this.context.decisionStore.getAll();
   }
 
+getEvidence() {
+    return this.context.evidenceStore.getAll();
+  }
+
+  getEvidenceByTrace(
+    traceId: string,
+  ) {
+    return this.context.evidenceStore.getByTraceId(
+      traceId,
+    );
+  }
+
+  getEvidenceByDecision(
+    decisionId: string,
+  ) {
+    return this.context.evidenceStore.getByDecisionId(
+      decisionId,
+    );
+  }
+
+  getEvidenceByAgent(
+    agentId: string,
+  ) {
+    return this.context.evidenceStore.getByAgent(
+      agentId,
+    );
+  }
+
+
   getMetrics() {
     const monitor = new RuntimeMonitor(this.context.eventStore.getAll());
 

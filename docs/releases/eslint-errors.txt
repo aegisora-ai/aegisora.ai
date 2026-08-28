@@ -1,0 +1,622 @@
+website\app\blog\page.tsx:85:52 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\blog\page.tsx:87:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\blog\page.tsx:87:21
+  85 |   const [selectedPost, setSelectedPost] = useState<any | null>(null);
+  86 |
+> 87 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  88 |
+  89 |   // Filter posts
+  90 |   const filteredPosts = BLOG_POSTS.filter(post => post.tags.includes(activeCategory));
+website\app\blog\page.tsx:94:34 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\changelog\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\changelog\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\changelog\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\contact\support\page.tsx:113:34 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\contact\support\page.tsx:114:72 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\dashboard\agents\active\page.tsx:38:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\dashboard\agents\active\page.tsx:38:5
+  36 |
+  37 |   useEffect(() => {
+> 38 |     fetchAgents();
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |     window.addEventListener('refresh-agents', fetchAgents);
+  40 |     return () => window.removeEventListener('refresh-agents', fetchAgents);
+  41 |   }, [supabase]);
+website\app\dashboard\agents\all-agents\page.tsx:38:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\dashboard\agents\all-agents\page.tsx:38:5
+  36 |
+  37 |   useEffect(() => {
+> 38 |     fetchAgents();
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |     window.addEventListener('refresh-agents', fetchAgents);
+  40 |     return () => window.removeEventListener('refresh-agents', fetchAgents);
+  41 |   }, [supabase]);
+website\app\dashboard\agents\at-risk\page.tsx:38:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\dashboard\agents\at-risk\page.tsx:38:5
+  36 |
+  37 |   useEffect(() => {
+> 38 |     fetchAgents();
+     |     ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |     window.addEventListener('refresh-agents', fetchAgents);
+  40 |     return () => window.removeEventListener('refresh-agents', fetchAgents);
+  41 |   }, [supabase]);
+website\app\dashboard\ai-chat\page.tsx:167:21 | react-hooks/purity | Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\AI\AEGISORA\website\app\dashboard\ai-chat\page.tsx:167:21
+  165 |
+  166 |     if (!targetSession) {
+> 167 |       const newId = Date.now().toString();
+      |                     ^^^^^^^^^^ Cannot call impure function
+  168 |       const title =
+  169 |         queryText.length > 28 ? queryText.substring(0, 28) + "..." : queryText;
+  170 |       targetSession = {
+website\app\dashboard\layout.tsx:298:109 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\dashboard\risk-center\page.tsx:134:126 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\dashboard\risk-center\page.tsx:182:14 | react-hooks/static-components | Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:182:14
+  180 |           <h2 className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground font-semibold mb-4">Active Runtime Policies</h2>
+  181 |           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+> 182 |             <PolicySwitch label="PII Data Leakage" icon={Lock} active={policies.policy_pii} onClick={() => togglePolicy("policy_pii")} />
+      |              ^^^^^^^^^^^^ This component is created during render
+  183 |             <PolicySwitch label="Prompt Injection" icon={Terminal} active={policies.policy_injection} onClick={() => togglePolicy("policy_injection")} />
+  184 |             <PolicySwitch label="Hallucination Guard" icon={Zap} active={policies.policy_hallucination} onClick={() => togglePolicy("policy_hallucination")} />
+  185 |             <PolicySwitch label="Anomaly Limiter" icon={Activity} active={policies.policy_anomaly} onClick={() => togglePolicy("policy_anomaly")} />
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:134:24
+  132 |
+  133 |   // Cloudflare TarzÄ± Switch Componenti
+> 134 |   const PolicySwitch = ({ label, active, onClick, icon: Icon }: { label: string, active: boolean, onClick: () => void, icon: any }) => (
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 135 |     <div className="flex items-center justify-between p-4 bg-[#111113] border border-border rounded-xl transition-colors hover:border-border/80">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 136 |       <div className="flex items-center gap-3">
+      â€¦
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 148 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 149 |   );
+      | ^^^^ The component is created during render here
+  150 |
+  151 |   // Semantik Renk YardÄ±mcÄ±sÄ±
+  152 |   const getSeverityBadge = (severity: string) => {
+website\app\dashboard\risk-center\page.tsx:183:14 | react-hooks/static-components | Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:183:14
+  181 |           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+  182 |             <PolicySwitch label="PII Data Leakage" icon={Lock} active={policies.policy_pii} onClick={() => togglePolicy("policy_pii")} />
+> 183 |             <PolicySwitch label="Prompt Injection" icon={Terminal} active={policies.policy_injection} onClick={() => togglePolicy("policy_injection")} />
+      |              ^^^^^^^^^^^^ This component is created during render
+  184 |             <PolicySwitch label="Hallucination Guard" icon={Zap} active={policies.policy_hallucination} onClick={() => togglePolicy("policy_hallucination")} />
+  185 |             <PolicySwitch label="Anomaly Limiter" icon={Activity} active={policies.policy_anomaly} onClick={() => togglePolicy("policy_anomaly")} />
+  186 |           </div>
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:134:24
+  132 |
+  133 |   // Cloudflare TarzÄ± Switch Componenti
+> 134 |   const PolicySwitch = ({ label, active, onClick, icon: Icon }: { label: string, active: boolean, onClick: () => void, icon: any }) => (
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 135 |     <div className="flex items-center justify-between p-4 bg-[#111113] border border-border rounded-xl transition-colors hover:border-border/80">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 136 |       <div className="flex items-center gap-3">
+      â€¦
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 148 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 149 |   );
+      | ^^^^ The component is created during render here
+  150 |
+  151 |   // Semantik Renk YardÄ±mcÄ±sÄ±
+  152 |   const getSeverityBadge = (severity: string) => {
+website\app\dashboard\risk-center\page.tsx:184:14 | react-hooks/static-components | Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:184:14
+  182 |             <PolicySwitch label="PII Data Leakage" icon={Lock} active={policies.policy_pii} onClick={() => togglePolicy("policy_pii")} />
+  183 |             <PolicySwitch label="Prompt Injection" icon={Terminal} active={policies.policy_injection} onClick={() => togglePolicy("policy_injection")} />
+> 184 |             <PolicySwitch label="Hallucination Guard" icon={Zap} active={policies.policy_hallucination} onClick={() => togglePolicy("policy_hallucination")} />
+      |              ^^^^^^^^^^^^ This component is created during render
+  185 |             <PolicySwitch label="Anomaly Limiter" icon={Activity} active={policies.policy_anomaly} onClick={() => togglePolicy("policy_anomaly")} />
+  186 |           </div>
+  187 |         </div>
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:134:24
+  132 |
+  133 |   // Cloudflare TarzÄ± Switch Componenti
+> 134 |   const PolicySwitch = ({ label, active, onClick, icon: Icon }: { label: string, active: boolean, onClick: () => void, icon: any }) => (
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 135 |     <div className="flex items-center justify-between p-4 bg-[#111113] border border-border rounded-xl transition-colors hover:border-border/80">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 136 |       <div className="flex items-center gap-3">
+      â€¦
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 148 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 149 |   );
+      | ^^^^ The component is created during render here
+  150 |
+  151 |   // Semantik Renk YardÄ±mcÄ±sÄ±
+  152 |   const getSeverityBadge = (severity: string) => {
+website\app\dashboard\risk-center\page.tsx:185:14 | react-hooks/static-components | Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:185:14
+  183 |             <PolicySwitch label="Prompt Injection" icon={Terminal} active={policies.policy_injection} onClick={() => togglePolicy("policy_injection")} />
+  184 |             <PolicySwitch label="Hallucination Guard" icon={Zap} active={policies.policy_hallucination} onClick={() => togglePolicy("policy_hallucination")} />
+> 185 |             <PolicySwitch label="Anomaly Limiter" icon={Activity} active={policies.policy_anomaly} onClick={() => togglePolicy("policy_anomaly")} />
+      |              ^^^^^^^^^^^^ This component is created during render
+  186 |           </div>
+  187 |         </div>
+  188 |
+
+C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx:134:24
+  132 |
+  133 |   // Cloudflare TarzÄ± Switch Componenti
+> 134 |   const PolicySwitch = ({ label, active, onClick, icon: Icon }: { label: string, active: boolean, onClick: () => void, icon: any }) => (
+      |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 135 |     <div className="flex items-center justify-between p-4 bg-[#111113] border border-border rounded-xl transition-colors hover:border-border/80">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 136 |       <div className="flex items-center gap-3">
+      â€¦
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 148 |     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 149 |   );
+      | ^^^^ The component is created during render here
+  150 |
+  151 |   // Semantik Renk YardÄ±mcÄ±sÄ±
+  152 |   const getSeverityBadge = (severity: string) => {
+website\app\dashboard\settings\page.tsx:119:104 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\developers\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\developers\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\developers\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\docs\api\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\docs\api\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\docs\api\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\docs\page.tsx:60:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\docs\page.tsx:60:21
+  58 |   const [copied, setCopied] = useState(false);
+  59 |
+> 60 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  61 |
+  62 |   const handleCopy = (text: string) => {
+  63 |     navigator.clipboard.writeText(text);
+website\app\docs\page.tsx:272:133 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\docs\page.tsx:272:140 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\docs\page.tsx:280:83 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\docs\page.tsx:280:107 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\get-started\account\page.tsx:65:14 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\get-started\account\page.tsx:71:36 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\get-started\account\page.tsx:116:41 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\get-started\ways\page.tsx:99:53 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\get-started\ways\page.tsx:189:55 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\hub\page.tsx:46:56 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\hub\page.tsx:49:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\hub\page.tsx:49:21
+  47 |   const [copied, setCopied] = useState(false);
+  48 |
+> 49 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  50 |
+  51 |   // Filter Logic
+  52 |   const toggleFilter = (list: string[], setList: any, item: string) => {
+website\app\hub\page.tsx:52:50 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\hub\page.tsx:307:74 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\hub\page.tsx:307:84 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\hub\page.tsx:310:69 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\hub\page.tsx:310:103 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\legal\dpa\page.tsx:28:45 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\legal\dpa\page.tsx:28:49 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\legal\dpa\page.tsx:28:72 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\legal\dpa\page.tsx:99:17 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\legal\gdpr\page.tsx:100:17 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\login\page.tsx:154:22 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\login\page.tsx:159:47 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\page.tsx:62:14 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\page.tsx:67:25 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\page.tsx:96:31 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\page.tsx:98:22 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\protect\identity\page.tsx:48:15 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\protect\light-scan-intro\page.tsx:56:26 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\onboarding\protection-scope\page.tsx:49:29 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:113:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\page.tsx:113:21
+  111 |   const [mounted, setMounted] = useState(false);
+  112 |
+> 113 |   useEffect(() => { setMounted(true); }, []);
+      |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  114 |
+  115 |   return (
+  116 |     <div className="min-h-screen bg-white dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50">
+website\app\page.tsx:142:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\page.tsx:348:158 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:348:172 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:349:54 | react/jsx-no-comment-textnodes | Comments inside children section of tag should be placed inside braces
+website\app\page.tsx:351:77 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:351:88 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:351:131 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:351:143 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:352:74 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:352:88 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:357:151 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:357:159 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\page.tsx:359:66 | react/jsx-no-comment-textnodes | Comments inside children section of tag should be placed inside braces
+website\app\platform\agents\page.tsx:72:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\platform\agents\page.tsx:72:5
+  70 |
+  71 |   useEffect(() => {
+> 72 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  73 |   }, []);
+  74 |
+  75 |   return (
+website\app\platform\agents\page.tsx:113:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\platform\agents\page.tsx:332:74 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\platform\audit\page.tsx:54:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\platform\audit\page.tsx:54:21
+  52 |   const [mounted, setMounted] = useState(false);
+  53 |
+> 54 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  55 |
+  56 |   return (
+  57 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\platform\audit\page.tsx:83:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\platform\enforcement\page.tsx:73:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\platform\enforcement\page.tsx:73:5
+  71 |
+  72 |   useEffect(() => {
+> 73 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  74 |   }, []);
+  75 |
+  76 |   return (
+website\app\platform\enforcement\page.tsx:114:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\platform\enforcement\page.tsx:291:52 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\platform\enforcement\page.tsx:351:42 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\platform\observability\page.tsx:55:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\platform\observability\page.tsx:55:21
+  53 |   const [mounted, setMounted] = useState(false);
+  54 |
+> 55 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  56 |
+  57 |   return (
+  58 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\platform\observability\page.tsx:84:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\platform\observability\page.tsx:190:163 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\platform\observability\page.tsx:195:160 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\platform\policies\page.tsx:72:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\platform\policies\page.tsx:72:5
+  70 |
+  71 |   useEffect(() => {
+> 72 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  73 |   }, []);
+  74 |
+  75 |   return (
+website\app\platform\policies\page.tsx:113:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\platform\policies\page.tsx:250:94 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\policies\page.tsx:250:109 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\policies\page.tsx:329:55 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\policies\page.tsx:329:63 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\security\page.tsx:72:5 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\platform\security\page.tsx:72:5
+  70 |
+  71 |   useEffect(() => {
+> 72 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  73 |   }, []);
+  74 |
+  75 |   return (
+website\app\platform\security\page.tsx:113:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\platform\security\page.tsx:205:20 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\platform\security\page.tsx:281:83 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\security\page.tsx:281:96 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\security\page.tsx:281:99 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\platform\security\page.tsx:281:126 | react/no-unescaped-entities | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+website\app\pricing\page.tsx:94:15 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\pricing\page.tsx:157:17 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\register\page.tsx:46:46 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\register\page.tsx:47:31 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\register\page.tsx:186:46 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\register\pricing\page.tsx:313:15 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\register\pricing\page.tsx:376:17 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\security\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\security\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\security\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\signup\page.tsx:166:49 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\app\solutions\agent-security\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\solutions\agent-security\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\solutions\agent-security\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\solutions\ai-governance\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\solutions\ai-governance\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\solutions\ai-governance\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\solutions\ai-security\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\solutions\ai-security\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\solutions\ai-security\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\solutions\compliance-risk\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\solutions\compliance-risk\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\solutions\compliance-risk\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\solutions\developer-security\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\solutions\developer-security\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\solutions\developer-security\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\solutions\enterprise-security\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\solutions\enterprise-security\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\solutions\enterprise-security\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\app\trust\page.tsx:53:21 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\app\trust\page.tsx:53:21
+  51 |   const [mounted, setMounted] = useState(false);
+  52 |
+> 53 |   useEffect(() => { setMounted(true); }, []);
+     |                     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  54 |
+  55 |   return (
+  56 |     <div className="min-h-screen bg-white dark:bg-[#0d0d0f] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 transition-colors duration-300">
+website\app\trust\page.tsx:82:58 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.
+website\components\ChatMockup.tsx:111:7 | react-hooks/set-state-in-effect | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\AI\AEGISORA\website\components\ChatMockup.tsx:111:7
+  109 |     if (step === 2 && isInView) {
+  110 |       let currentIndex = 0;
+> 111 |       setVisibleLogs([]);
+      |       ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  112 |       const interval = setInterval(() => {
+  113 |         if (currentIndex < currentScenario.logs.length) {
+  114 |           setVisibleLogs((prev) => [
+website\components\sections\problem.tsx:70:34 | react/no-unescaped-entities | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+website\utils\audit\audit-log.ts:6:12 | @typescript-eslint/no-explicit-any | Unexpected any. Specify a different type.

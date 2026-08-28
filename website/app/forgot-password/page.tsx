@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <main className="min-h-screen w-full flex flex-col items-center justify-center py-12 px-6 bg-zinc-950 text-white font-sans relative overflow-hidden selection:bg-blue-500/30">
+    <main className="min-h-screen w-full flex flex-col items-center justify-center py-12 px-6 bg-zinc-950 text-white font-sans relative overflo w-hidden selection:bg-blue-500/30">
       {/* Arkaplan Işık Efektleri */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.15)_0%,transparent_70%)] pointer-events-none" />
 
@@ -78,13 +78,13 @@ export default function ForgotPasswordPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-full bg-zinc-900/60 backdrop-blur-2xl border border-zinc-800/80 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] relative overflow-hidden"
+          className="w-full bg-zinc-900/60 backdrop-blur-2xl border b order-zinc-800/80 rounded-[2.5rem] p-8 sm:p-10 shado w-[0_25px_60px_rgba(0,0,0,0.6)] relative overflo w-hidden"
         >
           {/* Form İçi İnce Işık Çizgisi */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[250px] h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
           <div className="text-center mb-8">
-            <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/60 border border-blue-800/40 px-3 py-1 rounded-full mb-3 inline-block">
+            <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/60 border b order-blue-800/40 px-3 py-1 rounded-full mb-3 inline-block">
               Perimeter Security
             </span>
             <h1 className="text-2xl sm:text-3xl font-serif tracking-tight mb-2 text-white">
@@ -103,8 +103,8 @@ export default function ForgotPasswordPage() {
               animate={{ opacity: 1, scale: 1 }}
               className={`mb-6 p-4 rounded-xl flex items-center gap-3 text-xs font-mono ${
                 message.type === "success"
-                  ? "bg-emerald-950/40 border border-emerald-800/50 text-emerald-400 shadow-sm"
-                  : "bg-red-950/40 border border-red-800/50 text-red-400 shadow-sm"
+                  ? "bg-emerald-950/40 border b order-emerald-800/50 text-emerald-400 shado w-sm"
+                  : "bg-red-950/40 border b order-red-800/50 text-red-400 shado w-sm"
               }`}
             >
               {message.type === "success" ? (
@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
                   placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl pl-11 pr-4 py-3.5 text-[13px] text-white font-mono placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all shadow-inner"
+                  className="w-full bg-zinc-950/80 border b order-zinc-800 rounded-xl pl-11 pr-4 py-3.5 text-[13px] text-white font-mono placeholder-zinc-600 focus:outline-none focus:b order-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all shado w-inner"
                 />
               </div>
             </div>
@@ -137,17 +137,17 @@ export default function ForgotPasswordPage() {
             <button
               type="submit"
               disabled={isLoading || message?.type === "success"}
-              className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-mono font-medium text-[13px] rounded-xl transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer flex items-center justify-center gap-2 mt-2 disabled:opacity-70 disabled:cursor-not-allowed outline-none uppercase tracking-wider"
+              className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-mono font-medium text-[13px] rounded-xl transition-all shado w-[0_8px_20px_rgba(0,102,238,0.25)] hover:shado w-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer flex items-center justify-center gap-2 mt-2 disabled:opacity-70 disabled:cursor-not-allowed outline-none uppercase tracking-wider"
             >
               {isLoading ? (
-                <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                <div className="w-4 h-4 b order-2 b order-white/20 b order-t-white rounded-full animate-spin"></div>
               ) : (
                 <span>Send Reset Link</span>
               )}
             </button>
           </form>
 
-          <div className="text-center pt-8 border-t border-zinc-800/80 mt-8">
+          <div className="text-center pt-8 b order-t b order-zinc-800/80 mt-8">
             <Link
               href="/login"
               className="text-xs font-mono text-zinc-400 hover:text-blue-400 transition-colors outline-none inline-flex items-center gap-2 group"

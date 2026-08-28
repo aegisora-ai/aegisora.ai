@@ -66,11 +66,11 @@ export default function PrivacyAutopilot() {
   return (
     <section
       ref={containerRef}
-      className="w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center relative z-10 overflow-hidden text-white"
+      className="w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center relative z-10 overflo w-hidden text-white"
     >
-      {/* Üst Başlık Alanı */}
+      {/* Üst BaÅŸlık Alanı */}
       <div className="text-center mb-16 flex flex-col items-center max-w-3xl mx-auto">
-        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
+        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
           Zero-Trust Architecture
         </span>
         <h2 className="text-4xl sm:text-5xl font-bold font-serif mb-5 tracking-tight text-white">
@@ -84,14 +84,13 @@ export default function PrivacyAutopilot() {
         <div className="flex items-center gap-4">
           <Link
             href="/login"
-            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-6 py-3 rounded-full transition-all shadow-lg shadow-blue-600/20 cursor-pointer outline-none inline-flex items-center justify-center gap-2"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-6 py-3 rounded-full transition-all shado w-lg shado w-blue-600/20 cursor-pointer outline-none inline-flex items-center justify-center gap-2"
           >
             Explore Architecture <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="https://github.com/ozereray/aegisora.ai"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="text-zinc-400 hover:text-white text-[13px] font-medium px-4 py-2 transition-colors cursor-pointer outline-none inline-flex items-center justify-center"
           >
             Read the Docs
@@ -100,7 +99,7 @@ export default function PrivacyAutopilot() {
       </div>
 
       {/* Ana İnteraktif Mimari Konsolu */}
-      <div className="w-full max-w-[1100px] bg-zinc-950/80 backdrop-blur-2xl border border-zinc-800/80 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="w-full max-w-[1100px] bg-zinc-950/80 backdrop-blur-2xl border b order-zinc-800/80 rounded-[2.5rem] p-6 sm:p-10 shado w-[0_20px_50px_rgba(0,0,0,0.5)] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Sol Sütun: Özellik Seçim Sekmeleri */}
         <div className="lg:col-span-5 flex flex-col gap-3">
           {architectureTabs.map((tab, idx) => {
@@ -113,12 +112,12 @@ export default function PrivacyAutopilot() {
                 onClick={() => setActiveTab(idx)}
                 className={`w-full text-left p-4 sm:p-5 rounded-2xl transition-all duration-300 flex items-start gap-4 cursor-pointer outline-none border ${
                   isActive
-                    ? "bg-zinc-900 border-blue-500/50 shadow-[0_10px_30px_rgba(0,102,238,0.15)]"
-                    : "bg-zinc-950/40 border-zinc-900 hover:bg-zinc-900/50 hover:border-zinc-800"
+                    ? "bg-zinc-900 b order-blue-500/50 shado w-[0_10px_30px_rgba(0,102,238,0.15)]"
+                    : "bg-zinc-950/40 b order-zinc-900 hover:bg-zinc-900/50 hover:b order-zinc-800"
                 }`}
               >
                 <div
-                  className={`p-2.5 rounded-xl border mt-0.5 ${isActive ? "bg-blue-600/10 border-blue-500/30 text-blue-400" : "bg-zinc-900 border-zinc-800 text-zinc-400"}`}
+                  className={`p-2.5 rounded-xl border mt-0.5 ${isActive ? "bg-blue-600/10 b order-blue-500/30 text-blue-400" : "bg-zinc-900 b order-zinc-800 text-zinc-400"}`}
                 >
                   <TabIcon className="w-5 h-5" />
                 </div>
@@ -129,7 +128,7 @@ export default function PrivacyAutopilot() {
                     >
                       {tab.title}
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-zinc-900 border b order-zinc-800 text-zinc-400">
                       {tab.badge}
                     </span>
                   </div>
@@ -143,20 +142,20 @@ export default function PrivacyAutopilot() {
         </div>
 
         {/* Sağ Sütun: Canlı Terminal & Açıklama Ekranı */}
-        <div className="lg:col-span-7 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between min-h-[400px] relative overflow-hidden shadow-inner">
+        <div className="lg:col-span-7 bg-zinc-900/90 border b order-zinc-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between min-h-[400px] relative overflo w-hidden shado w-inner">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[80px] rounded-full pointer-events-none" />
 
           <div>
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-zinc-800">
+            <div className="flex items-center justify-between mb-6 pb-4 b order-b b order-zinc-800">
               <div className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yello w-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 <span className="text-xs font-mono text-zinc-400 ml-2">
                   aegisora-runtime-v2.4
                 </span>
               </div>
-              <span className="text-xs font-mono text-blue-400 flex items-center gap-1.5 bg-blue-950/60 border border-blue-800/40 px-3 py-1 rounded-full">
+              <span className="text-xs font-mono text-blue-400 flex items-center gap-1.5 bg-blue-950/60 border b order-blue-800/40 px-3 py-1 rounded-full">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Active Node
               </span>
             </div>
@@ -179,8 +178,8 @@ export default function PrivacyAutopilot() {
                   </p>
                 </div>
 
-                {/* Simüle Edilmiş Terminal Çıktısı */}
-                <div className="bg-zinc-950 border border-zinc-800/80 rounded-2xl p-4 sm:p-5 font-mono text-xs text-blue-300/90 leading-relaxed shadow-2xl relative overflow-hidden">
+                {/* Simüle EdilmiÅŸ Terminal Çıktısı */}
+                <div className="bg-zinc-950 border b order-zinc-800/80 rounded-2xl p-4 sm:p-5 font-mono text-xs text-blue-300/90 leading-relaxed shado w-2xl relative overflo w-hidden">
                   <div className="absolute top-2 right-3 text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
                     Live Stream
                   </div>
@@ -192,9 +191,9 @@ export default function PrivacyAutopilot() {
             </AnimatePresence>
           </div>
 
-          <div className="mt-8 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-400">
+          <div className="mt-8 pt-4 b order-t b order-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-400">
             <span>Security Standard: ISO 27001 / SOC2</span>
-            <span className="text-emerald-400">● System Operational</span>
+            <span className="text-emerald-400">â— System Operational</span>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function Problem() {
   };
 
   return (
-    <section className="relative py-32 md:py-48 flex items-center justify-center overflow-hidden font-sans bg-transparent">
+    <section className="relative py-32 md:py-48 flex items-center justify-center overflo w-hidden font-sans bg-transparent">
       <div
         className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 w-full"
         ref={containerRef}
@@ -64,7 +64,7 @@ export default function Problem() {
             {/* Vurucu Çözüm Mesajı */}
             <motion.div
               variants={fadeIn}
-              className="mt-12 md:mt-24 pt-12 border-t border-gray-300 dark:border-white/10"
+              className="mt-12 md:mt-24 pt-12 b order-t b order-gray-300 dark:b order-white/10"
             >
               <p className="text-xl md:text-3xl font-serif tracking-tight text-[#111111] dark:text-white leading-tight">
                 AI safety shouldn&apos;t rely on passive logging and delayed alerts.{" "}

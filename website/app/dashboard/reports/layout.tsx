@@ -10,7 +10,7 @@ export default function ReportsLayout({ children }: { children: React.ReactNode 
   const activeTab = pathname.includes("usage") ? "usage" : "threat-trends";
 
   return (
-    <div className="h-[calc(100vh-48px)] flex flex-col pt-8 sm:pt-10 px-4 sm:px-8 w-full relative justify-between bg-background text-foreground overflow-y-auto cf-scrollbar">
+    <div className="h-[calc(100v h-48px)] flex flex-col pt-8 sm:pt-10 px-4 sm:px-8 w-full relative justify-between bg-background text-foreground overflo w-y-auto cf-scrollbar">
       <div className="w-full max-w-7xl mx-auto flex flex-col flex-1 relative z-10 pb-12">
 
         {/* HEADER */}
@@ -26,17 +26,17 @@ export default function ReportsLayout({ children }: { children: React.ReactNode 
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 bg-[#18181b] border border-border hover:bg-[#27272a] px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer">
+            <button className="flex items-center gap-2 bg-[#18181b] border b order-border hover:bg-[#27272a] px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer">
               <Download className="w-3.5 h-3.5" /> Export PDF
             </button>
-            <button className="flex items-center gap-2 bg-[#18181b] border border-border hover:bg-[#27272a] px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer">
+            <button className="flex items-center gap-2 bg-[#18181b] border b order-border hover:bg-[#27272a] px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer">
               <Calendar className="w-3.5 h-3.5" /> Last 30 Days
             </button>
           </div>
         </div>
 
         {/* CLOUDFLARE TABS */}
-        <div className="flex items-center gap-6 border-b border-border/50 mb-6">
+        <div className="flex items-center gap-6 b order-b b order-border/50 mb-6">
           <Link
             href="/dashboard/reports/threat-trends"
             className={`pb-3 text-[13px] font-medium transition-colors relative outline-none cursor-pointer ${activeTab === 'threat-trends' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'}`}

@@ -19,7 +19,7 @@ export default function LogoAnimation() {
   return (
     <div
       ref={containerRef}
-      className="flex items-center justify-center w-full h-[300px] bg-black overflow-hidden"
+      className="flex items-center justify-center w-full h-[300px] bg-black overflo w-hidden"
       aria-label="Aegisora Animated Logo"
       role="img"
     >

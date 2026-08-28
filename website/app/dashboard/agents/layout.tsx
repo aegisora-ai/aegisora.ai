@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -62,7 +63,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
   };
 
   return (
-    <div className="h-[calc(100vh-48px)] flex flex-col pt-8 sm:pt-10 px-4 sm:px-8 w-full relative justify-between bg-background text-foreground overflow-y-auto cf-scrollbar">
+    <div className="h-[calc(100v h-48px)] flex flex-col pt-8 sm:pt-10 px-4 sm:px-8 w-full relative justify-between bg-background text-foreground overflo w-y-auto cf-scrollbar">
       <div className="w-full max-w-7xl mx-auto flex flex-col flex-1 relative z-10 pb-12">
 
         {/* HEADER */}
@@ -80,7 +81,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 bg-primary hover:bg-primary/90 px-4 py-2 rounded-lg text-[13px] font-medium text-primary-foreground transition-colors outline-none cursor-pointer shadow-sm"
+              className="flex items-center gap-2 bg-primary hover:bg-primary/90 px-4 py-2 rounded-lg text-[13px] font-medium text-primary-foreground transition-colors outline-none cursor-pointer shado w-sm"
             >
               <Plus className="w-4 h-4" /> Register Agent
             </button>
@@ -88,7 +89,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
         </div>
 
         {/* CLOUDFLARE TABS */}
-        <div className="flex items-center gap-6 border-b border-border/50 mb-6">
+        <div className="flex items-center gap-6 b order-b b order-border/50 mb-6">
           <Link
             href="/dashboard/agents/all-agents"
             className={`pb-3 text-[13px] font-medium transition-colors relative outline-none cursor-pointer ${activeTab === 'all-agents' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
@@ -125,12 +126,12 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
             >
               <motion.div
                 initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                onClick={e => e.stopPropagation()}
-                className="bg-[#18181b] border border-border rounded-xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-6"
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                className="bg-[#18181b] border b order-border rounded-xl p-6 sm:p-8 max-w-md w-full shado w-2xl space-y-6"
               >
-                <div className="flex items-center justify-between border-b border-border/50 pb-4">
+                <div className="flex items-center justify-between b order-b b order-border/50 pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 border b order-primary/20 flex items-center justify-center text-primary">
                       <Cpu className="w-4 h-4" />
                     </div>
                     <div>
@@ -149,7 +150,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
                     <input
                       type="text" required placeholder="e.g. Legal Analyzer Bot"
                       value={newName} onChange={(e) => setNewName(e.target.value)}
-                      className="w-full bg-[#111113] border border-zinc-700 rounded-lg px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      className="w-full bg-[#111113] border b order-zinc-700 rounded-lg px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -157,7 +158,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
                     <input
                       type="text" required placeholder="e.g. Contract review & compliance"
                       value={newRole} onChange={(e) => setNewRole(e.target.value)}
-                      className="w-full bg-[#111113] border border-zinc-700 rounded-lg px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      className="w-full bg-[#111113] border b order-zinc-700 rounded-lg px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -165,7 +166,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
                     <div className="relative">
                       <select
                         value={newModel} onChange={(e) => setNewModel(e.target.value)}
-                        className="w-full bg-[#111113] border border-zinc-700 rounded-lg px-3 py-2 text-[13px] text-foreground focus:outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                        className="w-full bg-[#111113] border b order-zinc-700 rounded-lg px-3 py-2 text-[13px] text-foreground focus:outline-none focus:b order-primary transition-colors appearance-none cursor-pointer"
                       >
                         {AVAILABLE_MODELS.map((model) => (
                           <option key={model} value={model}>{model}</option>
@@ -174,7 +175,7 @@ export default function AgentsLayout({ children }: { children: React.ReactNode }
                       <ChevronDown className="w-4 h-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                     </div>
                   </div>
-                  <div className="pt-4 flex items-center justify-end gap-3 border-t border-border/50">
+                  <div className="pt-4 flex items-center justify-end gap-3 b order-t b order-border/50">
                     <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 bg-transparent hover:bg-[#27272a] text-foreground rounded-lg text-[13px] font-medium transition-colors">
                       Cancel
                     </button>

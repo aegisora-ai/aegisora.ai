@@ -53,7 +53,7 @@ export default function GetStartedWaysPage() {
         </Link>
 
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white shadow-sm"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white shado w-sm"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -74,7 +74,7 @@ export default function GetStartedWaysPage() {
       <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full py-10">
         {/* Ortadaki Logo İkonu */}
         <div
-          className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-6 border shadow-sm ${isDarkMode ? "bg-[#141414] border-gray-800" : "bg-white border-gray-200"}`}
+          className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-6 border shado w-sm ${isDarkMode ? "bg-[#141414] b order-gray-800" : "bg-white b order-gray-200"}`}
         >
           <svg
             className="w-4 h-4 text-[#b490ff]"
@@ -108,11 +108,11 @@ export default function GetStartedWaysPage() {
             className={`rounded-3xl p-6 border transition-all cursor-pointer flex flex-col justify-between ${
               selectedCard === "intelligence"
                 ? isDarkMode
-                  ? "border-[#b490ff] bg-[#141414]"
-                  : "border-black bg-white shadow-md"
+                  ? "b order-[#b490ff] bg-[#141414]"
+                  : "b order-black bg-white shado w-md"
                 : isDarkMode
-                  ? "border-gray-800 bg-[#121212] hover:border-gray-700"
-                  : "border-gray-200 bg-white hover:border-gray-300 shadow-sm"
+                  ? "b order-gray-800 bg-[#121212] hover:b order-gray-700"
+                  : "b order-gray-200 bg-white hover:b order-gray-300 shado w-sm"
             }`}
           >
             <div>
@@ -139,8 +139,8 @@ export default function GetStartedWaysPage() {
                 }}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-[13px] font-medium transition-colors ${
                   isDarkMode
-                    ? "border-gray-800 bg-[#1a1a1a] text-gray-200"
-                    : "border-gray-200 bg-gray-50 text-gray-800"
+                    ? "b order-gray-800 bg-[#1a1a1a] text-gray-200"
+                    : "b order-gray-200 bg-gray-50 text-gray-800"
                 }`}
               >
                 <span>The Intelligence toolkit</span>
@@ -160,10 +160,10 @@ export default function GetStartedWaysPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden flex flex-col gap-2 mt-2 pt-1"
+                    className="overflo w-hidden flex flex-col gap-2 mt-2 pt-1"
                   >
                     <div
-                      className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <Sparkles className="w-4 h-4 text-[#b490ff] mt-0.5 flex-shrink-0" />
                       <div>
@@ -177,7 +177,7 @@ export default function GetStartedWaysPage() {
                     </div>
 
                     <div
-                      className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <Database className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                       <div>
@@ -192,7 +192,7 @@ export default function GetStartedWaysPage() {
                     </div>
 
                     <div
-                      className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs flex items-start gap-2.5 ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <Globe className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
                       <div>
@@ -217,11 +217,11 @@ export default function GetStartedWaysPage() {
             className={`rounded-3xl p-6 border transition-all cursor-pointer flex flex-col justify-between ${
               selectedCard === "protection"
                 ? isDarkMode
-                  ? "border-[#b490ff] bg-[#141414]"
-                  : "border-black bg-white shadow-md"
+                  ? "b order-[#b490ff] bg-[#141414]"
+                  : "b order-black bg-white shado w-md"
                 : isDarkMode
-                  ? "border-gray-800 bg-[#121212] hover:border-gray-700"
-                  : "border-gray-200 bg-white hover:border-gray-300 shadow-sm"
+                  ? "b order-gray-800 bg-[#121212] hover:b order-gray-700"
+                  : "b order-gray-200 bg-white hover:b order-gray-300 shado w-sm"
             }`}
           >
             <div>
@@ -248,8 +248,8 @@ export default function GetStartedWaysPage() {
                 }}
                 className={`w-full flex items-center justify-between p-3 rounded-xl border text-[13px] font-medium transition-colors ${
                   isDarkMode
-                    ? "border-gray-800 bg-[#1a1a1a] text-gray-200"
-                    : "border-gray-200 bg-gray-50 text-gray-800"
+                    ? "b order-gray-800 bg-[#1a1a1a] text-gray-200"
+                    : "b order-gray-200 bg-gray-50 text-gray-800"
                 }`}
               >
                 <span>The Protection toolkit</span>
@@ -269,10 +269,10 @@ export default function GetStartedWaysPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden flex flex-col gap-2 mt-2 pt-1"
+                    className="overflo w-hidden flex flex-col gap-2 mt-2 pt-1"
                   >
                     <div
-                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <span className="font-semibold block text-white mb-0.5">
                         Autopilot data removal
@@ -283,7 +283,7 @@ export default function GetStartedWaysPage() {
                       </span>
                     </div>
                     <div
-                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <span className="font-semibold block text-white mb-0.5">
                         Continuous monitoring
@@ -294,7 +294,7 @@ export default function GetStartedWaysPage() {
                       </span>
                     </div>
                     <div
-                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <span className="font-semibold block text-white mb-0.5">
                         Health Score
@@ -304,7 +304,7 @@ export default function GetStartedWaysPage() {
                       </span>
                     </div>
                     <div
-                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "border-gray-800/80 bg-[#161616]" : "border-gray-200 bg-gray-50"}`}
+                      className={`p-3 rounded-xl border text-xs ${isDarkMode ? "b order-gray-800/80 bg-[#161616]" : "b order-gray-200 bg-gray-50"}`}
                     >
                       <span className="font-semibold block text-white mb-0.5">
                         Reputation Score
@@ -324,7 +324,7 @@ export default function GetStartedWaysPage() {
         {/* Alt Butonlar: Next ve Back */}
         <div className="w-full max-w-sm flex flex-col items-center gap-3">
           <Link href="/get-started/account" className="w-full">
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Next
             </button>
           </Link>

@@ -137,6 +137,35 @@ return this.runtime
 
 }
 
+getEvidence() {
+    return this.runtime.getEvidence();
+  }
+
+  getEvidenceByTrace(
+    traceId: string,
+  ) {
+    return this.runtime.getEvidenceByTrace(
+      traceId,
+    );
+  }
+
+  getEvidenceByDecision(
+    decisionId: string,
+  ) {
+    return this.runtime.getEvidenceByDecision(
+      decisionId,
+    );
+  }
+
+  getEvidenceByAgent(
+    agentId: string,
+  ) {
+    return this.runtime.getEvidenceByAgent(
+      agentId,
+    );
+  }
+
+
 
 getMetrics(){
 

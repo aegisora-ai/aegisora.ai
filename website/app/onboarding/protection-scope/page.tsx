@@ -22,7 +22,7 @@ export default function ProtectionScopePage() {
           </span>
         </div>
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -56,11 +56,11 @@ export default function ProtectionScopePage() {
             className={`p-5 rounded-2xl border cursor-pointer transition-all flex items-center justify-center gap-3 ${
               scope === "just-me"
                 ? isDarkMode
-                  ? "border-[#b490ff] bg-[#141414]"
-                  : "border-black bg-white shadow-md"
+                  ? "b order-[#b490ff] bg-[#141414]"
+                  : "b order-black bg-white shado w-md"
                 : isDarkMode
-                  ? "border-gray-800 bg-[#121212]"
-                  : "border-gray-200 bg-white"
+                  ? "b order-gray-800 bg-[#121212]"
+                  : "b order-gray-200 bg-white"
             }`}
           >
             <User className="w-4 h-4 text-[#b490ff]" />
@@ -72,11 +72,11 @@ export default function ProtectionScopePage() {
             className={`p-5 rounded-2xl border cursor-pointer transition-all flex items-center justify-center gap-3 ${
               scope === "team"
                 ? isDarkMode
-                  ? "border-[#b490ff] bg-[#141414]"
-                  : "border-black bg-white shadow-md"
+                  ? "b order-[#b490ff] bg-[#141414]"
+                  : "b order-black bg-white shado w-md"
                 : isDarkMode
-                  ? "border-gray-800 bg-[#121212]"
-                  : "border-gray-200 bg-white"
+                  ? "b order-gray-800 bg-[#121212]"
+                  : "b order-gray-200 bg-white"
             }`}
           >
             <Users className="w-4 h-4 text-purple-400" />
@@ -86,7 +86,7 @@ export default function ProtectionScopePage() {
 
         <div className="w-full max-w-sm flex flex-col items-center gap-3">
           <Link href="/scan-setup" className="w-full">
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Continue
             </button>
           </Link>

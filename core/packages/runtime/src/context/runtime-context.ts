@@ -11,6 +11,10 @@ import {
 } from "../audit";
 
 import {
+  MemoryEvidenceStore,
+} from "@aegisora/audit";
+
+import {
   RuntimePolicyEngine
 } from "../policy";
 
@@ -54,6 +58,9 @@ import {
 
 export class RuntimeContext {
 
+  evidenceStore:
+    MemoryEvidenceStore;
+
   eventStore:
     EventStore;
 
@@ -62,6 +69,7 @@ export class RuntimeContext {
 
   decisionStore:
     DecisionTraceStore;
+
 
   policy:
     RuntimePolicyEngine;
@@ -114,8 +122,15 @@ export class RuntimeContext {
     this.eventStore =
       new EventStore();
 
+    this.evidenceStore =
+      new MemoryEvidenceStore();
+
     this.decisionStore =
-      new DecisionTraceStore();
+      new DecisionTraceStore(
+        this.evidenceStore
+      );
+
+
 
     this.policy =
       new RuntimePolicyEngine();

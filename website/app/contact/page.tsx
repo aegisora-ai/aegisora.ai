@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -18,7 +19,7 @@ return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 flex flex-col md:flex-row">
 
       {/* LEFT SIDE - Value Proposition */}
-      <div className="w-full md:w-5/12 lg:w-4/12 bg-white dark:bg-[#111113] border-r border-slate-200 dark:border-white/10 p-8 md:p-12 flex flex-col justify-between">
+      <div className="w-full md:w-5/12 lg:w-4/12 bg-white dark:bg-[#111113] b order-r b order-slate-200 dark:b order-white/10 p-8 md:p-12 flex flex-col justify-between">
         <div>
           <Link href="/" className="inline-flex items-center gap-2 text-[14px] font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors mb-12">
             <ArrowLeft className="w-4 h-4" /> Back to home
@@ -63,34 +64,34 @@ return (
 
       {/* RIGHT SIDE - Form */}
       <div className="flex-1 p-8 md:p-12 lg:p-20 flex items-center justify-center">
-        <div className="w-full max-w-[600px] bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl p-8 md:p-10">
+        <div className="w-full max-w-[600px] bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 rounded-2xl shado w-xl p-8 md:p-10">
           <h2 className="text-[24px] font-bold mb-6">Contact Sales</h2>
 
           <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300">First Name</label>
-                <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="John" />
+                <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="John" />
               </div>
               <div className="space-y-2">
                 <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300">Last Name</label>
-                <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Doe" />
+                <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Doe" />
               </div>
             </div>
 
             <div className="space-y-2">
               <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2"><Mail className="w-4 h-4"/> Work Email</label>
-              <input type="email" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="john@company.com" />
+              <input type="email" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="john@company.com" />
             </div>
 
             <div className="space-y-2">
               <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2"><Building2 className="w-4 h-4"/> Company Name</label>
-              <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Acme Corp" />
+              <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Acme Corp" />
             </div>
 
             <div className="space-y-2">
               <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300">Monthly LLM Executions (Volume)</label>
-              <select className="w-full bg-slate-50 dark:bg-[#1a1a1f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none">
+              <select className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none">
                 <option>Just exploring</option>
                 <option>Under 100,000</option>
                 <option>100,000 - 1 Million</option>
@@ -101,10 +102,10 @@ return (
 
             <div className="space-y-2">
               <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2"><MessageSquare className="w-4 h-4"/> How can we help?</label>
-              <textarea rows={4} className="w-full bg-slate-50 dark:bg-[#1a1a1f] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none" placeholder="Tell us about your AI use cases, security concerns, or deployment requirements..."></textarea>
+              <textarea rows={4} className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none" placeholder="Tell us about your AI use cases, security concerns, or deployment requirements..."></textarea>
             </div>
 
-            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg text-[15px] transition-colors shadow-md">
+            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg text-[15px] transition-colors shado w-md">
               Submit Request
             </button>
             <p className="text-[12px] text-slate-500 text-center mt-4">By submitting, you agree to our Terms of Service and Privacy Policy.</p>

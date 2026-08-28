@@ -60,20 +60,20 @@ export default function PricingPage() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <Link
             href="/get-started"
-            className="px-8 py-3.5 bg-[#0066EE] text-white text-[13px] font-medium rounded-full hover:bg-[#005bb5] transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.35)] hover:-translate-y-0.5"
+            className="px-8 py-3.5 bg-[#0066EE] text-white text-[13px] font-medium rounded-full hover:bg-[#005bb5] transition-all shado w-[0_8px_20px_rgba(0,102,238,0.25)] hover:shado w-[0_10px_25px_rgba(0,102,238,0.35)] hover:-translate-y-0.5"
           >
             Sign up for free
           </Link>
           <Link
             href="/business"
-            className="px-8 py-3.5 bg-white border border-gray-300 text-black text-[13px] font-medium rounded-full hover:border-black transition-colors shadow-sm"
+            className="px-8 py-3.5 bg-white border b order-gray-300 text-black text-[13px] font-medium rounded-full hover:b order-black transition-colors shado w-sm"
           >
             Business prices
           </Link>
         </div>
 
         {/* Esneklik Rozetleri */}
-        <div className="flex flex-wrap items-center justify-center gap-6 pt-6 border-t border-gray-300/60 text-[13px] font-mono text-gray-600">
+        <div className="flex flex-wrap items-center justify-center gap-6 pt-6 b order-t b order-gray-300/60 text-[13px] font-mono text-gray-600">
           <span className="flex items-center gap-2">
             ✅ Add credits anytime
           </span>
@@ -87,7 +87,7 @@ export default function PricingPage() {
       {/* Fiyatlandırma Kartları (3 Sütun) */}
       <div className="max-w-[1100px] w-full mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Free Plan */}
-        <div className="p-8 rounded-[2rem] bg-[#ededee] border border-gray-300/60 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+        <div className="p-8 rounded-[2rem] bg-[#ededee] border b order-gray-300/60 flex flex-col justify-between shado w-sm hover:shado w-md transition-shadow">
           <div>
             <h3 className="text-xl font-serif font-medium mb-1">Free</h3>
             <p className="text-2xl font-serif font-bold mb-6">
@@ -98,7 +98,7 @@ export default function PricingPage() {
             </p>
             <Link
               href="/get-started"
-              className="block w-full py-3 bg-[#111111] text-white text-center text-[13px] font-medium rounded-xl mb-8 hover:bg-black transition-colors shadow-sm"
+              className="block w-full py-3 bg-[#111111] text-white text-center text-[13px] font-medium rounded-xl mb-8 hover:bg-black transition-colors shado w-sm"
             >
               Get started free
             </Link>
@@ -153,8 +153,8 @@ export default function PricingPage() {
         </div>
 
         {/* Intelligence (Professional) Plan */}
-        <div className="p-8 rounded-[2rem] bg-white border-2 border-[#0066EE]/80 flex flex-col justify-between shadow-[0_15px_40px_rgba(0,102,238,0.12)] relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#0066EE] text-white text-[10px] font-mono rounded-full uppercase tracking-widest shadow-md">
+        <div className="p-8 rounded-[2rem] bg-white b order-2 b order-[#0066EE]/80 flex flex-col justify-between shado w-[0_15px_40px_rgba(0,102,238,0.12)] relative">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#0066EE] text-white text-[10px] font-mono rounded-full uppercase tracking-widest shado w-md">
             Popular
           </div>
           <div>
@@ -169,7 +169,7 @@ export default function PricingPage() {
             </p>
             <Link
               href="/get-started"
-              className="block w-full py-3 bg-[#0066EE] text-white text-center text-[13px] font-medium rounded-xl mb-8 hover:bg-[#005bb5] transition-colors shadow-md"
+              className="block w-full py-3 bg-[#0066EE] text-white text-center text-[13px] font-medium rounded-xl mb-8 hover:bg-[#005bb5] transition-colors shado w-md"
             >
               Get started free
             </Link>
@@ -223,7 +223,7 @@ export default function PricingPage() {
         </div>
 
         {/* Premium Plan */}
-        <div className="p-8 rounded-[2rem] bg-[#ededee] border border-gray-300/60 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+        <div className="p-8 rounded-[2rem] bg-[#ededee] border b order-gray-300/60 flex flex-col justify-between shado w-sm hover:shado w-md transition-shadow">
           <div>
             <h3 className="text-xl font-serif font-medium mb-1">Premium</h3>
             <p className="text-2xl font-serif font-bold mb-6">
@@ -234,7 +234,7 @@ export default function PricingPage() {
             </p>
             <Link
               href="/get-started"
-              className="block w-full py-3 bg-[#111111] text-white text-center text-[13px] font-medium rounded-xl mb-8 hover:bg-black transition-colors shadow-sm"
+              className="block w-full py-3 bg-[#111111] text-white text-center text-[13px] font-medium rounded-xl mb-8 hover:bg-black transition-colors shado w-sm"
             >
               Get started free
             </Link>
@@ -318,7 +318,7 @@ export default function PricingPage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="border border-gray-300/80 rounded-2xl overflow-hidden bg-[#ededee]"
+              className="border b order-gray-300/80 rounded-2xl overflo w-hidden bg-[#ededee]"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -337,7 +337,7 @@ export default function PricingPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="px-5 pb-5 text-[13px] font-mono text-gray-600 leading-relaxed border-t border-gray-300/40 pt-3"
+                    className="px-5 pb-5 text-[13px] font-mono text-gray-600 leading-relaxed b order-t b order-gray-300/40 pt-3"
                   >
                     {faq.a}
                   </motion.div>
@@ -349,7 +349,7 @@ export default function PricingPage() {
       </div>
 
       {/* Kurumsal Alt Footer */}
-      <footer className="w-full border-t py-12 px-8 mt-20 border-gray-200 bg-[#efeff1]">
+      <footer className="w-full b order-t py-12 px-8 mt-20 b order-gray-200 bg-[#efeff1]">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center gap-6">
           <div className="flex items-center gap-2 group cursor-pointer">
             <svg
@@ -390,7 +390,7 @@ export default function PricingPage() {
               🔗
             </Link>
           </div>
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-8 border-t border-gray-300/60 text-xs font-mono text-gray-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-8 b order-t b order-gray-300/60 text-xs font-mono text-gray-500">
             <div className="flex flex-col gap-2">
               <span className="font-semibold text-black">Company</span>
               <Link href="/about" className="hover:text-[#0066EE]">

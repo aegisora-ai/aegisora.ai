@@ -26,7 +26,7 @@ export default function PerformancePage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Global P90 Latency</span>
             <Clock className="w-4 h-4 text-orange-500" strokeWidth={1.5} />
@@ -34,7 +34,7 @@ export default function PerformancePage() {
           <div className="text-2xl font-bold text-white mb-1">310ms</div>
           <div className="text-[11px] text-muted-foreground">End-to-end execution</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Edge Cache Hit Rate</span>
             <Zap className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -42,7 +42,7 @@ export default function PerformancePage() {
           <div className="text-2xl font-bold text-white mb-1">84.2%</div>
           <div className="text-[11px] text-emerald-400">Optimal cache utilization</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Total Invocations</span>
             <Activity className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -50,7 +50,7 @@ export default function PerformancePage() {
           <div className="text-2xl font-bold text-white mb-1">2.4M</div>
           <div className="text-[11px] text-muted-foreground">Last 24 hours</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Compute Health</span>
             <Server className="w-4 h-4 text-blue-500" strokeWidth={1.5} />
@@ -61,7 +61,7 @@ export default function PerformancePage() {
       </div>
 
       {/* LATENCY CHART */}
-      <div className="bg-[#111113] border border-border rounded-xl p-5 flex flex-col shadow-sm">
+      <div className="bg-[#111113] border b order-border rounded-xl p-5 flex flex-col shado w-sm">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-[13px] font-bold text-white">Execution Latency Distribution (ms)</h3>
           <div className="flex items-center gap-4 text-[11px] font-mono text-muted-foreground">
@@ -86,14 +86,14 @@ export default function PerformancePage() {
       </div>
 
       {/* SLOW TRACES TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="p-5 border-b border-border/50 bg-[#18181b]/50">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="p-5 b order-b b order-border/50 bg-[#18181b]/50">
           <h3 className="text-[13px] font-bold text-white">Latency Bottleneck Traces</h3>
         </div>
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="border-b border-border/50 bg-[#111113]">
+              <tr className="b order-b b order-border/50 bg-[#111113]">
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Trace ID</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Agent</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Total Duration</th>
@@ -104,7 +104,7 @@ export default function PerformancePage() {
             </thead>
             <tbody>
               {mockSlowTraces.map((trace, i) => (
-                <tr key={i} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={i} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-5 py-3 text-[12px] font-mono text-muted-foreground group-hover:text-primary transition-colors">{trace.id}</td>
                   <td className="px-5 py-3 text-[13px] font-medium text-foreground">{trace.agent}</td>
                   <td className="px-5 py-3">

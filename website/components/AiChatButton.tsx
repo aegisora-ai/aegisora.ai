@@ -15,7 +15,7 @@ const AegisoraSpark = () => (
       times: [0, 0.4, 0.6, 1],
       repeat: Infinity,
     }}
-    className="h-6 w-6 flex-shrink-0 text-[#0066EE] drop-shadow-[0_0_8px_rgba(0,102,238,0.45)] will-change-transform"
+    className="h-6 w-6 flex-shrink-0 text-[#0066EE] drop-shado w-[0_0_8px_rgba(0,102,238,0.45)] will-change-transform"
     aria-hidden="true"
   >
     <svg
@@ -56,14 +56,14 @@ export default function AiChatButton() {
             justify-center
             rounded-full
             border
-            border-white/10
+            b order-white/10
             bg-[#111111]/90
             backdrop-blur-xl
-            shadow-[0_10px_35px_rgba(0,102,238,0.22)]
+            shado w-[0_10px_35px_rgba(0,102,238,0.22)]
             transition-all
             duration-300
-            hover:border-[#0066EE]/40
-            hover:shadow-[0_12px_40px_rgba(0,102,238,0.42)]
+            hover:b order-[#0066EE]/40
+            hover:shado w-[0_12px_40px_rgba(0,102,238,0.42)]
             focus-visible:outline-none
             focus-visible:ring-2
             focus-visible:ring-[#0066EE]
@@ -87,7 +87,7 @@ export default function AiChatButton() {
               whitespace-nowrap
               rounded-lg
               border
-              border-white/10
+              b order-white/10
               bg-[#111111]/95
               px-3
               py-1.5
@@ -95,7 +95,7 @@ export default function AiChatButton() {
               font-medium
               text-white
               opacity-0
-              shadow-2xl
+              shado w-2xl
               backdrop-blur-xl
               transition-opacity
               duration-300

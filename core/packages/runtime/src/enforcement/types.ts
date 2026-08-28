@@ -34,6 +34,22 @@ export interface EnforcementResult {
   permission: "allow" | "deny" | "review";
   policy: "allow" | "block" | "escalate";
   security: "allow" | "block" | "escalate";
+
+  traceId: string;
+  decisionId: string;
+  executionId: string;
+  evidenceId: string;
+
+  enforcementStatus:
+    | "not_executed"
+    | "executed"
+    | "prevented"
+    | "escalated";
+
+  executionOutcome:
+    | "not_attempted"
+    | "succeeded"
+    | "failed";
 }
 
 export interface EnforcementAuditRecord {

@@ -1,0 +1,127 @@
+AEGISORA RELEASE 1.5
+BASELINE AUDIT
+============================================================
+
+Generated:
+2026-08-27 15:21:02
+
+Repository:
+C:\AI\AEGISORA
+
+Website:
+C:\AI\AEGISORA\website
+
+Branch:
+release/1.5-enterprise-control-plane
+
+============================================================
+GIT STATUS
+============================================================
+
+ M core/packages/sdk/package.json  M core/packages/sdk/src/aegisora.ts  M website/app/dashboard/agents/page.tsx  M website/app/dashboard/layout.tsx  M website/app/dashboard/live-monitor/page.tsx  M website/app/dashboard/page.tsx  M website/app/dashboard/reports/page.tsx  M website/app/dashboard/risk-center/page.tsx  M website/app/dashboard/settings/page.tsx  M website/app/globals.css  M website/app/login/page.tsx  M website/app/page.tsx ?? app/ ?? core/packages/sdk/test/protect-governance-test.ts ?? docs/releases/ ?? sdk-protect-test-output.txt ?? sdk-typecheck-output.txt ?? website/app/dashboard/agents/active/ ?? website/app/dashboard/agents/all-agents/ ?? website/app/dashboard/agents/at-risk/ ?? website/app/dashboard/agents/layout.tsx ?? website/app/dashboard/audit/ ?? website/app/dashboard/integrations/ ?? website/app/dashboard/knowledge/ ?? website/app/dashboard/live-monitor/executions/ ?? website/app/dashboard/live-monitor/layout.tsx ?? website/app/dashboard/live-monitor/telemetry/ ?? website/app/dashboard/models/ ?? website/app/dashboard/network/ ?? website/app/dashboard/policies/ ?? website/app/dashboard/reports/layout.tsx ?? website/app/dashboard/reports/threat-trends/ ?? website/app/dashboard/reports/usage/ ?? website/app/dashboard/runtime/ ?? website/app/developers/ ?? website/app/docs/ ?? website/app/signup/
+
+============================================================
+ROUTES
+============================================================
+
+/app/about -> C:\AI\AEGISORA\website\app\about\page.tsx
+/app/admin -> C:\AI\AEGISORA\website\app\admin\page.tsx
+/app/blog/[slug] -> C:\AI\AEGISORA\website\app\blog\[slug]\page.tsx
+/app/blog -> C:\AI\AEGISORA\website\app\blog\page.tsx
+/app/business -> C:\AI\AEGISORA\website\app\business\page.tsx
+/app/contact/business-inquiry -> C:\AI\AEGISORA\website\app\contact\business-inquiry\page.tsx
+/app/contact/partnership -> C:\AI\AEGISORA\website\app\contact\partnership\page.tsx
+/app/contact/sales -> C:\AI\AEGISORA\website\app\contact\sales\page.tsx
+/app/contact/support -> C:\AI\AEGISORA\website\app\contact\support\page.tsx
+/app/dashboard/agents/active -> C:\AI\AEGISORA\website\app\dashboard\agents\active\page.tsx
+/app/dashboard/agents/all-agents -> C:\AI\AEGISORA\website\app\dashboard\agents\all-agents\page.tsx
+/app/dashboard/agents/at-risk -> C:\AI\AEGISORA\website\app\dashboard\agents\at-risk\page.tsx
+/app/dashboard/agents -> C:\AI\AEGISORA\website\app\dashboard\agents\page.tsx
+/app/dashboard/ai-chat -> C:\AI\AEGISORA\website\app\dashboard\ai-chat\page.tsx
+/app/dashboard/audit/decisions -> C:\AI\AEGISORA\website\app\dashboard\audit\decisions\page.tsx
+/app/dashboard/audit/evidence -> C:\AI\AEGISORA\website\app\dashboard\audit\evidence\page.tsx
+/app/dashboard/audit -> C:\AI\AEGISORA\website\app\dashboard\audit\page.tsx
+/app/dashboard/billing -> C:\AI\AEGISORA\website\app\dashboard\billing\page.tsx
+/app/dashboard/integrations/connected-apps -> C:\AI\AEGISORA\website\app\dashboard\integrations\connected-apps\page.tsx
+/app/dashboard/integrations/webhooks -> C:\AI\AEGISORA\website\app\dashboard\integrations\webhooks\page.tsx
+/app/dashboard/integrations -> C:\AI\AEGISORA\website\app\dashboard\integrations\page.tsx
+/app/dashboard/knowledge/datasets -> C:\AI\AEGISORA\website\app\dashboard\knowledge\datasets\page.tsx
+/app/dashboard/knowledge/vector-db -> C:\AI\AEGISORA\website\app\dashboard\knowledge\vector-db\page.tsx
+/app/dashboard/knowledge -> C:\AI\AEGISORA\website\app\dashboard\knowledge\page.tsx
+/app/dashboard/live-monitor/executions -> C:\AI\AEGISORA\website\app\dashboard\live-monitor\executions\page.tsx
+/app/dashboard/live-monitor/telemetry -> C:\AI\AEGISORA\website\app\dashboard\live-monitor\telemetry\page.tsx
+/app/dashboard/live-monitor -> C:\AI\AEGISORA\website\app\dashboard\live-monitor\page.tsx
+/app/dashboard/models/fine-tuning -> C:\AI\AEGISORA\website\app\dashboard\models\fine-tuning\page.tsx
+/app/dashboard/models/registry -> C:\AI\AEGISORA\website\app\dashboard\models\registry\page.tsx
+/app/dashboard/models -> C:\AI\AEGISORA\website\app\dashboard\models\page.tsx
+/app/dashboard/network -> C:\AI\AEGISORA\website\app\dashboard\network\page.tsx
+/app/dashboard/policies/approvals -> C:\AI\AEGISORA\website\app\dashboard\policies\approvals\page.tsx
+/app/dashboard/policies/policy-library -> C:\AI\AEGISORA\website\app\dashboard\policies\policy-library\page.tsx
+/app/dashboard/policies -> C:\AI\AEGISORA\website\app\dashboard\policies\page.tsx
+/app/dashboard/reports/threat-trends -> C:\AI\AEGISORA\website\app\dashboard\reports\threat-trends\page.tsx
+/app/dashboard/reports/usage -> C:\AI\AEGISORA\website\app\dashboard\reports\usage\page.tsx
+/app/dashboard/reports -> C:\AI\AEGISORA\website\app\dashboard\reports\page.tsx
+/app/dashboard/review-queue -> C:\AI\AEGISORA\website\app\dashboard\review-queue\page.tsx
+/app/dashboard/risk-center -> C:\AI\AEGISORA\website\app\dashboard\risk-center\page.tsx
+/app/dashboard/runtime/limits -> C:\AI\AEGISORA\website\app\dashboard\runtime\limits\page.tsx
+/app/dashboard/runtime/performance -> C:\AI\AEGISORA\website\app\dashboard\runtime\performance\page.tsx
+/app/dashboard/runtime -> C:\AI\AEGISORA\website\app\dashboard\runtime\page.tsx
+/app/dashboard/settings -> C:\AI\AEGISORA\website\app\dashboard\settings\page.tsx
+/app/dashboard -> C:\AI\AEGISORA\website\app\dashboard\page.tsx
+/app/developers -> C:\AI\AEGISORA\website\app\developers\page.tsx
+/app/docs -> C:\AI\AEGISORA\website\app\docs\page.tsx
+/app/early-access/sandbox -> C:\AI\AEGISORA\website\app\early-access\sandbox\page.tsx
+/app/early-access/success -> C:\AI\AEGISORA\website\app\early-access\success\page.tsx
+/app/early-access -> C:\AI\AEGISORA\website\app\early-access\page.tsx
+/app/forgot-password -> C:\AI\AEGISORA\website\app\forgot-password\page.tsx
+/app/get-started/account -> C:\AI\AEGISORA\website\app\get-started\account\page.tsx
+/app/get-started/ways -> C:\AI\AEGISORA\website\app\get-started\ways\page.tsx
+/app/get-started -> C:\AI\AEGISORA\website\app\get-started\page.tsx
+/app/legal/dpa -> C:\AI\AEGISORA\website\app\legal\dpa\page.tsx
+/app/legal/gdpr -> C:\AI\AEGISORA\website\app\legal\gdpr\page.tsx
+/app/login -> C:\AI\AEGISORA\website\app\login\page.tsx
+/app/onboarding/protect/identity -> C:\AI\AEGISORA\website\app\onboarding\protect\identity\page.tsx
+/app/onboarding/protect/intro -> C:\AI\AEGISORA\website\app\onboarding\protect\intro\page.tsx
+/app/onboarding/protect/light-scan-intro -> C:\AI\AEGISORA\website\app\onboarding\protect\light-scan-intro\page.tsx
+/app/onboarding/protect/location -> C:\AI\AEGISORA\website\app\onboarding\protect\location\page.tsx
+/app/onboarding/protection-scope -> C:\AI\AEGISORA\website\app\onboarding\protection-scope\page.tsx
+/app/onboarding -> C:\AI\AEGISORA\website\app\onboarding\page.tsx
+/app/pricing -> C:\AI\AEGISORA\website\app\pricing\page.tsx
+/app/register/pricing -> C:\AI\AEGISORA\website\app\register\pricing\page.tsx
+/app/register -> C:\AI\AEGISORA\website\app\register\page.tsx
+/app/scan-setup -> C:\AI\AEGISORA\website\app\scan-setup\page.tsx
+/app/security -> C:\AI\AEGISORA\website\app\security\page.tsx
+/app/signup -> C:\AI\AEGISORA\website\app\signup\page.tsx
+/app/test-integration -> C:\AI\AEGISORA\website\app\test-integration\page.tsx
+/app -> C:\AI\AEGISORA\website\app\page.tsx
+
+============================================================
+RELEVANT COMPONENT CANDIDATES
+============================================================
+
+Sidebar -> C:\AI\AEGISORA\website\components\Sidebar.tsx
+
+============================================================
+RELEASE SCOPE
+============================================================
+
+Runtime Security
+Governance
+Audit & Evidence
+Observability
+Developer Platform
+Self-Serve
+Enterprise Control Plane
+Enterprise Experience
+
+============================================================
+IMPORTANT
+============================================================
+
+This audit intentionally excludes:
+
+node_modules
+.next
+generated build output
+
+No product code was modified by this audit.

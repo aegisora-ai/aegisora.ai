@@ -30,7 +30,7 @@ export default function OnboardingPage() {
         </div>
 
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white shadow-sm"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white shado w-sm"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -50,7 +50,7 @@ export default function OnboardingPage() {
       {/* Orta Alan */}
       <div className="flex-1 flex flex-col items-center justify-center max-w-xl mx-auto w-full py-10 text-center">
         <div
-          className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-6 border shadow-sm ${isDarkMode ? "bg-[#141414] border-gray-800 text-[#b490ff]" : "bg-white border-gray-200 text-purple-600"}`}
+          className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-6 border shado w-sm ${isDarkMode ? "bg-[#141414] b order-gray-800 text-[#b490ff]" : "bg-white b order-gray-200 text-purple-600"}`}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
             <circle cx="12" cy="12" r="2" />
@@ -74,11 +74,11 @@ export default function OnboardingPage() {
             className={`p-5 rounded-3xl border text-left cursor-pointer transition-all flex items-start justify-between ${
               selectedOption === "protect"
                 ? isDarkMode
-                  ? "border-[#b490ff] bg-[#141414]"
-                  : "border-black bg-white shadow-md"
+                  ? "b order-[#b490ff] bg-[#141414]"
+                  : "b order-black bg-white shado w-md"
                 : isDarkMode
-                  ? "border-gray-800 bg-[#121212]"
-                  : "border-gray-200 bg-white"
+                  ? "b order-gray-800 bg-[#121212]"
+                  : "b order-gray-200 bg-white"
             }`}
           >
             <div className="flex items-start gap-4">
@@ -106,11 +106,11 @@ export default function OnboardingPage() {
             className={`p-5 rounded-3xl border text-left cursor-pointer transition-all flex items-start justify-between ${
               selectedOption === "intelligence"
                 ? isDarkMode
-                  ? "border-[#b490ff] bg-[#141414]"
-                  : "border-black bg-white shadow-md"
+                  ? "b order-[#b490ff] bg-[#141414]"
+                  : "b order-black bg-white shado w-md"
                 : isDarkMode
-                  ? "border-gray-800 bg-[#121212]"
-                  : "border-gray-200 bg-white"
+                  ? "b order-gray-800 bg-[#121212]"
+                  : "b order-gray-200 bg-white"
             }`}
           >
             <div className="flex items-start gap-4">
@@ -134,7 +134,7 @@ export default function OnboardingPage() {
         </div>
 
         <Link href="/onboarding/protect/intro" className="w-full max-w-sm">
-          <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+          <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
             Continue
           </button>
         </Link>

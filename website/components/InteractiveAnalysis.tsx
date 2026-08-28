@@ -85,7 +85,7 @@ export default function InteractiveAnalysis() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[85vh] flex flex-col items-center justify-center py-20 px-4 sm:px-6 bg-transparent overflow-hidden font-sans text-white"
+      className="relative w-full min-h-[85vh] flex flex-col items-center justify-center py-20 px-4 sm:px-6 bg-transparent overflo w-hidden font-sans text-white"
     >
       {/* Animated mesh gradient */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -116,7 +116,7 @@ export default function InteractiveAnalysis() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto mt-4">
-        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
+        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
           Runtime Governance Console
         </span>
 
@@ -135,19 +135,19 @@ export default function InteractiveAnalysis() {
           className="w-full max-w-2xl outline-none group"
           aria-label="Open AI Security Console"
         >
-          <div className="bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.5)] rounded-full p-2.5 pl-6 flex items-center w-full transition-all group-hover:shadow-[0_10px_40px_rgba(0,102,238,0.25)] group-hover:bg-zinc-900 group-hover:border-zinc-700 cursor-pointer">
+          <div className="bg-zinc-900/90 backdrop-blur-xl border b order-zinc-800 shado w-[0_10px_30px_rgba(0,0,0,0.5)] rounded-full p-2.5 pl-6 flex items-center w-full transition-all group-hover:shado w-[0_10px_40px_rgba(0,102,238,0.25)] group-hover:bg-zinc-900 group-hover:b order-zinc-700 cursor-pointer">
             <div className="mr-3">
               <AegisoraSpark isVisible={isInView} />
             </div>
 
-            <div className="flex-1 text-left text-zinc-200 font-medium text-[14px] sm:text-[15px] overflow-hidden whitespace-nowrap">
+            <div className="flex-1 text-left text-zinc-200 font-medium text-[14px] sm:text-[15px] overflo w-hidden whitespace-nowrap">
               {currentText}
               <span className="inline-block w-[1.5px] h-4 bg-blue-400 ml-[2px] animate-pulse align-middle"></span>
             </div>
 
             <div
               aria-hidden="true"
-              className="w-11 h-11 rounded-full bg-zinc-800 group-hover:bg-blue-600 flex items-center justify-center transition-all duration-300 flex-shrink-0 border border-zinc-700 group-hover:border-blue-500"
+              className="w-11 h-11 rounded-full bg-zinc-800 group-hover:bg-blue-600 flex items-center justify-center transition-all duration-300 flex-shrink-0 border b order-zinc-700 group-hover:b order-blue-500"
             >
               <ArrowUp className="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors" />
             </div>

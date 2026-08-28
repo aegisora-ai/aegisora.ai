@@ -10,6 +10,7 @@ import type {
 } from "./types";
 
 export class EnforcementGate {
+
   private readonly context: RuntimeContext;
   private readonly permissions: PermissionEngine;
 
@@ -17,41 +18,42 @@ export class EnforcementGate {
     context?: RuntimeContext,
     permissions?: PermissionEngine,
   ) {
-    this.context = context ?? new RuntimeContext();
-    this.permissions = permissions ?? new PermissionEngine();
+    this.context =
+      context ?? new RuntimeContext();
+
+    this.permissions =
+      permissions ?? new PermissionEngine();
   }
 
-  /**
-   * Primary enforcement API.
-   *
-   * Enforcement order:
-   * permission -> policy -> security -> risk -> audit
-   */
   async enforce(
     request: EnforcementRequest,
   ): Promise<EnforcementResult> {
-    const correlationId = crypto.randomUUID();
+
+    const traceId =
+      crypto.randomUUID();
+
+    const decisionId =
+      crypto.randomUUID();
+
+    const executionId =
+      crypto.randomUUID();
+
+    const evidenceId =
+      crypto.randomUUID();
+
+    const correlationId =
+      traceId;
 
     const metadata = {
       ...(request.metadata ?? {}),
       action: request.action,
       canonicalTool: request.tool,
       correlationId,
+      traceId,
+      decisionId,
+      executionId,
+      evidenceId,
     };
-
-        // --------------------------------------------------------
-    // 1. Identity authenticity
-    // --------------------------------------------------------
-    //
-    // RuntimeContext.AgentRegistry is the canonical source
-    // of runtime agent identity.
-    //
-    // Possessing an agentId string is NOT sufficient.
-    // The identity must correspond to a registered runtime agent.
-    //
-    // This check executes before permission, policy, security,
-    // risk analysis, and provider/tool execution.
-    // --------------------------------------------------------
 
     const registeredAgent =
       this.context.agentRegistry.getById(
@@ -59,51 +61,52 @@ export class EnforcementGate {
       );
 
     if (!registeredAgent) {
-      const result: EnforcementResult = {
-        decision: "BLOCK",
-        reason:
-          `Unknown or unregistered agent identity: ${request.agentId}`,
-        riskScore: 100,
-        threats: [],
-        permission: "deny",
-        policy: "allow",
-        security: "allow",
-      };
-
-      await this.audit(request, result, metadata);
-      return result;
+      return this.complete(
+        request,
+        metadata,
+        {
+          decision: "BLOCK",
+          reason:
+            `Unknown or unregistered agent identity: ${request.agentId}`,
+          riskScore: 100,
+          threats: [],
+          permission: "deny",
+          policy: "allow",
+          security: "allow",
+        },
+        "prevented",
+        "not_attempted",
+      );
     }
 
-    // --------------------------------------------------------
-    // 2. Identity / access control
-    // --------------------------------------------------------
+    const permission =
+      this.permissions.check({
+        agentId: request.agentId,
+        resourceType: request.resourceType,
+        tool: request.tool,
+        action: request.action,
+        metadata,
+      });
 
-    const permission = this.permissions.check({
-      agentId: request.agentId,
-      resourceType: request.resourceType,
-      tool: request.tool,
-      action: request.action,
-      metadata,
-    });
-
-    if (permission.action === "deny") {
-      const result: EnforcementResult = {
-        decision: "BLOCK",
-        reason: permission.reason,
-        riskScore: 100,
-        threats: [],
-        permission: "deny",
-        policy: "allow",
-        security: "allow",
-      };
-
-      await this.audit(request, result, metadata);
-      return result;
+    if (
+      permission.action === "deny"
+    ) {
+      return this.complete(
+        request,
+        metadata,
+        {
+          decision: "BLOCK",
+          reason: permission.reason,
+          riskScore: 100,
+          threats: [],
+          permission: "deny",
+          policy: "allow",
+          security: "allow",
+        },
+        "prevented",
+        "not_attempted",
+      );
     }
-
-    // --------------------------------------------------------
-    // 2. Canonical runtime event
-    // --------------------------------------------------------
 
     const event: RuntimeEvent = {
       id: crypto.randomUUID(),
@@ -123,65 +126,71 @@ export class EnforcementGate {
         metadata,
       },
     };
-    // Canonical evidence emission occurs at the enforcement boundary.
+
     this.context.eventBus.emit(event);
 
-    // --------------------------------------------------------
-    // 3. Policy enforcement
-    // --------------------------------------------------------
-
-    const policyResult = this.context.policy.evaluate(event);
+    const policyResult =
+      this.context.policy.evaluate(
+        event,
+      );
 
     if (!policyResult.allowed) {
-      const result: EnforcementResult = {
-        decision: "BLOCK",
-        reason: policyResult.reason,
-        riskScore: 100,
-        threats: [],
-        permission: permission.action,
-        policy: "block",
-        security: "allow",
-      };
-
-      await this.audit(request, result, metadata);
-      return result;
+      return this.complete(
+        request,
+        metadata,
+        {
+          decision: "BLOCK",
+          reason: policyResult.reason,
+          riskScore: 100,
+          threats: [],
+          permission: permission.action,
+          policy: "block",
+          security: "allow",
+        },
+        "prevented",
+        "not_attempted",
+      );
     }
 
-    // --------------------------------------------------------
-    // 4. Security enforcement
-    // --------------------------------------------------------
-
-    const securityResult = this.context.security.check(event);
+    const securityResult =
+      this.context.security.check(
+        event,
+      );
 
     const securityDecision =
       securityResult.decision === "block"
         ? "block"
         : "allow";
 
-    const threats: EnforcementThreat[] = [];
+    const threats:
+      EnforcementThreat[] = [];
 
-    if (securityDecision === "block") {
+    if (
+      securityDecision === "block"
+    ) {
       threats.push({
         type: "security_violation",
         severity: "high",
-        description: securityResult.reason,
+        description:
+          securityResult.reason,
         score: 90,
       });
     }
 
-    // --------------------------------------------------------
-    // 5. Risk analysis
-    // --------------------------------------------------------
-
-    const riskSignal = this.context.risk.analyze(event);
+    const riskSignal =
+      this.context.risk.analyze(event);
 
     let riskScore = 0;
 
     if (riskSignal?.level === "low") {
       riskScore = 10;
-    } else if (riskSignal?.level === "medium") {
+    } else if (
+      riskSignal?.level === "medium"
+    ) {
       riskScore = 50;
-    } else if (riskSignal?.level === "high") {
+    } else if (
+      riskSignal?.level === "high"
+    ) {
       riskScore = 90;
     }
 
@@ -194,75 +203,129 @@ export class EnforcementGate {
       });
     }
 
-    // --------------------------------------------------------
-    // 6. Security block
-    // --------------------------------------------------------
+    if (
+      securityDecision === "block"
+    ) {
+      return this.complete(
+        request,
+        metadata,
+        {
+          decision: "BLOCK",
+          reason: securityResult.reason,
+          riskScore: Math.max(
+            riskScore,
+            90,
+          ),
+          threats,
+          permission: permission.action,
+          policy: "allow",
+          security: "block",
+        },
+        "prevented",
+        "not_attempted",
+      );
+    }
 
-    if (securityDecision === "block") {
-      const result: EnforcementResult = {
-        decision: "BLOCK",
-        reason: securityResult.reason,
-        riskScore: Math.max(riskScore, 90),
+    if (
+      permission.action === "review"
+    ) {
+      return this.complete(
+        request,
+        metadata,
+        {
+          decision: "ESCALATE",
+          reason:
+            "Execution requires permission review.",
+          riskScore: Math.max(
+            riskScore,
+            50,
+          ),
+          threats,
+          permission: "review",
+          policy: "allow",
+          security: "allow",
+        },
+        "escalated",
+        "not_attempted",
+      );
+    }
+
+    return this.complete(
+      request,
+      metadata,
+      {
+        decision: "ALLOW",
+        reason:
+          "Permission, policy, security and risk checks passed.",
+        riskScore,
         threats,
         permission: permission.action,
         policy: "allow",
-        security: "block",
-      };
-
-      await this.audit(request, result, metadata);
-      return result;
-    }
-
-    // --------------------------------------------------------
-    // 7. Permission review boundary
-    // --------------------------------------------------------
-
-    if (permission.action === "review") {
-      const result: EnforcementResult = {
-        decision: "ESCALATE",
-        reason: "Execution requires permission review.",
-        riskScore: Math.max(riskScore, 50),
-        threats,
-        permission: "review",
-        policy: "allow",
         security: "allow",
-      };
-
-      await this.audit(request, result, metadata);
-      return result;
-    }
-
-    // --------------------------------------------------------
-    // 8. Final allow
-    // --------------------------------------------------------
-
-    const result: EnforcementResult = {
-      decision: "ALLOW",
-      reason:
-        "Permission, policy, security and risk checks passed.",
-      riskScore,
-      threats,
-      permission: permission.action,
-      policy: "allow",
-      security: "allow",
-    };
-
-    await this.audit(request, result, metadata);
-
-    return result;
+      },
+      "not_executed",
+      "not_attempted",
+    );
   }
 
-  /**
-   * Backward-compatible enforcement API.
-   *
-   * Older runtime traces and integrations used `evaluate()`.
-   * Keep this alias so upgrading the enforcement layer does not
-   * break existing callers.
-   */
   async evaluate(
     request: EnforcementRequest,
   ): Promise<EnforcementResult> {
     return this.enforce(request);
+  }
+
+  private async complete(
+    request: EnforcementRequest,
+    metadata: Record<string, unknown>,
+    base: Omit<
+      EnforcementResult,
+      | "traceId"
+      | "decisionId"
+      | "executionId"
+      | "evidenceId"
+      | "enforcementStatus"
+      | "executionOutcome"
+    >,
+    enforcementStatus:
+      | "not_executed"
+      | "executed"
+      | "prevented"
+      | "escalated",
+    executionOutcome:
+      | "not_attempted"
+      | "succeeded"
+      | "failed",
+  ): Promise<EnforcementResult> {
+
+    const traceId =
+      String(metadata.traceId);
+
+    const decisionId =
+      String(metadata.decisionId);
+
+    const executionId =
+      String(metadata.executionId);
+
+    const evidenceId =
+      String(metadata.evidenceId);
+
+    const result: EnforcementResult = {
+      ...base,
+      traceId,
+      decisionId,
+      executionId,
+      evidenceId,
+      enforcementStatus,
+      executionOutcome,
+    };
+
+    await this.audit(
+      request,
+      result,
+      metadata,
+    );
+
+    return result;
   }
 
   private async audit(
@@ -270,36 +333,130 @@ export class EnforcementGate {
     result: EnforcementResult,
     metadata: Record<string, unknown>,
   ): Promise<void> {
-    const auditRecord: EnforcementAuditRecord = {
-      agentId: request.agentId,
-      resourceType: request.resourceType,
-      tool: request.tool,
-      action: request.action,
-      decision: result.decision,
-      reason: result.reason,
-      riskScore: result.riskScore,
-      threats: result.threats,
-      metadata,
-    };
+
+    const auditRecord:
+      EnforcementAuditRecord = {
+        agentId: request.agentId,
+        resourceType:
+          request.resourceType,
+        tool: request.tool,
+        action: request.action,
+        decision: result.decision,
+        reason: result.reason,
+        riskScore: result.riskScore,
+        threats: result.threats,
+        metadata,
+      };
 
     this.context.decisionStore.record({
-      id: crypto.randomUUID(),
-      agentId: auditRecord.agentId,
-      action: auditRecord.action,
+      id: result.decisionId,
+
+      agentId:
+        auditRecord.agentId,
+
+      action:
+        auditRecord.action,
+
       decision:
         auditRecord.decision.toLowerCase() as
           | "allow"
           | "block"
           | "escalate",
-      reason: auditRecord.reason,
-      timestamp: new Date(),
-      riskScore: auditRecord.riskScore,
+
+      reason:
+        auditRecord.reason,
+
+      timestamp:
+        new Date(),
+
+      riskScore:
+        auditRecord.riskScore,
+
+      traceId:
+        result.traceId,
+
+      decisionId:
+        result.decisionId,
+
+      executionId:
+        result.executionId,
+
+      evidenceId:
+        result.evidenceId,
+
+      enforcementStatus:
+        result.enforcementStatus,
+
+      executionOutcome:
+        result.executionOutcome,
+
       metadata: {
-        resourceType: auditRecord.resourceType,
-        tool: auditRecord.tool,
-        threats: auditRecord.threats,
+        resourceType:
+          auditRecord.resourceType,
+
+        tool:
+          auditRecord.tool,
+
+        threats:
+          auditRecord.threats,
+
         ...(auditRecord.metadata ?? {}),
       },
+    });
+
+    this.context.evidenceStore.record({
+      evidenceId:
+        result.evidenceId,
+
+      traceId:
+        result.traceId,
+
+      decisionId:
+        result.decisionId,
+
+      executionId:
+        result.executionId,
+
+      agentId:
+        request.agentId,
+
+      resourceType:
+        request.resourceType,
+
+      tool:
+        request.tool,
+
+      action:
+        request.action,
+
+      finalDecision:
+        result.decision,
+
+      enforcementStatus:
+        result.enforcementStatus,
+
+      executionOutcome:
+        result.executionOutcome,
+
+      reason:
+        result.reason,
+
+      riskScore:
+        result.riskScore,
+
+      threats:
+        result.threats,
+
+      type:
+        "enforcement",
+
+      status:
+        "recorded",
+
+      timestamp:
+        new Date(),
+
+      metadata,
     });
   }
 }

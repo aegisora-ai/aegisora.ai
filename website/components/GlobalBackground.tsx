@@ -6,7 +6,7 @@ export default function GlobalBackground() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden w-full h-full bg-[#030712]">
+    <div className="fixed inset-0 pointer-events-none z-0 overflo w-hidden w-full h-full bg-[#030712]">
       {/*
         GPU-accelerated background:
         Motion is expressed as rotate/scale (not x/y translation) to avoid

@@ -51,16 +51,16 @@ export default function DPAPage() {
           </p>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-gray-300/60 flex items-center justify-between">
+        <div className="mt-16 pt-8 b order-t b order-gray-300/60 flex items-center justify-between">
           <Link
             href="/"
             className="text-[13px] font-mono underline text-[#0066EE] hover:text-black transition-colors"
           >
-            ← Back to Home
+            â† Back to Home
           </Link>
           <Link
             href="/contact/support"
-            className="px-6 py-3 bg-[#0066EE] text-white text-[13px] font-medium rounded-full hover:bg-[#005bb5] transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)]"
+            className="px-6 py-3 bg-[#0066EE] text-white text-[13px] font-medium rounded-full hover:bg-[#005bb5] transition-all shado w-[0_8px_20px_rgba(0,102,238,0.25)]"
           >
             Contact Legal Team
           </Link>
@@ -68,7 +68,7 @@ export default function DPAPage() {
       </div>
 
       {/* Kusursuz Aegisora Ana Footer */}
-      <footer className="w-full border-t py-16 px-6 mt-20 border-gray-200 bg-[#f4f4f5]">
+      <footer className="w-full b order-t py-16 px-6 mt-20 b order-gray-200 bg-[#f4f4f5]">
         <div className="max-w-[1000px] mx-auto flex flex-col items-center">
           <Link
             href="/"
@@ -103,7 +103,7 @@ export default function DPAPage() {
           <div className="flex items-center gap-6 text-gray-400 mb-16">
             <Link
               href="https://aegisora.ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
             >
               <svg
@@ -122,7 +122,7 @@ export default function DPAPage() {
             </Link>
             <Link
               href="https://x.com/aegisora_ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
             >
               <svg
@@ -150,7 +150,7 @@ export default function DPAPage() {
             </Link>
             <Link
               href="https://www.linkedin.com/company/aegisora/posts/?feedView=all&viewAsMember=true"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ export default function DPAPage() {
             </Link>
           </div>
 
-          <div className="w-full flex flex-wrap md:flex-nowrap justify-between gap-y-10 pt-10 border-t border-gray-300/60 text-[12.5px] font-mono text-gray-500 text-left">
+          <div className="w-full flex flex-wrap md:flex-nowrap justify-between gap-y-10 pt-10 b order-t b order-gray-300/60 text-[12.5px] font-mono text-gray-500 text-left">
             <div className="flex flex-col gap-3 w-1/2 md:w-auto">
               <span className="font-bold text-gray-900 mb-2">Company</span>
               <Link

@@ -11,7 +11,7 @@ export default function DevelopersPage() {
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative pt-24 pb-20 overflow-hidden border-b border-border">
+        <section className="relative pt-24 pb-20 overflo w-hidden b order-b b order-border">
           <div className="absolute inset-0 bg-grid-slate opacity-10 dark:bg-grid-white pointer-events-none"></div>
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="max-w-3xl">
@@ -20,10 +20,10 @@ export default function DevelopersPage() {
                 Integrate Aegisora into your existing AI stack in minutes. Native SDKs for TypeScript and Python with sub-5ms policy evaluation latency.
               </p>
               <div className="flex items-center gap-4">
-                <a href="/docs" className="bg-primary text-primary-foreground px-6 py-3 rounded-md text-sm font-bold shadow-md hover:bg-primary/90 transition-colors">
+                <a href="/docs" className="bg-primary text-primary-foreground px-6 py-3 rounded-md text-sm font-bold shado w-md hover:bg-primary/90 transition-colors">
                   Read the Docs
                 </a>
-                <a href="https://github.com/aegisora" className="bg-card border border-border text-foreground px-6 py-3 rounded-md text-sm font-bold hover:bg-accent transition-colors flex items-center gap-2">
+                <a href="https://github.com/aegisora" className="bg-card border b order-border text-foreground px-6 py-3 rounded-md text-sm font-bold hover:bg-accent transition-colors flex items-center gap-2">
                   <Terminal className="w-4 h-4" /> View Source
                 </a>
               </div>
@@ -52,8 +52,8 @@ export default function DevelopersPage() {
               </div>
 
               {/* Mock Code Block */}
-              <div className="bg-[#111113] border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-                <div className="flex items-center px-4 py-3 bg-[#18181b] border-b border-slate-800">
+              <div className="bg-[#111113] border b order-slate-800 rounded-xl overflo w-hidden shado w-2xl">
+                <div className="flex items-center px-4 py-3 bg-[#18181b] b order-b b order-slate-800">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-slate-700"></div>
                     <div className="w-3 h-3 rounded-full bg-slate-700"></div>
@@ -61,7 +61,7 @@ export default function DevelopersPage() {
                   </div>
                   <div className="mx-auto text-xs text-slate-500 font-mono">agent.ts</div>
                 </div>
-                <div className="p-6 overflow-x-auto">
+                <div className="p-6 overflo w-x-auto">
                   <pre className="text-sm font-mono text-slate-300">
 <code className="text-blue-400">import</code> {`{ Aegisora }`} <code className="text-blue-400">from</code> <code className="text-emerald-400">'@aegisora/node'</code>;
 <code className="text-blue-400">import</code> {`{ OpenAI }`} <code className="text-blue-400">from</code> <code className="text-emerald-400">'openai'</code>;{`\n\n`}

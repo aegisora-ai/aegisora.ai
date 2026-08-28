@@ -22,7 +22,7 @@ export default function WebhooksPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Total Endpoints</span>
             <Share2 className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -30,7 +30,7 @@ export default function WebhooksPage() {
           <div className="text-2xl font-bold text-white mb-1">3</div>
           <div className="text-[11px] text-muted-foreground">Configured webhook routes</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Delivery Rate</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -38,7 +38,7 @@ export default function WebhooksPage() {
           <div className="text-2xl font-bold text-white mb-1">98.5%</div>
           <div className="text-[11px] text-emerald-400">Successful deliveries (24h)</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Failing Hooks</span>
             <AlertCircle className="w-4 h-4 text-decision-block" strokeWidth={1.5} />
@@ -53,20 +53,20 @@ export default function WebhooksPage() {
           <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text" placeholder="Search webhooks..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-4 py-2 rounded-lg text-[12px] font-medium text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-4 py-2 rounded-lg text-[12px] font-medium text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           Add Webhook
         </button>
       </div>
 
       {/* WEBHOOKS TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Webhook Name & ID</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Endpoint URL</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Subscribed Events</th>
@@ -76,7 +76,7 @@ export default function WebhooksPage() {
             </thead>
             <tbody>
               {filteredHooks.map((wh) => (
-                <tr key={wh.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={wh.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-5 py-4">
                     <div className="flex flex-col">
                       <span className="text-[13px] font-medium text-foreground">{wh.name}</span>
@@ -91,7 +91,7 @@ export default function WebhooksPage() {
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-1.5 flex-wrap max-w-[250px]">
                       {wh.events.map((ev, i) => (
-                        <span key={i} className="text-[10px] font-mono bg-[#18181b] border border-border px-1.5 py-0.5 rounded text-muted-foreground">
+                        <span key={i} className="text-[10px] font-mono bg-[#18181b] border b order-border px-1.5 py-0.5 rounded text-muted-foreground">
                           {ev}
                         </span>
                       ))}
@@ -99,11 +99,11 @@ export default function WebhooksPage() {
                   </td>
                   <td className="px-5 py-4">
                     {wh.status === 'Active' ? (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 border b order-emerald-500/20 px-2 py-0.5 rounded w-fit">
                         <Activity className="w-3 h-3" /> Active
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-block bg-decision-block/10 border border-decision-block/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-block bg-decision-block/10 border b order-decision-block/20 px-2 py-0.5 rounded w-fit">
                         <XCircle className="w-3 h-3" /> Failing
                       </span>
                     )}

@@ -121,7 +121,7 @@ export default function PrivateInvestigator() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-32 px-6 bg-transparent font-sans flex flex-col items-center justify-center z-10 overflow-hidden text-white"
+      className="relative w-full py-32 px-6 bg-transparent font-sans flex flex-col items-center justify-center z-10 overflo w-hidden text-white"
     >
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-40 z-0">
         <canvas
@@ -132,15 +132,15 @@ export default function PrivateInvestigator() {
 
       <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center text-center">
         {/* Üst Kısım: Koyu Uyumlu Enterprise Telemetry Kutusu */}
-        <div className="bg-zinc-900/90 backdrop-blur-2xl rounded-2xl px-6 py-4 flex flex-col items-center gap-3 mb-8 border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="bg-zinc-900/90 backdrop-blur-2xl rounded-2xl px-6 py-4 flex flex-col items-center gap-3 mb-8 border b order-zinc-800 shado w-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="flex items-center gap-4 text-zinc-200">
-            <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-blue-500/10 border b order-blue-500/20 flex items-center justify-center text-blue-400 shado w-sm">
               <Workflow className="w-5 h-5" />
             </div>
-            <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-blue-500/10 border b order-blue-500/20 flex items-center justify-center text-blue-400 shado w-sm">
               <Bell className="w-5 h-5" />
             </div>
-            <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-blue-500/10 border b order-blue-500/20 flex items-center justify-center text-blue-400 shado w-sm">
               <Terminal className="w-5 h-5" />
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function PrivateInvestigator() {
         <div className="flex items-center gap-4">
           <Link
             href="/login"
-            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-7 py-3.5 rounded-full transition-colors shadow-lg shadow-blue-600/20 cursor-pointer inline-flex items-center justify-center"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-7 py-3.5 rounded-full transition-colors shado w-lg shado w-blue-600/20 cursor-pointer inline-flex items-center justify-center"
           >
             Get Started
           </Link>

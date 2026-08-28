@@ -94,7 +94,7 @@ export default function BillingPage() {
 
   return (
     <div className="p-6 sm:p-10 max-w-[1400px] mx-auto w-full flex flex-col gap-8 font-sans">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-800 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 b order-b b order-gray-800 pb-6">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -110,9 +110,9 @@ export default function BillingPage() {
       </div>
 
       {/* Aktif Workspace Durumu */}
-      <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="bg-[#121215] border b order-gray-800/80 rounded-2xl p-6 shado w-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#0066EE]/10 border border-[#0066EE]/30 flex items-center justify-center text-[#0066EE]">
+          <div className="w-12 h-12 rounded-xl bg-[#0066EE]/10 border b order-[#0066EE]/30 flex items-center justify-center text-[#0066EE]">
             <Database className="w-6 h-6" />
           </div>
           <div>
@@ -128,7 +128,7 @@ export default function BillingPage() {
           </div>
         </div>
 
-        <button className="flex items-center gap-2 bg-[#19191d] border border-gray-700 hover:bg-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-default outline-none">
+        <button className="flex items-center gap-2 bg-[#19191d] border b order-gray-700 hover:bg-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-default outline-none">
           <span>Billing Paused (Beta Phase)</span>
           <Check className="w-3.5 h-3.5 text-emerald-400" />
         </button>
@@ -182,14 +182,14 @@ export default function BillingPage() {
         ].map((plan, idx) => (
           <div
             key={idx}
-            className={`bg-[#121215] border rounded-2xl p-6 flex flex-col justify-between shadow-xl transition-all relative ${
+            className={`bg-[#121215] border rounded-2xl p-6 flex flex-col justify-between shado w-xl transition-all relative ${
               plan.popular
-                ? "border-[#0066EE] shadow-blue-500/10"
-                : "border-gray-800/80"
+                ? "b order-[#0066EE] shado w-blue-500/10"
+                : "b order-gray-800/80"
             }`}
           >
             {plan.popular && (
-              <span className="absolute -top-3 left-6 bg-[#0066EE] text-white text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider font-bold shadow-md">
+              <span className="absolute -top-3 left-6 bg-[#0066EE] text-white text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider font-bold shado w-md">
                 100% Free For Launch
               </span>
             )}
@@ -209,7 +209,7 @@ export default function BillingPage() {
                 {plan.desc}
               </p>
 
-              <div className="space-y-2 mb-8 border-t border-gray-800/80 pt-4">
+              <div className="space-y-2 mb-8 b order-t b order-gray-800/80 pt-4">
                 {plan.features.map((feat, fIdx) => (
                   <div
                     key={fIdx}
@@ -229,9 +229,9 @@ export default function BillingPage() {
               }
               className={`w-full py-3 rounded-xl text-xs font-mono font-semibold transition-all flex items-center justify-center gap-2 outline-none ${
                 plan.actionType === "current"
-                  ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 cursor-default"
+                  ? "bg-emerald-500/10 text-emerald-500 border b order-emerald-500/20 cursor-default"
                   : plan.popular
-                    ? "bg-[#0066EE] hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 cursor-pointer"
+                    ? "bg-[#0066EE] hover:bg-blue-600 text-white shado w-lg shado w-blue-500/20 cursor-pointer"
                     : "bg-gray-800 hover:bg-gray-700 text-white cursor-pointer"
               }`}
             >
@@ -252,7 +252,7 @@ export default function BillingPage() {
 
       {/* Veritabanı Özet Metrikleri */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+        <div className="bg-[#121215] border b order-gray-800/80 rounded-2xl p-6 shado w-xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono text-gray-400">
               Active Deployed Agents
@@ -267,7 +267,7 @@ export default function BillingPage() {
           </p>
         </div>
 
-        <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+        <div className="bg-[#121215] border b order-gray-800/80 rounded-2xl p-6 shado w-xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono text-gray-400">
               Security Incidents Logged
@@ -282,7 +282,7 @@ export default function BillingPage() {
           </p>
         </div>
 
-        <div className="bg-[#121215] border border-gray-800/80 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+        <div className="bg-[#121215] border b order-gray-800/80 rounded-2xl p-6 shado w-xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-mono text-gray-400">
               Launch Phase Status

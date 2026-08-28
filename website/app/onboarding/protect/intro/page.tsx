@@ -22,7 +22,7 @@ export default function ProtectIntroPage() {
           </span>
         </div>
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -51,7 +51,7 @@ export default function ProtectIntroPage() {
 
         <div className="flex flex-col gap-4 w-full mb-8">
           <div
-            className={`p-4 rounded-2xl border text-left flex items-center gap-4 ${isDarkMode ? "bg-[#121212] border-gray-800" : "bg-white border-gray-200"}`}
+            className={`p-4 rounded-2xl border text-left flex items-center gap-4 ${isDarkMode ? "bg-[#121212] b order-gray-800" : "bg-white b order-gray-200"}`}
           >
             <div className="p-2.5 rounded-xl bg-purple-500/10 text-[#b490ff]">
               <Search className="w-5 h-5" />
@@ -67,7 +67,7 @@ export default function ProtectIntroPage() {
           </div>
 
           <div
-            className={`p-4 rounded-2xl border text-left flex items-center gap-4 ${isDarkMode ? "bg-[#121212] border-gray-800" : "bg-white border-gray-200"}`}
+            className={`p-4 rounded-2xl border text-left flex items-center gap-4 ${isDarkMode ? "bg-[#121212] b order-gray-800" : "bg-white b order-gray-200"}`}
           >
             <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
               <Trash2 className="w-5 h-5" />
@@ -83,7 +83,7 @@ export default function ProtectIntroPage() {
           </div>
 
           <div
-            className={`p-4 rounded-2xl border text-left flex items-center gap-4 ${isDarkMode ? "bg-[#121212] border-gray-800" : "bg-white border-gray-200"}`}
+            className={`p-4 rounded-2xl border text-left flex items-center gap-4 ${isDarkMode ? "bg-[#121212] b order-gray-800" : "bg-white b order-gray-200"}`}
           >
             <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
               <Watch className="w-5 h-5" />
@@ -101,7 +101,7 @@ export default function ProtectIntroPage() {
 
         <div className="w-full max-w-sm flex flex-col items-center gap-3">
           <Link href="/onboarding/protect/light-scan-intro" className="w-full">
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Continue
             </button>
           </Link>

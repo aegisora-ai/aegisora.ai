@@ -60,8 +60,8 @@ return (
       {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflow-y-auto lg:hidden">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0d0f]">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflo w-y-auto lg:hidden">
+            <div className="flex items-center justify-between px-6 py-5 b order-b b order-slate-200 dark:b order-white/10 bg-white dark:bg-[#0d0d0f]">
                <Link href="/" className="flex items-center outline-none">
                  <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-8 w-auto dark:hidden" />
                  <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-8 w-auto hidden dark:block" />
@@ -69,21 +69,21 @@ return (
                <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 outline-none text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"><X className="w-7 h-7 stroke-[1.5]" /></button>
             </div>
             <div className="flex flex-col px-4 py-4 flex-1">
-               <Link href="/" className="px-2 py-4 border-b border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[16px] font-bold w-full text-left">Homepage</Link>
+               <Link href="/" className="px-2 py-4 b order-b b order-slate-200 dark:b order-white/10 text-slate-900 dark:text-white text-[16px] font-bold w-full text-left">Homepage</Link>
                {["Product", "Solutions", "Resources"].map(item => {
                   const isExpanded = expandedMobileItem === item;
                   return (
-                    <div key={item} className="flex flex-col border-b border-slate-200 dark:border-white/10">
+                    <div key={item} className="flex flex-col b order-b b order-slate-200 dark:b order-white/10">
                       <button onClick={() => setExpandedMobileItem(isExpanded ? null : item)} className="flex justify-between items-center px-2 py-5 text-slate-900 dark:text-white text-[16px] font-bold w-full outline-none text-left">
                         {item} <ChevronDown className={"w-5 h-5 text-slate-400 transition-transform duration-300 " + (isExpanded ? "rotate-180" : "")} />
                       </button>
                       <AnimatePresence>
                         {isExpanded && MENU_DATA[item] && (
-                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflo w-hidden">
                             <div className="pb-6 pt-2 flex flex-col gap-5 px-2">
                               {MENU_DATA[item].map((sub: any, idx: number) => (
                                 <Link key={idx} href={sub.href} className="flex items-start gap-4 group">
-                                  {sub.icon && (<div className="w-11 h-11 rounded-[10px] bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm group-hover:border-blue-500 transition-colors"><sub.icon className="w-[20px] h-[20px] text-blue-600 dark:text-blue-500" /></div>)}
+                                  {sub.icon && (<div className="w-11 h-11 rounded-[10px] bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 flex items-center justify-center shrink-0 shado w-sm group-hover:b order-blue-500 transition-colors"><sub.icon className="w-[20px] h-[20px] text-blue-600 dark:text-blue-500" /></div>)}
                                   <div className="flex flex-col pt-0.5">
                                     <div className="text-[15px] font-bold text-slate-900 dark:text-white mb-0.5">{sub.title}</div>
                                     <div className="text-[13px] text-slate-500 dark:text-slate-400 leading-snug">{sub.desc}</div>
@@ -103,7 +103,7 @@ return (
       </AnimatePresence>
 
       {/* NAVBAR */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0d0d0f]/90 backdrop-blur-md sticky top-0 z-50">
+      <header className="flex items-center justify-between px-6 py-4 b order-b b order-slate-200 dark:b order-white/10 bg-white/90 dark:bg-[#0d0d0f]/90 backdrop-blur-md sticky top-0 z-50">
         <Link href="/" className="flex items-center outline-none">
           <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-8 w-auto dark:hidden" />
           <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-8 w-auto hidden dark:block" />
@@ -122,10 +122,10 @@ return (
       </header>
 
       <main className="pb-0">
-        <section className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20 overflow-hidden">
+        <section className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20 overflo w-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="max-w-2xl z-10">
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 text-slate-800 dark:text-blue-100 text-[13px] font-bold tracking-wide uppercase mb-8">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border b order-blue-200 dark:b order-blue-800/50 text-slate-800 dark:text-blue-100 text-[13px] font-bold tracking-wide uppercase mb-8">
                 <div className="w-5 h-5 rounded flex items-center justify-center bg-blue-100 dark:bg-blue-800"><Terminal className="w-3 h-3 text-blue-600 dark:text-blue-300" /></div>
                 Resources / API Reference
               </motion.div>
@@ -137,10 +137,10 @@ return (
                 <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-[16px] font-bold transition-colors">Start Reading</button>
               </motion.div>
             </div>
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative z-10 w-full h-[400px] rounded-2xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 shadow-2xl flex items-center justify-center overflow-hidden">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative z-10 w-full h-[400px] rounded-2xl bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 shado w-2xl flex items-center justify-center overflo w-hidden">
                <div className="absolute inset-0 opacity-40 dark:opacity-20" style={{ backgroundImage: 'radial-gradient(#94a3b8 2px, transparent 2px)', backgroundSize: '24px 24px' }}></div>
                <div className="w-32 h-32 rounded-full bg-blue-500/20 blur-3xl animate-pulse"></div>
-               <Terminal className="w-24 h-24 text-blue-500 absolute drop-shadow-2xl" strokeWidth={1} />
+               <Terminal className="w-24 h-24 text-blue-500 absolute drop-shado w-2xl" strokeWidth={1} />
             </motion.div>
           </div>
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/5 dark:bg-blue-600/10 blur-[120px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
@@ -149,7 +149,7 @@ return (
         {/* BOTTOM CTA */}
         <section className="pt-12 pb-24 bg-white dark:bg-[#0d0d0f]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-            <div className="bg-[#f8fafc] dark:bg-[#111113] border border-slate-200/50 dark:border-white/10 rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden transition-colors duration-300">
+            <div className="bg-[#f8fafc] dark:bg-[#111113] border b order-slate-200/50 dark:b order-white/10 rounded-3xl p-10 md:p-16 shado w-2xl relative overflo w-hidden transition-colors duration-300">
               <div className="relative z-10">
                 <h2 className="text-[36px] md:text-[48px] font-bold text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight max-w-2xl">
                   Build secure agentic workflows today.

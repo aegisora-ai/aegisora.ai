@@ -26,7 +26,7 @@ export default function ProtectIdentityPage() {
           </span>
         </div>
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -54,7 +54,7 @@ export default function ProtectIdentityPage() {
         </p>
 
         {/* Küçük Etiket */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#161619] border border-gray-800 text-[11px] font-mono text-gray-400 mb-8">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#161619] border b order-gray-800 text-[11px] font-mono text-gray-400 mb-8">
           <Globe className="w-3 h-3 text-blue-400" />
           <span>Used to find your exposure</span>
         </div>
@@ -72,7 +72,7 @@ export default function ProtectIdentityPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, firstName: e.target.value })
                 }
-                className="w-full bg-[#141417] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-white focus:outline-none focus:border-gray-600"
+                className="w-full bg-[#141417] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-white focus:outline-none focus:b order-gray-600"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -85,7 +85,7 @@ export default function ProtectIdentityPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, middleName: e.target.value })
                 }
-                className="w-full bg-[#141417] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-gray-500 focus:outline-none focus:border-gray-600"
+                className="w-full bg-[#141417] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-gray-500 focus:outline-none focus:b order-gray-600"
               />
             </div>
           </div>
@@ -100,14 +100,14 @@ export default function ProtectIdentityPage() {
               onChange={(e) =>
                 setFormData({ ...formData, lastName: e.target.value })
               }
-              className="w-full bg-[#141417] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-white focus:outline-none focus:border-gray-600"
+              className="w-full bg-[#141417] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-white focus:outline-none focus:b order-gray-600"
             />
           </div>
         </div>
 
         <div className="w-full max-w-sm flex flex-col items-center gap-3 mb-10">
           <Link href="/onboarding/protect/location" className="w-full">
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Continue
             </button>
           </Link>
@@ -120,7 +120,7 @@ export default function ProtectIdentityPage() {
         </div>
 
         {/* Güvenlik Kutusu */}
-        <div className="w-full bg-[#0d1c14] border border-emerald-900/30 rounded-2xl p-4 text-left font-mono text-xs text-emerald-400/90 space-y-1.5">
+        <div className="w-full bg-[#0d1c14] border b order-emerald-900/30 rounded-2xl p-4 text-left font-mono text-xs text-emerald-400/90 space-y-1.5">
           <div className="flex items-center gap-2 font-semibold mb-2">
             <Lock className="w-4 h-4" />
             <span>Built on trust.</span>

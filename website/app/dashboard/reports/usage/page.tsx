@@ -19,7 +19,7 @@ export default function UsagePage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Total Requests</span>
             <Activity className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -27,7 +27,7 @@ export default function UsagePage() {
           <div className="text-2xl font-bold text-white mb-1">87.9K</div>
           <div className="text-[11px] text-muted-foreground">Processed at edge</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Tokens Processed</span>
             <Database className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -35,7 +35,7 @@ export default function UsagePage() {
           <div className="text-2xl font-bold text-white mb-1">15.0M</div>
           <div className="text-[11px] text-muted-foreground">Across all models</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Compute Time</span>
             <Cpu className="w-4 h-4 text-orange-500" strokeWidth={1.5} />
@@ -43,7 +43,7 @@ export default function UsagePage() {
           <div className="text-2xl font-bold text-white mb-1">428h</div>
           <div className="text-[11px] text-muted-foreground">Total active inference</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Egress Bandwidth</span>
             <Network className="w-4 h-4 text-blue-500" strokeWidth={1.5} />
@@ -54,7 +54,7 @@ export default function UsagePage() {
       </div>
 
       {/* USAGE BAR CHART */}
-      <div className="bg-[#111113] border border-border rounded-xl p-5 flex flex-col shadow-sm">
+      <div className="bg-[#111113] border b order-border rounded-xl p-5 flex flex-col shado w-sm">
         <h3 className="text-[13px] font-bold text-white mb-6">Token Usage (Millions)</h3>
         <div className="flex-1 min-h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">

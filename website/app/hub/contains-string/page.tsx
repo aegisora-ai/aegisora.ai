@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ArrowLeft, Box, Tag, Copy, Check, ExternalLink } from "lucide-react";
+import { ArrowLeft, Box, Tag, Copy, Check, ExternalLink, Globe } from "lucide-react";
 
 // RESMİ GITHUB SVG İKONU
 const GithubIcon = (props: React.ComponentProps<"svg">) => (
@@ -47,9 +47,9 @@ except Exception as e:
   return (
     <div className="min-h-screen flex flex-col bg-[#FAFAFA] font-sans">
       <Navbar />
-      
+
       {/* Top Breadcrumb & Title */}
-      <div className="w-full bg-white border-b border-slate-200 py-8 px-6">
+      <div className="w-full bg-white b order-b b order-slate-200 py-8 px-6">
         <div className="max-w-[1200px] mx-auto">
           <Link href="/hub" className="inline-flex items-center gap-2 text-[13px] font-bold text-slate-500 hover:text-[#0066FF] transition-colors mb-6">
             <ArrowLeft className="w-4 h-4" /> Back to Hub
@@ -66,7 +66,7 @@ except Exception as e:
                  <span className="flex items-center gap-1 px-2.5 py-1 bg-slate-100 text-slate-600 text-[11px] font-bold rounded uppercase tracking-wider"><Tag className="w-3 h-3" /> STRING</span>
                  <span className="flex items-center gap-1 px-2.5 py-1 bg-slate-100 text-slate-600 text-[11px] font-bold rounded uppercase tracking-wider"><Tag className="w-3 h-3" /> FORMATTING</span>
                </div>
-               <a href="https://github.com/aegisora" className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-lg text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors">
+               <a href="https://github.com/aegisora" className="flex items-center gap-2 px-4 py-2 border b order-slate-200 rounded-lg text-[13px] font-bold text-slate-700 hover:bg-slate-50 transition-colors">
                  <GithubIcon className="w-4 h-4" /> See on GitHub
                </a>
             </div>
@@ -76,13 +76,13 @@ except Exception as e:
 
       {/* Main Content Area */}
       <div className="max-w-[1200px] mx-auto w-full flex-1 flex flex-col lg:flex-row px-6 py-12 gap-12">
-        
+
         {/* Left Column (Documentation) */}
         <div className="flex-1 space-y-12">
-          
+
           {/* Description */}
           <section>
-            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">Description</h2>
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 b order-b b order-slate-200">Description</h2>
             <p className="text-[16px] text-slate-700 leading-relaxed font-medium">
               This validator ensures that a string contains a substring. It is a fundamental formatting guard used to verify expected tokens, mandatory clauses, or structural elements in LLM outputs.
             </p>
@@ -90,9 +90,9 @@ except Exception as e:
 
           {/* Installation */}
           <section>
-            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">Installation</h2>
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 b order-b b order-slate-200">Installation</h2>
             <div className="relative group">
-              <pre className="p-4 bg-slate-900 text-emerald-400 rounded-xl text-[14px] font-mono overflow-x-auto">
+              <pre className="p-4 bg-slate-900 text-emerald-400 rounded-xl text-[14px] font-mono overflo w-x-auto">
                 <code>{pipCommand}</code>
               </pre>
               <button onClick={() => copyToClipboard(pipCommand, 'pip')} className="absolute right-3 top-3 p-2 bg-white/10 hover:bg-white/20 rounded-md text-white transition-colors">
@@ -103,10 +103,10 @@ except Exception as e:
 
           {/* Usage Examples */}
           <section>
-            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">Usage Examples</h2>
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 b order-b b order-slate-200">Usage Examples</h2>
             <p className="text-[15px] text-slate-600 font-medium mb-4">Validating string output via Python. In this example, we'll test that a generated word contains the substring <code className="bg-slate-100 px-1 py-0.5 rounded text-rose-500">a</code>.</p>
             <div className="relative group">
-              <pre className="p-5 bg-slate-900 text-blue-300 rounded-xl text-[13px] font-mono overflow-x-auto leading-relaxed">
+              <pre className="p-5 bg-slate-900 text-blue-300 rounded-xl text-[13px] font-mono overflo w-x-auto leading-relaxed">
                 <code>{pythonCode}</code>
               </pre>
               <button onClick={() => copyToClipboard(pythonCode, 'code')} className="absolute right-3 top-3 p-2 bg-white/10 hover:bg-white/20 rounded-md text-white transition-colors">
@@ -117,21 +117,21 @@ except Exception as e:
 
           {/* Output */}
           <section>
-            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">Output</h2>
-            <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl text-[14px] font-mono text-rose-800">
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 b order-b b order-slate-200">Output</h2>
+            <div className="p-4 bg-rose-50 border b order-rose-100 rounded-xl text-[14px] font-mono text-rose-800">
               Validation failed for field with errors: fail doesn't contain a
             </div>
           </section>
 
           {/* API Reference */}
           <section>
-            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">API Reference</h2>
-            <div className="bg-white border border-slate-200 rounded-xl p-6">
+            <h2 className="text-[20px] font-bold text-slate-900 mb-4 pb-2 b order-b b order-slate-200">API Reference</h2>
+            <div className="bg-white border b order-slate-200 rounded-xl p-6">
               <h3 className="font-mono text-[15px] font-bold text-slate-900 mb-4 bg-slate-100 inline-block px-3 py-1 rounded">
                 __init__(self, substring: str, on_fail="noop")
               </h3>
               <p className="text-[15px] text-slate-600 font-medium mb-4">Initializes a new instance of the Validator class.</p>
-              
+
               <h4 className="font-bold text-slate-900 mb-2">Parameters:</h4>
               <ul className="space-y-4 text-[14px] text-slate-700">
                 <li className="flex gap-4">
@@ -150,28 +150,28 @@ except Exception as e:
 
         {/* Right Column (Sticky Sidebar) */}
         <aside className="w-full lg:w-[320px] space-y-6">
-          
+
           {/* Overview Card */}
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm sticky top-24">
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+          <div className="bg-white border b order-slate-200 rounded-xl p-6 shado w-sm sticky top-24">
+            <div className="flex items-center justify-between mb-6 pb-4 b order-b b order-slate-100">
               <h3 className="font-bold text-slate-900 flex items-center gap-2"><Globe className="w-4 h-4"/> Overview</h3>
               <span className="text-[10px] font-bold text-slate-400">UPDATED 3 WEEKS AGO</span>
             </div>
-            
+
             <div className="space-y-4">
-              <div className="flex justify-between items-center border-b border-slate-50 pb-2">
+              <div className="flex justify-between items-center b order-b b order-slate-50 pb-2">
                 <span className="text-[12px] font-bold text-slate-500 uppercase">Developed By:</span>
                 <span className="text-[13px] font-bold text-slate-900">Aegisora AI</span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-50 pb-2">
+              <div className="flex justify-between items-center b order-b b order-slate-50 pb-2">
                 <span className="text-[12px] font-bold text-slate-500 uppercase">Date of Dev:</span>
                 <span className="text-[13px] font-bold text-slate-900">Apr 24, 2024</span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-50 pb-2">
+              <div className="flex justify-between items-center b order-b b order-slate-50 pb-2">
                 <span className="text-[12px] font-bold text-slate-500 uppercase">Validator Type:</span>
                 <span className="text-[13px] font-bold text-slate-900">Format</span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-50 pb-2">
+              <div className="flex justify-between items-center b order-b b order-slate-50 pb-2">
                 <span className="text-[12px] font-bold text-slate-500 uppercase">License:</span>
                 <span className="text-[13px] font-bold text-slate-900">MIT</span>
               </div>
@@ -183,14 +183,14 @@ except Exception as e:
           </div>
 
           {/* Quick Install Tabs */}
-          <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden sticky top-[380px]">
-            <div className="flex border-b border-slate-200">
-              <button className="flex-1 py-3 text-[13px] font-bold bg-white text-[#0066FF] border-b-2 border-[#0066FF]">Install</button>
+          <div className="bg-white border b order-slate-200 rounded-xl shado w-sm overflo w-hidden sticky top-[380px]">
+            <div className="flex b order-b b order-slate-200">
+              <button className="flex-1 py-3 text-[13px] font-bold bg-white text-[#0066FF] b order-b-2 b order-[#0066FF]">Install</button>
               <button className="flex-1 py-3 text-[13px] font-bold bg-slate-50 text-slate-500 hover:text-slate-900">Usage</button>
             </div>
             <div className="p-4">
               <div className="text-[11px] font-bold text-slate-500 uppercase mb-2">PIP</div>
-              <div className="p-3 bg-slate-100 rounded-lg text-[12px] font-mono text-slate-800 break-all border border-slate-200">
+              <div className="p-3 bg-slate-100 rounded-lg text-[12px] font-mono text-slate-800 break-all border b order-slate-200">
                 pip install aegisora-contains-string
               </div>
             </div>

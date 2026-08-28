@@ -21,7 +21,7 @@ export default function ProtectLocationPage() {
           </span>
         </div>
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -48,7 +48,7 @@ export default function ProtectLocationPage() {
           Serus will start the search there.
         </p>
 
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#161619] border border-gray-800 text-[11px] font-mono text-gray-400 mb-8">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#161619] border b order-gray-800 text-[11px] font-mono text-gray-400 mb-8">
           <Store className="w-3 h-3 text-amber-400" />
           <span>Helps target broker scans</span>
         </div>
@@ -56,7 +56,7 @@ export default function ProtectLocationPage() {
         <div className="flex flex-col gap-1.5 w-full text-left mb-8">
           <label className="text-xs font-mono text-gray-400">Country*</label>
           <div className="relative">
-            <select className="w-full bg-[#141417] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-white appearance-none focus:outline-none focus:border-gray-600 cursor-pointer">
+            <select className="w-full bg-[#141417] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-white appearance-none focus:outline-none focus:b order-gray-600 cursor-pointer">
               <option value="">Select country</option>
               <option value="DE">Germany</option>
               <option value="TR">Turkey</option>
@@ -71,7 +71,7 @@ export default function ProtectLocationPage() {
             href="/onboarding/protection-scope?from=protect-location"
             className="w-full"
           >
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Continue
             </button>
           </Link>
@@ -83,7 +83,7 @@ export default function ProtectLocationPage() {
           </Link>
         </div>
 
-        <div className="w-full bg-[#0d1c14] border border-emerald-900/30 rounded-2xl p-4 text-left font-mono text-xs text-emerald-400/90 space-y-1.5">
+        <div className="w-full bg-[#0d1c14] border b order-emerald-900/30 rounded-2xl p-4 text-left font-mono text-xs text-emerald-400/90 space-y-1.5">
           <div className="flex items-center gap-2 font-semibold mb-2">
             <Lock className="w-4 h-4" />
             <span>Built on trust.</span>

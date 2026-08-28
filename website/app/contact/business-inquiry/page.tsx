@@ -37,7 +37,7 @@ export default function BusinessInquiryPage() {
     }
 
     setIsLoading(true);
-    // Simüle edilmiş kurumsal form gönderim süreci
+    // Simüle edilmiÅŸ kurumsal form gönderim süreci
     setTimeout(() => {
       setIsLoading(false);
       setIsSubmitted(true);
@@ -45,8 +45,8 @@ export default function BusinessInquiryPage() {
   };
 
   return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-28 selection:bg-blue-500/30 relative overflow-hidden">
-      {/* Arkaplan Işık Efektleri */}
+    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-28 selection:bg-blue-500/30 relative overflo w-hidden">
+      {/* Arkaplan IÅŸık Efektleri */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.15)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Üst Menü / Navbar */}
@@ -58,7 +58,7 @@ export default function BusinessInquiryPage() {
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-6 inline-flex items-center gap-2"
+            className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-6 inline-flex items-center gap-2"
           >
             <Building2 className="w-3.5 h-3.5" />
             Partnerships & Sales
@@ -88,9 +88,9 @@ export default function BusinessInquiryPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="w-full rounded-[2.5rem] border border-zinc-800/80 p-8 sm:p-12 shadow-2xl mb-12 bg-zinc-900/40 backdrop-blur-xl relative overflow-hidden"
+          className="w-full rounded-[2.5rem] border b order-zinc-800/80 p-8 sm:p-12 shado w-2xl mb-12 bg-zinc-900/40 backdrop-blur-xl relative overflo w-hidden"
         >
-          {/* Form İçi İnce Işık */}
+          {/* Form İçi İnce IÅŸık */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
           {isSubmitted ? (
@@ -99,9 +99,9 @@ export default function BusinessInquiryPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="py-12 text-center space-y-5"
             >
-              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(16,185,129,0.15)] relative">
+              <div className="w-16 h-16 rounded-full bg-emerald-500/10 border b order-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shado w-[0_0_30px_rgba(16,185,129,0.15)] relative">
                 <CheckCircle2 className="w-8 h-8" />
-                <div className="absolute inset-0 border border-emerald-500/30 rounded-full animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                <div className="absolute inset-0 border b order-emerald-500/30 rounded-full animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
               </div>
               <h3 className="text-2xl font-serif text-white tracking-tight">
                 Inquiry Received Securely
@@ -123,7 +123,7 @@ export default function BusinessInquiryPage() {
                     accepted: false,
                   });
                 }}
-                className="mt-6 px-6 py-3 bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs font-mono rounded-xl hover:bg-zinc-900 hover:text-white transition-colors cursor-pointer outline-none shadow-sm"
+                className="mt-6 px-6 py-3 bg-zinc-950 border b order-zinc-800 text-zinc-300 text-xs font-mono rounded-xl hover:bg-zinc-900 hover:text-white transition-colors cursor-pointer outline-none shado w-sm"
               >
                 Submit Another Inquiry
               </button>
@@ -146,7 +146,7 @@ export default function BusinessInquiryPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, fullName: e.target.value })
                     }
-                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:b order-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 b order-zinc-800 text-white placeholder-zinc-600 shado w-inner"
                   />
                 </div>
 
@@ -162,7 +162,7 @@ export default function BusinessInquiryPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                    className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:b order-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 b order-zinc-800 text-white placeholder-zinc-600 shado w-inner"
                   />
                 </div>
               </div>
@@ -182,7 +182,7 @@ export default function BusinessInquiryPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, companyName: e.target.value })
                   }
-                  className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  className="w-full rounded-xl px-4 py-3.5 text-[13px] font-mono border focus:outline-none transition-all focus:b order-blue-500/50 focus:ring-1 focus:ring-blue-500/50 bg-zinc-950/80 b order-zinc-800 text-white placeholder-zinc-600 shado w-inner"
                 />
               </div>
 
@@ -198,7 +198,7 @@ export default function BusinessInquiryPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="w-full rounded-xl p-4 text-[13px] font-mono border focus:outline-none transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 resize-none bg-zinc-950/80 border-zinc-800 text-white placeholder-zinc-600 shadow-inner"
+                  className="w-full rounded-xl p-4 text-[13px] font-mono border focus:outline-none transition-all focus:b order-blue-500/50 focus:ring-1 focus:ring-blue-500/50 resize-none bg-zinc-950/80 b order-zinc-800 text-white placeholder-zinc-600 shado w-inner"
                 />
               </div>
 
@@ -212,7 +212,7 @@ export default function BusinessInquiryPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, accepted: e.target.checked })
                     }
-                    className="w-4 h-4 rounded border-zinc-700 bg-zinc-950 appearance-none checked:bg-blue-500 transition-colors cursor-pointer peer"
+                    className="w-4 h-4 rounded b order-zinc-700 bg-zinc-950 appearance-none checked:bg-blue-500 transition-colors cursor-pointer peer"
                   />
                   <Check
                     className="w-3 h-3 text-white absolute pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity"
@@ -245,7 +245,7 @@ export default function BusinessInquiryPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium text-[13px] rounded-xl transition-all shadow-[0_8px_20px_rgba(0,102,238,0.2)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.3)] cursor-pointer mt-4 outline-none flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium text-[13px] rounded-xl transition-all shado w-[0_8px_20px_rgba(0,102,238,0.2)] hover:shado w-[0_10px_25px_rgba(0,102,238,0.3)] cursor-pointer mt-4 outline-none flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
@@ -269,8 +269,8 @@ export default function BusinessInquiryPage() {
         </motion.div>
       </div>
 
-      {/* Yenilenmiş Aegisora Ana Footer */}
-      <footer className="relative z-10 w-full border-t py-16 px-6 mt-10 border-zinc-800 bg-zinc-950">
+      {/* YenilenmiÅŸ Aegisora Ana Footer */}
+      <footer className="relative z-10 w-full b order-t py-16 px-6 mt-10 b order-zinc-800 bg-zinc-950">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center">
           <Link
             href="/"
@@ -299,7 +299,7 @@ export default function BusinessInquiryPage() {
           <div className="flex items-center gap-5 text-zinc-500 mt-8 mb-16">
             <Link
               href="https://aegisora.ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -318,7 +318,7 @@ export default function BusinessInquiryPage() {
             </Link>
             <Link
               href="https://x.com/aegisora_ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -331,7 +331,7 @@ export default function BusinessInquiryPage() {
             </Link>
             <Link
               href="https://www.linkedin.com/company/aegisora"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -344,7 +344,7 @@ export default function BusinessInquiryPage() {
             </Link>
             <Link
               href="https://github.com/aegisora"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -361,7 +361,7 @@ export default function BusinessInquiryPage() {
             </Link>
           </div>
 
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 b order-t b order-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
             <div className="flex flex-col gap-2.5">
               <span className="font-bold text-zinc-300 mb-1">Company</span>
               <Link
@@ -475,7 +475,7 @@ export default function BusinessInquiryPage() {
             </div>
           </div>
 
-          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 border-t border-zinc-800/80 text-[11px] font-mono text-zinc-500">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 b order-t b order-zinc-800/80 text-[11px] font-mono text-zinc-500">
             <span className="mb-4 md:mb-0">
               © 2026 Aegisora. All rights reserved.
             </span>

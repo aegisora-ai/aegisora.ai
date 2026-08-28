@@ -90,8 +90,8 @@ export default function BlogIndex() {
                   onClick={() => setActiveFilter(filter)}
                   className={`px-5 py-2.5 rounded-lg text-[14px] font-bold border transition-colors ${
                     activeFilter === filter
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                    ? 'bg-slate-900 text-white b order-slate-900'
+                    : 'bg-white text-slate-600 b order-slate-200 hover:bg-slate-50 hover:b order-slate-300'
                   }`}
                 >
                   {filter}
@@ -103,8 +103,8 @@ export default function BlogIndex() {
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {blogPosts.map((post, idx) => (
-              <Link href={post.link} key={idx} className="group block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                <div className="w-full h-[240px] bg-slate-50 flex items-center justify-center border-b border-slate-100 overflow-hidden group-hover:scale-105 transition-transform duration-500">
+              <Link href={post.link} key={idx} className="group block bg-white rounded-2xl border b order-slate-200 overflo w-hidden shado w-sm hover:shado w-xl transition-all duration-300">
+                <div className="w-full h-[240px] bg-slate-50 flex items-center justify-center b order-b b order-slate-100 overflo w-hidden group-hover:scale-105 transition-transform duration-500">
                   {post.art}
                 </div>
                 <div className="p-8">

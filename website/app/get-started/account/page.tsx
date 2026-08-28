@@ -34,7 +34,7 @@ export default function GetStartedAccountPage() {
         </Link>
 
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white shadow-sm"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white shado w-sm"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -55,7 +55,7 @@ export default function GetStartedAccountPage() {
       <div className="flex-1 flex flex-col items-center justify-center max-w-xl mx-auto w-full py-8 text-center">
         {/* Üst Kullanıcı İkonu */}
         <div
-          className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border shadow-sm ${isDarkMode ? "bg-[#141414] border-gray-800 text-[#b490ff]" : "bg-white border-gray-200 text-purple-600"}`}
+          className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border shado w-sm ${isDarkMode ? "bg-[#141414] b order-gray-800 text-[#b490ff]" : "bg-white b order-gray-200 text-purple-600"}`}
         >
           <User className="w-5 h-5" />
         </div>
@@ -73,7 +73,7 @@ export default function GetStartedAccountPage() {
 
         {/* İstatistik / Grafik Kartı */}
         <div
-          className={`w-full rounded-3xl p-6 border mb-6 text-left shadow-lg ${isDarkMode ? "bg-[#121212] border-gray-800" : "bg-white border-gray-200"}`}
+          className={`w-full rounded-3xl p-6 border mb-6 text-left shado w-lg ${isDarkMode ? "bg-[#121212] b order-gray-800" : "bg-white b order-gray-200"}`}
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-[13px] font-semibold text-gray-200">
@@ -87,13 +87,13 @@ export default function GetStartedAccountPage() {
           </p>
 
           {/* Sütun Grafik Alanı */}
-          <div className="relative h-44 flex items-end justify-around px-8 pt-8 pb-2 border-b border-gray-800/60 mb-4">
+          <div className="relative h-44 flex items-end justify-around px-8 pt-8 pb-2 b order-b b order-gray-800/60 mb-4">
             {/* Sol Sütun (120) */}
             <div className="flex flex-col items-center gap-2">
               <span className="text-xs font-mono text-purple-400 font-semibold">
                 120
               </span>
-              <div className="w-16 h-28 bg-[#b490ff] rounded-t-xl shadow-lg shadow-purple-500/10"></div>
+              <div className="w-16 h-28 bg-[#b490ff] rounded-t-xl shado w-lg shado w-purple-500/10"></div>
             </div>
 
             {/* Sağ Sütun (77) */}
@@ -118,7 +118,7 @@ export default function GetStartedAccountPage() {
           </div>
 
           {/* Vurgulu Uyarı Kutusu */}
-          <div className="w-full py-2.5 px-4 rounded-xl bg-purple-500/10 border border-purple-500/20 text-center text-[#b490ff] text-xs font-mono">
+          <div className="w-full py-2.5 px-4 rounded-xl bg-purple-500/10 border b order-purple-500/20 text-center text-[#b490ff] text-xs font-mono">
             + 56% more exposures with an email you use regularly
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function GetStartedAccountPage() {
         {/* Aksiyon Butonları */}
         <div className="w-full max-w-sm flex flex-col items-center gap-3">
           <Link href="/register?fromIntro=true" className="w-full">
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Start account setup
             </button>
           </Link>

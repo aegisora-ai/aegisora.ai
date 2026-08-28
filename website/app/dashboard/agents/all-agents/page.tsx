@@ -67,7 +67,7 @@ export default function AllAgentsPage() {
           <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text" placeholder="Search all agents..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-all shadow-sm"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-all shado w-sm"
           />
         </div>
         <div className="text-[11px] font-mono text-muted-foreground uppercase tracking-widest hidden sm:block">
@@ -78,7 +78,7 @@ export default function AllAgentsPage() {
       {isLoading ? (
         <div className="flex items-center justify-center min-h-[30vh] text-[13px] text-muted-foreground animate-pulse">Loading fleet telemetry...</div>
       ) : filteredAgents.length === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[30vh] text-center bg-[#111113] border border-border border-dashed rounded-xl p-8">
+        <div className="flex flex-col items-center justify-center min-h-[30vh] text-center bg-[#111113] border b order-border b order-dashed rounded-xl p-8">
           <Cpu className="w-10 h-10 text-muted-foreground mb-4" strokeWidth={1} />
           <h3 className="text-[15px] font-bold text-foreground mb-1">No Agents Found</h3>
           <p className="text-[13px] text-muted-foreground">Try adjusting your filters or search query.</p>
@@ -86,11 +86,11 @@ export default function AllAgentsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filteredAgents.map((agent) => (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={agent.id} className="bg-[#111113] border border-border hover:border-sidebar-ring rounded-xl p-5 flex flex-col justify-between shadow-sm group transition-colors">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={agent.id} className="bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-xl p-5 flex flex-col justify-between shado w-sm group transition-colors">
               <div>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 border b order-primary/20 flex items-center justify-center text-primary">
                       <Cpu className="w-5 h-5" strokeWidth={1.5} />
                     </div>
                     <div>
@@ -102,7 +102,7 @@ export default function AllAgentsPage() {
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-3 my-4 p-3 bg-[#09090b] rounded-lg border border-border/50 text-[11px]">
+                <div className="grid grid-cols-2 gap-3 my-4 p-3 bg-[#09090b] rounded-lg border b order-border/50 text-[11px]">
                   <div>
                     <span className="text-muted-foreground block font-mono text-[9px] uppercase tracking-widest mb-1">Model</span>
                     <strong className="text-foreground truncate block font-medium">{agent.model}</strong>
@@ -116,8 +116,8 @@ export default function AllAgentsPage() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                <div className="flex items-center gap-1.5 bg-[#18181b] border border-border px-2 py-1 rounded-md">
+              <div className="flex items-center justify-between pt-4 b order-t b order-border/50">
+                <div className="flex items-center gap-1.5 bg-[#18181b] border b order-border px-2 py-1 rounded-md">
                   {agent.status === 'active' ? <CheckCircle2 className="w-3 h-3 text-decision-allow" /> : <AlertCircle className="w-3 h-3 text-decision-escalate" />}
                   <span className="text-[11px] font-medium text-foreground capitalize">{agent.status}</span>
                 </div>

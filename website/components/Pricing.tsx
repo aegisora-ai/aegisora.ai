@@ -110,10 +110,10 @@ const pricingPlans = [
 
 export default function Pricing() {
   return (
-    <section className="relative w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center z-10 text-white overflow-hidden">
+    <section className="relative w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center z-10 text-white overflo w-hidden">
       {/* Üst Başlık */}
       <div className="text-center max-w-3xl mb-16 flex flex-col items-center">
-        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
+        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
           Deployment Architecture
         </span>
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif text-white leading-[1.1] tracking-tight mb-6">
@@ -136,8 +136,8 @@ export default function Pricing() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className={`relative rounded-[2.5p] rounded-[2.5rem] p-8 flex flex-col justify-between border transition-all duration-300 ${
               plan.highlight
-                ? "bg-zinc-900 border-blue-500/60 shadow-[0_20px_50px_rgba(0,102,238,0.2)] lg:-translate-y-2"
-                : "bg-zinc-950/80 border-zinc-800/80 hover:border-zinc-700 shadow-2xl"
+                ? "bg-zinc-900 b order-blue-500/60 shado w-[0_20px_50px_rgba(0,102,238,0.2)] lg:-translate-y-2"
+                : "bg-zinc-950/80 b order-zinc-800/80 hover:b order-zinc-700 shado w-2xl"
             }`}
           >
             {/* Kart Üst Kısım */}
@@ -149,8 +149,8 @@ export default function Pricing() {
                 <span
                   className={`text-[10px] font-mono px-3 py-1 rounded-full border ${
                     plan.highlight
-                      ? "bg-blue-600/20 border-blue-500/40 text-blue-300"
-                      : "bg-zinc-900 border-zinc-800 text-zinc-400"
+                      ? "bg-blue-600/20 b order-blue-500/40 text-blue-300"
+                      : "bg-zinc-900 b order-zinc-800 text-zinc-400"
                   }`}
                 >
                   {plan.badge}
@@ -192,13 +192,13 @@ export default function Pricing() {
             </div>
 
             {/* CTA Butonu */}
-            <div className="mt-8 pt-6 border-t border-zinc-800/80">
+            <div className="mt-8 pt-6 b order-t b order-zinc-800/80">
               <Link
                 href={plan.ctaHref}
                 className={`w-full py-3.5 px-6 rounded-full font-medium text-xs font-mono flex items-center justify-center gap-2 transition-all cursor-pointer ${
                   plan.highlight
-                    ? "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30"
-                    : "bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800"
+                    ? "bg-blue-600 hover:bg-blue-500 text-white shado w-lg shado w-blue-600/30"
+                    : "bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border b order-zinc-800"
                 }`}
               >
                 <span>{plan.ctaText}</span>

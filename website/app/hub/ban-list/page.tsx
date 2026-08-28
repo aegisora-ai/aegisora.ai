@@ -47,14 +47,14 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
   return (
     <div className="min-h-screen flex flex-col bg-[#FAFAFA] font-sans">
       <Navbar />
-      
+
       {/* Top Banner (Birebir Resimdeki Yapı) */}
-      <div className="w-full bg-white border-b border-slate-200 py-10 px-6">
+      <div className="w-full bg-white b order-b b order-slate-200 py-10 px-6">
         <div className="max-w-[1300px] mx-auto flex gap-6">
           <Link href="/hub" className="mt-1 text-slate-500 hover:text-[#0066FF] transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          
+
           <div className="flex-1">
             <div className="flex flex-col md:flex-row md:items-center gap-4 mb-3">
               <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
                 <h1 className="text-[36px] font-bold text-slate-900 tracking-tight">Ban List</h1>
               </div>
               <div className="flex items-center gap-4 md:ml-auto">
-                <button className="flex items-center gap-1.5 px-3 py-1 border border-slate-200 rounded text-[12px] font-bold text-slate-600 hover:bg-slate-50">
+                <button className="flex items-center gap-1.5 px-3 py-1 border b order-slate-200 rounded text-[12px] font-bold text-slate-600 hover:bg-slate-50">
                   <Star className="w-3.5 h-3.5" /> 2
                 </button>
                 <a href="#" className="flex items-center gap-2 text-[11px] font-bold text-slate-600 uppercase tracking-wider hover:text-slate-900">
@@ -70,18 +70,18 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
                 </a>
               </div>
             </div>
-            
+
             <p className="text-[16px] text-slate-700 font-medium mb-6">
               Validates that the output does not contain banned words, using fuzzy search.
             </p>
-            
+
             <div className="flex flex-wrap gap-2">
-               <span className="flex items-center gap-1.5 px-2.5 py-1 border border-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shadow-sm"><LanguageIcon className="w-3.5 h-3.5" /> EN</span>
-               <span className="flex items-center gap-1.5 px-2.5 py-1 border border-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shadow-sm"><TagIcon className="w-3.5 h-3.5" /> STRING</span>
-               <span className="flex items-center gap-1.5 px-2.5 py-1 border border-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shadow-sm"><CpuIcon className="w-3.5 h-3.5" /> ML</span>
-               <span className="flex items-center gap-1.5 px-2.5 py-1 border border-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shadow-sm"><AlertIcon className="w-3.5 h-3.5" /> BRAND RISK</span>
-               <span className="flex items-center gap-1.5 px-2.5 py-1 border border-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shadow-sm"><BotIcon className="w-3.5 h-3.5" /> CHATBOTS</span>
-               <span className="flex items-center gap-1.5 px-2.5 py-1 border border-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shadow-sm"><HeadsetIcon className="w-3.5 h-3.5" /> CUSTOMER SUPPORT</span>
+               <span className="flex items-center gap-1.5 px-2.5 py-1 border b order-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shado w-sm"><LanguageIcon className="w-3.5 h-3.5" /> EN</span>
+               <span className="flex items-center gap-1.5 px-2.5 py-1 border b order-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shado w-sm"><TagIcon className="w-3.5 h-3.5" /> STRING</span>
+               <span className="flex items-center gap-1.5 px-2.5 py-1 border b order-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shado w-sm"><CpuIcon className="w-3.5 h-3.5" /> ML</span>
+               <span className="flex items-center gap-1.5 px-2.5 py-1 border b order-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shado w-sm"><AlertIcon className="w-3.5 h-3.5" /> BRAND RISK</span>
+               <span className="flex items-center gap-1.5 px-2.5 py-1 border b order-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shado w-sm"><BotIcon className="w-3.5 h-3.5" /> CHATBOTS</span>
+               <span className="flex items-center gap-1.5 px-2.5 py-1 border b order-slate-200 bg-white text-slate-600 text-[11px] font-bold rounded-md uppercase tracking-wider shado w-sm"><HeadsetIcon className="w-3.5 h-3.5" /> CUSTOMER SUPPORT</span>
             </div>
           </div>
         </div>
@@ -89,10 +89,10 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
 
       {/* Main Content Area */}
       <div className="max-w-[1300px] mx-auto w-full flex-1 flex flex-col lg:flex-row px-6 py-12 gap-16">
-        
+
         {/* Left Column */}
         <div className="flex-1 space-y-10">
-          
+
           <section>
             <h2 className="text-[20px] font-bold text-slate-900 mb-4">Description</h2>
             <p className="text-[15px] text-slate-800 leading-relaxed">Validates that output does not have banned words, using fuzzy search. Useful for preventing internal codenames from leaking.</p>
@@ -107,7 +107,7 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
             <ul className="list-disc pl-5 space-y-2 text-[15px] text-slate-800">
               <li>Dependencies:
                 <ul className="list-disc pl-5 mt-2 space-y-2">
-                  <li><code>guardrails-ai>=0.4.0</code></li>
+                  <li><code>guardrails-ai&gt;=0.4.0</code></li>
                   <li><code>fuzzysearch</code></li>
                 </ul>
               </li>
@@ -121,11 +121,11 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
 
           <section>
             <h2 className="text-[20px] font-bold text-slate-900 mb-4">Installation</h2>
-            <div className="relative group border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-slate-50">
-              <pre className="p-5 text-[14px] font-mono text-emerald-700 overflow-x-auto">
+            <div className="relative group border b order-slate-200 rounded-xl overflo w-hidden shado w-sm bg-slate-50">
+              <pre className="p-5 text-[14px] font-mono text-emerald-700 overflo w-x-auto">
                 <code>{pipCmd}</code>
               </pre>
-              <button onClick={() => copyTo(pipCmd, 'pip')} className="absolute right-4 top-4 text-slate-400 hover:text-slate-700 transition-colors bg-white border border-slate-200 p-1.5 rounded-md shadow-sm">
+              <button onClick={() => copyTo(pipCmd, 'pip')} className="absolute right-4 top-4 text-slate-400 hover:text-slate-700 transition-colors bg-white border b order-slate-200 p-1.5 rounded-md shado w-sm">
                 {copiedPip ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
@@ -135,38 +135,38 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
             <h2 className="text-[20px] font-bold text-slate-900 mb-4">Usage Examples</h2>
             <p className="text-[16px] font-bold text-slate-900 mb-2">Validating string output via Python</p>
             <p className="text-[15px] text-slate-800 mb-6">In this example, we apply the validator to a string output generated by an LLM.</p>
-            
-            <div className="relative group border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-slate-50 mb-10">
-              <pre className="p-6 text-[14px] font-mono overflow-x-auto leading-relaxed">
-                <code dangerouslySetInnerHTML={{__html: pyCode.replace(/#.*/g, '<span class="text-slate-400">$&</span>').replace(/guard.validate|from|import|Guard|BanList/g, '<span class="text-purple-700">$&</span>')}}></code>
+
+            <div className="relative group border b order-slate-200 rounded-xl overflo w-hidden shado w-sm bg-slate-50 mb-10">
+              <pre className="p-6 text-[14px] font-mono overflo w-x-auto leading-relaxed">
+                <code dangerouslySetInnerHTML={{__html: pyCode.replace(/#.*/g, '<span className="text-slate-400">$&</span>').replace(/guard.validate|from|import|Guard|BanList/g, '<span className="text-purple-700">$&</span>')}}></code>
               </pre>
-              <button onClick={() => copyTo(pyCode, 'code')} className="absolute right-4 top-4 text-slate-400 hover:text-slate-700 transition-colors bg-white border border-slate-200 p-1.5 rounded-md shadow-sm">
+              <button onClick={() => copyTo(pyCode, 'code')} className="absolute right-4 top-4 text-slate-400 hover:text-slate-700 transition-colors bg-white border b order-slate-200 p-1.5 rounded-md shado w-sm">
                 {copiedCode ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
               </button>
             </div>
 
             {/* API Ref */}
-            <div className="bg-slate-100/50 inline-block px-3 py-1.5 rounded text-[14px] font-mono font-bold text-slate-700 mb-4 border border-slate-200">
+            <div className="bg-slate-100/50 inline-block px-3 py-1.5 rounded text-[14px] font-mono font-bold text-slate-700 mb-4 border b order-slate-200">
               __init__(self, on_fail="noop")
             </div>
             <p className="text-[15px] text-slate-800 mb-6">Initializes a new instance of the BanList class.</p>
-            
+
             <h4 className="font-bold text-slate-900 mb-4 text-[16px]">Parameters</h4>
             <ul className="list-disc pl-5 space-y-4 text-[15px] text-slate-800 mb-8">
-              <li><code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700">banned_words</code> <em className="text-slate-500">(List[str])</em>: A list of banned words to check for in output.</li>
-              <li><code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700">max_l_dist</code> <em className="text-slate-500">(int)</em>: Maximum Levenshtein distance for fuzzy search. Defaults to 1.</li>
-              <li><code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700">on_fail</code> <em className="text-slate-500">(str, Callable)</em>: The policy to enact when a validator fails. If <code>str</code>, must be one of <code>reask</code>, <code>fix</code>...</li>
+              <li><code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200 text-slate-700">banned_words</code> <em className="text-slate-500">(List[str])</em>: A list of banned words to check for in output.</li>
+              <li><code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200 text-slate-700">max_l_dist</code> <em className="text-slate-500">(int)</em>: Maximum Levenshtein distance for fuzzy search. Defaults to 1.</li>
+              <li><code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200 text-slate-700">on_fail</code> <em className="text-slate-500">(str, Callable)</em>: The policy to enact when a validator fails. If <code>str</code>, must be one of <code>reask</code>, <code>fix</code>...</li>
             </ul>
 
-            <div className="bg-slate-100/50 inline-block px-3 py-1.5 rounded text-[14px] font-mono font-bold text-slate-700 mb-4 border border-slate-200">
+            <div className="bg-slate-100/50 inline-block px-3 py-1.5 rounded text-[14px] font-mono font-bold text-slate-700 mb-4 border b order-slate-200">
               validate(self, value, metadata) {'->'} ValidationResult
             </div>
-            <p className="text-[15px] text-slate-800 mb-6">Validates the given <code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">value</code> using the rules defined in this validator...</p>
-            
+            <p className="text-[15px] text-slate-800 mb-6">Validates the given <code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200">value</code> using the rules defined in this validator...</p>
+
             <p className="text-[15px] text-slate-800 mb-2">Note:</p>
             <ol className="list-decimal pl-5 space-y-2 text-[15px] text-slate-800 mb-8">
-              <li>This method should not be called directly by the user. Instead, invoke <code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700">guard.parse(...)</code>...</li>
-              <li>When invoking <code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700">guard.parse(...)</code>, ensure to pass the appropriate <code className="bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 text-slate-700">metadata</code> dictionary...</li>
+              <li>This method should not be called directly by the user. Instead, invoke <code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200 text-slate-700">guard.parse(...)</code>...</li>
+              <li>When invoking <code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200 text-slate-700">guard.parse(...)</code>, ensure to pass the appropriate <code className="bg-slate-100 px-1.5 py-0.5 rounded border b order-slate-200 text-slate-700">metadata</code> dictionary...</li>
             </ol>
 
           </section>
@@ -174,32 +174,32 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
 
         {/* Right Column (Sidebar Cards) */}
         <aside className="w-full lg:w-[350px] space-y-6">
-          
+
           {/* Overview */}
-          <div className="bg-[#FAFAFA] border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-[#FAFAFA] border b order-slate-200 rounded-xl p-6 shado w-sm">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-[18px] font-bold text-slate-900 flex items-center gap-2"><Info className="w-5 h-5 text-slate-400"/> Overview</h3>
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">UPDATED 3 WEEKS</span>
             </div>
-            
+
             <div className="space-y-5 text-[12px]">
-              <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+              <div className="flex justify-between items-center b order-b b order-slate-200 pb-3">
                 <span className="font-bold text-slate-500 uppercase tracking-wider">DEVELOPED BY:</span>
                 <span className="font-bold text-slate-900">Guardrails AI</span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+              <div className="flex justify-between items-center b order-b b order-slate-200 pb-3">
                 <span className="font-bold text-slate-500 uppercase tracking-wider">DATE OF DEVELOPMENT:</span>
                 <span className="font-bold text-slate-900">Aug 16, 2024</span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+              <div className="flex justify-between items-center b order-b b order-slate-200 pb-3">
                 <span className="font-bold text-slate-500 uppercase tracking-wider">VALIDATOR TYPE:</span>
                 <span className="font-bold text-slate-900">Data Leakage</span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+              <div className="flex justify-between items-center b order-b b order-slate-200 pb-3">
                 <span className="font-bold text-slate-500 uppercase tracking-wider">BLOG:</span>
                 <span className="font-bold text-slate-900"></span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+              <div className="flex justify-between items-center b order-b b order-slate-200 pb-3">
                 <span className="font-bold text-slate-500 uppercase tracking-wider">LICENSE:</span>
                 <span className="font-bold text-slate-900">MIT</span>
               </div>
@@ -211,19 +211,19 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
           </div>
 
           {/* Install */}
-          <div className="bg-[#FAFAFA] border border-slate-200 rounded-xl p-6 shadow-sm">
+          <div className="bg-[#FAFAFA] border b order-slate-200 rounded-xl p-6 shado w-sm">
             <h3 className="text-[18px] font-bold text-slate-900 flex items-center gap-2 mb-6"><Download className="w-5 h-5 text-slate-400"/> Install</h3>
-            
+
             <div className="mb-6">
               <div className="text-[11px] font-bold text-slate-500 uppercase mb-2">PIP</div>
-              <div className="p-3 bg-white border border-slate-200 rounded-lg text-[13px] font-mono text-slate-800">
+              <div className="p-3 bg-white border b order-slate-200 rounded-lg text-[13px] font-mono text-slate-800">
                 pip install guardrails-ai-ban-list
               </div>
             </div>
-            
+
             <div className="mb-6">
               <div className="text-[11px] font-bold text-slate-500 uppercase mb-2">USAGE</div>
-              <div className="p-3 bg-[#F8FAFC] border border-slate-200 rounded-lg text-[12px] font-mono text-slate-800 overflow-x-auto leading-relaxed">
+              <div className="p-3 bg-[#F8FAFC] border b order-slate-200 rounded-lg text-[12px] font-mono text-slate-800 overflo w-x-auto leading-relaxed">
                 <span className="text-purple-700">from</span> guardrails <span className="text-purple-700">import</span> Guard<br/>
                 <span className="text-purple-700">from</span> guardrails_ai.ban_list <span className="text-purple-700">import</span> BanList<br/><br/>
                 guard = Guard().use(BanList)<br/>
@@ -231,7 +231,7 @@ guard.validate("I am working on a project with the code name A T H E N A") # Val
               </div>
             </div>
 
-            <div className="flex gap-4 pt-4 border-t border-slate-200">
+            <div className="flex gap-4 pt-4 b order-t b order-slate-200">
               <a href="#" className="text-[13px] font-bold text-slate-600 hover:text-slate-900 underline">guardrails-ai-ban-list on PyPI</a>
               <a href="#" className="text-[13px] font-bold text-slate-600 hover:text-slate-900 underline">Package README</a>
             </div>

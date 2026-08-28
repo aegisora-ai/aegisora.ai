@@ -1,0 +1,123 @@
+{
+    "version":  "v1alpha1",
+    "decisionVocabulary":  [
+                               "ALLOW",
+                               "BLOCK",
+                               "ESCALATE"
+                           ],
+    "decisionCases":  [
+                          {
+                              "name":  "allow",
+                              "decision":  "ALLOW",
+                              "expectedAllowed":  true
+                          },
+                          {
+                              "name":  "block",
+                              "decision":  "BLOCK",
+                              "expectedAllowed":  false
+                          },
+                          {
+                              "name":  "escalate",
+                              "decision":  "ESCALATE",
+                              "expectedAllowed":  false
+                          }
+                      ],
+    "invalidCases":  [
+                         {
+                             "name":  "allowed-mismatch-block",
+                             "decision":  "BLOCK",
+                             "allowed":  true,
+                             "expectedValid":  false
+                         },
+                         {
+                             "name":  "allowed-mismatch-escalate",
+                             "decision":  "ESCALATE",
+                             "allowed":  true,
+                             "expectedValid":  false
+                         },
+                         {
+                             "name":  "allowed-mismatch-allow",
+                             "decision":  "ALLOW",
+                             "allowed":  false,
+                             "expectedValid":  false
+                         }
+                     ],
+    "validExecutionIntent":  {
+                                 "request_id":  "req-001",
+                                 "correlation_id":  "corr-001",
+                                 "agent_claim":  "agent:demo",
+                                 "capability_request":  {
+                                                            "capability":  "provider.generate",
+                                                            "provider":  "openai",
+                                                            "model":  "gpt-test",
+                                                            "route":  "/v1/chat"
+                                                        },
+                                 "input":  {
+                                               "prompt":  "hello"
+                                           },
+                                 "context":  {
+                                                 "source":  "sdk"
+                                             }
+                             },
+    "validDecisionEnvelope":  {
+                                  "decision_id":  "dec-001",
+                                  "request_id":  "req-001",
+                                  "correlation_id":  "corr-001",
+                                  "decision":  "ALLOW",
+                                  "allowed":  true,
+                                  "reason_code":  "POLICY_ALLOW",
+                                  "risk":  {
+                                               "score":  0
+                                           },
+                                  "policy_version":  "policy-001",
+                                  "policy_digest":  "sha256:test",
+                                  "evaluated_at":  "2026-08-28T00:00:00Z"
+                              },
+    "validPolicyBundle":  {
+                              "bundle_id":  "bundle-001",
+                              "scope":  {
+                                            "tenant":  "tenant-001",
+                                            "agent":  "agent:demo",
+                                            "capability":  "provider.generate"
+                                        },
+                              "version":  "policy-001",
+                              "digest":  "sha256:test",
+                              "expires_at":  "2099-01-01T00:00:00Z",
+                              "signature":  "sig:test",
+                              "policy":  {
+                                             "rules":  [
+                                                           {
+                                                               "decision":  "ALLOW"
+                                                           }
+                                                       ]
+                                         }
+                          },
+    "expiredPolicyBundle":  {
+                                "bundle_id":  "bundle-expired",
+                                "scope":  {
+                                              "tenant":  "tenant-001"
+                                          },
+                                "version":  "policy-expired",
+                                "digest":  "sha256:expired",
+                                "expires_at":  "2020-01-01T00:00:00Z",
+                                "signature":  "sig:expired",
+                                "policy":  {
+
+                                           }
+                            },
+    "validReviewRequest":  {
+                               "review_id":  "review-001",
+                               "request_id":  "req-001",
+                               "correlation_id":  "corr-001",
+                               "decision":  "ESCALATE",
+                               "status":  "PENDING",
+                               "created_at":  "2026-08-28T00:00:00Z"
+                           },
+    "validApprovalToken":  {
+                               "token_id":  "token-001",
+                               "request_id":  "req-001",
+                               "policy_version":  "policy-001",
+                               "expires_at":  "2099-01-01T00:00:00Z",
+                               "single_use":  true
+                           }
+}

@@ -12,7 +12,7 @@ export default function BlogPostPage() {
   const slug = params?.slug || "security-insights";
 
   return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-28 selection:bg-blue-500/30 relative overflow-hidden">
+    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-28 selection:bg-blue-500/30 relative overflo w-hidden">
       {/* Arkaplan Işık Efektleri */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.1)_0%,transparent_70%)] pointer-events-none" />
 
@@ -45,7 +45,7 @@ export default function BlogPostPage() {
           <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-zinc-500 mb-6 uppercase tracking-widest">
             <span>May 18, 2026</span>
             <span className="text-zinc-700">•</span>
-            <span className="text-blue-400 font-semibold bg-blue-950/60 border border-blue-800/50 px-3 py-1 rounded-full">
+            <span className="text-blue-400 font-semibold bg-blue-950/60 border b order-blue-800/50 px-3 py-1 rounded-full">
               Zero-Trust Security
             </span>
             <span className="text-zinc-700 hidden sm:inline">•</span>
@@ -58,7 +58,7 @@ export default function BlogPostPage() {
           </h1>
 
           <div className="flex items-center gap-4">
-            <div className="w-11 h-11 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 flex items-center justify-center font-mono font-bold text-xs shadow-sm">
+            <div className="w-11 h-11 rounded-full bg-zinc-900 border b order-zinc-800 text-zinc-300 flex items-center justify-center font-mono font-bold text-xs shado w-sm">
               EÖ
             </div>
             <div className="text-left flex flex-col">
@@ -77,7 +77,7 @@ export default function BlogPostPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="w-full h-64 sm:h-80 bg-zinc-900/50 rounded-[2rem] mb-12 flex flex-col items-center justify-center border border-zinc-800/80 shadow-2xl relative overflow-hidden backdrop-blur-sm"
+          className="w-full h-64 sm:h-80 bg-zinc-900/50 rounded-[2rem] mb-12 flex flex-col items-center justify-center border b order-zinc-800/80 shado w-2xl relative overflo w-hidden backdrop-blur-sm"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,102,238,0.15)_0,transparent_70%)] pointer-events-none" />
           <Terminal className="w-8 h-8 text-zinc-700 mb-3 relative z-10" />
@@ -101,7 +101,7 @@ export default function BlogPostPage() {
             reasoning traces rather than standard endpoints.
           </p>
 
-          <div className="space-y-4 pt-6 border-t border-zinc-900">
+          <div className="space-y-4 pt-6 b order-t b order-zinc-900">
             <h2 className="text-2xl font-serif text-white tracking-tight">
               1. Unexplained Tool Execution & Shadow Workflows
             </h2>
@@ -125,7 +125,7 @@ export default function BlogPostPage() {
             </p>
           </div>
 
-          <div className="space-y-4 pt-4 pb-8 border-b border-zinc-900">
+          <div className="space-y-4 pt-4 pb-8 b order-b b order-zinc-900">
             <h2 className="text-2xl font-serif text-white tracking-tight">
               3. Lack of Immutable Audit Trails
             </h2>
@@ -148,7 +148,7 @@ export default function BlogPostPage() {
           </Link>
           <Link
             href="/get-started"
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium rounded-full transition-all shadow-lg shadow-blue-600/20 outline-none flex items-center gap-2"
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium rounded-full transition-all shado w-lg shado w-blue-600/20 outline-none flex items-center gap-2"
           >
             <Sparkles className="w-4 h-4" />
             <span>Secure Your Swarm</span>
@@ -157,7 +157,7 @@ export default function BlogPostPage() {
       </div>
 
       {/* Yenilenmiş Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
-      <footer className="relative z-10 w-full border-t py-16 px-6 mt-20 border-zinc-800 bg-zinc-950">
+      <footer className="relative z-10 w-full b order-t py-16 px-6 mt-20 b order-zinc-800 bg-zinc-950">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center">
           {/* Logo Alanı */}
           <Link
@@ -249,7 +249,7 @@ export default function BlogPostPage() {
             </Link>
           </div>
 
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 b order-t b order-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
             <div className="flex flex-col gap-2.5">
               <span className="font-bold text-zinc-300 mb-1">Company</span>
               <Link
@@ -363,7 +363,7 @@ export default function BlogPostPage() {
             </div>
           </div>
 
-          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 border-t border-zinc-800/80 text-[11px] font-mono text-zinc-500">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 b order-t b order-zinc-800/80 text-[11px] font-mono text-zinc-500">
             <span className="mb-4 md:mb-0">
               © 2026 Aegisora. All rights reserved.
             </span>

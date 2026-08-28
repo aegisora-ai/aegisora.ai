@@ -23,9 +23,9 @@ export default function DecisionsPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const getResultBadge = (result: string) => {
-    if (result === 'Blocked') return <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-decision-block/10 text-decision-block border border-decision-block/20"><XCircle className="w-3 h-3" /> Blocked</span>;
-    if (result === 'Escalated') return <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-decision-escalate/10 text-decision-escalate border border-decision-escalate/20"><AlertTriangle className="w-3 h-3" /> Escalated</span>;
-    return <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-decision-allow/10 text-decision-allow border border-decision-allow/20"><ShieldCheck className="w-3 h-3" /> Allowed</span>;
+    if (result === 'Blocked') return <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-decision-block/10 text-decision-block border b order-decision-block/20"><XCircle className="w-3 h-3" /> Blocked</span>;
+    if (result === 'Escalated') return <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-decision-escalate/10 text-decision-escalate border b order-decision-escalate/20"><AlertTriangle className="w-3 h-3" /> Escalated</span>;
+    return <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-decision-allow/10 text-decision-allow border b order-decision-allow/20"><ShieldCheck className="w-3 h-3" /> Allowed</span>;
   };
 
   const getRiskColor = (risk: string) => {
@@ -37,10 +37,10 @@ export default function DecisionsPage() {
   return (
     <div className="flex flex-col animate-in fade-in duration-300">
       {/* EVENT VOLUME CHART */}
-      <div className="bg-[#111113] border border-border rounded-xl p-5 mb-6 shadow-sm flex flex-col">
+      <div className="bg-[#111113] border b order-border rounded-xl p-5 mb-6 shado w-sm flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-[12px] font-semibold text-muted-foreground uppercase tracking-widest">Event Volume</h3>
-          <span className="text-[11px] bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded font-mono">3,140 Total</span>
+          <span className="text-[11px] bg-primary/10 text-primary border b order-primary/20 px-2 py-0.5 rounded font-mono">3,140 Total</span>
         </div>
         <div className="h-[120px] w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -72,20 +72,20 @@ export default function DecisionsPage() {
             placeholder="Search decisions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           <Filter className="w-3.5 h-3.5" /> More Filters
         </button>
       </div>
 
       {/* DATA TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-4 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Decision ID</th>
                 <th className="px-4 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Timestamp</th>
                 <th className="px-4 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Agent & Request</th>
@@ -96,7 +96,7 @@ export default function DecisionsPage() {
             </thead>
             <tbody>
               {mockDecisions.map((dec) => (
-                <tr key={dec.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={dec.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-4 py-3 text-[12px] font-mono text-muted-foreground group-hover:text-primary transition-colors">{dec.id}</td>
                   <td className="px-4 py-3 text-[12px] font-mono text-muted-foreground">{dec.timestamp}</td>
                   <td className="px-4 py-3">

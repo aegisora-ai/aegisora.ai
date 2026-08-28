@@ -5,7 +5,7 @@ import { ArrowRight, Shield, Activity } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-// Geliştirici odaklı daha teknik ifadeler
+// GeliÅŸtirici odaklı daha teknik ifadeler
 const PHRASES = [
   "Intercepting tool call: execute_sql_query...",
   "Analyzing semantic intent for prompt injection...",
@@ -48,8 +48,8 @@ export default function Hero() {
   }, [currentText, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflow-hidden font-sans">
-      {/* Arka Plan Işık Hüzmeleri (Glow Effects) */}
+    <section className="relative w-full min-h-screen flex items-center justify-center pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-transparent overflo w-hidden font-sans">
+      {/* Arka Plan IÅŸık Hüzmeleri (Glow Effects) */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <motion.div
           animate={
@@ -74,7 +74,7 @@ export default function Hero() {
       <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center z-10 mx-auto">
         {/* SOL KOLON: Metinler ve Butonlar */}
         <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border b order-blue-500/20 text-blue-400 text-sm font-medium mb-6">
             <Activity className="w-4 h-4" />
             <span>Open Source AI Agent Security</span>
           </div>
@@ -88,14 +88,14 @@ export default function Hero() {
           <p className="text-zinc-400 text-base sm:text-lg leading-relaxed mb-8 max-w-lg font-light">
             Stop selling abstract &quot;safety&quot;. Aegisora is the narrow
             control plane for agent tool and API calls. Enforce least-privilege
-            access, block PII leaks, and generate readable audit logs—without
+            access, block PII leaks, and generate readable audit logsâ€”without
             the bloated black-box middleware.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link
               href="/login"
-              className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3.5 px-6 rounded-lg transition-colors text-sm font-medium shadow-lg shadow-blue-600/20"
+              className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3.5 px-6 rounded-lg transition-colors text-sm font-medium shado w-lg shado w-blue-600/20"
             >
               Start building
               <ArrowRight className="w-4 h-4" />
@@ -103,9 +103,8 @@ export default function Hero() {
 
             <a
               href="https://github.com/ozereray/aegisora.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 transition-colors text-zinc-100 py-3.5 px-6 rounded-lg text-sm font-medium border border-zinc-800 hover:border-zinc-700"
+              target="_blank" rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 transition-colors text-zinc-100 py-3.5 px-6 rounded-lg text-sm font-medium border b order-zinc-800 hover:b order-zinc-700"
             >
               <svg
                 className="w-5 h-5"
@@ -126,12 +125,12 @@ export default function Hero() {
 
         {/* SAĞ KOLON: Mühendislik Vizyonu (Terminal Görünümü) */}
         <div className="lg:col-span-6 relative w-full mx-auto mt-8 lg:mt-0">
-          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-zinc-800 bg-[#0c0c0e]">
+          <div className="relative rounded-xl overflo w-hidden shado w-2xl border b order-zinc-800 bg-[#0c0c0e]">
             {/* Terminal Üst Barı (Mac stili) */}
-            <div className="flex items-center px-4 py-3 bg-zinc-900/80 border-b border-zinc-800">
+            <div className="flex items-center px-4 py-3 bg-zinc-900/80 b order-b b order-zinc-800">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yello w-500/80"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
               </div>
               <div className="mx-auto flex items-center text-xs text-zinc-500 font-mono">
@@ -149,7 +148,7 @@ export default function Hero() {
                 $ tail -f /var/log/aegisora/audit.log
               </div>
 
-              <div className="flex-1 overflow-hidden">
+              <div className="flex-1 overflo w-hidden">
                 <div className="flex gap-3 text-zinc-400 mb-2">
                   <span className="text-zinc-600">14:02:41</span>
                   <span className="text-green-400">[INFO]</span>
@@ -162,7 +161,7 @@ export default function Hero() {
                 </div>
                 <div className="flex gap-3 text-zinc-200 mb-2">
                   <span className="text-zinc-600">14:02:45</span>
-                  <span className="text-yellow-400">[WARN]</span>
+                  <span className="text-yello w-400">[WARN]</span>
                   <span>
                     {currentText}
                     <span className="inline-block w-[2px] h-4 bg-blue-500 ml-1 animate-pulse align-middle"></span>
@@ -171,7 +170,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Terminalin Altındaki Şık Mavi Glow Efekti */}
+            {/* Terminalin Altındaki Åık Mavi Glow Efekti */}
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
           </div>
         </div>

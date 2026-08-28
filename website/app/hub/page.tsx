@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Search, Box, ShieldAlert, Cpu, Check, Tag } from "lucide-react";
 
-// --- VERÄ° LÄ°STESÄ° ---
+// --- VERİ LİSTESİ ---
 const initialValidators = [
   { id: "v1", name: "Ban List", desc: "Validates that the output does not contain banned words, using fuzzy search.", tags: ["STRING", "BRAND RISK"], date: "UPDATED 3 WEEKS AGO", icon: "ML" },
   { id: "v2", name: "Bert Toxic Language Validator", desc: "Validates that the input string does not contain toxic language based on a BERT model.", tags: ["BRAND RISK"], date: "UPDATED 3 WEEKS AGO", icon: "ML" },
@@ -21,11 +21,11 @@ const initialValidators = [
 
 export default function HubIndex() {
   const [mounted, setMounted] = useState(false);
-  
-  // SeÃ§ili Filtreler State'i
-  const [selectedFilters, setSelectedFilters] = useState<string[]>(["RAG"]); 
-  
-  // SeÃ§ili Validator KartlarÄ± State'i
+
+  // Seçili Filtreler State'i
+  const [selectedFilters, setSelectedFilters] = useState<string[]>(["RAG"]);
+
+  // Seçili Validator Kartları State'i
   const [selectedValidators, setSelectedValidators] = useState<string[]>([]);
 
   useEffect(() => setMounted(true), []);
@@ -33,18 +33,18 @@ export default function HubIndex() {
 
   // Filtre Toggle Fonksiyonu
   const toggleFilter = (filterName: string) => {
-    setSelectedFilters(prev => 
-      prev.includes(filterName) 
-        ? prev.filter(f => f !== filterName) 
+    setSelectedFilters(prev =>
+      prev.includes(filterName)
+        ? prev.filter(f => f !== filterName)
         : [...prev, filterName]
     );
   };
 
-  // Validator SeÃ§me/BÄ±rakma Fonksiyonu
+  // Validator Seçme/Bırakma Fonksiyonu
   const toggleValidator = (id: string) => {
-    setSelectedValidators(prev => 
-      prev.includes(id) 
-        ? prev.filter(v => v !== id) 
+    setSelectedValidators(prev =>
+      prev.includes(id)
+        ? prev.filter(v => v !== id)
         : [...prev, id]
     );
   };
@@ -52,9 +52,9 @@ export default function HubIndex() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FAFAFA] font-sans">
       <Navbar />
-      
+
       {/* Top Banner */}
-      <div className="w-full bg-white border-b border-slate-200 py-12 px-6">
+      <div className="w-full bg-white b order-b b order-slate-200 py-12 px-6">
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
           <div>
             <h1 className="text-[32px] md:text-[40px] font-black text-slate-900 tracking-tight mb-2">The Aegisora Hub</h1>
@@ -62,20 +62,20 @@ export default function HubIndex() {
           </div>
           <div className="w-full md:w-[400px] relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input 
-              type="text" 
-              placeholder="Search Validators..." 
-              className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/20 transition-all font-medium text-slate-900"
+            <input
+              type="text"
+              placeholder="Search Validators..."
+              className="w-full pl-12 pr-4 py-3 bg-slate-50 border b order-slate-200 rounded-xl focus:outline-none focus:b order-[#0066FF] focus:ring-2 focus:ring-[#0066FF]/20 transition-all font-medium text-slate-900"
             />
           </div>
         </div>
       </div>
 
       <div className="max-w-[1400px] mx-auto w-full flex-1 flex flex-col md:flex-row px-6 py-8 gap-8">
-        
+
         {/* Left Sidebar Filters */}
         <aside className="w-full md:w-[260px] flex-shrink-0 space-y-8">
-          <div className="flex items-center justify-between font-bold text-slate-900 border-b border-slate-200 pb-2">
+          <div className="flex items-center justify-between font-bold text-slate-900 b order-b b order-slate-200 pb-2">
             <span>FILTERS</span>
             <span className="text-[12px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full">{selectedFilters.length}</span>
           </div>
@@ -88,8 +88,8 @@ export default function HubIndex() {
                 const isSelected = selectedFilters.includes(item);
                 return (
                   <label key={item} className="flex items-center gap-3 cursor-pointer group" onClick={() => toggleFilter(item)}>
-                    {/* Checkbox Kutusu - TÄ±klanÄ±nca Ä°Ã§i Mavi Olur */}
-                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-[#0066FF] border-[#0066FF]' : 'border-slate-300 group-hover:border-[#0066FF]'}`}>
+                    {/* Checkbox Kutusu - Tıklanınca İçi Mavi Olur */}
+                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-[#0066FF] b order-[#0066FF]' : 'b order-slate-300 group-hover:b order-[#0066FF]'}`}>
                       {isSelected && <Check className="w-3 h-3 text-white" />}
                     </div>
                     <span className={`text-[13px] font-medium transition-colors ${isSelected ? 'text-slate-900' : 'text-slate-600 group-hover:text-slate-900'}`}>{item}</span>
@@ -107,7 +107,7 @@ export default function HubIndex() {
                 const isSelected = selectedFilters.includes(item);
                 return (
                   <label key={item} className="flex items-center gap-3 cursor-pointer group" onClick={() => toggleFilter(item)}>
-                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-[#0066FF] border-[#0066FF]' : 'border-slate-300 group-hover:border-[#0066FF]'}`}>
+                    <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${isSelected ? 'bg-[#0066FF] b order-[#0066FF]' : 'b order-slate-300 group-hover:b order-[#0066FF]'}`}>
                       {isSelected && <Check className="w-3 h-3 text-white" />}
                     </div>
                     <span className={`text-[13px] font-medium transition-colors ${isSelected ? 'text-slate-900' : 'text-slate-600 group-hover:text-slate-900'}`}>{item}</span>
@@ -127,12 +127,12 @@ export default function HubIndex() {
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             {initialValidators.map((val) => {
               const isSelected = selectedValidators.includes(val.id);
-              
+
               return (
-              <div 
-                key={val.id} 
+              <div
+                key={val.id}
                 className={`bg-white border rounded-xl p-5 transition-all flex flex-col justify-between group ${
-                  isSelected ? 'border-[#0066FF] shadow-md ring-1 ring-[#0066FF]/20' : 'border-slate-200 hover:border-[#0066FF]/40 hover:shadow-sm'
+                  isSelected ? 'b order-[#0066FF] shado w-md ring-1 ring-[#0066FF]/20' : 'b order-slate-200 hover:b order-[#0066FF]/40 hover:shado w-sm'
                 }`}
               >
                 <div>
@@ -143,14 +143,14 @@ export default function HubIndex() {
                         <Box className="w-5 h-5 text-emerald-500" /> {val.name}
                       </Link>
                     </div>
-                    
-                    {/* SeÃ§me (Select) Butonu - TÄ±klanÄ±nca Rengi ve YazÄ±sÄ± DeÄŸiÅŸir */}
-                    <button 
+
+                    {/* Seçme (Select) Butonu - Tıklanınca Rengi ve Yazısı DeğiÅŸir */}
+                    <button
                       onClick={() => toggleValidator(val.id)}
                       className={`px-4 py-1.5 border rounded-md text-[13px] font-bold transition-all ${
-                        isSelected 
-                          ? 'bg-[#0066FF] border-[#0066FF] text-white' 
-                          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                        isSelected
+                          ? 'bg-[#0066FF] b order-[#0066FF] text-white'
+                          : 'b order-slate-200 text-slate-600 hover:bg-slate-50'
                       }`}
                     >
                       {isSelected ? 'Selected' : 'Select'}
@@ -159,7 +159,7 @@ export default function HubIndex() {
                   </div>
                   <p className="text-[14px] text-slate-600 leading-relaxed font-medium mb-6">{val.desc}</p>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-slate-100">
+                <div className="flex justify-between items-center pt-4 b order-t b order-slate-100">
                   <div className="flex gap-2">
                     {val.tags.map(tag => (
                       <span key={tag} className="flex items-center gap-1 px-2 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded uppercase tracking-wider">
@@ -177,18 +177,18 @@ export default function HubIndex() {
         </main>
       </div>
 
-      {/* 
-        Bottom Sticky Action Bar 
-        SADECE EN AZ 1 KART SEÃ‡Ä°LDÄ°ÄÄ°NDE AÅAÄIDAN YUKARI KAYARAK AÃ‡ILIR 
+      {/*
+        Bottom Sticky Action Bar
+        SADECE EN AZ 1 KART SEÇİLDİĞİNDE AÅAĞIDAN YUKARI KAYARAK AÇILIR
       */}
       <AnimatePresence>
         {selectedValidators.length > 0 && (
-          <motion.div 
+          <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="fixed bottom-0 left-0 w-full bg-slate-900 border-t border-slate-800 p-4 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.2)]"
+            className="fixed bottom-0 left-0 w-full bg-slate-900 b order-t b order-slate-800 p-4 z-50 shado w-[0_-10px_40px_rgba(0,0,0,0.2)]"
           >
             <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-8">
               <div className="text-white font-bold text-[14px]">{selectedValidators.length} VALIDATORS SELECTED</div>

@@ -61,8 +61,8 @@ return (
       {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflow-y-auto lg:hidden">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0d0f]">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflo w-y-auto lg:hidden">
+            <div className="flex items-center justify-between px-6 py-5 b order-b b order-slate-200 dark:b order-white/10 bg-white dark:bg-[#0d0d0f]">
                <Link href="/" className="flex items-center outline-none">
                  <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-8 w-auto dark:hidden" />
                  <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-8 w-auto hidden dark:block" />
@@ -70,21 +70,21 @@ return (
                <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 outline-none text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"><X className="w-7 h-7 stroke-[1.5]" /></button>
             </div>
             <div className="flex flex-col px-4 py-4 flex-1">
-               <Link href="/" className="px-2 py-4 border-b border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[16px] font-bold w-full text-left">Homepage</Link>
+               <Link href="/" className="px-2 py-4 b order-b b order-slate-200 dark:b order-white/10 text-slate-900 dark:text-white text-[16px] font-bold w-full text-left">Homepage</Link>
                {["Product", "Solutions", "Resources"].map(item => {
                   const isExpanded = expandedMobileItem === item;
                   return (
-                    <div key={item} className="flex flex-col border-b border-slate-200 dark:border-white/10">
+                    <div key={item} className="flex flex-col b order-b b order-slate-200 dark:b order-white/10">
                       <button onClick={() => setExpandedMobileItem(isExpanded ? null : item)} className="flex justify-between items-center px-2 py-5 text-slate-900 dark:text-white text-[16px] font-bold w-full outline-none text-left">
                         {item} <ChevronDown className={"w-5 h-5 text-slate-400 transition-transform duration-300 " + (isExpanded ? "rotate-180" : "")} />
                       </button>
                       <AnimatePresence>
                         {isExpanded && MENU_DATA[item] && (
-                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflo w-hidden">
                             <div className="pb-6 pt-2 flex flex-col gap-5 px-2">
                               {MENU_DATA[item].map((sub: any, idx: number) => (
                                 <Link key={idx} href={sub.href} className="flex items-start gap-4 group">
-                                  {sub.icon && (<div className="w-11 h-11 rounded-[10px] bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm group-hover:border-blue-500 transition-colors"><sub.icon className="w-[20px] h-[20px] text-blue-600 dark:text-blue-500" /></div>)}
+                                  {sub.icon && (<div className="w-11 h-11 rounded-[10px] bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 flex items-center justify-center shrink-0 shado w-sm group-hover:b order-blue-500 transition-colors"><sub.icon className="w-[20px] h-[20px] text-blue-600 dark:text-blue-500" /></div>)}
                                   <div className="flex flex-col pt-0.5">
                                     <div className="text-[15px] font-bold text-slate-900 dark:text-white mb-0.5">{sub.title}</div>
                                     <div className="text-[13px] text-slate-500 dark:text-slate-400 leading-snug">{sub.desc}</div>
@@ -104,7 +104,7 @@ return (
       </AnimatePresence>
 
       {/* NAVBAR */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0d0d0f]/90 backdrop-blur-md sticky top-0 z-50">
+      <header className="flex items-center justify-between px-6 py-4 b order-b b order-slate-200 dark:b order-white/10 bg-white/90 dark:bg-[#0d0d0f]/90 backdrop-blur-md sticky top-0 z-50">
         <Link href="/" className="flex items-center outline-none">
           <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-8 w-auto dark:hidden" />
           <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-8 w-auto hidden dark:block" />
@@ -124,10 +124,10 @@ return (
 
       <main className="pb-0">
         {/* HERO SECTION */}
-        <section className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20 overflow-hidden">
+        <section className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20 overflo w-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="max-w-2xl z-10">
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 text-slate-800 dark:text-blue-100 text-[13px] font-bold tracking-wide uppercase mb-8">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border b order-blue-200 dark:b order-blue-800/50 text-slate-800 dark:text-blue-100 text-[13px] font-bold tracking-wide uppercase mb-8">
                 <div className="w-5 h-5 rounded flex items-center justify-center bg-blue-100 dark:bg-blue-800"><Search className="w-3 h-3 text-blue-600 dark:text-blue-300" /></div>
                 Product / Audit & Evidence
               </motion.div>
@@ -144,15 +144,15 @@ return (
             </div>
 
             {/* ABSTRACT AUDIT LOG GRAPHIC */}
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative z-10 w-full rounded-2xl bg-[#0f172a] border border-slate-800 shadow-2xl overflow-hidden flex flex-col">
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-[#1e293b]">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative z-10 w-full rounded-2xl bg-[#0f172a] border b order-slate-800 shado w-2xl overflo w-hidden flex flex-col">
+              <div className="flex items-center justify-between px-6 py-4 b order-b b order-slate-800 bg-[#1e293b]">
                 <div className="flex items-center gap-2"><ShieldCheck className="w-5 h-5 text-blue-500" /><span className="text-white font-bold text-[14px]">Immutable Ledger</span></div>
                 <button className="text-slate-400 hover:text-white flex items-center gap-1 text-[12px]"><Download className="w-4 h-4"/> Export CSV</button>
               </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+              <div className="overflo w-x-auto">
+                <table className="w-full text-left b order-collapse">
                   <thead>
-                    <tr className="bg-[#0f172a] text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-800">
+                    <tr className="bg-[#0f172a] text-slate-500 text-[11px] uppercase tracking-wider b order-b b order-slate-800">
                       <th className="px-4 py-3 font-mono font-normal">Timestamp</th>
                       <th className="px-4 py-3 font-mono font-normal">Agent_ID</th>
                       <th className="px-4 py-3 font-mono font-normal">Action</th>
@@ -161,21 +161,21 @@ return (
                     </tr>
                   </thead>
                   <tbody className="text-[13px] font-mono">
-                    <tr className="border-b border-slate-800/50 hover:bg-slate-800/30">
+                    <tr className="b order-b b order-slate-800/50 hover:bg-slate-800/30">
                       <td className="px-4 py-3 text-slate-400">14:22:01.042</td>
                       <td className="px-4 py-3 text-blue-400">agt_finc_9</td>
                       <td className="px-4 py-3 text-slate-300">Stripe.ReadBalance</td>
                       <td className="px-4 py-3"><span className="text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded">ALLOWED</span></td>
                       <td className="px-4 py-3 text-slate-600 text-right">0x7a8b...2f91</td>
                     </tr>
-                    <tr className="border-b border-slate-800/50 hover:bg-slate-800/30">
+                    <tr className="b order-b b order-slate-800/50 hover:bg-slate-800/30">
                       <td className="px-4 py-3 text-slate-400">14:22:04.115</td>
                       <td className="px-4 py-3 text-blue-400">agt_supp_3</td>
                       <td className="px-4 py-3 text-slate-300">DB.DropTable(users)</td>
                       <td className="px-4 py-3"><span className="text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded">BLOCKED</span></td>
                       <td className="px-4 py-3 text-slate-600 text-right">0x9c4f...1a22</td>
                     </tr>
-                    <tr className="border-b border-slate-800/50 hover:bg-slate-800/30">
+                    <tr className="b order-b b order-slate-800/50 hover:bg-slate-800/30">
                       <td className="px-4 py-3 text-slate-400">14:23:18.991</td>
                       <td className="px-4 py-3 text-blue-400">agt_hr_1</td>
                       <td className="px-4 py-3 text-slate-300">API.SendEmail(Offer)</td>
@@ -191,20 +191,20 @@ return (
         </section>
 
         {/* DETAILS */}
-        <section className="border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0a0a0c] py-24 transition-colors">
+        <section className="b order-t b order-slate-200 dark:b order-white/10 bg-slate-50 dark:bg-[#0a0a0c] py-24 transition-colors">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 p-8 rounded-2xl">
+              <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6"><Database className="w-6 h-6 text-blue-600 dark:text-blue-400" /></div>
                 <h3 className="text-[20px] font-bold text-slate-900 dark:text-white mb-3">Immutable Storage</h3>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Once a decision is made, the log is written to WORM (Write Once, Read Many) compliant storage, ensuring no one can tamper with the historical record.</p>
               </div>
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 p-8 rounded-2xl">
+              <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6"><Key className="w-6 h-6 text-blue-600 dark:text-blue-400" /></div>
                 <h3 className="text-[20px] font-bold text-slate-900 dark:text-white mb-3">Cryptographic Proof</h3>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Every log entry is cryptographically signed using AES-256 and hashed, allowing you to mathematically prove the integrity of a blocked payload to an auditor.</p>
               </div>
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 p-8 rounded-2xl">
+              <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6"><FileCheck className="w-6 h-6 text-blue-600 dark:text-blue-400" /></div>
                 <h3 className="text-[20px] font-bold text-slate-900 dark:text-white mb-3">Compliance Exports</h3>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Generate instant, structured CSV or JSON reports mapped directly to SOC 2 Type II, ISO 26262, and GDPR requirements.</p>

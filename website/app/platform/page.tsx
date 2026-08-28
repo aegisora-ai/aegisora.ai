@@ -11,7 +11,7 @@ export default function PlatformPage() {
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative pt-24 pb-20 overflow-hidden border-b border-border">
+        <section className="relative pt-24 pb-20 overflo w-hidden b order-b b order-border">
           <div className="absolute inset-0 bg-grid-slate opacity-10 dark:bg-grid-white pointer-events-none"></div>
           <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">The Aegisora Platform</h1>
@@ -26,7 +26,7 @@ export default function PlatformPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               
-              <div className="bg-card border border-border p-8 rounded-xl shadow-sm">
+              <div className="bg-card border b order-border p-8 rounded-xl shado w-sm">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
                   <Activity className="w-6 h-6 text-primary" />
                 </div>
@@ -36,7 +36,7 @@ export default function PlatformPage() {
                 </p>
               </div>
 
-              <div className="bg-card border border-border p-8 rounded-xl shadow-sm">
+              <div className="bg-card border b order-border p-8 rounded-xl shado w-sm">
                 <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6">
                   <Shield className="w-6 h-6 text-blue-500" />
                 </div>
@@ -46,7 +46,7 @@ export default function PlatformPage() {
                 </p>
               </div>
 
-              <div className="bg-card border border-border p-8 rounded-xl shadow-sm">
+              <div className="bg-card border b order-border p-8 rounded-xl shado w-sm">
                 <div className="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6">
                   <Server className="w-6 h-6 text-emerald-500" />
                 </div>

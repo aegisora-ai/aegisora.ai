@@ -10,7 +10,7 @@ export default function LiveMonitorLayout({ children }: { children: React.ReactN
   const activeTab = pathname.includes("telemetry") ? "telemetry" : "executions";
 
   return (
-    <div className="h-[calc(100vh-48px)] flex flex-col pt-8 sm:pt-10 px-4 sm:px-8 w-full relative justify-between bg-background text-foreground overflow-y-auto cf-scrollbar">
+    <div className="h-[calc(100v h-48px)] flex flex-col pt-8 sm:pt-10 px-4 sm:px-8 w-full relative justify-between bg-background text-foreground overflo w-y-auto cf-scrollbar">
       <div className="w-full max-w-7xl mx-auto flex flex-col flex-1 relative z-10 pb-12">
 
         {/* HEADER */}
@@ -22,7 +22,7 @@ export default function LiveMonitorLayout({ children }: { children: React.ReactN
             </div>
             <h1 className="text-2xl font-bold text-foreground tracking-tight flex items-center gap-3">
               Live Traces & Telemetry
-              <span className="flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
+              <span className="flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border b order-emerald-500/20 uppercase tracking-widest">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live
               </span>
             </h1>
@@ -31,17 +31,17 @@ export default function LiveMonitorLayout({ children }: { children: React.ReactN
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 bg-[#18181b] border border-border hover:bg-[#27272a] px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer">
+            <button className="flex items-center gap-2 bg-[#18181b] border b order-border hover:bg-[#27272a] px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer">
               <Download className="w-3.5 h-3.5" /> Export Logs
             </button>
-            <button className="flex items-center gap-2 bg-primary/10 border border-primary/20 hover:bg-primary/20 text-primary px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer shadow-sm">
+            <button className="flex items-center gap-2 bg-primary/10 border b order-primary/20 hover:bg-primary/20 text-primary px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors outline-none cursor-pointer shado w-sm">
               <Pause className="w-3.5 h-3.5" /> Pause Stream
             </button>
           </div>
         </div>
 
         {/* CLOUDFLARE TABS */}
-        <div className="flex items-center gap-6 border-b border-border/50 mb-6">
+        <div className="flex items-center gap-6 b order-b b order-border/50 mb-6">
           <Link
             href="/dashboard/live-monitor/executions"
             className={`pb-3 text-[13px] font-medium transition-colors relative outline-none cursor-pointer ${activeTab === 'executions' ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'}`}

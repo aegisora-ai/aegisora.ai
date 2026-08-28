@@ -23,7 +23,7 @@ export default function VectorDBPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Active Indexes</span>
             <Server className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -31,7 +31,7 @@ export default function VectorDBPage() {
           <div className="text-2xl font-bold text-white mb-1">12</div>
           <div className="text-[11px] text-muted-foreground">Vector namespaces</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Total Vectors</span>
             <Box className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -39,7 +39,7 @@ export default function VectorDBPage() {
           <div className="text-2xl font-bold text-white mb-1">42.8M</div>
           <div className="text-[11px] text-muted-foreground">Embeddings stored</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Avg Query Latency</span>
             <Zap className="w-4 h-4 text-orange-500" strokeWidth={1.5} />
@@ -47,7 +47,7 @@ export default function VectorDBPage() {
           <div className="text-2xl font-bold text-white mb-1">14ms</div>
           <div className="text-[11px] text-emerald-400 flex items-center gap-1">Highly optimal</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Search QPS</span>
             <Activity className="w-4 h-4 text-blue-500" strokeWidth={1.5} />
@@ -63,20 +63,20 @@ export default function VectorDBPage() {
           <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text" placeholder="Search vector indexes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           <Filter className="w-3.5 h-3.5" /> Filter by Model
         </button>
       </div>
 
       {/* DATA TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Index Name</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Embedding Model</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Vector Count</th>
@@ -87,7 +87,7 @@ export default function VectorDBPage() {
             </thead>
             <tbody>
               {filteredIndexes.map((idx) => (
-                <tr key={idx.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={idx.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-5 py-4">
                     <div className="flex flex-col">
                       <span className="text-[13px] font-medium text-foreground">{idx.name}</span>
@@ -95,7 +95,7 @@ export default function VectorDBPage() {
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <span className="text-[11px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-1 rounded">
+                    <span className="text-[11px] font-mono text-primary bg-primary/10 border b order-primary/20 px-2 py-1 rounded">
                       {idx.model}
                     </span>
                   </td>
@@ -103,11 +103,11 @@ export default function VectorDBPage() {
                   <td className="px-5 py-4 text-[12px] font-mono text-muted-foreground">{idx.dimension} d</td>
                   <td className="px-5 py-4">
                     {idx.status === 'Active' ? (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 border b order-emerald-500/20 px-2 py-0.5 rounded w-fit">
                         <CheckCircle2 className="w-3 h-3" /> Active
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-primary bg-primary/10 border b order-primary/20 px-2 py-0.5 rounded w-fit">
                         <Activity className="w-3 h-3 animate-pulse" /> Building
                       </span>
                     )}

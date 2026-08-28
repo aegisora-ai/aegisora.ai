@@ -22,7 +22,7 @@ export default function TelemetryPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Active WebSockets</span>
             <Wifi className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -30,7 +30,7 @@ export default function TelemetryPage() {
           <div className="text-2xl font-bold text-white mb-1">1,204</div>
           <div className="text-[11px] text-muted-foreground">Open agent connections</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Global P99 Latency</span>
             <Activity className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -38,7 +38,7 @@ export default function TelemetryPage() {
           <div className="text-2xl font-bold text-white mb-1">124ms</div>
           <div className="text-[11px] text-emerald-400">Optimal routing</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Compute Pool</span>
             <Cpu className="w-4 h-4 text-orange-500" strokeWidth={1.5} />
@@ -51,12 +51,12 @@ export default function TelemetryPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* LATENCY PULSE CHART */}
-        <div className="lg:col-span-2 bg-[#111113] border border-border rounded-xl p-5 flex flex-col shadow-sm">
+        <div className="lg:col-span-2 bg-[#111113] border b order-border rounded-xl p-5 flex flex-col shado w-sm">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" strokeWidth={1.5} /> Live Latency Pulse
             </h3>
-            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-muted-foreground border border-zinc-700 uppercase tracking-widest">
+            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-muted-foreground border b order-zinc-700 uppercase tracking-widest">
                ms / time
             </span>
           </div>
@@ -80,15 +80,15 @@ export default function TelemetryPage() {
         </div>
 
         {/* CLUSTER NODES TABLE */}
-        <div className="bg-[#111113] border border-border rounded-xl flex flex-col shadow-sm overflow-hidden">
-          <div className="p-5 border-b border-border/50 bg-[#18181b]/50">
+        <div className="bg-[#111113] border b order-border rounded-xl flex flex-col shado w-sm overflo w-hidden">
+          <div className="p-5 b order-b b order-border/50 bg-[#18181b]/50">
             <h3 className="text-[13px] font-bold text-white flex items-center gap-2">
               <Server className="w-4 h-4 text-muted-foreground" strokeWidth={1.5} /> Cluster Nodes
             </h3>
           </div>
-          <div className="flex-1 overflow-y-auto cf-scrollbar p-2">
+          <div className="flex-1 overflo w-y-auto cf-scrollbar p-2">
             {nodes.map((node, idx) => (
-              <div key={idx} className="p-3 hover:bg-[#18181b] rounded-lg transition-colors border border-transparent hover:border-border/50 flex flex-col gap-2">
+              <div key={idx} className="p-3 hover:bg-[#18181b] rounded-lg transition-colors border b order-transparent hover:b order-border/50 flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[12px] font-mono text-white">{node.name}</span>
                   <span className={`w-2 h-2 rounded-full ${node.status === 'Healthy' ? 'bg-emerald-400' : node.status === 'Warning' ? 'bg-orange-400' : 'bg-red-500 animate-pulse'}`} />

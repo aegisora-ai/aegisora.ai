@@ -35,13 +35,13 @@ export default function TrustedBy() {
   ];
 
   return (
-    <section className="w-full py-16 bg-transparent flex flex-col items-center justify-center relative z-10 overflow-hidden">
+    <section className="w-full py-16 bg-transparent flex flex-col items-center justify-center relative z-10 overflo w-hidden">
       <p className="relative z-10 text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-[0.2em] mb-10 text-center px-4">
         Seamlessly Integrates With Modern Ecosystems
       </p>
 
       <div
-        className="relative z-10 w-full flex overflow-hidden pointer-events-none"
+        className="relative z-10 w-full flex overflo w-hidden pointer-events-none"
         style={{
           maskImage:
             "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
@@ -62,7 +62,7 @@ export default function TrustedBy() {
               {logos.map((logo, index) => (
                 <span
                   key={index}
-                  className={`${logo.cls} opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300`}
+                  className={`${logo.cls} opacity-60 hover:opacity-100 grayscale hover:gray scale-0 transition-all duration-300`}
                 >
                   {logo.name}
                 </span>

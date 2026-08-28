@@ -17,7 +17,7 @@ export default function BlogPost() {
       <main className="flex-1">
         
         {/* Blog Header Image (Soyut Kurumsal Mavi Grafik) */}
-        <div className="w-full h-[300px] md:h-[400px] bg-[#F0F5FF] flex items-center justify-center border-b border-slate-200 overflow-hidden">
+        <div className="w-full h-[300px] md:h-[400px] bg-[#F0F5FF] flex items-center justify-center b order-b b order-slate-200 overflo w-hidden">
           <svg viewBox="0 0 800 400" className="w-full h-full max-w-[800px]" preserveAspectRatio="xMidYMid slice">
              <circle cx="250" cy="200" r="100" fill="#0066FF" />
              <rect x="300" y="120" width="160" height="160" fill="#33CCFF" rx="40" />
@@ -58,8 +58,8 @@ export default function BlogPost() {
             </ul>
 
             {/* MOCKUP: Model Leaderboard (Siyah Grafik) */}
-            <div className="w-full bg-slate-900 rounded-2xl p-6 md:p-8 mb-12 shadow-2xl border border-slate-800">
-              <div className="flex justify-between items-start mb-8 border-b border-slate-800 pb-6">
+            <div className="w-full bg-slate-900 rounded-2xl p-6 md:p-8 mb-12 shado w-2xl border b order-slate-800">
+              <div className="flex justify-between items-start mb-8 b order-b b order-slate-800 pb-6">
                  <div>
                    <h3 className="text-2xl font-bold text-white mb-2">Model Leaderboard</h3>
                    <p className="text-slate-400 text-sm max-w-md">A comprehensive visual comparison of how top-performing models stack up across key benchmarks like hallucinations, PII data exposure, and alignment.</p>
@@ -77,10 +77,10 @@ export default function BlogPost() {
                  <div className="absolute right-0 bottom-0 text-[10px] text-slate-500 font-mono">Latency (s)</div>
                  
                  {/* Scatter Plot Points */}
-                 <div className="absolute top-[20%] left-[30%] w-4 h-4 rounded-full border-2 border-emerald-400 bg-emerald-400/20 shadow-[0_0_10px_rgba(52,211,153,0.5)]"></div>
-                 <div className="absolute top-[40%] left-[25%] w-4 h-4 rounded-full border-2 border-[#0066FF] bg-[#0066FF]/20 shadow-[0_0_10px_rgba(0,102,255,0.5)]"></div>
-                 <div className="absolute top-[60%] left-[70%] w-4 h-4 rounded-full border-2 border-rose-400 bg-rose-400/20 shadow-[0_0_10px_rgba(251,113,133,0.5)]"></div>
-                 <div className="absolute top-[30%] left-[45%] w-4 h-4 rounded-full border-2 border-amber-400 bg-amber-400/20 shadow-[0_0_10px_rgba(251,191,36,0.5)]"></div>
+                 <div className="absolute top-[20%] left-[30%] w-4 h-4 rounded-full b order-2 b order-emerald-400 bg-emerald-400/20 shado w-[0_0_10px_rgba(52,211,153,0.5)]"></div>
+                 <div className="absolute top-[40%] left-[25%] w-4 h-4 rounded-full b order-2 b order-[#0066FF] bg-[#0066FF]/20 shado w-[0_0_10px_rgba(0,102,255,0.5)]"></div>
+                 <div className="absolute top-[60%] left-[70%] w-4 h-4 rounded-full b order-2 b order-rose-400 bg-rose-400/20 shado w-[0_0_10px_rgba(251,113,133,0.5)]"></div>
+                 <div className="absolute top-[30%] left-[45%] w-4 h-4 rounded-full b order-2 b order-amber-400 bg-amber-400/20 shado w-[0_0_10px_rgba(251,191,36,0.5)]"></div>
               </div>
             </div>
 
@@ -102,14 +102,14 @@ export default function BlogPost() {
         </div>
 
         {/* Similar Articles */}
-        <section className="bg-[#FAFAFA] py-24 border-t border-slate-200">
+        <section className="bg-[#FAFAFA] py-24 b order-t b order-slate-200">
           <div className="max-w-[1200px] mx-auto px-6">
             <h2 className="text-[32px] font-bold text-slate-900 mb-12 tracking-tight">See Similar Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Orijinal blog array'inin ilk 3 elemanını kopyalıyoruz */}
               {[1, 2, 3].map((i) => (
-                <Link href="/blog/the-quest-for-responsible-ai" key={i} className="group block bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                  <div className="w-full h-[200px] bg-slate-50 flex items-center justify-center border-b border-slate-100 overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                <Link href="/blog/the-quest-for-responsible-ai" key={i} className="group block bg-white rounded-2xl border b order-slate-200 overflo w-hidden shado w-sm hover:shado w-xl transition-all duration-300">
+                  <div className="w-full h-[200px] bg-slate-50 flex items-center justify-center b order-b b order-slate-100 overflo w-hidden group-hover:scale-105 transition-transform duration-500">
                     <svg viewBox="0 0 400 200" className="w-full h-full" preserveAspectRatio="xMidYMid slice">
                       <rect x="100" y="50" width="200" height="100" fill="#E6F0FF" rx="20" />
                       <circle cx="200" cy="100" r="40" fill="#0066FF" />

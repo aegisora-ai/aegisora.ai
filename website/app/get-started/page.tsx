@@ -91,7 +91,7 @@ export default function RegisterPage() {
         </Link>
 
         <div className="w-full max-w-[460px] flex flex-col gap-4">
-          <div className="w-full bg-[#0066EE]/10 border border-[#0066EE]/30 rounded-2xl p-4 flex items-start gap-3 backdrop-blur-md shadow-lg">
+          <div className="w-full bg-[#0066EE]/10 border b order-[#0066EE]/30 rounded-2xl p-4 flex items-start gap-3 backdrop-blur-md shado w-lg">
             <Info className="w-4 h-4 text-[#0066EE] mt-0.5 flex-shrink-0" />
             <p className="text-[12px] text-blue-100/90 leading-relaxed font-mono">
               Please use your enterprise work email to set up your initial AI
@@ -99,7 +99,7 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          <div className="w-full bg-[#121215] border border-gray-800/80 rounded-[28px] p-8 shadow-2xl flex flex-col">
+          <div className="w-full bg-[#121215] border b order-gray-800/80 rounded-[28px] p-8 shado w-2xl flex flex-col">
             <div className="text-center mb-6">
               <h1 className="text-2xl font-serif font-medium tracking-tight mb-1.5">
                 Create your account
@@ -110,7 +110,7 @@ export default function RegisterPage() {
             </div>
 
             {errorMsg && (
-              <div className="mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded-xl flex items-center gap-2 text-red-400 text-xs font-medium">
+              <div className="mb-6 p-3 bg-red-500/10 border b order-red-500/30 rounded-xl flex items-center gap-2 text-red-400 text-xs font-medium">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <p>{errorMsg}</p>
               </div>
@@ -130,7 +130,7 @@ export default function RegisterPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, firstName: e.target.value })
                     }
-                    className="w-full bg-[#19191d] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#0066EE]/60 transition-colors"
+                    className="w-full bg-[#19191d] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:b order-[#0066EE]/60 transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -145,7 +145,7 @@ export default function RegisterPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, lastName: e.target.value })
                     }
-                    className="w-full bg-[#19191d] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#0066EE]/60 transition-colors"
+                    className="w-full bg-[#19191d] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:b order-[#0066EE]/60 transition-colors"
                   />
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function RegisterPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full bg-[#19191d] border border-gray-800 rounded-xl px-3.5 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#0066EE]/60 transition-colors"
+                  className="w-full bg-[#19191d] border b order-gray-800 rounded-xl px-3.5 py-3 text-xs text-white placeholder-gray-600 focus:outline-none focus:b order-[#0066EE]/60 transition-colors"
                 />
               </div>
 
@@ -179,7 +179,7 @@ export default function RegisterPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
                     }
-                    className="w-full bg-[#19191d] border border-gray-800 rounded-xl px-3.5 py-3 pr-10 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-[#0066EE]/60 transition-colors"
+                    className="w-full bg-[#19191d] border b order-gray-800 rounded-xl px-3.5 py-3 pr-10 text-xs text-white placeholder-gray-600 focus:outline-none focus:b order-[#0066EE]/60 transition-colors"
                   />
                   <button
                     type="button"
@@ -198,10 +198,10 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium text-[13px] rounded-xl transition-all shadow-lg cursor-pointer flex items-center justify-center gap-2 mt-2 disabled:opacity-70"
+                className="w-full py-3.5 bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium text-[13px] rounded-xl transition-all shado w-lg cursor-pointer flex items-center justify-center gap-2 mt-2 disabled:opacity-70"
               >
                 {isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 b order-2 b order-white/20 b order-t-white rounded-full animate-spin"></div>
                 ) : (
                   <>
                     <span>Sign up free</span>

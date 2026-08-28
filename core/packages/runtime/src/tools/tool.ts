@@ -1,9 +1,19 @@
 export interface ToolContext {
 
-agentId:string;
+  agentId: string;
 
-metadata?:Record<string,unknown>;
+  /**
+   * Canonical governance correlation.
+   *
+   * These identifiers originate from EnforcementGate and are
+   * propagated into real tool execution.
+   */
+  traceId?: string;
+  decisionId?: string;
+  executionId?: string;
+  evidenceId?: string;
 
+  metadata?: Record<string, unknown>;
 }
 
 

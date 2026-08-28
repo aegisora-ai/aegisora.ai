@@ -53,7 +53,7 @@ export default function SectionNavigator() {
           >
             {/* Label (Hover olduğunda veya aktifken görünür) */}
             <span
-              className={`font-mono text-[11px] transition-all duration-300 opacity-0 group-hover:opacity-100 bg-black/80 text-white px-2.5 py-1 rounded-md backdrop-blur-md shadow-lg ${
+              className={`font-mono text-[11px] transition-all duration-300 opacity-0 group-hover:opacity-100 bg-black/80 text-white px-2.5 py-1 rounded-md backdrop-blur-md shado w-lg ${
                 isActive ? "!opacity-100 text-blue-400 font-semibold" : ""
               }`}
             >

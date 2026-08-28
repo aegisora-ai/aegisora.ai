@@ -30,7 +30,7 @@ export default function SecureByDefault() {
     {
       icon: (
         <div className="flex flex-col items-center justify-center text-[10px] font-bold text-[#0066EE] leading-tight">
-          <div className="border border-[#0066EE] rounded-full w-7 h-7 flex items-center justify-center">
+          <div className="border b order-[#0066EE] rounded-full w-7 h-7 flex items-center justify-center">
             ISO
           </div>
         </div>
@@ -78,14 +78,14 @@ export default function SecureByDefault() {
   ];
 
   return (
-    <section className="relative w-full flex justify-center px-6 py-28 bg-transparent font-sans z-10 overflow-hidden">
+    <section className="relative w-full flex justify-center px-6 py-28 bg-transparent font-sans z-10 overflo w-hidden">
       {/* Scroll ile Ekrana Giren Premium Enterprise Kartı */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="w-full max-w-[1200px] bg-[#0a0a0a] rounded-[2.5rem] p-10 lg:p-16 flex flex-col lg:flex-row gap-16 lg:gap-12 items-center lg:items-start border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+        className="w-full max-w-[1200px] bg-[#0a0a0a] rounded-[2.5rem] p-10 lg:p-16 flex flex-col lg:flex-row gap-16 lg:gap-12 items-center lg:items-start border b order-white/10 shado w-[0_20px_60px_rgba(0,0,0,0.4)]"
       >
         {/* Sol Taraf: Tipografi ve Buton */}
         <div className="w-full lg:w-[35%] flex flex-col items-start gap-6">
@@ -99,7 +99,7 @@ export default function SecureByDefault() {
           </p>
           <Link
             href="/trust-center"
-            className="bg-[#0066EE] hover:bg-[#005bb5] cursor-pointer text-white font-mono text-[11px] px-6 py-3.5 rounded-full transition-colors mt-2 shadow-md outline-none"
+            className="bg-[#0066EE] hover:bg-[#005bb5] cursor-pointer text-white font-mono text-[11px] px-6 py-3.5 rounded-full transition-colors mt-2 shado w-md outline-none"
           >
             View Trust Center
           </Link>
@@ -116,7 +116,7 @@ export default function SecureByDefault() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="flex items-center gap-4 group"
             >
-              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center flex-shrink-0 border border-white/10 group-hover:bg-white/10 group-hover:scale-105 transition-all duration-300">
+              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center flex-shrink-0 border b order-white/10 group-hover:bg-white/10 group-hover:scale-105 transition-all duration-300">
                 {feature.icon}
               </div>
               <div className="flex flex-col">

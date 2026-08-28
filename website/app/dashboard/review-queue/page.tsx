@@ -95,9 +95,9 @@ export default function ReviewQueuePage() {
         </p>
       </div>
 
-      <div className="bg-[#121216] border border-gray-800 rounded-xl overflow-hidden shadow-2xl">
+      <div className="bg-[#121216] border b order-gray-800 rounded-xl overflo w-hidden shado w-2xl">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[#0B0B0E] border-b border-gray-800 text-gray-400 font-mono text-xs uppercase tracking-wider">
+          <thead className="bg-[#0B0B0E] b order-b b order-gray-800 text-gray-400 font-mono text-xs uppercase tracking-wider">
             <tr>
               <th className="p-4 font-medium">Req ID</th>
               <th className="p-4 font-medium">Time</th>
@@ -150,8 +150,8 @@ export default function ReviewQueuePage() {
                         disabled={processingId === incident.id}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all outline-none cursor-pointer ${
                           processingId === incident.id
-                            ? "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"
-                            : "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20"
+                            ? "bg-gray-800 text-gray-500 cursor-not-allowed border b order-gray-700"
+                            : "bg-emerald-500/10 text-emerald-500 border b order-emerald-500/20 hover:bg-emerald-500/20"
                         }`}
                       >
                         {processingId === incident.id ? (
@@ -166,8 +166,8 @@ export default function ReviewQueuePage() {
                         disabled={processingId === incident.id}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all outline-none cursor-pointer ${
                           processingId === incident.id
-                            ? "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"
-                            : "bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20"
+                            ? "bg-gray-800 text-gray-500 cursor-not-allowed border b order-gray-700"
+                            : "bg-red-500/10 text-red-500 border b order-red-500/20 hover:bg-red-500/20"
                         }`}
                       >
                         {processingId === incident.id ? (

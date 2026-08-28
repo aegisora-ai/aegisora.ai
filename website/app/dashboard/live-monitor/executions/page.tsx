@@ -25,7 +25,7 @@ export default function ExecutionsPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Requests (24h)</span>
             <Activity className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -33,7 +33,7 @@ export default function ExecutionsPage() {
           <div className="text-2xl font-bold text-white mb-1">14.2K</div>
           <div className="text-[11px] text-muted-foreground">Total inferences</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Success Rate</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -41,7 +41,7 @@ export default function ExecutionsPage() {
           <div className="text-2xl font-bold text-white mb-1">99.8%</div>
           <div className="text-[11px] text-emerald-400">Healthy</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">P95 Latency</span>
             <Clock className="w-4 h-4 text-orange-500" strokeWidth={1.5} />
@@ -49,7 +49,7 @@ export default function ExecutionsPage() {
           <div className="text-2xl font-bold text-white mb-1">1.8s</div>
           <div className="text-[11px] text-muted-foreground">End-to-end execution</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Failed Traces</span>
             <XCircle className="w-4 h-4 text-decision-block" strokeWidth={1.5} />
@@ -68,20 +68,20 @@ export default function ExecutionsPage() {
             placeholder="Search by Request ID or Agent..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           <Filter className="w-3.5 h-3.5" /> Filter Errors
         </button>
       </div>
 
       {/* DATA TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Request ID</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Agent</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Time</th>
@@ -93,7 +93,7 @@ export default function ExecutionsPage() {
             </thead>
             <tbody>
               {filteredExecutions.map((exec) => (
-                <tr key={exec.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={exec.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-2">
                       <Terminal className="w-3.5 h-3.5 text-muted-foreground" />
@@ -106,15 +106,15 @@ export default function ExecutionsPage() {
                   <td className="px-5 py-3 text-[12px] font-mono text-muted-foreground">{exec.tokens}</td>
                   <td className="px-5 py-3">
                     {exec.status === 'Success' ? (
-                      <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-400 bg-emerald-500/10 border b order-emerald-500/20 px-2 py-0.5 rounded w-fit">
                         <CheckCircle2 className="w-3 h-3" /> Success
                       </span>
                     ) : exec.status === 'Timeout' ? (
-                      <span className="flex items-center gap-1 text-[11px] font-medium text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1 text-[11px] font-medium text-orange-400 bg-orange-500/10 border b order-orange-500/20 px-2 py-0.5 rounded w-fit">
                         <Clock className="w-3 h-3" /> Timeout
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1 text-[11px] font-medium text-decision-block bg-decision-block/10 border border-decision-block/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1 text-[11px] font-medium text-decision-block bg-decision-block/10 border b order-decision-block/20 px-2 py-0.5 rounded w-fit">
                         <XCircle className="w-3 h-3" /> Error
                       </span>
                     )}

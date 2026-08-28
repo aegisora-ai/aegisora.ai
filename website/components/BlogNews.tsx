@@ -63,7 +63,7 @@ export default function BlogNews() {
       {/* Üst Başlık ve Buton */}
       <div className="w-full max-w-[1200px] flex items-center justify-between mb-16">
         <div>
-          <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-3 inline-block">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-3 inline-block">
             Intelligence &amp; Insights
           </span>
           <h2 className="text-4xl sm:text-5xl font-bold font-serif text-white tracking-tight">
@@ -72,7 +72,7 @@ export default function BlogNews() {
         </div>
         <Link
           href="/blog"
-          className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono px-5 py-2.5 rounded-full transition-colors shadow-lg shadow-blue-600/20 inline-flex items-center justify-center cursor-pointer"
+          className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono px-5 py-2.5 rounded-full transition-colors shado w-lg shado w-blue-600/20 inline-flex items-center justify-center cursor-pointer"
         >
           All articles
         </Link>
@@ -86,15 +86,15 @@ export default function BlogNews() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-zinc-950/90 backdrop-blur-2xl border border-zinc-800/90 rounded-[2.5rem] p-8 lg:p-12 flex flex-col lg:flex-row gap-8 items-center shadow-2xl hover:border-zinc-700 transition-all duration-300 group"
+          className="bg-zinc-950/90 backdrop-blur-2xl border b order-zinc-800/90 rounded-[2.5rem] p-8 lg:p-12 flex flex-col lg:flex-row gap-8 items-center shado w-2xl hover:b order-zinc-700 transition-all duration-300 group"
         >
           {/* Sol: Profesyonel Enterprise Görsel / UI Simülasyon Alanı */}
-          <div className="w-full lg:w-1/2 h-[280px] sm:h-[320px] bg-gradient-to-br from-zinc-900 via-zinc-950 to-blue-950/40 border border-zinc-800 rounded-3xl overflow-hidden relative flex flex-col items-center justify-center shadow-inner p-6">
+          <div className="w-full lg:w-1/2 h-[280px] sm:h-[320px] bg-gradient-to-br from-zinc-900 via-zinc-950 to-blue-950/40 border b order-zinc-800 rounded-3xl overflo w-hidden relative flex flex-col items-center justify-center shado w-inner p-6">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,102,238,0.15)_0,transparent_70%)] pointer-events-none" />
 
             {/* Kart içi sahte terminal/şema ögesi */}
-            <div className="relative z-10 w-full max-w-[280px] bg-zinc-900/90 border border-zinc-800 rounded-2xl p-4 shadow-2xl space-y-3">
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+            <div className="relative z-10 w-full max-w-[280px] bg-zinc-900/90 border b order-zinc-800 rounded-2xl p-4 shado w-2xl space-y-3">
+              <div className="flex items-center justify-between b order-b b order-zinc-800 pb-2">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
                   <span className="text-[10px] font-mono text-blue-400">
@@ -129,7 +129,7 @@ export default function BlogNews() {
                 <span className="text-xs font-mono text-zinc-400">
                   {featuredPost.date}
                 </span>
-                <span className="text-[10px] font-mono bg-blue-950/80 text-blue-400 border border-blue-800/50 px-3 py-1 rounded-full">
+                <span className="text-[10px] font-mono bg-blue-950/80 text-blue-400 border b order-blue-800/50 px-3 py-1 rounded-full">
                   {featuredPost.category}
                 </span>
               </div>
@@ -152,8 +152,8 @@ export default function BlogNews() {
               </span>
             </div>
 
-            <div className="flex items-center gap-3 pt-6 border-t border-zinc-800/80">
-              <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold font-mono shadow-md">
+            <div className="flex items-center gap-3 pt-6 b order-t b order-zinc-800/80">
+              <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold font-mono shado w-md">
                 EÖ
               </div>
               <div className="flex flex-col">
@@ -177,14 +177,14 @@ export default function BlogNews() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-zinc-950/90 backdrop-blur-2xl border border-zinc-800/90 rounded-[2rem] p-6 sm:p-8 flex flex-col justify-between shadow-xl hover:border-zinc-700 transition-all duration-300 group"
+              className="bg-zinc-950/90 backdrop-blur-2xl border b order-zinc-800/90 rounded-[2rem] p-6 sm:p-8 flex flex-col justify-between shado w-xl hover:b order-zinc-700 transition-all duration-300 group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-xs font-mono text-zinc-400">
                     {post.date}
                   </span>
-                  <span className="text-[10px] font-mono bg-zinc-900 text-zinc-300 border border-zinc-800 px-2.5 py-0.5 rounded-full">
+                  <span className="text-[10px] font-mono bg-zinc-900 text-zinc-300 border b order-zinc-800 px-2.5 py-0.5 rounded-full">
                     {post.category}
                   </span>
                 </div>
@@ -203,7 +203,7 @@ export default function BlogNews() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-zinc-800/80">
+              <div className="flex items-center gap-3 pt-4 b order-t b order-zinc-800/80">
                 <div className="w-8 h-8 rounded-full bg-zinc-800 text-zinc-300 flex items-center justify-center text-[10px] font-bold font-mono">
                   EÖ
                 </div>

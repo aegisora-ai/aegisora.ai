@@ -78,3 +78,6 @@ website/.next
 
 # Generated security evidence
 security-evidence/
+
+.vercel
+.env*

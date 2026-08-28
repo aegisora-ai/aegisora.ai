@@ -189,7 +189,7 @@ export default function MadeForAnyone() {
     <section className="relative w-full flex flex-col items-center justify-center pt-24 pb-32 px-6 bg-transparent font-sans z-10 text-white">
       {/* Heading and CTAs */}
       <div className="text-center max-w-3xl mb-16 z-20 flex flex-col items-center">
-        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
+        <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-4">
           Enterprise Ecosystem
         </span>
 
@@ -206,7 +206,7 @@ export default function MadeForAnyone() {
         <div className="flex items-center gap-4">
           <Link
             href="/login"
-            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-6 py-3 rounded-full transition-colors shadow-lg shadow-blue-600/20 cursor-pointer inline-flex items-center justify-center"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-medium px-6 py-3 rounded-full transition-colors shado w-lg shado w-blue-600/20 cursor-pointer inline-flex items-center justify-center"
           >
             Explore Architecture
           </Link>
@@ -230,10 +230,10 @@ export default function MadeForAnyone() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="absolute bg-zinc-950/90 backdrop-blur-md border border-zinc-800 shadow-[0_10px_25px_rgba(0,0,0,0.5)] rounded-full px-5 py-2.5 flex items-center gap-3 text-zinc-200 pointer-events-auto hover:bg-zinc-900 hover:border-blue-500/40 hover:scale-105 transition-all cursor-default"
+              className="absolute bg-zinc-950/90 backdrop-blur-md border b order-zinc-800 shado w-[0_10px_25px_rgba(0,0,0,0.5)] rounded-full px-5 py-2.5 flex items-center gap-3 text-zinc-200 pointer-events-auto hover:bg-zinc-900 hover:b order-blue-500/40 hover:scale-105 transition-all cursor-default"
               style={{ top: badge.top, left: badge.left }}
             >
-              <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+              <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center border b order-blue-500/20">
                 {badge.icon}
               </div>
               <span className="text-[12px] font-mono tracking-tight text-zinc-300">
@@ -252,10 +252,10 @@ export default function MadeForAnyone() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="absolute bg-zinc-950/90 backdrop-blur-md border border-zinc-800 shadow-[0_10px_25px_rgba(0,0,0,0.5)] rounded-full px-5 py-2.5 flex items-center gap-3 text-zinc-200 pointer-events-auto hover:bg-zinc-900 hover:border-blue-500/40 hover:scale-105 transition-all cursor-default"
+              className="absolute bg-zinc-950/90 backdrop-blur-md border b order-zinc-800 shado w-[0_10px_25px_rgba(0,0,0,0.5)] rounded-full px-5 py-2.5 flex items-center gap-3 text-zinc-200 pointer-events-auto hover:bg-zinc-900 hover:b order-blue-500/40 hover:scale-105 transition-all cursor-default"
               style={{ top: badge.top, right: badge.right }}
             >
-              <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+              <div className="w-6 h-6 rounded-full bg-blue-500/10 flex items-center justify-center border b order-blue-500/20">
                 {badge.icon}
               </div>
               <span className="text-[12px] font-mono tracking-tight text-zinc-300">
@@ -271,17 +271,17 @@ export default function MadeForAnyone() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className={`relative w-full max-w-[380px] h-[540px] bg-zinc-950 rounded-[2.5rem] overflow-hidden z-20 flex flex-col justify-between p-6 border transition-all duration-500 ${isProcessing ? "border-blue-500/50 shadow-[0_0_50px_rgba(0,102,238,0.3)]" : isSuccess ? "border-emerald-500/50 shadow-[0_0_50px_rgba(52,211,153,0.2)]" : "border-zinc-800 shadow-2xl"}`}
+          className={`relative w-full max-w-[380px] h-[540px] bg-zinc-950 rounded-[2.5rem] overflo w-hidden z-20 flex flex-col justify-between p-6 border transition-all duration-500 ${isProcessing ? "b order-blue-500/50 shado w-[0_0_50px_rgba(0,102,238,0.3)]" : isSuccess ? "b order-emerald-500/50 shado w-[0_0_50px_rgba(52,211,153,0.2)]" : "b order-zinc-800 shado w-2xl"}`}
         >
           {/* Neural-network grid overlay */}
-          <div className="absolute inset-0 z-0 overflow-hidden opacity-25">
+          <div className="absolute inset-0 z-0 overflo w-hidden opacity-25">
             {renderGridLines()}
           </div>
 
           {/* Kart İçi Üst Başlık / Durum Çubuğu */}
-          <div className="relative z-20 bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-2xl p-4 flex items-center justify-between">
+          <div className="relative z-20 bg-zinc-900/80 backdrop-blur-md border b order-zinc-800 rounded-2xl p-4 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <div className="w-7 h-7 rounded-xl bg-blue-500/10 border b order-blue-500/20 flex items-center justify-center">
                 <Terminal className="w-3.5 h-3.5 text-blue-400" />
               </div>
               <div className="flex flex-col text-left">
@@ -293,13 +293,13 @@ export default function MadeForAnyone() {
                 </span>
               </div>
             </div>
-            <span className="text-[10px] font-mono bg-blue-950/80 text-blue-400 border border-blue-800/50 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-mono bg-blue-950/80 text-blue-400 border b order-blue-800/50 px-2 py-0.5 rounded-full">
               Live Feed
             </span>
           </div>
 
           {/* Kart İçi Canlı Terminal Log Akışı */}
-          <div className="relative z-20 bg-zinc-900/50 backdrop-blur-md border border-zinc-800/80 rounded-2xl p-4 font-mono text-[11px] text-zinc-300 h-[220px] flex flex-col justify-end overflow-hidden">
+          <div className="relative z-20 bg-zinc-900/50 backdrop-blur-md border b order-zinc-800/80 rounded-2xl p-4 font-mono text-[11px] text-zinc-300 h-[220px] flex flex-col justify-end overflo w-hidden">
             <div className="absolute top-2.5 left-3 text-[9px] text-zinc-500 uppercase tracking-widest font-bold">
               Autonomous Swarm Stream
             </div>
@@ -325,7 +325,7 @@ export default function MadeForAnyone() {
                 initial={{ top: "0%", opacity: 0 }}
                 animate={{ top: "100%", opacity: [0, 1, 1, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 w-full h-[2px] bg-blue-400 shadow-[0_0_20px_#3b82f6] z-10"
+                className="absolute left-0 w-full h-[2px] bg-blue-400 shado w-[0_0_20px_#3b82f6] z-10"
               />
             )}
           </AnimatePresence>
@@ -337,7 +337,7 @@ export default function MadeForAnyone() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                className="absolute inset-x-6 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center bg-zinc-900/95 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 shadow-2xl"
+                className="absolute inset-x-6 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center bg-zinc-900/95 backdrop-blur-xl border b order-zinc-800 rounded-2xl p-6 shado w-2xl"
               >
                 {isProcessing ? (
                   <>
@@ -359,7 +359,7 @@ export default function MadeForAnyone() {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 border border-emerald-500/30"
+                      className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center mb-4 border b order-emerald-500/30"
                     >
                       <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                     </motion.div>
@@ -376,12 +376,12 @@ export default function MadeForAnyone() {
           </AnimatePresence>
 
           {/* Alt Kısım: İnteraktif Arama / Komut Çubuğu */}
-          <div className="relative z-30 w-full bg-zinc-900/90 backdrop-blur-2xl border border-zinc-800 rounded-[1.25rem] p-2.5 pl-4 flex items-center gap-3 shadow-2xl">
-            <div className="w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+          <div className="relative z-30 w-full bg-zinc-900/90 backdrop-blur-2xl border b order-zinc-800 rounded-[1.25rem] p-2.5 pl-4 flex items-center gap-3 shado w-2xl">
+            <div className="w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center border b order-blue-500/20">
               <AegisoraSpark isThinking={!isProcessing && !isSuccess} />
             </div>
 
-            <div className="flex-1 relative h-5 overflow-hidden flex items-center">
+            <div className="flex-1 relative h-5 overflo w-hidden flex items-center">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={
@@ -411,8 +411,8 @@ export default function MadeForAnyone() {
               onClick={handleProcessAction}
               disabled={isProcessing || isSuccess}
               aria-label="Run demo and continue to login"
-              className={`w-8 h-8 rounded-full transition-all flex items-center justify-center flex-shrink-0 shadow-md outline-none
-                ${isProcessing || isSuccess ? "bg-zinc-800 border border-zinc-700 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500 cursor-pointer"}
+              className={`w-8 h-8 rounded-full transition-all flex items-center justify-center flex-shrink-0 shado w-md outline-none
+                ${isProcessing || isSuccess ? "bg-zinc-800 border b order-zinc-700 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500 cursor-pointer"}
               `}
             >
               {isProcessing ? (

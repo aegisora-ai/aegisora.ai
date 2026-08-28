@@ -21,7 +21,7 @@ export default function LightScanIntroPage() {
           </span>
         </div>
         <div
-          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "border-gray-800 bg-[#141414]" : "border-gray-300 bg-white"}`}
+          className={`flex items-center p-1 rounded-full border ${isDarkMode ? "b order-gray-800 bg-[#141414]" : "b order-gray-300 bg-white"}`}
         >
           <button
             onClick={() => setIsDarkMode(false)}
@@ -40,7 +40,7 @@ export default function LightScanIntroPage() {
 
       <div className="flex-1 flex flex-col items-center justify-center max-w-lg mx-auto w-full py-10 text-center">
         <div
-          className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-6 border shadow-sm ${isDarkMode ? "bg-[#141414] border-gray-800 text-[#b490ff]" : "bg-white border-gray-200 text-purple-600"}`}
+          className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-6 border shado w-sm ${isDarkMode ? "bg-[#141414] b order-gray-800 text-[#b490ff]" : "bg-white b order-gray-200 text-purple-600"}`}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
             <circle cx="12" cy="12" r="2" />
@@ -59,7 +59,7 @@ export default function LightScanIntroPage() {
         {/* Adım Listesi */}
         <div className="flex flex-col gap-6 w-full text-left mb-10">
           <div className="flex items-start gap-4">
-            <div className="w-7 h-7 rounded-full bg-[#222] border border-gray-700 flex items-center justify-center text-xs font-mono text-gray-300 flex-shrink-0 mt-0.5">
+            <div className="w-7 h-7 rounded-full bg-[#222] border b order-gray-700 flex items-center justify-center text-xs font-mono text-gray-300 flex-shrink-0 mt-0.5">
               1
             </div>
             <div>
@@ -73,7 +73,7 @@ export default function LightScanIntroPage() {
           </div>
 
           <div className="flex items-start gap-4">
-            <div className="w-7 h-7 rounded-full bg-[#222] border border-gray-700 flex items-center justify-center text-xs font-mono text-gray-300 flex-shrink-0 mt-0.5">
+            <div className="w-7 h-7 rounded-full bg-[#222] border b order-gray-700 flex items-center justify-center text-xs font-mono text-gray-300 flex-shrink-0 mt-0.5">
               2
             </div>
             <div>
@@ -87,7 +87,7 @@ export default function LightScanIntroPage() {
           </div>
 
           <div className="flex items-start gap-4">
-            <div className="w-7 h-7 rounded-full bg-[#222] border border-gray-700 flex items-center justify-center text-xs font-mono text-gray-300 flex-shrink-0 mt-0.5">
+            <div className="w-7 h-7 rounded-full bg-[#222] border b order-gray-700 flex items-center justify-center text-xs font-mono text-gray-300 flex-shrink-0 mt-0.5">
               3
             </div>
             <div>
@@ -104,7 +104,7 @@ export default function LightScanIntroPage() {
 
         <div className="w-full max-w-sm flex flex-col items-center gap-3">
           <Link href="/onboarding/protect/identity" className="w-full">
-            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shadow-sm cursor-pointer">
+            <button className="w-full py-3.5 bg-[#b490ff] hover:bg-[#a37bf5] text-black font-medium text-[14px] rounded-full transition-colors shado w-sm cursor-pointer">
               Continue
             </button>
           </Link>

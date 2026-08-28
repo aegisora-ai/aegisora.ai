@@ -24,7 +24,7 @@ export default function PolicyLibraryPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Active Policies</span>
             <FileKey className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -32,7 +32,7 @@ export default function PolicyLibraryPage() {
           <div className="text-2xl font-bold text-white mb-1">42</div>
           <div className="text-[11px] text-muted-foreground">Enforcing across fleet</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Blocks (24h)</span>
             <XCircle className="w-4 h-4 text-decision-block" strokeWidth={1.5} />
@@ -40,7 +40,7 @@ export default function PolicyLibraryPage() {
           <div className="text-2xl font-bold text-white mb-1">1,204</div>
           <div className="text-[11px] text-decision-block flex items-center gap-1">Threats prevented</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Test Coverage</span>
             <Beaker className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -48,7 +48,7 @@ export default function PolicyLibraryPage() {
           <div className="text-2xl font-bold text-white mb-1">94%</div>
           <div className="text-[11px] text-emerald-400">Passing security tests</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Conflict Warnings</span>
             <AlertTriangle className="w-4 h-4 text-decision-escalate" strokeWidth={1.5} />
@@ -64,20 +64,20 @@ export default function PolicyLibraryPage() {
           <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text" placeholder="Search policies by name or ID..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           <Filter className="w-3.5 h-3.5" /> Filter by Scope
         </button>
       </div>
 
       {/* DATA TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Policy Name & ID</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Scope</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Enforcement</th>
@@ -87,7 +87,7 @@ export default function PolicyLibraryPage() {
             </thead>
             <tbody>
               {filteredPolicies.map((policy) => (
-                <tr key={policy.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={policy.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-5 py-4">
                     <div className="flex flex-col">
                       <span className="text-[13px] font-medium text-foreground">{policy.name}</span>
@@ -95,21 +95,21 @@ export default function PolicyLibraryPage() {
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <span className="text-[12px] text-muted-foreground bg-[#18181b] border border-border px-2 py-1 rounded w-fit">
+                    <span className="text-[12px] text-muted-foreground bg-[#18181b] border b order-border px-2 py-1 rounded w-fit">
                       {policy.scope}
                     </span>
                   </td>
                   <td className="px-5 py-4">
                     {policy.enforcement === 'Block' ? (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-block bg-decision-block/10 border border-decision-block/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-block bg-decision-block/10 border b order-decision-block/20 px-2 py-0.5 rounded w-fit">
                         <XCircle className="w-3 h-3" /> Block
                       </span>
                     ) : policy.enforcement === 'Escalate' ? (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-escalate bg-decision-escalate/10 border border-decision-escalate/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-escalate bg-decision-escalate/10 border b order-decision-escalate/20 px-2 py-0.5 rounded w-fit">
                         <AlertTriangle className="w-3 h-3" /> Escalate
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-allow bg-decision-allow/10 border border-decision-allow/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-allow bg-decision-allow/10 border b order-decision-allow/20 px-2 py-0.5 rounded w-fit">
                         <ShieldCheck className="w-3 h-3" /> Allow
                       </span>
                     )}

@@ -1,6 +1,7 @@
-﻿packages:
+packages:
   - "core/packages/*"
   - "examples/*"
+  - "website"
 
 allowBuilds:
   core-js: true

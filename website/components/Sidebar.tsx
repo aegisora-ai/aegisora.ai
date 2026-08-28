@@ -60,15 +60,15 @@ export default function Sidebar() {
       onMouseLeave={() => setIsExpanded(false)}
       // Mobilde gizlenir (hidden), tablet ve masaüstünde görünür (md:flex). 
       // Dokunmatik cihazlar için erişilebilirlik sağlandı.
-      className={`hidden md:flex fixed inset-y-0 left-0 z-40 bg-[#0c0c0e] border-r border-gray-800/80 transition-all duration-300 ease-in-out flex-col justify-between ${
-        isExpanded ? "w-64 shadow-2xl" : "w-20"
+      className={`hidden md:flex fixed inset-y-0 left-0 z-40 bg-[#0c0c0e] b order-r b order-gray-800/80 transition-all duration-300 ease-in-out flex-col justify-between ${
+        isExpanded ? "w-64 shado w-2xl" : "w-20"
       }`}
       aria-expanded={isExpanded}
     >
-      <div className="flex flex-col h-full overflow-y-auto hide-scrollbar">
+      <div className="flex flex-col h-full overflo w-y-auto hide-scrollbar">
         {/* LOGO & BRANDING */}
-        <div className="h-20 flex items-center px-5 gap-3 border-b border-gray-800/60 overflow-hidden shrink-0">
-          <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-[#121215] border border-gray-800 rounded-xl text-[#0066EE]">
+        <div className="h-20 flex items-center px-5 gap-3 b order-b b order-gray-800/60 overflo w-hidden shrink-0">
+          <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-[#121215] border b order-gray-800 rounded-xl text-[#0066EE]">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -99,7 +99,7 @@ export default function Sidebar() {
             <div key={groupIdx} className="space-y-1.5">
               <span
                 className={`px-3 text-[10px] font-mono text-gray-500 uppercase tracking-widest block transition-opacity duration-300 ${
-                  isExpanded ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
+                  isExpanded ? "opacity-100" : "opacity-0 h-0 overflo w-hidden"
                 }`}
               >
                 {group.label}
@@ -120,8 +120,8 @@ export default function Sidebar() {
                     href={item.href}
                     className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all group relative outline-none focus-visible:ring-2 focus-visible:ring-[#0066EE] ${
                       isActive
-                        ? "bg-[#0066EE]/15 text-[#0066EE] border border-[#0066EE]/30 shadow-sm"
-                        : "text-gray-400 hover:text-white hover:bg-[#121215] border border-transparent"
+                        ? "bg-[#0066EE]/15 text-[#0066EE] border b order-[#0066EE]/30 shado w-sm"
+                        : "text-gray-400 hover:text-white hover:bg-[#121215] border b order-transparent"
                     }`}
                   >
                     <Icon
@@ -147,7 +147,7 @@ export default function Sidebar() {
                     </span>
                     {/* Tooltip sadece kapalıyken görünür */}
                     {!isExpanded && (
-                      <div className="absolute left-20 bg-[#121215] border border-gray-800 text-white text-[11px] font-mono px-3 py-1.5 rounded-lg shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                      <div className="absolute left-20 bg-[#121215] border b order-gray-800 text-white text-[11px] font-mono px-3 py-1.5 rounded-lg shado w-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
                         {item.name}
                       </div>
                     )}
@@ -159,13 +159,13 @@ export default function Sidebar() {
         </nav>
 
         {/* SETTINGS & LOGOUT */}
-        <div className="p-3 border-t border-gray-800/60 space-y-1 shrink-0">
+        <div className="p-3 b order-t b order-gray-800/60 space-y-1 shrink-0">
           <Link
             href="/dashboard/settings"
             className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl transition-all group relative outline-none focus-visible:ring-2 focus-visible:ring-[#0066EE] ${
               pathname?.startsWith("/dashboard/settings")
-                ? "bg-[#0066EE]/15 text-[#0066EE] border border-[#0066EE]/30"
-                : "text-gray-400 hover:text-white hover:bg-[#121215] border border-transparent"
+                ? "bg-[#0066EE]/15 text-[#0066EE] border b order-[#0066EE]/30"
+                : "text-gray-400 hover:text-white hover:bg-[#121215] border b order-transparent"
             }`}
           >
             <Settings className="w-[18px] h-[18px] flex-shrink-0" />

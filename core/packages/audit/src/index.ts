@@ -1,3 +1,14 @@
-export { AuditLogger } from "./logger/audit-logger";
+﻿export { AuditLogger } from "./logger/audit-logger";
 
-export type { AuditEvent, AuditDecision } from "./events/audit-event";
+export {
+  MemoryEvidenceStore,
+} from "./evidence-store";
+
+export type {
+  EvidenceStore,
+} from "./evidence-store";
+
+export type {
+  AuditEvent,
+  AuditDecision,
+} from "./events/audit-event";

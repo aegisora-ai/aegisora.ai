@@ -80,9 +80,9 @@ return (
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflow-y-auto lg:hidden"
+            className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflo w-y-auto lg:hidden"
           >
-            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-white/10 shrink-0 bg-white dark:bg-[#0d0d0f]">
+            <div className="flex items-center justify-between px-6 py-5 b order-b b order-slate-200 dark:b order-white/10 shrink-0 bg-white dark:bg-[#0d0d0f]">
                <Link href="/" className="flex items-center outline-none">
                  <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-8 w-auto dark:hidden" />
                  <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-8 w-auto hidden dark:block" />
@@ -93,12 +93,12 @@ return (
             </div>
 
             <div className="flex flex-col px-4 py-4 flex-1">
-               <Link href="/" className="px-2 py-4 border-b border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[16px] font-bold w-full text-left">Homepage</Link>
+               <Link href="/" className="px-2 py-4 b order-b b order-slate-200 dark:b order-white/10 text-slate-900 dark:text-white text-[16px] font-bold w-full text-left">Homepage</Link>
 
                {["Product", "Solutions", "Resources"].map(item => {
                   const isExpanded = expandedMobileItem === item;
                   return (
-                    <div key={item} className="flex flex-col border-b border-slate-200 dark:border-white/10">
+                    <div key={item} className="flex flex-col b order-b b order-slate-200 dark:b order-white/10">
                       <button
                         onClick={() => setExpandedMobileItem(isExpanded ? null : item)}
                         className="flex justify-between items-center px-2 py-5 text-slate-900 dark:text-white text-[16px] font-bold w-full outline-none text-left"
@@ -108,12 +108,12 @@ return (
                       </button>
                       <AnimatePresence>
                         {isExpanded && MENU_DATA[item] && (
-                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflo w-hidden">
                             <div className="pb-6 pt-2 flex flex-col gap-5 px-2">
                               {MENU_DATA[item].map((sub: any, idx: number) => (
                                 <Link key={idx} href={sub.href} className="flex items-start gap-4 group">
                                   {sub.icon && (
-                                    <div className="w-11 h-11 rounded-[10px] bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm group-hover:border-blue-500 transition-colors">
+                                    <div className="w-11 h-11 rounded-[10px] bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 flex items-center justify-center shrink-0 shado w-sm group-hover:b order-blue-500 transition-colors">
                                       <sub.icon className="w-[20px] h-[20px] text-blue-600 dark:text-blue-500" />
                                     </div>
                                   )}
@@ -132,10 +132,10 @@ return (
                })}
 
                <div className="mt-8 flex flex-col gap-3 pb-8 px-2">
-                  <button className="w-full py-3.5 rounded-xl border border-slate-300 dark:border-white/20 text-slate-700 dark:text-slate-300 font-semibold bg-white dark:bg-transparent shadow-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors text-[15px]">
+                  <button className="w-full py-3.5 rounded-xl border b order-slate-300 dark:b order-white/20 text-slate-700 dark:text-slate-300 font-semibold bg-white dark:bg-transparent shado w-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors text-[15px]">
                     Contact Sales
                   </button>
-                  <Link href="/login" className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors text-center shadow-md text-[15px]">
+                  <Link href="/login" className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors text-center shado w-md text-[15px]">
                     Start Building
                   </Link>
                </div>
@@ -145,7 +145,7 @@ return (
       </AnimatePresence>
 
       {/* NAVBAR */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0d0d0f]/90 backdrop-blur-md sticky top-0 z-50">
+      <header className="flex items-center justify-between px-6 py-4 b order-b b order-slate-200 dark:b order-white/10 bg-white/90 dark:bg-[#0d0d0f]/90 backdrop-blur-md sticky top-0 z-50">
         <Link href="/" className="flex items-center outline-none">
           <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-8 w-auto dark:hidden" />
           <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-8 w-auto hidden dark:block" />
@@ -177,12 +177,12 @@ return (
       <main className="pb-0">
 
         {/* HERO SECTION */}
-        <section className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20 overflow-hidden">
+        <section className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20 overflo w-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="max-w-2xl z-10">
               <motion.div
                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 text-slate-800 dark:text-blue-100 text-[13px] font-bold tracking-wide uppercase mb-8"
+                className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 border b order-blue-100 dark:b order-blue-800/50 text-slate-800 dark:text-blue-100 text-[13px] font-bold tracking-wide uppercase mb-8"
               >
                 <div className="w-5 h-5 rounded flex items-center justify-center bg-blue-100 dark:bg-blue-800">
                   <UserCog className="w-3 h-3 text-blue-600 dark:text-blue-300" />
@@ -209,7 +209,7 @@ return (
                 <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-[16px] font-bold transition-colors">
                   Manage Identities
                 </button>
-                <button className="px-8 py-4 rounded-lg text-[16px] font-bold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                <button className="px-8 py-4 rounded-lg text-[16px] font-bold text-slate-700 dark:text-slate-300 border b order-slate-200 dark:b order-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                   View IAM Docs
                 </button>
               </motion.div>
@@ -218,10 +218,10 @@ return (
             {/* ABSTRACT IAM GRAPHIC */}
             <motion.div
               initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative z-10 w-full rounded-2xl bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden flex flex-col"
+              className="relative z-10 w-full rounded-2xl bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 shado w-2xl overflo w-hidden flex flex-col"
             >
               {/* Panel Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-transparent">
+              <div className="flex items-center justify-between px-6 py-4 b order-b b order-slate-100 dark:b order-white/5 bg-slate-50/50 dark:bg-transparent">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                     <Bot className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -231,7 +231,7 @@ return (
                     <div className="text-[12px] text-slate-500 font-mono">ID: agt_982x_finc</div>
                   </div>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 text-blue-700 dark:text-blue-400 text-[11px] font-bold tracking-wide uppercase">
+                <div className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/20 border b order-blue-200 dark:b order-blue-800/30 text-blue-700 dark:text-blue-400 text-[11px] font-bold tracking-wide uppercase">
                   Active
                 </div>
               </div>
@@ -243,7 +243,7 @@ return (
 
                   <div className="space-y-3">
                     {/* Allowed DB */}
-                    <div className="flex items-center justify-between p-3 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5">
+                    <div className="flex items-center justify-between p-3 rounded-lg border b order-slate-100 dark:b order-white/5 bg-slate-50 dark:bg-white/5">
                       <div className="flex items-center gap-3">
                         <Database className="w-4 h-4 text-slate-400" />
                         <span className="text-[14px] font-medium text-slate-700 dark:text-slate-300">PostgreSQL: analytics_db</span>
@@ -255,7 +255,7 @@ return (
                     </div>
 
                     {/* Blocked DB Write */}
-                    <div className="flex items-center justify-between p-3 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5">
+                    <div className="flex items-center justify-between p-3 rounded-lg border b order-slate-100 dark:b order-white/5 bg-slate-50 dark:bg-white/5">
                       <div className="flex items-center gap-3">
                         <Database className="w-4 h-4 text-slate-400" />
                         <span className="text-[14px] font-medium text-slate-700 dark:text-slate-300">PostgreSQL: production_db</span>
@@ -267,7 +267,7 @@ return (
                     </div>
 
                     {/* API Access */}
-                    <div className="flex items-center justify-between p-3 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5">
+                    <div className="flex items-center justify-between p-3 rounded-lg border b order-slate-100 dark:b order-white/5 bg-slate-50 dark:bg-white/5">
                       <div className="flex items-center gap-3">
                         <Globe className="w-4 h-4 text-slate-400" />
                         <span className="text-[14px] font-medium text-slate-700 dark:text-slate-300">Stripe API</span>
@@ -288,7 +288,7 @@ return (
         </section>
 
         {/* FEATURE DETAILS */}
-        <section className="border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0a0a0c] py-24 transition-colors">
+        <section className="b order-t b order-slate-200 dark:b order-white/10 bg-slate-50 dark:bg-[#0a0a0c] py-24 transition-colors">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
             <div className="text-center max-w-3xl mx-auto mb-20">
               <h2 className="text-[32px] md:text-[48px] font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
@@ -301,7 +301,7 @@ return (
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Box 1 */}
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 p-8 rounded-2xl">
+              <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
                   <Fingerprint className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
@@ -312,7 +312,7 @@ return (
               </div>
 
               {/* Box 2 */}
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 p-8 rounded-2xl">
+              <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
                   <Layers className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
@@ -323,7 +323,7 @@ return (
               </div>
 
               {/* Box 3 */}
-              <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 p-8 rounded-2xl">
+              <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 p-8 rounded-2xl">
                 <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
                   <Key className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
@@ -339,7 +339,7 @@ return (
         {/* BOTTOM CTA */}
         <section className="pt-24 pb-16 bg-[#0B1B3D]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-            <div className="bg-[#f8fafc] dark:bg-[#111113] border border-slate-200/50 dark:border-white/10 rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden transition-colors duration-300">
+            <div className="bg-[#f8fafc] dark:bg-[#111113] border b order-slate-200/50 dark:b order-white/10 rounded-3xl p-10 md:p-16 shado w-2xl relative overflo w-hidden transition-colors duration-300">
               <div className="relative z-10">
                 <h2 className="text-[40px] md:text-[56px] font-bold text-slate-900 dark:text-white mb-8 leading-[1.1] tracking-tight max-w-3xl">
                   Start governing thousands of autonomous actions automatically

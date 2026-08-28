@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -20,7 +21,7 @@ return (
     <div className="min-h-screen bg-white dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 flex flex-col">
 
       {/* HEADER */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0c]/90 backdrop-blur-md sticky top-0 z-50">
+      <header className="flex items-center justify-between px-6 py-4 b order-b b order-slate-200 dark:b order-white/10 bg-white/90 dark:bg-[#0a0a0c]/90 backdrop-blur-md sticky top-0 z-50">
         <Link href="/" className="flex items-center gap-2 outline-none">
           <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-7 w-auto dark:hidden" />
           <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-7 w-auto hidden dark:block" />
@@ -43,8 +44,8 @@ return (
       {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflow-y-auto lg:hidden">
-            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0d0f]">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflo w-y-auto lg:hidden">
+            <div className="flex items-center justify-between px-6 py-5 b order-b b order-slate-200 dark:b order-white/10 bg-white dark:bg-[#0d0d0f]">
                <Link href="/" className="flex items-center outline-none"><span className="text-[18px] font-bold">Aegisora AI</span></Link>
                <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 text-slate-500"><X className="w-7 h-7" /></button>
             </div>
@@ -67,9 +68,9 @@ return (
             Transparent pricing designed for scale. Start for free, upgrade when you hit production volumes, or deploy in your own VPC for maximum security.
           </p>
 
-          <div className="inline-flex items-center p-1 bg-slate-100 dark:bg-[#111113] rounded-xl border border-slate-200 dark:border-slate-800">
-            <button onClick={() => setAnnual(false)} className={`px-6 py-2.5 rounded-lg text-[14px] font-bold transition-all ${!annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>Monthly</button>
-            <button onClick={() => setAnnual(true)} className={`px-6 py-2.5 rounded-lg text-[14px] font-bold transition-all flex items-center gap-2 ${annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>
+          <div className="inline-flex items-center p-1 bg-slate-100 dark:bg-[#111113] rounded-xl border b order-slate-200 dark:b order-slate-800">
+            <button onClick={() => setAnnual(false)} className={`px-6 py-2.5 rounded-lg text-[14px] font-bold transition-all ${!annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shado w-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>Monthly</button>
+            <button onClick={() => setAnnual(true)} className={`px-6 py-2.5 rounded-lg text-[14px] font-bold transition-all flex items-center gap-2 ${annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shado w-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>
               Annually <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[10px] uppercase tracking-wider">Save 20%</span>
             </button>
           </div>
@@ -79,13 +80,13 @@ return (
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
           {/* Developer */}
-          <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col">
+          <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 rounded-3xl p-8 flex flex-col">
             <div className="mb-8">
               <div className="flex items-center gap-2 text-slate-500 mb-4"><Zap className="w-5 h-5"/> <span className="font-bold uppercase tracking-wider text-[12px]">Developer</span></div>
               <div className="text-[40px] font-bold text-slate-900 dark:text-white mb-2">$0</div>
               <p className="text-[14px] text-slate-500">Perfect for prototyping and testing local AI agents.</p>
             </div>
-            <Link href="/login" className="w-full py-3.5 rounded-xl border border-slate-200 dark:border-white/10 font-bold text-slate-900 dark:text-white text-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors mb-8">Start Building</Link>
+            <Link href="/login" className="w-full py-3.5 rounded-xl border b order-slate-200 dark:b order-white/10 font-bold text-slate-900 dark:text-white text-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors mb-8">Start Building</Link>
             <ul className="space-y-4 text-[14px] text-slate-600 dark:text-slate-400 flex-1">
               <li className="flex items-start gap-3"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Up to 10,000 requests / mo</li>
               <li className="flex items-start gap-3"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Access to 60+ Hub Validators</li>
@@ -95,7 +96,7 @@ return (
           </div>
 
           {/* Scale */}
-          <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 flex flex-col border border-blue-500 shadow-2xl relative transform md:-translate-y-4">
+          <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 flex flex-col border b order-blue-500 shado w-2xl relative transform md:-translate-y-4">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider">Most Popular</div>
             <div className="mb-8">
               <div className="flex items-center gap-2 text-blue-400 mb-4"><Shield className="w-5 h-5"/> <span className="font-bold uppercase tracking-wider text-[12px]">Scale</span></div>
@@ -113,13 +114,13 @@ return (
           </div>
 
           {/* Enterprise */}
-          <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col">
+          <div className="bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 rounded-3xl p-8 flex flex-col">
             <div className="mb-8">
               <div className="flex items-center gap-2 text-slate-900 dark:text-white mb-4"><Building className="w-5 h-5"/> <span className="font-bold uppercase tracking-wider text-[12px]">Enterprise</span></div>
               <div className="text-[40px] font-bold text-slate-900 dark:text-white mb-2">Custom</div>
               <p className="text-[14px] text-slate-500">For strictly regulated industries (Finance, Mobility, Health).</p>
             </div>
-            <Link href="/contact" className="w-full py-3.5 rounded-xl border border-slate-200 dark:border-white/10 font-bold text-slate-900 dark:text-white text-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors mb-8">Contact Sales</Link>
+            <Link href="/contact" className="w-full py-3.5 rounded-xl border b order-slate-200 dark:b order-white/10 font-bold text-slate-900 dark:text-white text-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors mb-8">Contact Sales</Link>
             <ul className="space-y-4 text-[14px] text-slate-600 dark:text-slate-400 flex-1">
               <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> Unlimited volume</li>
               <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> VPC & On-Premise Deployment</li>

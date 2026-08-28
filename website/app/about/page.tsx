@@ -42,8 +42,8 @@ export default function AboutPage() {
   ];
 
   return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-24 selection:bg-blue-500/30 relative overflow-hidden">
-      {/* Arkaplan Işık Efektleri */}
+    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-24 selection:bg-blue-500/30 relative overflo w-hidden">
+      {/* Arkaplan IÅŸık Efektleri */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.15)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Üst Menü / Navbar */}
@@ -54,7 +54,7 @@ export default function AboutPage() {
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-8 inline-block"
+          className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-8 inline-block"
         >
           Company &amp; Vision
         </motion.span>
@@ -90,7 +90,7 @@ export default function AboutPage() {
       </div>
 
       {/* Our Story Bölümü */}
-      <div className="relative z-10 max-w-[720px] w-full mx-auto px-6 py-16 border-t border-zinc-800/80">
+      <div className="relative z-10 max-w-[720px] w-full mx-auto px-6 py-16 b order-t b order-zinc-800/80">
         <h2 className="text-3xl font-serif tracking-tight mb-6 text-white">
           Our story
         </h2>
@@ -111,7 +111,7 @@ export default function AboutPage() {
             within their own perimeters.
           </p>
           <p>
-            Aegisora is much more than a security middleware—it is the
+            Aegisora is much more than a security middlewareâ€”it is the
             operational trust layer for the agentic enterprise. We are committed
             to securing your path toward autonomous operations.
           </p>
@@ -124,8 +124,8 @@ export default function AboutPage() {
           What We Believe
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between hover:border-zinc-700 transition-colors group shadow-lg shadow-black/20">
-            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-500/20 transition-colors">
+          <div className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border b order-zinc-800 flex flex-col justify-between hover:b order-zinc-700 transition-colors group shado w-lg shado w-black/20">
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border b order-blue-500/20 flex items-center justify-center mb-6 shado w-sm group-hover:bg-blue-500/20 transition-colors">
               <Network className="w-6 h-6 text-blue-400" />
             </div>
             <div>
@@ -140,8 +140,8 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between hover:border-zinc-700 transition-colors group shadow-lg shadow-black/20">
-            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-500/20 transition-colors">
+          <div className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border b order-zinc-800 flex flex-col justify-between hover:b order-zinc-700 transition-colors group shado w-lg shado w-black/20">
+            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border b order-blue-500/20 flex items-center justify-center mb-6 shado w-sm group-hover:bg-blue-500/20 transition-colors">
               <Shield className="w-6 h-6 text-blue-400" />
             </div>
             <div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
 
       {/* We're hiring Bölümü */}
       <div className="relative z-10 max-w-[800px] w-full mx-auto px-6 py-24 text-center">
-        <div className="bg-zinc-900/40 border border-zinc-800 rounded-[2.5rem] p-12 backdrop-blur-md">
+        <div className="bg-zinc-900/40 border b order-zinc-800 rounded-[2.5rem] p-12 backdrop-blur-md">
           <h2 className="text-3xl font-serif tracking-tight mb-4 text-white">
             We&apos;re hiring
           </h2>
@@ -171,7 +171,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/contact/sales"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-blue-600 text-white text-[13px] font-medium rounded-full hover:bg-blue-500 transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-blue-600 text-white text-[13px] font-medium rounded-full hover:bg-blue-500 transition-all shado w-[0_8px_20px_rgba(0,102,238,0.25)] hover:shado w-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer"
           >
             <Sparkles className="w-4 h-4" />
             <span>View Open Positions</span>
@@ -194,7 +194,7 @@ export default function AboutPage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="border border-zinc-800/80 rounded-2xl overflow-hidden bg-zinc-900/40 backdrop-blur-sm transition-colors hover:border-zinc-700"
+              className="border b order-zinc-800/80 rounded-2xl overflo w-hidden bg-zinc-900/40 backdrop-blur-sm transition-colors hover:b order-zinc-700"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -213,7 +213,7 @@ export default function AboutPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="px-5 pb-5 text-[13px] font-mono text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-4"
+                    className="px-5 pb-5 text-[13px] font-mono text-zinc-400 leading-relaxed b order-t b order-zinc-800/60 pt-4"
                   >
                     {faq.a}
                   </motion.div>
@@ -224,8 +224,8 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Yenilenmiş Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
-      <footer className="relative z-10 w-full border-t py-16 px-6 mt-20 border-zinc-800 bg-zinc-950">
+      {/* YenilenmiÅŸ Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
+      <footer className="relative z-10 w-full b order-t py-16 px-6 mt-20 b order-zinc-800 bg-zinc-950">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center">
           {/* Logo Alanı */}
           <Link
@@ -255,7 +255,7 @@ export default function AboutPage() {
           <div className="flex items-center gap-5 text-zinc-500 mt-8 mb-16">
             <Link
               href="https://aegisora.ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors"
             >
               <svg
@@ -274,7 +274,7 @@ export default function AboutPage() {
             </Link>
             <Link
               href="https://x.com/aegisora_ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors"
             >
               <svg
@@ -287,7 +287,7 @@ export default function AboutPage() {
             </Link>
             <Link
               href="https://www.linkedin.com/company/aegisora"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors"
             >
               <svg
@@ -300,7 +300,7 @@ export default function AboutPage() {
             </Link>
             <Link
               href="https://github.com/aegisora"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors"
             >
               <svg
@@ -317,7 +317,7 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 b order-t b order-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
             <div className="flex flex-col gap-2.5">
               <span className="font-bold text-zinc-300 mb-1">Company</span>
               <Link

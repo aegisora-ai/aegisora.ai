@@ -1,0 +1,1 @@
+console.log("TSX_PACKAGE_JSON_SMOKE=PASS");

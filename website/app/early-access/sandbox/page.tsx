@@ -66,7 +66,7 @@ export default function ContributorSandbox() {
     <main className="min-h-screen bg-black text-white p-6 md:p-12 font-sans">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Üst Bilgi / Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-zinc-800 pb-6 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center b order-b b order-zinc-800 pb-6 gap-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -82,40 +82,40 @@ export default function ContributorSandbox() {
               frameworks (EU DSA & GDPR).
             </p>
           </div>
-          <div className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-xs text-zinc-300 font-mono">
+          <div className="bg-zinc-900 border b order-zinc-800 px-4 py-2 rounded-xl text-xs text-zinc-300 font-mono">
             Node:{" "}
             <span className="text-blue-400 font-mono">eu-central-trier-01</span>
           </div>
         </div>
 
         {/* Sekmeler */}
-        <div className="flex gap-6 border-b border-zinc-800 text-sm font-medium">
+        <div className="flex gap-6 b order-b b order-zinc-800 text-sm font-medium">
           <button
             onClick={() => setActiveTab("pipelines")}
-            className={`pb-3 transition-colors border-b-2 outline-none cursor-pointer ${
+            className={`pb-3 transition-colors b order-b-2 outline-none cursor-pointer ${
               activeTab === "pipelines"
-                ? "border-white text-white"
-                : "border-transparent text-zinc-400 hover:text-white"
+                ? "b order-white text-white"
+                : "b order-transparent text-zinc-400 hover:text-white"
             }`}
           >
             Agent Pipelines & Audit
           </button>
           <button
             onClick={() => setActiveTab("governance")}
-            className={`pb-3 transition-colors border-b-2 outline-none cursor-pointer ${
+            className={`pb-3 transition-colors b order-b-2 outline-none cursor-pointer ${
               activeTab === "governance"
-                ? "border-white text-white"
-                : "border-transparent text-zinc-400 hover:text-white"
+                ? "b order-white text-white"
+                : "b order-transparent text-zinc-400 hover:text-white"
             }`}
           >
             Governance Rules (EU DSA)
           </button>
           <button
             onClick={() => setActiveTab("propose")}
-            className={`pb-3 transition-colors border-b-2 outline-none cursor-pointer ${
+            className={`pb-3 transition-colors b order-b-2 outline-none cursor-pointer ${
               activeTab === "propose"
-                ? "border-white text-white"
-                : "border-transparent text-zinc-400 hover:text-white"
+                ? "b order-white text-white"
+                : "b order-transparent text-zinc-400 hover:text-white"
             }`}
           >
             Shape Core Architecture 💡
@@ -125,7 +125,7 @@ export default function ContributorSandbox() {
         {/* İçerik Alanı 1: Pipelines */}
         {activeTab === "pipelines" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl space-y-4">
+            <div className="bg-zinc-900/50 border b order-zinc-800 p-6 rounded-2xl space-y-4">
               <h3 className="font-semibold text-base">
                 Run Compliance Simulation
               </h3>
@@ -133,7 +133,7 @@ export default function ContributorSandbox() {
                 Execute a sample multi-agent RAG workflow through
                 Aegisora&apos;s Zero-Trust proxy layer.
               </p>
-              <div className="bg-black/40 border border-zinc-800 p-3 rounded-xl font-mono text-xs text-zinc-300 space-y-1">
+              <div className="bg-black/40 border b order-zinc-800 p-3 rounded-xl font-mono text-xs text-zinc-300 space-y-1">
                 <div>
                   Target: <span className="text-blue-400">LLM-Gateway-v2</span>
                 </div>
@@ -148,7 +148,7 @@ export default function ContributorSandbox() {
               <button
                 onClick={runTestPipeline}
                 disabled={testStatus === "running"}
-                className="w-full bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium py-3 rounded-xl transition-colors text-xs font-mono disabled:opacity-50 cursor-pointer outline-none shadow-sm"
+                className="w-full bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium py-3 rounded-xl transition-colors text-xs font-mono disabled:opacity-50 cursor-pointer outline-none shado w-sm"
               >
                 {testStatus === "running"
                   ? "Evaluating Agents..."
@@ -156,12 +156,12 @@ export default function ContributorSandbox() {
               </button>
             </div>
 
-            <div className="lg:col-span-2 bg-zinc-900/50 border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
+            <div className="lg:col-span-2 bg-zinc-900/50 border b order-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
               <div>
                 <h3 className="font-semibold text-base mb-4">
                   Real-time Governance Stream
                 </h3>
-                <div className="bg-black/60 border border-zinc-800 p-4 rounded-xl font-mono text-xs text-zinc-400 h-48 overflow-y-auto space-y-2">
+                <div className="bg-black/60 border b order-zinc-800 p-4 rounded-xl font-mono text-xs text-zinc-400 h-48 overflo w-y-auto space-y-2">
                   <div className="text-zinc-500">
                     [System] Initializing sandbox environment for contributor...
                   </div>
@@ -190,7 +190,7 @@ export default function ContributorSandbox() {
                   )}
                 </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-zinc-800 text-xs text-zinc-500 font-mono flex justify-between">
+              <div className="mt-4 pt-4 b order-t b order-zinc-800 text-xs text-zinc-500 font-mono flex justify-between">
                 <span>Contribute architectural feedback via sandbox.</span>
                 <span className="text-zinc-400">Aegisora Core v1.2</span>
               </div>
@@ -200,7 +200,7 @@ export default function ContributorSandbox() {
 
         {/* İçerik Alanı 2: Governance */}
         {activeTab === "governance" && (
-          <div className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl space-y-4">
+          <div className="bg-zinc-900/50 border b order-zinc-800 p-8 rounded-2xl space-y-4">
             <h3 className="text-lg font-semibold">
               Active Compliance Frameworks
             </h3>
@@ -209,7 +209,7 @@ export default function ContributorSandbox() {
               governance policies enforced on autonomous agents.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-              <div className="border border-zinc-800 p-4 rounded-xl bg-black/30">
+              <div className="border b order-zinc-800 p-4 rounded-xl bg-black/30">
                 <h4 className="font-medium text-white text-sm">
                   EU Digital Services Act (DSA)
                 </h4>
@@ -218,7 +218,7 @@ export default function ContributorSandbox() {
                   automated decision systems.
                 </p>
               </div>
-              <div className="border border-zinc-800 p-4 rounded-xl bg-black/30">
+              <div className="border b order-zinc-800 p-4 rounded-xl bg-black/30">
                 <h4 className="font-medium text-white text-sm">
                   GDPR Privacy Shield
                 </h4>
@@ -233,9 +233,9 @@ export default function ContributorSandbox() {
 
         {/* İçerik Alanı 3: Mimari Öneri */}
         {activeTab === "propose" && (
-          <div className="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl space-y-6 max-w-2xl">
+          <div className="bg-zinc-900/50 border b order-zinc-800 p-8 rounded-2xl space-y-6 max-w-2xl">
             <div>
-              <span className="text-[11px] uppercase tracking-widest text-blue-400 font-semibold font-mono bg-blue-950/40 px-3 py-1 rounded-full border border-blue-800/50">
+              <span className="text-[11px] uppercase tracking-widest text-blue-400 font-semibold font-mono bg-blue-950/40 px-3 py-1 rounded-full border b order-blue-800/50">
                 Core Contribution Portal
               </span>
               <h3 className="text-xl font-serif mt-3 tracking-tight">
@@ -260,18 +260,18 @@ export default function ContributorSandbox() {
                     value={proposal}
                     onChange={(e) => setProposal(e.target.value)}
                     placeholder="e.g., We should add an automated token-budget validator for multi-agent loops to comply with strict EU financial auditing..."
-                    className="w-full bg-black/50 border border-zinc-800 rounded-xl p-4 text-xs font-mono text-white focus:outline-none focus:border-[#0066EE] transition-colors resize-none"
+                    className="w-full bg-black/50 border b order-zinc-800 rounded-xl p-4 text-xs font-mono text-white focus:outline-none focus:b order-[#0066EE] transition-colors resize-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium px-6 py-3 rounded-xl transition-colors text-xs font-mono tracking-wide cursor-pointer outline-none shadow-sm"
+                  className="bg-[#0066EE] hover:bg-[#005bb5] text-white font-medium px-6 py-3 rounded-xl transition-colors text-xs font-mono tracking-wide cursor-pointer outline-none shado w-sm"
                 >
                   Submit Proposal to Core Team
                 </button>
               </form>
             ) : (
-              <div className="bg-emerald-950/20 border border-emerald-800/30 p-6 rounded-xl text-center space-y-2">
+              <div className="bg-emerald-950/20 border b order-emerald-800/30 p-6 rounded-xl text-center space-y-2">
                 <h4 className="text-emerald-400 font-semibold text-base font-serif">
                   Proposal Logged Successfully
                 </h4>

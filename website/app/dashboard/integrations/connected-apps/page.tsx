@@ -29,10 +29,10 @@ export default function ConnectedAppsPage() {
           <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text" placeholder="Search applications..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           <Filter className="w-3.5 h-3.5" /> Filter by Status
         </button>
       </div>
@@ -40,10 +40,10 @@ export default function ConnectedAppsPage() {
       {/* APPS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredApps.map((app) => (
-          <div key={app.id} className="bg-[#111113] border border-border hover:border-sidebar-ring rounded-xl p-5 shadow-sm transition-colors flex flex-col group">
+          <div key={app.id} className="bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-xl p-5 shado w-sm transition-colors flex flex-col group">
 
             <div className="flex items-start justify-between mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[#18181b] border border-border flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#18181b] border b order-border flex items-center justify-center">
                 <app.icon className="w-5 h-5 text-foreground" strokeWidth={1.5} />
               </div>
               <button className="text-muted-foreground hover:text-foreground p-1 rounded-md hover:bg-[#27272a] transition-colors outline-none cursor-pointer">
@@ -56,7 +56,7 @@ export default function ConnectedAppsPage() {
               {app.description}
             </p>
 
-            <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
+            <div className="flex items-center justify-between pt-4 b order-t b order-border/50 mt-auto">
               <div>
                 {app.status === 'Connected' ? (
                   <span className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-400">
@@ -71,7 +71,7 @@ export default function ConnectedAppsPage() {
                 )}
               </div>
 
-              <button className={`text-[12px] font-medium px-3 py-1.5 rounded-lg transition-colors outline-none cursor-pointer ${app.status === 'Connected' ? 'bg-[#18181b] border border-border hover:bg-[#27272a] text-foreground' : 'bg-foreground text-background hover:bg-foreground/90'}`}>
+              <button className={`text-[12px] font-medium px-3 py-1.5 rounded-lg transition-colors outline-none cursor-pointer ${app.status === 'Connected' ? 'bg-[#18181b] border b order-border hover:bg-[#27272a] text-foreground' : 'bg-foreground text-background hover:bg-foreground/90'}`}>
                 {app.status === 'Connected' ? 'Configure' : 'Connect'}
               </button>
             </div>

@@ -26,7 +26,7 @@ export default function FineTuningPage() {
 
       {/* SUMMARY METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Active Jobs</span>
             <Activity className="w-4 h-4 text-primary" strokeWidth={1.5} />
@@ -34,7 +34,7 @@ export default function FineTuningPage() {
           <div className="text-2xl font-bold text-white mb-1">1</div>
           <div className="text-[11px] text-muted-foreground">Currently training</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Deployed Custom Models</span>
             <Network className="w-4 h-4 text-emerald-500" strokeWidth={1.5} />
@@ -42,7 +42,7 @@ export default function FineTuningPage() {
           <div className="text-2xl font-bold text-white mb-1">12</div>
           <div className="text-[11px] text-muted-foreground">Available to agents</div>
         </div>
-        <div className="bg-[#111113] border border-border rounded-xl p-5 shadow-sm">
+        <div className="bg-[#111113] border b order-border rounded-xl p-5 shado w-sm">
           <div className="flex justify-between items-start mb-2">
             <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">Compute Hours</span>
             <Clock className="w-4 h-4 text-orange-500" strokeWidth={1.5} />
@@ -57,20 +57,20 @@ export default function FineTuningPage() {
           <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text" placeholder="Search tuning jobs..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111113] border border-border hover:border-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="w-full bg-[#111113] border b order-border hover:b order-sidebar-ring rounded-lg pl-9 pr-4 py-2 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:b order-primary transition-colors"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#111113] border border-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
+        <button className="flex items-center gap-2 bg-[#111113] border b order-border hover:bg-[#18181b] px-3 py-2 rounded-lg text-[12px] font-medium text-foreground transition-colors outline-none w-full sm:w-auto justify-center cursor-pointer">
           Create Tuning Job
         </button>
       </div>
 
       {/* JOBS TABLE */}
-      <div className="bg-[#111113] border border-border rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto cf-scrollbar">
-          <table className="w-full text-left border-collapse whitespace-nowrap">
+      <div className="bg-[#111113] border b order-border rounded-xl overflo w-hidden shado w-sm">
+        <div className="overflo w-x-auto cf-scrollbar">
+          <table className="w-full text-left b order-collapse whitespace-nowrap">
             <thead>
-              <tr className="bg-[#18181b] border-b border-border/50">
+              <tr className="bg-[#18181b] b order-b b order-border/50">
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Job Name / ID</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Base Model & Dataset</th>
                 <th className="px-5 py-3 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider w-48">Progress</th>
@@ -80,7 +80,7 @@ export default function FineTuningPage() {
             </thead>
             <tbody>
               {mockJobs.map((job) => (
-                <tr key={job.id} className="border-b border-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
+                <tr key={job.id} className="b order-b b order-border/40 hover:bg-[#18181b]/80 transition-colors cursor-pointer group">
                   <td className="px-5 py-4">
                     <div className="flex flex-col">
                       <span className="text-[13px] font-medium text-foreground">{job.name}</span>
@@ -99,7 +99,7 @@ export default function FineTuningPage() {
                         <span>{job.progress}%</span>
                         <span>{job.epochs} Epochs</span>
                       </div>
-                      <div className="h-1.5 w-full bg-[#09090b] rounded-full overflow-hidden border border-border">
+                      <div className="h-1.5 w-full bg-[#09090b] rounded-full overflo w-hidden border b order-border">
                         <div
                           className={`h-full rounded-full transition-all duration-500 ${job.status === 'Training' ? 'bg-primary animate-pulse' : job.status === 'Failed' ? 'bg-decision-block' : 'bg-decision-allow'}`}
                           style={{ width: `${job.progress}%` }}
@@ -110,15 +110,15 @@ export default function FineTuningPage() {
                   </td>
                   <td className="px-5 py-4">
                     {job.status === 'Training' ? (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-primary bg-primary/10 border b order-primary/20 px-2 py-0.5 rounded w-fit">
                         <Activity className="w-3 h-3 animate-pulse" /> Training
                       </span>
                     ) : job.status === 'Deployed' ? (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-allow bg-decision-allow/10 border border-decision-allow/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-allow bg-decision-allow/10 border b order-decision-allow/20 px-2 py-0.5 rounded w-fit">
                         <CheckCircle2 className="w-3 h-3" /> Deployed
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-block bg-decision-block/10 border border-decision-block/20 px-2 py-0.5 rounded w-fit">
+                      <span className="flex items-center gap-1.5 text-[11px] font-medium text-decision-block bg-decision-block/10 border b order-decision-block/20 px-2 py-0.5 rounded w-fit">
                         <XCircle className="w-3 h-3" /> Failed
                       </span>
                     )}

@@ -93,19 +93,19 @@ export default function BusinessPage() {
   ];
 
   return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-24 selection:bg-blue-500/30 relative overflow-hidden">
-      {/* Arkaplan Işık Efektleri */}
+    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-zinc-950 text-white pt-24 selection:bg-blue-500/30 relative overflo w-hidden">
+      {/* Arkaplan IÅŸık Efektleri */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(0,102,238,0.15)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Üst Menü / Navbar */}
       <Navbar />
 
-      {/* Hero / Business Başlığı */}
+      {/* Hero / Business BaÅŸlığı */}
       <div className="relative z-10 max-w-[800px] w-full mx-auto px-6 pt-16 pb-16 text-center">
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full mb-8 inline-block"
+          className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border b order-blue-800/50 px-3.5 py-1.5 rounded-full mb-8 inline-block"
         >
           Aegisora for Enterprise
         </motion.span>
@@ -133,7 +133,7 @@ export default function BusinessPage() {
           transition={{ delay: 0.3 }}
         >
           <Link href="/contact/sales">
-            <button className="px-8 py-4 bg-blue-600 text-white text-[13px] font-medium rounded-full hover:bg-blue-500 transition-all shadow-[0_8px_20px_rgba(0,102,238,0.25)] hover:shadow-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer outline-none flex items-center gap-2 mx-auto">
+            <button className="px-8 py-4 bg-blue-600 text-white text-[13px] font-medium rounded-full hover:bg-blue-500 transition-all shado w-[0_8px_20px_rgba(0,102,238,0.25)] hover:shado w-[0_10px_25px_rgba(0,102,238,0.35)] cursor-pointer outline-none flex items-center gap-2 mx-auto">
               <ShieldCheck className="w-4 h-4" />
               <span>Contact Enterprise Sales</span>
             </button>
@@ -147,7 +147,7 @@ export default function BusinessPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between shadow-lg shadow-black/20 hover:border-zinc-700 transition-colors group"
+          className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border b order-zinc-800 flex flex-col justify-between shado w-lg shado w-black/20 hover:b order-zinc-700 transition-colors group"
         >
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-4">
             Cost of a compliance breach
@@ -157,7 +157,7 @@ export default function BusinessPage() {
               US$ 4.45M
             </p>
             <p className="text-xs font-mono text-zinc-400 mt-2 leading-relaxed">
-              Average per incident—driven by data leaks, unauthorized access,
+              Average per incidentâ€”driven by data leaks, unauthorized access,
               and regulatory fines.
             </p>
           </div>
@@ -174,7 +174,7 @@ export default function BusinessPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between shadow-lg shadow-black/20 hover:border-zinc-700 transition-colors group"
+          className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border b order-zinc-800 flex flex-col justify-between shado w-lg shado w-black/20 hover:b order-zinc-700 transition-colors group"
         >
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-4">
             Shadow AI impact
@@ -201,7 +201,7 @@ export default function BusinessPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border border-zinc-800 flex flex-col justify-between shadow-lg shadow-black/20 hover:border-zinc-700 transition-colors group"
+          className="p-8 rounded-[2rem] bg-zinc-900/40 backdrop-blur-md border b order-zinc-800 flex flex-col justify-between shado w-lg shado w-black/20 hover:b order-zinc-700 transition-colors group"
         >
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-4">
             Detection time
@@ -233,7 +233,7 @@ export default function BusinessPage() {
           Connect your environments, define your policies, and let Aegisora map
           every point of AI interaction across your organization. Get a unified
           view of what&apos;s secure, what&apos;s vulnerable, and what needs
-          immediate action — without weeks of setup.
+          immediate action â€” without weeks of setup.
         </p>
 
         {/* Dashboard Mockup Kartı (Enterprise Dark Mode) */}
@@ -241,7 +241,7 @@ export default function BusinessPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="p-8 rounded-[2rem] bg-zinc-900/60 backdrop-blur-xl border border-zinc-800 text-left shadow-2xl relative overflow-hidden"
+          className="p-8 rounded-[2rem] bg-zinc-900/60 backdrop-blur-xl border b order-zinc-800 text-left shado w-2xl relative overflo w-hidden"
         >
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,102,238,0.08)_0%,transparent_50%)] pointer-events-none" />
 
@@ -250,15 +250,15 @@ export default function BusinessPage() {
               <Activity className="w-4 h-4 text-blue-400" />
               AI Governance Health
             </span>
-            <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] rounded-full font-mono uppercase tracking-widest flex items-center gap-2 shadow-sm">
+            <span className="px-3 py-1 bg-emerald-500/10 border b order-emerald-500/20 text-emerald-400 text-[10px] rounded-full font-mono uppercase tracking-widest flex items-center gap-2 shado w-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Live Telemetry Active
             </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-8 mb-8 pb-8 border-b border-zinc-800/80 relative z-10">
-            <div className="w-24 h-24 rounded-full border-[3px] border-emerald-500/80 flex flex-col items-center justify-center font-serif text-3xl font-bold bg-zinc-950 text-white shadow-[0_0_20px_rgba(16,185,129,0.15)] relative">
-              <div className="absolute inset-2 rounded-full border border-dashed border-emerald-500/30 animate-[spin_10s_linear_infinite]" />
+          <div className="flex flex-col sm:flex-row items-center gap-8 mb-8 pb-8 b order-b b order-zinc-800/80 relative z-10">
+            <div className="w-24 h-24 rounded-full b order-[3px] b order-emerald-500/80 flex flex-col items-center justify-center font-serif text-3xl font-bold bg-zinc-950 text-white shado w-[0_0_20px_rgba(16,185,129,0.15)] relative">
+              <div className="absolute inset-2 rounded-full border b order-dashed b order-emerald-500/30 animate-[spin_10s_linear_infinite]" />
               98
               <span className="text-[9px] font-mono text-emerald-400/80 uppercase tracking-widest mt-1">
                 Secure
@@ -269,13 +269,13 @@ export default function BusinessPage() {
                 Optimal Fleet Status
               </h4>
               <span className="text-[11px] font-mono text-zinc-500">
-                Score: 98 / 100 • 0 Critical Incidents Detected
+                Score: 98 / 100 â€¢ 0 Critical Incidents Detected
               </span>
             </div>
           </div>
 
           <div className="space-y-3 relative z-10">
-            <div className="p-4 rounded-xl bg-zinc-950/60 border border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono shadow-inner gap-3">
+            <div className="p-4 rounded-xl bg-zinc-950/60 border b order-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono shado w-inner gap-3">
               <span className="text-zinc-200">
                 Customer Support Agent{" "}
                 <span className="text-zinc-500 text-[10px] ml-2 tracking-widest uppercase">
@@ -287,7 +287,7 @@ export default function BusinessPage() {
                 Compliant
               </span>
             </div>
-            <div className="p-4 rounded-xl bg-zinc-950/60 border border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono shadow-inner gap-3">
+            <div className="p-4 rounded-xl bg-zinc-950/60 border b order-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono shado w-inner gap-3">
               <span className="text-zinc-200">
                 Internal Data Analyst{" "}
                 <span className="text-zinc-500 text-[10px] ml-2 tracking-widest uppercase">
@@ -303,7 +303,7 @@ export default function BusinessPage() {
         </motion.div>
       </div>
 
-      {/* Plan Karşılaştırma Tablosu */}
+      {/* Plan KarÅŸılaÅŸtırma Tablosu */}
       <div className="relative z-10 max-w-[1000px] w-full mx-auto px-6 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-serif tracking-tight mb-4 text-white">
@@ -317,10 +317,10 @@ export default function BusinessPage() {
         </div>
 
         {/* Tablo (Enterprise Dark Mode) */}
-        <div className="w-full overflow-x-auto rounded-[2rem] border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-md p-6 sm:p-8 shadow-xl">
+        <div className="w-full overflo w-x-auto rounded-[2rem] border b order-zinc-800/80 bg-zinc-900/40 backdrop-blur-md p-6 sm:p-8 shado w-xl">
           <table className="w-full text-left font-mono text-xs whitespace-nowrap sm:whitespace-normal">
             <thead>
-              <tr className="border-b border-zinc-800 pb-4">
+              <tr className="b order-b b order-zinc-800 pb-4">
                 <th className="pb-5 font-semibold text-white uppercase tracking-widest text-[10px]">
                   Enterprise capabilities
                 </th>
@@ -381,7 +381,7 @@ export default function BusinessPage() {
 
       {/* Team Invite Bölümü */}
       <div className="relative z-10 max-w-[800px] w-full mx-auto px-6 py-20 text-center">
-        <div className="bg-zinc-900/60 border border-zinc-800 rounded-[2.5rem] p-12 backdrop-blur-md shadow-2xl">
+        <div className="bg-zinc-900/60 border b order-zinc-800 rounded-[2.5rem] p-12 backdrop-blur-md shado w-2xl">
           <h2 className="text-3xl font-serif tracking-tight mb-4 text-white">
             Deploy governance in minutes.
           </h2>
@@ -389,10 +389,10 @@ export default function BusinessPage() {
             Connect your infrastructure, set your policies, and let Aegisora
             start monitoring your AI agents. You&apos;ll get a clear view of
             what&apos;s active, what&apos;s compliant, and what needs
-            action—without weeks of setup.
+            actionâ€”without weeks of setup.
           </p>
           <Link href="/contact/sales">
-            <button className="px-8 py-3.5 bg-white text-black text-[13px] font-bold rounded-full hover:bg-zinc-200 transition-all shadow-lg cursor-pointer outline-none flex items-center gap-2 mx-auto">
+            <button className="px-8 py-3.5 bg-white text-black text-[13px] font-bold rounded-full hover:bg-zinc-200 transition-all shado w-lg cursor-pointer outline-none flex items-center gap-2 mx-auto">
               <span>Start Enterprise Trial</span>
             </button>
           </Link>
@@ -414,7 +414,7 @@ export default function BusinessPage() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="border border-zinc-800/80 rounded-2xl overflow-hidden bg-zinc-900/40 backdrop-blur-sm transition-colors hover:border-zinc-700"
+              className="border b order-zinc-800/80 rounded-2xl overflo w-hidden bg-zinc-900/40 backdrop-blur-sm transition-colors hover:b order-zinc-700"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -433,7 +433,7 @@ export default function BusinessPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="px-5 pb-5 text-[13px] font-mono text-zinc-400 leading-relaxed border-t border-zinc-800/60 pt-4"
+                    className="px-5 pb-5 text-[13px] font-mono text-zinc-400 leading-relaxed b order-t b order-zinc-800/60 pt-4"
                   >
                     {faq.a}
                   </motion.div>
@@ -444,8 +444,8 @@ export default function BusinessPage() {
         </div>
       </div>
 
-      {/* Yenilenmiş Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
-      <footer className="relative z-10 w-full border-t py-16 px-6 mt-20 border-zinc-800 bg-zinc-950">
+      {/* YenilenmiÅŸ Aegisora Ana Footer (Dark Mode, Yeni Logo & GitHub) */}
+      <footer className="relative z-10 w-full b order-t py-16 px-6 mt-20 b order-zinc-800 bg-zinc-950">
         <div className="max-w-[1100px] mx-auto flex flex-col items-center">
           {/* Logo Alanı */}
           <Link
@@ -475,7 +475,7 @@ export default function BusinessPage() {
           <div className="flex items-center gap-5 text-zinc-500 mt-8 mb-16">
             <Link
               href="https://aegisora.ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -494,7 +494,7 @@ export default function BusinessPage() {
             </Link>
             <Link
               href="https://x.com/aegisora_ai"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -507,7 +507,7 @@ export default function BusinessPage() {
             </Link>
             <Link
               href="https://www.linkedin.com/company/aegisora"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -520,7 +520,7 @@ export default function BusinessPage() {
             </Link>
             <Link
               href="https://github.com/aegisora"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               className="hover:text-blue-400 transition-colors outline-none"
             >
               <svg
@@ -537,7 +537,7 @@ export default function BusinessPage() {
             </Link>
           </div>
 
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 border-t border-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
+          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-10 b order-t b order-zinc-800/80 text-[11.5px] font-mono text-zinc-500">
             <div className="flex flex-col gap-2.5">
               <span className="font-bold text-zinc-300 mb-1">Company</span>
               <Link
@@ -651,7 +651,7 @@ export default function BusinessPage() {
             </div>
           </div>
 
-          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 border-t border-zinc-800/80 text-[11px] font-mono text-zinc-500">
+          <div className="w-full flex flex-col md:flex-row items-center justify-between pt-8 pb-2 mt-12 b order-t b order-zinc-800/80 text-[11px] font-mono text-zinc-500">
             <span className="mb-4 md:mb-0">
               © 2026 Aegisora. All rights reserved.
             </span>

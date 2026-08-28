@@ -12,7 +12,7 @@ export default function Introducing() {
     <section
       ref={containerRef}
       id="product"
-      className="relative py-32 md:py-48 bg-transparent border-y border-white/10 overflow-hidden font-sans"
+      className="relative py-32 md:py-48 bg-transparent b order-y b order-white/10 overflo w-hidden font-sans"
     >
       {/* İnce Üst Parlama Efekti */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#0066EE]/40 to-transparent" />
@@ -27,7 +27,7 @@ export default function Introducing() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col gap-6"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 w-fit shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border b order-white/10 bg-white/5 w-fit shado w-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0066EE] animate-pulse" />
               <span className="text-[11px] font-mono font-medium tracking-widest uppercase text-gray-400">
                 Introducing Aegisora Core
@@ -56,7 +56,7 @@ export default function Introducing() {
                   key={i}
                   className="flex items-center gap-3 text-sm font-medium text-gray-400 font-mono"
                 >
-                  <div className="w-5 h-5 rounded-full border border-white/10 flex items-center justify-center bg-white/5">
+                  <div className="w-5 h-5 rounded-full border b order-white/10 flex items-center justify-center bg-white/5">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#0066EE]" />
                   </div>
                   {item}
@@ -71,7 +71,7 @@ export default function Introducing() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full aspect-[4/5] md:aspect-square rounded-[2.5rem] overflow-hidden bg-[#0a0a0a] border border-white/10 group shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+            className="relative w-full aspect-[4/5] md:aspect-square rounded-[2.5rem] overflo w-hidden bg-[#0a0a0a] border b order-white/10 group shado w-[0_20px_50px_rgba(0,0,0,0.3)]"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#0066EE]/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
 
@@ -91,17 +91,17 @@ export default function Introducing() {
                 className="relative w-48 h-48 sm:w-64 sm:h-64 will-change-transform"
               >
                 {/* Dış Radar Halkası */}
-                <div className="absolute inset-0 rounded-full border-[2px] border-[#0066EE]/20 flex items-center justify-center border-dashed animate-[spin_20s_linear_infinite]" />
+                <div className="absolute inset-0 rounded-full b order-[2px] b order-[#0066EE]/20 flex items-center justify-center b order-dashed animate-[spin_20s_linear_infinite]" />
 
                 {/* İç Koruma Kalkanı */}
-                <div className="absolute inset-4 rounded-full border-[1px] border-blue-400/30 flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]" />
+                <div className="absolute inset-4 rounded-full b order-[1px] b order-blue-400/30 flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]" />
 
                 {/* Merkez Aura Bulanıklığı */}
                 <div className="absolute inset-12 rounded-full bg-gradient-to-tr from-[#0066EE]/40 to-indigo-500/40 blur-xl flex items-center justify-center" />
 
                 {/* Merkez Fiziksel Core */}
-                <div className="absolute inset-16 rounded-full border border-white/20 bg-[#111111]/80 backdrop-blur-sm shadow-[0_0_50px_rgba(0,102,238,0.4)] flex items-center justify-center">
-                  <div className="w-8 h-8 rounded-full bg-[#0066EE] animate-pulse shadow-[0_0_20px_#0066EE]"></div>
+                <div className="absolute inset-16 rounded-full border b order-white/20 bg-[#111111]/80 backdrop-blur-sm shado w-[0_0_50px_rgba(0,102,238,0.4)] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#0066EE] animate-pulse shado w-[0_0_20px_#0066EE]"></div>
                 </div>
               </motion.div>
             </div>
