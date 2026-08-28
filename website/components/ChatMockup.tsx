@@ -97,7 +97,7 @@ export default function ChatMockup() {
         timer = setTimeout(() => {
           setScenarioIndex((prev) => (prev + 1) % FLOW_SCENARIOS.length);
           setStep(0);
-          setVisibleLogs([]);
+          queueMicrotask(() => setVisibleLogs([]));
         }, 3500);
       }
     }
@@ -108,7 +108,7 @@ export default function ChatMockup() {
   useEffect(() => {
     if (step === 2 && isInView) {
       let currentIndex = 0;
-      setVisibleLogs([]);
+      queueMicrotask(() => setVisibleLogs([]));
       const interval = setInterval(() => {
         if (currentIndex < currentScenario.logs.length) {
           setVisibleLogs((prev) => [
@@ -184,7 +184,7 @@ export default function ChatMockup() {
                   Aegisora Core Intelligence
                 </h4>
                 <p className="text-[11px] text-blue-400 font-mono">
-                  Runtime Governance Active • Fail-Closed Enforced
+                  Runtime Governance Active Ã¢â‚¬Â¢ Fail-Closed Enforced
                 </p>
               </div>
             </div>

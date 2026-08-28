@@ -62,13 +62,13 @@ export default function GetStartedAccountPage() {
 
         {/* Ana Başlık ve Açıklama */}
         <h1 className="text-3xl lg:text-4xl font-serif tracking-tight mb-3">
-          You're about to create your account
+          You&apos;re about to create your account
         </h1>
         <p
           className={`text-[13px] font-mono mb-8 max-w-md ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
         >
           Sign up with an email you actually use. It becomes your first
-          protection marker and can't be changed later.
+          protection marker and can&apos;t be changed later.
         </p>
 
         {/* İstatistik / Grafik Kartı */}
@@ -113,7 +113,7 @@ export default function GetStartedAccountPage() {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2c]"></div>
-              <span>Email handle you don't use regularly</span>
+              <span>Email handle you don&apos;t use regularly</span>
             </div>
           </div>
 

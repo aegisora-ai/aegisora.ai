@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAdmin } from "@/utils/supabase/auth-guard";
 import { writeAuditLog } from "@/utils/audit/audit-log";
 import { rateLimit } from "@/utils/security/rate-limit";

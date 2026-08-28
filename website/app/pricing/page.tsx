@@ -1,255 +1,137 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Menu, X, Sun, Moon, Check, Zap, Shield, Building, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Navbar from "@/components/Navbar";
-import PricingSection from "@/components/Pricing";
 
 export default function PricingPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
-  const faqs = [
-    {
-      q: "How does Aegisora monitor AI agents?",
-      a: "Aegisora integrates seamlessly into your AI infrastructure to monitor agent actions, prompts, and outputs in real-time, instantly matching them against your enterprise security and governance policies.",
-    },
-    {
-      q: "Does Aegisora track a compliance score?",
-      a: "Yes. Aegisora compiles a comprehensive health and compliance score for every deployed AI agent and your overall infrastructure, giving your team instant visibility into your risk posture.",
-    },
-    {
-      q: "Is our enterprise data safe?",
-      a: "Absolutely. Your data is encrypted in transit and at rest, handled in strict accordance with enterprise security standards. We never use your proprietary corporate data or agent logs to train our own models.",
-    },
-    {
-      q: "What governance tools do you offer?",
-      a: "Aegisora provides real-time monitoring dashboards, automated policy enforcement APIs, continuous vulnerability scanning, and comprehensive audit logs tailored for enterprise compliance.",
-    },
-    {
-      q: "Are there limits to the agents you can monitor?",
-      a: "Aegisora scales with your enterprise. Whether you have 10 autonomous agents or 10,000, our infrastructure provides continuous monitoring without performance bottlenecks.",
-    },
-    {
-      q: "What type of risks do you prevent?",
-      a: "We actively prevent data exfiltration, prompt injection, unauthorized tool execution, hallucinations, and any deviations from your internal AI usage guidelines.",
-    },
-    {
-      q: "How do I onboard my organization?",
-      a: "You can start with our free tier to test the platform on a limited scale, or contact our enterprise sales team for a custom, infrastructure-wide deployment.",
-    },
-  ];
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [annual, setAnnual] = useState(true);
+  const { theme, setTheme } = useTheme();
+return (
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 flex flex-col">
 
-  return (
-    <main className="min-h-screen w-full flex flex-col justify-between font-sans bg-[#f4f4f5] text-[#111111] pt-28">
-      {/* Sadece Üst Menü / Navbar */}
-      <Navbar />
-
-      {/* Hero / Fiyatlandırma Başlığı */}
-      <div className="max-w-[800px] w-full mx-auto px-6 pt-16 pb-4 text-center">
-        <h1 className="text-4xl sm:text-6xl font-serif tracking-tight mb-6 leading-[1.1]">
-          Secure your AI for free. Scale later.
-        </h1>
-        <p className="text-sm sm:text-base font-mono text-gray-600 leading-relaxed mb-8 max-w-xl mx-auto">
-          Choose a plan, deploy your first governance policies, and upgrade as
-          your AI infrastructure scales. No tricks, no lock-ins — just honest
-          enterprise pricing.
-        </p>
-
-        {/* Esneklik Rozetleri */}
-        <div className="flex flex-wrap items-center justify-center gap-6 pt-6 border-t border-gray-300/60 text-[13px] font-mono text-gray-600">
-          <span className="flex items-center gap-2">
-            ✅ Add credits anytime
-          </span>
-          <span className="flex items-center gap-2">
-            ✅ 30-day money back guarantee
-          </span>
-          <span className="flex items-center gap-2">✅ Cancel anytime</span>
+      {/* HEADER */}
+      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0a0a0c]/90 backdrop-blur-md sticky top-0 z-50">
+        <Link href="/" className="flex items-center gap-2 outline-none">
+          <img src="/aegisora-logo-blue.png" alt="Aegisora" className="h-7 w-auto dark:hidden" />
+          <img src="/aegisora-logo-white.png" alt="Aegisora" className="h-7 w-auto hidden dark:block" />
+          <span className="text-[18px] font-bold text-slate-900 dark:text-white tracking-tight">Aegisora AI</span>
+        </Link>
+        <nav className="hidden lg:flex items-center gap-6 text-[14px] font-semibold text-slate-600 dark:text-slate-300">
+          <Link href="/platform/security" className="hover:text-blue-600 transition-colors">Product</Link>
+          <Link href="/hub" className="hover:text-blue-600 transition-colors">Hub</Link>
+          <Link href="/docs" className="hover:text-blue-600 transition-colors">Docs</Link>
+          <Link href="/pricing" className="text-blue-600 dark:text-blue-400">Pricing</Link>
+        </nav>
+        <div className="flex items-center gap-4 lg:gap-6">
+          {mounted && (<button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">{theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}</button>)}
+          <Link href="/login" className="hidden lg:block text-[14px] font-semibold text-slate-900 dark:text-white hover:text-blue-600 transition-colors">Log in</Link>
+          <Link href="/contact" className="hidden lg:block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-md text-[14px] font-bold transition-colors">Contact Sales</Link>
+          <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden p-1 text-slate-500"><Menu className="w-6 h-6" /></button>
         </div>
-      </div>
+      </header>
 
-      {/* Gelişmiş 3 Sütunlu Fiyatlandırma Bölümü (PricingSection Bileşeni Yapısı) */}
-      <PricingSection />
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-[100] bg-[#f8fafc] dark:bg-[#0a0a0c] flex flex-col overflow-y-auto lg:hidden">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0d0f]">
+               <Link href="/" className="flex items-center outline-none"><span className="text-[18px] font-bold">Aegisora AI</span></Link>
+               <button onClick={() => setIsMobileMenuOpen(false)} className="p-1 text-slate-500"><X className="w-7 h-7" /></button>
+            </div>
+            <div className="flex flex-col px-4 py-4 flex-1 gap-2">
+               <Link href="/platform/security" className="px-4 py-3 text-[16px] font-bold">Product</Link>
+               <Link href="/hub" className="px-4 py-3 text-[16px] font-bold">Hub</Link>
+               <Link href="/docs" className="px-4 py-3 text-[16px] font-bold">Docs</Link>
+               <Link href="/pricing" className="px-4 py-3 text-[16px] font-bold text-blue-600">Pricing</Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Partner Logoları */}
-      <div className="max-w-[900px] w-full mx-auto px-6 py-12 text-center">
-        <p className="text-xs font-mono text-gray-400 uppercase tracking-wider mb-8">
-          Trusted by security teams at leading companies
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-8 opacity-60 text-sm font-serif font-bold">
-          <span>Google</span>
-          <span>amazon</span>
-          <span>WB</span>
-          <span>PwC</span>
-          <span>M</span>
-        </div>
-      </div>
-
-      {/* Questions? (FAQ Akordeon) */}
-      <div className="max-w-[800px] w-full mx-auto px-6 py-16">
-        <div className="mb-10">
-          <h2 className="text-4xl font-serif tracking-tight">Questions?</h2>
-          <p className="text-lg font-serif italic text-gray-500">
-            We've got answers.
+      <main className="flex-1 py-20 px-6">
+        <div className="max-w-[1200px] mx-auto text-center mb-16">
+          <h1 className="text-[40px] md:text-[64px] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-6">
+            Secure your AI <br className="hidden md:block" /> without slowing down.
+          </h1>
+          <p className="text-[18px] md:text-[20px] text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10">
+            Transparent pricing designed for scale. Start for free, upgrade when you hit production volumes, or deploy in your own VPC for maximum security.
           </p>
+
+          <div className="inline-flex items-center p-1 bg-slate-100 dark:bg-[#111113] rounded-xl border border-slate-200 dark:border-slate-800">
+            <button onClick={() => setAnnual(false)} className={`px-6 py-2.5 rounded-lg text-[14px] font-bold transition-all ${!annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>Monthly</button>
+            <button onClick={() => setAnnual(true)} className={`px-6 py-2.5 rounded-lg text-[14px] font-bold transition-all flex items-center gap-2 ${annual ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>
+              Annually <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[10px] uppercase tracking-wider">Save 20%</span>
+            </button>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-3">
-          {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="border border-gray-300/80 rounded-2xl overflow-hidden bg-[#ededee]"
-            >
-              <button
-                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full p-5 text-left flex items-center justify-between font-medium text-[13.5px] cursor-pointer hover:bg-gray-200/50 transition-colors"
-              >
-                <span>{faq.q}</span>
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-300 text-[#0066EE] ${
-                    openFaq === idx ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              <AnimatePresence>
-                {openFaq === idx && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="px-5 pb-5 text-[13px] font-mono text-gray-600 leading-relaxed border-t border-gray-300/40 pt-3"
-                  >
-                    {faq.a}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
-      </div>
+        {/* PRICING CARDS */}
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
 
-      {/* Kurumsal Alt Footer */}
-      <footer className="w-full border-t py-12 px-8 mt-20 border-gray-200 bg-[#efeff1]">
-        <div className="max-w-[1100px] mx-auto flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2 group cursor-pointer">
-            <svg
-              className="w-5 h-5 text-gray-500 group-hover:text-black transition-colors"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <circle cx="12" cy="12" r="2" />
-              <circle cx="12" cy="5" r="1.5" />
-              <circle cx="12" cy="19" r="1.5" />
-              <circle cx="5" cy="12" r="1.5" />
-              <circle cx="19" cy="12" r="1.5" />
-              <circle cx="7" cy="7" r="1.5" />
-              <circle cx="17" cy="17" r="1.5" />
-              <circle cx="7" cy="17" r="1.5" />
-              <circle cx="17" cy="7" r="1.5" />
-            </svg>
-            <span className="text-sm font-serif font-semibold tracking-tight text-[#111111]">
-              Aegisora
-            </span>
+          {/* Developer */}
+          <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col">
+            <div className="mb-8">
+              <div className="flex items-center gap-2 text-slate-500 mb-4"><Zap className="w-5 h-5"/> <span className="font-bold uppercase tracking-wider text-[12px]">Developer</span></div>
+              <div className="text-[40px] font-bold text-slate-900 dark:text-white mb-2">$0</div>
+              <p className="text-[14px] text-slate-500">Perfect for prototyping and testing local AI agents.</p>
+            </div>
+            <Link href="/login" className="w-full py-3.5 rounded-xl border border-slate-200 dark:border-white/10 font-bold text-slate-900 dark:text-white text-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors mb-8">Start Building</Link>
+            <ul className="space-y-4 text-[14px] text-slate-600 dark:text-slate-400 flex-1">
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Up to 10,000 requests / mo</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Access to 60+ Hub Validators</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Standard Latency (~10ms)</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-emerald-500 shrink-0"/> Community Discord Support</li>
+            </ul>
           </div>
-          <p className="text-xs text-gray-500 font-mono text-center max-w-sm">
-            You deserve control over your autonomous systems. Aegisora monitors
-            what's happening, helps you manage it, and works to enforce your
-            governance policies, so you can deploy AI safely.
-          </p>
-          <div className="flex items-center gap-4 text-gray-600">
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
-              🌐
-            </Link>
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
-              ✖️
-            </Link>
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
-              📷
-            </Link>
-            <Link href="#" className="hover:text-[#0066EE] transition-colors">
-              🔗
-            </Link>
+
+          {/* Scale */}
+          <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 flex flex-col border border-blue-500 shadow-2xl relative transform md:-translate-y-4">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider">Most Popular</div>
+            <div className="mb-8">
+              <div className="flex items-center gap-2 text-blue-400 mb-4"><Shield className="w-5 h-5"/> <span className="font-bold uppercase tracking-wider text-[12px]">Scale</span></div>
+              <div className="text-[40px] font-bold text-white mb-2 flex items-end gap-2">${annual ? '899' : '1,129'}<span className="text-[16px] text-slate-400 font-normal mb-2">/mo</span></div>
+              <p className="text-[14px] text-slate-400">For production AI workloads requiring high availability.</p>
+            </div>
+            <Link href="/login" className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 font-bold text-white text-center transition-colors mb-8">Upgrade to Scale</Link>
+            <ul className="space-y-4 text-[14px] text-slate-300 flex-1">
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-blue-400 shrink-0"/> Up to 2.5M requests / mo</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-blue-400 shrink-0"/> Custom Python/TS Validators</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-blue-400 shrink-0"/> Low Latency Edge Network (&lt;2ms)</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-blue-400 shrink-0"/> 7-day Audit Log Retention</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-blue-400 shrink-0"/> Priority Email Support</li>
+            </ul>
           </div>
-          <div className="w-full grid grid-cols-2 md:grid-cols-6 gap-8 pt-8 border-t border-gray-300/60 text-xs font-mono text-gray-500">
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold text-black">Company</span>
-              <Link href="/about" className="hover:text-[#0066EE]">
-                About
-              </Link>
-              <Link href="#" className="hover:text-[#0066EE]">
-                Careers
-              </Link>
-              <Link href="/blog" className="hover:text-[#0066EE]">
-                Blog
-              </Link>
+
+          {/* Enterprise */}
+          <div className="bg-white dark:bg-[#111113] border border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col">
+            <div className="mb-8">
+              <div className="flex items-center gap-2 text-slate-900 dark:text-white mb-4"><Building className="w-5 h-5"/> <span className="font-bold uppercase tracking-wider text-[12px]">Enterprise</span></div>
+              <div className="text-[40px] font-bold text-slate-900 dark:text-white mb-2">Custom</div>
+              <p className="text-[14px] text-slate-500">For strictly regulated industries (Finance, Mobility, Health).</p>
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold text-black">Help</span>
-              <Link href="/contact/support" className="hover:text-[#0066EE]">
-                Support
-              </Link>
-              <Link href="#" className="hover:text-[#0066EE]">
-                Status
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold text-black">Security</span>
-              <Link href="/security" className="hover:text-[#0066EE]">
-                Our Practices
-              </Link>
-              <Link href="/legal/gdpr" className="hover:text-[#0066EE]">
-                GDPR
-              </Link>
-              <Link href="/legal/dpa" className="hover:text-[#0066EE]">
-                DPA
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold text-black">Product</span>
-              <Link href="/get-started" className="hover:text-[#0066EE]">
-                Sign up
-              </Link>
-              <Link href="/login" className="hover:text-[#0066EE]">
-                Log in
-              </Link>
-              <Link href="/business" className="hover:text-[#0066EE]">
-                For businesses
-              </Link>
-              <Link href="/pricing" className="hover:text-[#0066EE]">
-                Pricing
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold text-black">Contact</span>
-              <Link href="/contact/sales" className="hover:text-[#0066EE]">
-                Contact Sales
-              </Link>
-              <Link
-                href="/contact/business-inquiry"
-                className="hover:text-[#0066EE]"
-              >
-                Business inquiry
-              </Link>
-              <Link
-                href="/contact/partnership"
-                className="hover:text-[#0066EE]"
-              >
-                Partnership
-              </Link>
-            </div>
-            <div className="flex flex-col gap-2">
-              <span className="font-semibold text-black">Legal</span>
-              <Link href="/legal/dpa" className="hover:text-[#0066EE]">
-                Acceptable Use
-              </Link>
-              <Link href="/legal/gdpr" className="hover:text-[#0066EE]">
-                Terms of Service
-              </Link>
-            </div>
+            <Link href="/contact" className="w-full py-3.5 rounded-xl border border-slate-200 dark:border-white/10 font-bold text-slate-900 dark:text-white text-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors mb-8">Contact Sales</Link>
+            <ul className="space-y-4 text-[14px] text-slate-600 dark:text-slate-400 flex-1">
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> Unlimited volume</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> VPC & On-Premise Deployment</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> SAML SSO & Advanced RBAC</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> Unlimited WORM Audit Logs</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> SOC 2 & ISO 26262 Reports</li>
+              <li className="flex items-start gap-3"><Check className="w-5 h-5 text-slate-400 shrink-0"/> Dedicated Solutions Engineer</li>
+            </ul>
           </div>
+
         </div>
-      </footer>
-    </main>
+      </main>
+    </div>
   );
 }

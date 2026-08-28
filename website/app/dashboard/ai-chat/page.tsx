@@ -69,12 +69,12 @@ const MOCK_CHART_DATA = [
 ];
 
 const LANGUAGES = [
-  { code: "en", name: "English (US)", flag: "🇺🇸" },
-  { code: "de", name: "Deutsch (German)", flag: "🇩🇪" },
-  { code: "es", name: "Español (Spanish)", flag: "🇪🇸" },
-  { code: "fr", name: "Français (French)", flag: "🇫🇷" },
-  { code: "tr", name: "Türkçe (Turkish)", flag: "🇹🇷" },
-  { code: "ja", name: "日本語 (Japanese)", flag: "🇯🇵" },
+  { code: "en", name: "English (US)", flag: "ğŸ‡ºğŸ‡¸" },
+  { code: "de", name: "Deutsch (German)", flag: "ğŸ‡©ğŸ‡ª" },
+  { code: "es", name: "EspaÃ±ol (Spanish)", flag: "ğŸ‡ªğŸ‡¸" },
+  { code: "fr", name: "FranÃ§ais (French)", flag: "ğŸ‡«ğŸ‡·" },
+  { code: "tr", name: "TÃ¼rkÃ§e (Turkish)", flag: "ğŸ‡¹ğŸ‡·" },
+  { code: "ja", name: "æ—¥æœ¬èª (Japanese)", flag: "ğŸ‡¯ğŸ‡µ" },
 ];
 
 interface Message {
@@ -93,6 +93,8 @@ interface ChatSession {
 }
 
 export default function AiChatPage() {
+  const sessionIdCounter = useRef(0);
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -118,7 +120,7 @@ export default function AiChatPage() {
   const messages = activeSession ? activeSession.messages : [];
 
   const handleNewAnalysis = () => {
-    const newId = Date.now().toString();
+    const newId = `${sessionIdCounter.current++}-${crypto.randomUUID()}`;
     const newSession: ChatSession = {
       id: newId,
       title: "New Security Analysis",
@@ -164,7 +166,7 @@ export default function AiChatPage() {
     let targetSession = updatedSessions.find((s) => s.id === currentId);
 
     if (!targetSession) {
-      const newId = Date.now().toString();
+      const newId = `${sessionIdCounter.current++}-${crypto.randomUUID()}`;
       const title =
         queryText.length > 28 ? queryText.substring(0, 28) + "..." : queryText;
       targetSession = {
@@ -313,7 +315,7 @@ export default function AiChatPage() {
         }
       `}</style>
 
-      {/* MOBİL KARARTMA PERDESİ */}
+      {/* MOBÄ°L KARARTMA PERDESÄ° */}
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.div
@@ -326,7 +328,7 @@ export default function AiChatPage() {
         )}
       </AnimatePresence>
 
-      {/* 🚀 SOL SOHBET GEÇMİŞİ (Mobilde absolute çekmece, PC'de orantılı flex yan panel) */}
+      {/* ğŸš€ SOL SOHBET GEÃ‡MÄ°ÅÄ° (Mobilde absolute Ã§ekmece, PC'de orantÄ±lÄ± flex yan panel) */}
       <div
         className={`absolute lg:relative inset-y-0 left-0 z-40 h-full bg-zinc-900/95 lg:bg-zinc-950/80 backdrop-blur-xl border-r border-zinc-800/80 shrink-0 transition-all duration-300 ease-in-out flex flex-col shadow-2xl lg:shadow-none
           ${
@@ -402,7 +404,7 @@ export default function AiChatPage() {
         </div>
       </div>
 
-      {/* ANA SOHBET PENCERESİ */}
+      {/* ANA SOHBET PENCERESÄ° */}
       <div className="flex-1 flex flex-col h-full relative z-10 min-w-0 bg-zinc-950 overflow-hidden">
         {/* SUB-HEADER */}
         <div className="h-14 flex items-center justify-between px-4 sm:px-6 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl shrink-0 relative z-20">
@@ -442,7 +444,7 @@ export default function AiChatPage() {
           </div>
         </div>
 
-        {/* MESAJ AKIŞ ALANI */}
+        {/* MESAJ AKIÅ ALANI */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 w-full min-w-0 scroll-smooth relative z-10">
           <div className="max-w-3xl mx-auto w-full flex flex-col gap-6 min-w-0">
             {messages.length === 0 ? (
@@ -621,7 +623,7 @@ export default function AiChatPage() {
 
                   {msg.role === "user" && (
                     <div className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 font-bold text-xs shrink-0 mt-1 shadow-sm">
-                      EÖ
+                      EÃ–
                     </div>
                   )}
                 </motion.div>
@@ -712,7 +714,7 @@ export default function AiChatPage() {
         </div>
       </div>
 
-      {/* 📊 ANALYTICS CANVAS */}
+      {/* ğŸ“Š ANALYTICS CANVAS */}
       <AnimatePresence>
         {isCanvasOpen && (
           <motion.div
@@ -733,7 +735,7 @@ export default function AiChatPage() {
                     {canvasData.title || "Enterprise Telemetry"}
                   </h2>
                   <p className="text-[10px] sm:text-xs font-mono text-zinc-400 truncate">
-                    Generated dynamically by Aegisora Core •{" "}
+                    Generated dynamically by Aegisora Core â€¢{" "}
                     {selectedLang.toUpperCase()}
                   </p>
                 </div>
@@ -857,7 +859,7 @@ export default function AiChatPage() {
         )}
       </AnimatePresence>
 
-      {/* 🌍 DİL SEÇİM MODALI */}
+      {/* ğŸŒ DÄ°L SEÃ‡Ä°M MODALI */}
       <AnimatePresence>
         {isLangModalOpen && (
           <motion.div

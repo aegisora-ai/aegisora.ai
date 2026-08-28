@@ -1,4 +1,4 @@
-﻿import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { isSessionRevoked } from "@/utils/security/session-revocation";
 
 async function getVerifiedSession() {

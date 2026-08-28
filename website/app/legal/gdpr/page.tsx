@@ -97,7 +97,7 @@ export default function GDPRPage() {
 
           <p className="text-[13px] text-gray-500 font-mono text-center max-w-[550px] leading-relaxed mb-8">
             You deserve control over your autonomous systems. Aegisora monitors
-            what's happening, helps you manage it, and works to enforce your
+            what&apos;s happening, helps you manage it, and works to enforce your
             governance policies, so you can deploy AI safely.
           </p>
 

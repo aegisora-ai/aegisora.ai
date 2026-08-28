@@ -96,7 +96,7 @@ export default function GetStartedWaysPage() {
         <p
           className={`text-[13px] font-mono mb-10 text-center max-w-md ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
         >
-          Explore your own footprint or someone else's, then protect it manually
+          Explore your own footprint or someone else&apos;s, then protect it manually
           or on autopilot.
         </p>
 
@@ -186,7 +186,7 @@ export default function GetStartedWaysPage() {
                         </span>
                         <span className="text-gray-400 font-mono text-[11px]">
                           Look anything up by name, email, phone, username, or
-                          wallet, then pivot into what's connected.
+                          wallet, then pivot into what&apos;s connected.
                         </span>
                       </div>
                     </div>

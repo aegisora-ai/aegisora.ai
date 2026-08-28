@@ -1,146 +1,190 @@
-"use client";
-
-import { motion } from "framer-motion";
+import React from "react";
 import Link from "next/link";
-import { ShieldCheck, ArrowRight, Lock, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, FileCheck } from "lucide-react";
 
-// Aegisora Spark Symbol
-const AegisoraSpark = ({ className = "w-6 h-6 text-blue-400" }) => (
-  <motion.div
-    animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
-    transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-    className={`flex-shrink-0 ${className}`}
-  >
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-      <path d="M11.25 1.5L12.75 1.5L12.75 9L19.5 4.5L20.25 5.5L14.25 10.5L22.5 11.25L22.5 12.75L14.25 13.5L20.25 18.5L19.5 19.5L12.75 15L12.75 22.5L11.25 22.5L11.25 15L4.5 19.5L3.75 18.5L9.75 13.5L1.5 12.75L1.5 11.25L9.75 10.5L3.75 5.5L4.5 4.5L11.25 9L11.25 1.5Z" />
+// RESMÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â° VE KUSURSUZ SVG ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°KONLARI
+function DiscordIcon(props: React.ComponentProps<"svg">) { return (<svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>); }
+function TwitterIcon(props: React.ComponentProps<"svg">) { return (<svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>); }
+function LinkedinIcon(props: React.ComponentProps<"svg">) { return (<svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>); }
+
+// --- AKAN MAVÃƒâ€Ã‚Â° DALGA (TOPOLOJÃƒâ€Ã‚Â°K) ANÃƒâ€Ã‚Â°MASYONU ---
+// --- PURE CSS & SVG DITHERED GRADIENT MESH ---
+const AnimatedBlueWave = () => (
+  <div className="absolute inset-0 overflow-hidden bg-white">
+    <style dangerouslySetInnerHTML={{__html: `
+      @keyframes gradientMesh {
+        0% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(8%, -8%) scale(1.15); }
+        66% { transform: translate(-8%, 8%) scale(0.85); }
+        100% { transform: translate(0, 0) scale(1); }
+      }
+      .mesh-blob { animation: gradientMesh 18s infinite alternate ease-in-out; }
+      .mesh-delay-1 { animation-delay: -6s; }
+      .mesh-delay-2 { animation-delay: -12s; }
+    `}} />
+
+    {/* KATMAN 1: Halftone Dot Pattern (Beyaz zemin üzerine Siyah noktalar) */}
+    <div className="absolute inset-0" style={{
+      backgroundColor: '#ffffff',
+      backgroundImage: 'radial-gradient(circle, #000000 1.5px, #ffffff 2px)',
+      backgroundSize: '10px 10px',
+      backgroundPosition: 'center'
+    }}></div>
+
+    {/* KATMAN 2: Hareketli Mavi Gradyanlar (Screen Modu)
+        Harika CSS Hilesi: "Screen" modu, siyah noktaları maviye çevirir, beyaz zemini ise bembeyaz bırakır!
+    */}
+    <div className="absolute inset-0 mix-blend-screen filter blur-[60px] opacity-90">
+      <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-[#0066FF] rounded-full mesh-blob"></div>
+      <div className="absolute top-[20%] right-[-20%] w-[80%] h-[80%] bg-[#33CCFF] rounded-full mesh-blob mesh-delay-1"></div>
+      <div className="absolute bottom-[-30%] left-[10%] w-[90%] h-[90%] bg-[#002299] rounded-full mesh-blob mesh-delay-2"></div>
+    </div>
+
+    {/* KATMAN 3: Organik SVG Grain/Noise (Kumlu, Dithered Hissi) */}
+    <svg className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none mix-blend-multiply">
+      <filter id="grainy-noise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grainy-noise)" />
     </svg>
-  </motion.div>
+  </div>
 );
 
-export default function GetStartedCTA() {
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
-    <section className="relative w-full py-28 px-6 bg-transparent font-sans flex flex-col items-center justify-center z-10 text-white">
-      <div className="w-full max-w-[1200px] bg-zinc-950/90 backdrop-blur-2xl border border-zinc-800/90 rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.6)] grid grid-cols-1 lg:grid-cols-12">
-        {/* Sol Taraf: Koyu Tema Giriş & Kayıt Alanı */}
-        <div className="lg:col-span-6 p-8 sm:p-12 lg:p-16 flex flex-col justify-between space-y-8 bg-zinc-950/80 relative z-10 border-b lg:border-b-0 lg:border-r border-zinc-800/80">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/50 px-3.5 py-1.5 rounded-full">
-                Instant Deployment
-              </span>
-            </div>
+    <footer className="w-full bg-[#0066FF] pt-20 pb-10 px-4 sm:px-6">
+      {/* ARTIK OVERLAP/NEGATÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°F MARGÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°N YOK.
+        TÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼m bileÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸enler aynÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± Mavi Arka Plan (bg-[#0066FF]) iÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§inde flex-col ile gÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼venle alt alta sÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ralanÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±yor.
+      */}
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-12 md:gap-16">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-white tracking-tight mb-4 leading-tight">
-              Get started for free.
+        {/* 1. ENTERPRISE READY */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-b border-white/20 pb-12">
+          <div className="md:col-span-1">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              Enterprise <br className="hidden md:block"/> Ready
             </h2>
-
-            <p className="font-mono text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-md">
-              Deploy your runtime constitution and secure your autonomous AI
-              swarms in under 2 minutes.
-            </p>
           </div>
-
-          {/* Butonlar */}
-          <div className="space-y-3 max-w-md w-full">
-            {/* Google ile Devam Et */}
-            <Link
-              href="/auth/google"
-              className="w-full bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700/80 rounded-2xl py-3.5 px-6 font-medium text-xs sm:text-sm flex items-center justify-center gap-3 transition-all duration-200 shadow-md cursor-pointer group"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path
-                  fill="#4285F4"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
-                />
-              </svg>
-              <span>Continue with Google</span>
-            </Link>
-
-            {/* E-posta ile Devam Et */}
-            <Link
-              href="/login"
-              className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-2xl py-3.5 px-6 font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-blue-600/20 cursor-pointer"
-            >
-              <span>Continue with Email</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <p className="font-mono text-[11px] text-zinc-500 text-center pt-2">
-              By continuing, you acknowledge Aegisora&apos;s{" "}
-              <Link
-                href="/terms"
-                className="text-zinc-400 underline hover:text-white"
-              >
-                Terms
-              </Link>{" "}
-              &amp;{" "}
-              <Link
-                href="/privacy"
-                className="text-zinc-400 underline hover:text-white"
-              >
-                Privacy Policy
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-
-        {/* Sağ Taraf: Orbital Güvenlik Simülasyonu & Rozet */}
-        <div className="lg:col-span-6 bg-zinc-900/60 p-8 sm:p-12 flex flex-col justify-between items-center relative overflow-hidden min-h-[380px]">
-          <div className="absolute inset-0 bg-radial from-blue-600/10 via-transparent to-transparent blur-2xl pointer-events-none" />
-
-          {/* Dönen Yörünge ve Spark Görseli */}
-          <div className="relative w-64 h-64 flex items-center justify-center my-auto">
-            {/* Dış Yörünge Halkası */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 border border-zinc-800 rounded-full border-dashed"
-            >
-              <div className="w-2.5 h-2.5 bg-blue-400 rounded-full absolute -top-1 left-1/2 -translate-x-1/2 shadow-[0_0_10px_#60a5fa]" />
-            </motion.div>
-
-            {/* İç Yörünge Halkası */}
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-6 border border-zinc-800/80 rounded-full"
-            >
-              <div className="w-2 h-2 bg-emerald-400 rounded-full absolute -bottom-1 left-1/2 -translate-x-1/2 shadow-[0_0_8px_#34d399]" />
-            </motion.div>
-
-            {/* Merkez Çekirdek */}
-            <div className="w-20 h-20 rounded-3xl bg-zinc-900 border border-zinc-800 flex items-center justify-center shadow-2xl relative z-10">
-              <AegisoraSpark className="w-10 h-10 text-blue-400" />
+          <div className="md:col-span-2 flex flex-col">
+            <div className="pb-6 border-b border-white/20">
+              <h3 className="text-lg font-bold mb-2 text-white">Deployment Flexibility</h3>
+              <p className="text-blue-100/90 text-[14px] leading-relaxed">
+                Run in your environment. Keep sensitive test scenarios and evaluation results within your security perimeter.
+              </p>
             </div>
-          </div>
-
-          {/* Alt Güvenlik Durum Barı */}
-          <div className="w-full bg-zinc-950/90 border border-zinc-800 rounded-2xl px-5 py-3 flex items-center justify-between text-xs font-mono text-zinc-400 relative z-10 backdrop-blur-md">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-zinc-300 font-medium">
-                Runtime Shield Active
-              </span>
+            <div className="py-6 border-b border-white/20">
+              <h3 className="text-lg font-bold mb-2 text-white">Security & Compliance</h3>
+              <p className="text-blue-100/90 text-[14px] leading-relaxed">
+                SOC 2 Type II certified. Built for regulated industries with strict data handling requirements.
+              </p>
             </div>
-            <div className="flex items-center gap-1.5 text-blue-400 bg-blue-950/60 border border-blue-800/40 px-2.5 py-0.5 rounded-full text-[10px]">
-              <ShieldCheck className="w-3 h-3" /> SOC2 Ready
+            <div className="pt-6">
+              <h3 className="text-lg font-bold mb-2 text-white">Reliability Guarantees</h3>
+              <p className="text-blue-100/90 text-[14px] leading-relaxed">
+                99.9% uptime SLA. Dedicated support for enterprise customers. Scale to millions of test scenarios without degradation.
+              </p>
             </div>
           </div>
         </div>
+
+        {/* 2. BEYAZ CTA KUTUSU */}
+        <div className="w-full bg-white rounded-2xl p-8 sm:p-10 md:p-14 shadow-xl">
+          <h2 className="text-[32px] sm:text-[40px] md:text-[56px] lg:text-[64px] font-bold text-slate-900 leading-[1.05] tracking-tighter mb-8 max-w-4xl">
+            Start securing thousands of realistic scenarios automatically
+          </h2>
+          <Link
+            href="/get-started"
+            className="inline-flex items-center justify-center px-8 py-4 text-[15px] font-bold text-slate-900 bg-[#FFC107] hover:bg-[#FFCA28] rounded-lg transition-colors"
+          >
+            Get started
+          </Link>
+        </div>
+
+        {/* 3. BENTO GRID (Kutu Kutu Footer) */}
+        <div className="flex flex-col border border-white/20 rounded-2xl overflow-hidden bg-[#005CE6]">
+
+          {/* ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œST SATIR: Logo | Sertifikalar */}
+          <div className="flex flex-col md:flex-row border-b border-white/20">
+            <div className="w-full md:w-[60%] p-6 md:p-8 md:border-r border-white/20 flex items-center gap-4">
+              <img src="/logo.png" alt="Aegisora" className="h-8 md:h-10 w-auto brightness-0 invert" />
+              <span className="text-[24px] md:text-[28px] font-extrabold tracking-tight text-white">Aegisora</span>
+            </div>
+            <div className="w-full md:w-[40%] p-6 md:p-8 flex items-center flex-wrap gap-6 border-t md:border-t-0 border-white/20">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-[9px] font-bold uppercase tracking-widest leading-tight text-white">SOC 2<br/>TYPE II<br/>CERTIFIED</div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
+                  <FileCheck className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-[9px] font-bold uppercase tracking-widest leading-tight text-white">HIPAA<br/>COMPLIANT</div>
+              </div>
+            </div>
+          </div>
+
+          {/* ALT SATIR: Sol (Linkler + Sosyal) | SaÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ (Animasyon) */}
+          <div className="flex flex-col md:flex-row">
+
+            {/* ALT SOL KISIM */}
+            <div className="w-full md:w-[60%] flex flex-col md:border-r border-white/20">
+
+              {/* Linkler (Mobilde yan yana hizalandÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±) */}
+              <div className="flex-1 p-6 md:p-8 flex flex-col sm:grid sm:grid-cols-3 gap-8 border-b border-white/20">
+                <div className="flex flex-col gap-3">
+                  <h4 className="text-white font-bold text-[15px] mb-1">Product</h4>
+                  <div className="flex sm:flex-col gap-4 sm:gap-3">
+                    <Link href="/platform" className="text-[14px] font-medium text-blue-100 hover:text-white transition-colors">Snowglobe</Link>
+                    <Link href="/security" className="text-[14px] font-medium text-blue-100 hover:text-white transition-colors">Guardrails</Link>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <h4 className="text-white font-bold text-[15px] mb-1">Resources</h4>
+                  <div className="flex sm:flex-col gap-4 sm:gap-3">
+                    <Link href="/blog" className="text-[14px] font-medium text-blue-100 hover:text-white transition-colors">Blog</Link>
+                    <Link href="/docs" className="text-[14px] font-medium text-blue-100 hover:text-white transition-colors">Docs</Link>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <h4 className="text-white font-bold text-[15px] mb-1">Legal</h4>
+                  <div className="flex sm:flex-col gap-4 sm:gap-3">
+                    <Link href="/trust" className="text-[14px] font-medium text-blue-100 hover:text-white transition-colors">Terms of Use</Link>
+                    <Link href="/trust" className="text-[14px] font-medium text-blue-100 hover:text-white transition-colors">Privacy Policy</Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sosyal ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°konlar */}
+              <div className="p-6 md:p-8 flex items-center flex-wrap gap-6 sm:gap-8">
+                <a href="https://discord.com" className="flex items-center gap-2.5 text-[14px] font-bold text-white hover:text-blue-200 transition-colors">
+                  <DiscordIcon className="w-5 h-5" /> Discord
+                </a>
+                <a href="https://linkedin.com/company/aegisora" className="flex items-center gap-2.5 text-[14px] font-bold text-white hover:text-blue-200 transition-colors">
+                  <LinkedinIcon className="w-5 h-5" /> LinkedIn
+                </a>
+                <a href="https://twitter.com/aegisora" className="flex items-center gap-2.5 text-[14px] font-bold text-white hover:text-blue-200 transition-colors">
+                  <TwitterIcon className="w-5 h-5" /> X/Twitter
+                </a>
+              </div>
+            </div>
+
+            {/* ALT SAÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â KISIM: Animasyon Kutusu */}
+            <div className="w-full md:w-[40%] relative min-h-[200px] md:min-h-0 border-t md:border-t-0 border-white/20 bg-white">
+              <AnimatedBlueWave />
+            </div>
+          </div>
+        </div>
+
+        {/* COPYRIGHT */}
+        <div className="flex flex-col sm:flex-row justify-between items-center text-[12px] font-medium text-blue-200 px-2 gap-4 mt-8">
+          <div>@{currentYear} Aegisora AI. All rights reserved.</div>
+          <div>made by aegisora & modern execution</div>
+        </div>
+
       </div>
-    </section>
+    </footer>
   );
 }

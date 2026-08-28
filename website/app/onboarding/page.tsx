@@ -59,12 +59,12 @@ export default function OnboardingPage() {
         </div>
 
         <h1 className="text-3xl lg:text-4xl font-serif tracking-tight mb-3">
-          Let's get started
+          Let&apos;s get started
         </h1>
         <p
           className={`text-[13px] font-mono mb-8 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
         >
-          Choose how you'd like to get started with Serus.
+          Choose how you&apos;d like to get started with Serus.
         </p>
 
         {/* Seçenek Kartları */}
@@ -93,9 +93,9 @@ export default function OnboardingPage() {
                   Best for
                 </span>
                 <p className="text-xs font-mono text-gray-400 leading-relaxed">
-                  Finding what's exposed about you, removing it, and letting
+                  Finding what&apos;s exposed about you, removing it, and letting
                   Serus keep watch in the background. If something new shows up,
-                  you'll know.
+                  you&apos;ll know.
                 </p>
               </div>
             </div>

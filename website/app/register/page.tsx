@@ -43,8 +43,8 @@ export default function RegisterPage() {
         <div className="w-full bg-[#0d162d]/80 border border-blue-900/40 rounded-2xl p-4 flex items-start gap-3 backdrop-blur-md shadow-lg">
           <Info className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
           <p className="text-[12px] text-blue-200/90 leading-relaxed font-mono">
-            Use an email you actually use. We'll use it as your first protection
-            marker, and it can't be changed later.
+            Use an email you actually use. We&apos;ll use it as your first protection
+            marker, and it can&apos;t be changed later.
           </p>
         </div>
 
@@ -183,7 +183,7 @@ export default function RegisterPage() {
 
           {/* Şartlar Metni */}
           <p className="text-[10px] text-gray-500 text-center font-mono leading-relaxed mb-6">
-            By continuing, you agree to Serus's{" "}
+            By continuing, you agree to Serus&apos;s{" "}
             <Link href="#" className="underline hover:text-gray-300">
               Terms of Service
             </Link>{" "}

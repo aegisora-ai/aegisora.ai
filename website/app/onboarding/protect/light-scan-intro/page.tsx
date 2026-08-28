@@ -53,7 +53,7 @@ export default function LightScanIntroPage() {
         <p
           className={`text-[13px] font-mono mb-10 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
         >
-          This is what we're going to do in this onboarding.
+          This is what we&apos;re going to do in this onboarding.
         </p>
 
         {/* Adım Listesi */}

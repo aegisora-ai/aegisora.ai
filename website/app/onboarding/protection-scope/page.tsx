@@ -46,7 +46,7 @@ export default function ProtectionScopePage() {
         <p
           className={`text-[13px] font-mono mb-8 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
         >
-          Let us know if you'd like to extend protection to your team or
+          Let us know if you&apos;d like to extend protection to your team or
           business.
         </p>
 

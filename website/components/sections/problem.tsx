@@ -67,7 +67,7 @@ export default function Problem() {
               className="mt-12 md:mt-24 pt-12 border-t border-gray-300 dark:border-white/10"
             >
               <p className="text-xl md:text-3xl font-serif tracking-tight text-[#111111] dark:text-white leading-tight">
-                AI safety shouldn't rely on passive logging and delayed alerts.{" "}
+                AI safety shouldn&apos;t rely on passive logging and delayed alerts.{" "}
                 <br className="hidden md:block" />
                 It demands{" "}
                 <span className="text-[#0066EE] font-medium">

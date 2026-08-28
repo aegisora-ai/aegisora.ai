@@ -1,28 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Canela fontunun yolunu doğrudan public klasörüne göre ayarlıyoruz
-const canela = localFont({
-  src: "../public/fonts/Canela-Regular.woff2",
-  variable: "--font-serif",
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Aegisora — See what your agents actually do",
-  description: "AI governance and risk monitoring for autonomous agents.",
+  title: "Aegisora - AI Runtime Security",
+  description: "The AI Reliability Platform",
 };
 
 export default function RootLayout({
@@ -31,14 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // DÜZELTME: Mobilde scroll kilidini açmak için h-full yerine h-auto ve overflow-x-hidden eklendi
-    <html
-      lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${canela.variable} antialiased`}
-      style={{ colorScheme: "dark" }}
-    >
-      {/* DÜZELTME: min-h-full kısıtlaması kaldırılarak mobil esneklik sağlandı */}
-      <body className="flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-[#0066EE] selection:text-white">
+    <html lang="en">
+      <head>
+        <meta name="archive-9-dominion" content="ARCHIVE9-B1B549D8CEA3" />
+      </head>
+      <body className={inter.className}>
+        <CustomCursor />
         {children}
       </body>
     </html>

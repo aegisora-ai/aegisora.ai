@@ -25,7 +25,7 @@ export default function DPAPage() {
             1. Purpose and Scope
           </h2>
           <p>
-            This Data Processing Agreement ("DPA") reflects the parties'
+            This Data Processing Agreement (&quot;DPA&quot;) reflects the parties&apos;
             agreement with respect to the processing of enterprise data by
             Aegisora on behalf of business customers, in accordance with
             applicable data protection laws.
@@ -96,7 +96,7 @@ export default function DPAPage() {
 
           <p className="text-[13px] text-gray-500 font-mono text-center max-w-[550px] leading-relaxed mb-8">
             You deserve control over your autonomous systems. Aegisora monitors
-            what's happening, helps you manage it, and works to enforce your
+            what&apos;s happening, helps you manage it, and works to enforce your
             governance policies, so you can deploy AI safely.
           </p>
 

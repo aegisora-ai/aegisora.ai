@@ -1,9 +1,9 @@
-﻿import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 
 
 export async function writeAuditLog(
   action:string,
-  metadata:any={}
+  metadata: unknown={}
 ){
 
   const supabase = await createClient();

@@ -45,7 +45,7 @@ export default function ProtectIdentityPage() {
 
       <div className="flex-1 flex flex-col items-center justify-center max-w-lg mx-auto w-full py-10 text-center">
         <h1 className="text-3xl lg:text-4xl font-serif tracking-tight mb-2">
-          What's your name?
+          What&apos;s your name?
         </h1>
         <p
           className={`text-[13px] font-mono mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}

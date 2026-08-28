@@ -310,7 +310,7 @@ export default function PricingPage() {
         <div className="mb-10">
           <h2 className="text-4xl font-serif tracking-tight">Questions?</h2>
           <p className="text-lg font-serif italic text-gray-500">
-            We've got answers.
+            We&apos;ve got answers.
           </p>
         </div>
 
@@ -373,7 +373,7 @@ export default function PricingPage() {
           </div>
           <p className="text-xs text-gray-500 font-mono text-center max-w-sm">
             You deserve control over your autonomous systems. Aegisora monitors
-            what's happening, helps you manage it, and works to enforce your
+            what&apos;s happening, helps you manage it, and works to enforce your
             governance policies, so you can deploy AI safely.
           </p>
           <div className="flex items-center gap-4 text-gray-600">

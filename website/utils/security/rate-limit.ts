@@ -1,4 +1,4 @@
-﻿const requests = new Map<string,{count:number,time:number}>();
+const requests = new Map<string,{count:number,time:number}>();
 
 
 export function rateLimit(

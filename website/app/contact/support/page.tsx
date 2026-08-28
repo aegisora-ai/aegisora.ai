@@ -110,8 +110,8 @@ export default function SupportPage() {
               <p className="text-[13px] font-mono text-zinc-400 max-w-sm mx-auto leading-relaxed">
                 Thank you,{" "}
                 <span className="text-white">{formData.fullName}</span>. Your
-                ticket regarding "
-                <span className="text-white">{formData.category}</span>" has
+                ticket regarding &quot;
+                <span className="text-white">{formData.category}</span>&quot; has
                 been dispatched to our SecOps engineering desk. We will respond
                 to <span className="text-white">{formData.email}</span> shortly.
               </p>
