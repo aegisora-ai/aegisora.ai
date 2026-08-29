@@ -14,8 +14,6 @@
         "@aegisora/core": "workspace:*"
     },
     "devDependencies": {
-        "@types/node": "^20.19.43",
-        "tsx": "^4",
         "typescript": "^5"
     },
     "exports": {
