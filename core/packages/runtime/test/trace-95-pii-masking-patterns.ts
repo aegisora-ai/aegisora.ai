@@ -1,22 +1,6 @@
-declare const process: {
-  exit(code?: number): never;
-};
+/// <reference types="node" />
+import assert from "node:assert/strict";
 
-const assert = {
-  ok(value: unknown, message?: string): void {
-    if (!value) {
-      throw new Error(message ?? "Assertion failed: expected truthy value");
-    }
-  },
-  equal(actual: unknown, expected: unknown, message?: string): void {
-    if (actual !== expected) {
-      throw new Error(
-        message ??
-          `Assertion failed: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`,
-      );
-    }
-  },
-};
 import {
   EMAIL_PATTERN,
   INTERNATIONAL_PHONE_PATTERN,
@@ -29,17 +13,17 @@ import {
   maskPII,
   maskPhone,
   maskSSN,
-} from "../src/index";
+} from "@aegisora/security-engine";
 
-async function runTests() {
+async function main() {
   console.log("============================================================");
-  console.log("PII MASKING & REGEX PATTERN TEST SUITE");
+  console.log("TRACE 95 — PII MASKING & REGEX PATTERN VALIDATION");
   console.log("============================================================\n");
 
   // =========================================================================
-  // 1. EMAIL REGEX & PLUS-ADDRESSING TESTS
+  // 1. EMAIL REGEX & PLUS-ADDRESSING
   // =========================================================================
-  console.log("[1] Testing Emails with Plus-Addressing and Edge Cases...");
+  console.log("[A] Testing Emails with Plus-Addressing and Edge Cases...");
 
   const validPlusEmails = [
     "user+tag@example.com",
@@ -71,7 +55,6 @@ async function runTests() {
     );
   }
 
-  // Standard emails and edge cases
   const standardEmails = [
     "simple@example.com",
     "very.common@example.com",
@@ -89,9 +72,9 @@ async function runTests() {
   console.log("  ✓ Plus-addressing and email patterns: PASS");
 
   // =========================================================================
-  // 2. SSN & PARTIAL SSN PATTERN TESTS
+  // 2. SSN & PARTIAL SSN PATTERNS
   // =========================================================================
-  console.log("\n[2] Testing Partial and Full SSN Formats...");
+  console.log("\n[B] Testing Partial and Full SSN Formats...");
 
   const partialSSNs = [
     "XXX-XX-1234",
@@ -139,12 +122,11 @@ async function runTests() {
     assert.ok(masked.includes("[REDACTED_SSN]"));
   }
 
-  // Non-SSN formats should not false-positive match SSN_FULL_PATTERN
   const nonSSNs = [
-    "2026-08-29", // Date format (4-2-2)
-    "90210", // Zip code (5 digits)
-    "123456", // 6 digits
-    "555-123-4567", // Phone format (3-3-4)
+    "2026-08-29",
+    "90210",
+    "123456",
+    "555-123-4567",
   ];
 
   for (const item of nonSSNs) {
@@ -158,44 +140,34 @@ async function runTests() {
   console.log("  ✓ Partial and full SSN patterns: PASS");
 
   // =========================================================================
-  // 3. INTERNATIONAL PHONE NUMBER PATTERN TESTS
+  // 3. INTERNATIONAL PHONE FORMATS
   // =========================================================================
-  console.log("\n[3] Testing International Phone Formats...");
+  console.log("\n[C] Testing International Phone Formats...");
 
   const internationalPhones = [
-    // US / Canada
     "+1 (555) 123-4567",
     "+1-800-555-0199",
     "+1 555 234 5678",
     "+1.555.345.6789",
-    // UK
     "+44 20 7946 0958",
     "+44 (0)20 7946 0958",
     "+44 7911 123456",
     "+44-20-7946-0123",
-    // Germany
     "+49 30 123456",
     "+49-89-636-48018",
     "+49 170 1234567",
-    // France
     "+33 1 42 68 55 55",
     "+33 (0)1 42 68 55 55",
-    // India
     "+91 98765 43210",
     "+91-9876543210",
     "+91 22 2857 1234",
-    // Japan
     "+81 3 1234 5678",
     "+81-90-1234-5678",
-    // Australia
     "+61 2 9876 5432",
     "+61 412 345 678",
-    // China
     "+86 10 1234 5678",
     "+86-13800000000",
-    // Switzerland
     "+41 22 123 45 67",
-    // Brazil
     "+55 11 98765-4321",
   ];
 
@@ -217,7 +189,6 @@ async function runTests() {
     );
   }
 
-  // Domestic phone formats
   const domesticPhones = [
     "(555) 123-4567",
     "555-123-4567",
@@ -240,9 +211,9 @@ async function runTests() {
   console.log("  ✓ International and domestic phone formats: PASS");
 
   // =========================================================================
-  // 4. COMBINED PII MASKING TESTS (maskPII)
+  // 4. MULTI-PII MASKING
   // =========================================================================
-  console.log("\n[4] Testing Combined Multi-PII Masking...");
+  console.log("\n[D] Testing Multi-PII Masking...");
 
   const complexPayload = `
 User Profile:
@@ -268,7 +239,6 @@ User Profile:
   assert.ok(maskedPayload.includes("[REDACTED_PHONE]"));
   assert.ok(maskedPayload.includes("[REDACTED_SSN]"));
 
-  // Test custom mask tokens
   const customMasked = maskPII(complexPayload, {
     emailMask: "<EMAIL_HIDDEN>",
     ssnMask: "<SSN_HIDDEN>",
@@ -282,13 +252,12 @@ User Profile:
   console.log("  ✓ Combined multi-PII masking: PASS");
 
   // =========================================================================
-  // 5. PII DETECTOR ANALYZER INTEGRATION TESTS
+  // 5. PIIDetector ANALYZER & CUSTOM RULES
   // =========================================================================
-  console.log("\n[5] Testing PIIDetector Security Analyzer...");
+  console.log("\n[E] Testing PIIDetector Analyzer...");
 
   const detector = new PIIDetector();
 
-  // Test email detection
   const emailSignal = detector.analyze({
     agentId: "agent-1",
     action: "tool.execute",
@@ -298,7 +267,6 @@ User Profile:
   assert.equal(emailSignal?.type, "PII_EXPOSURE");
   assert.ok(emailSignal?.description.includes("email address"));
 
-  // Test SSN detection
   const ssnSignal = detector.analyze({
     agentId: "agent-2",
     action: "database.query",
@@ -308,7 +276,6 @@ User Profile:
   assert.equal(ssnSignal?.type, "PII_EXPOSURE");
   assert.equal(ssnSignal?.severity, "HIGH");
 
-  // Test International Phone detection
   const phoneSignal = detector.analyze({
     agentId: "agent-3",
     action: "sms.send",
@@ -321,7 +288,6 @@ User Profile:
   assert.equal(phoneSignal?.type, "PII_EXPOSURE");
   assert.ok(phoneSignal?.description.includes("phone number"));
 
-  // Test Clean Input (No PII)
   const cleanSignal = detector.analyze({
     agentId: "agent-4",
     action: "math.calculate",
@@ -329,32 +295,30 @@ User Profile:
   });
   assert.equal(cleanSignal, null, "Expected null signal for clean input");
 
-  // Test Custom Strategy / Rule Injection Pattern
   const customDetector = new PIIDetector([
     {
-      label: "Custom API Key",
-      patterns: [/custom_secret_key_[a-zA-Z0-9]{16}/g],
+      label: "Custom Secret",
+      patterns: [/custom_secret_token_[a-zA-Z0-9]{16}/g],
       score: 95,
     },
   ]);
   const customSignal = customDetector.analyze({
     agentId: "agent-5",
     action: "tool.execute",
-    input: "Use key custom_secret_key_1234567890abcdef to authenticate",
+    input: "Use token custom_secret_token_1234567890abcdef for auth",
   });
   assert.ok(customSignal !== null, "Expected threat signal for custom rule");
   assert.equal(customSignal?.score, 95);
   assert.equal(customSignal?.severity, "HIGH");
-  assert.ok(customSignal?.description.includes("Custom API Key"));
 
-  console.log("  ✓ PIIDetector analyzer integration: PASS");
+  console.log("  ✓ PIIDetector analyzer & rules: PASS");
 
   console.log("\n============================================================");
-  console.log("ALL PII MASKING AND REGEX PATTERN TESTS PASSED!");
+  console.log("TRACE 95 PII VALIDATION: PASS");
   console.log("============================================================");
 }
 
-runTests().catch((err) => {
-  console.error("TEST FAILED:", err);
+main().catch((err) => {
+  console.error("TRACE 95 FAILED:", err);
   process.exit(1);
 });

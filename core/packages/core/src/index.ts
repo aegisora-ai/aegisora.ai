@@ -12,6 +12,10 @@ export * from "./types/security";
 
 export * from "./types/decision";
 
+export * from "./types/runtime-decision";
+
+export * from "./types/evidence";
+
 export * from "./types/request";
 
 export * from "./types/response";

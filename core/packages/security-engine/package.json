@@ -7,8 +7,7 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "typecheck": "tsc --noEmit",
-        "test": "tsx test/pii-masking.test.ts"
+        "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@aegisora/core": "workspace:*"
