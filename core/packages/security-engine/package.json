@@ -7,12 +7,15 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "test": "tsx test/pii-masking.test.ts"
     },
     "dependencies": {
         "@aegisora/core": "workspace:*"
     },
     "devDependencies": {
+        "@types/node": "^20.19.43",
+        "tsx": "^4",
         "typescript": "^5"
     },
     "exports": {
