@@ -1,6 +1,6 @@
 {
     "name": "@aegisora/sdk",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "description": "Developer SDK for protecting AI agents with Aegisora runtime governance.",
     "license": "MIT",
     "main": "./dist/index.js",

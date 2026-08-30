@@ -109,7 +109,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## Release Notes
 
-### 0.1.2 â€” Runtime & Release Hardening
+### 0.1.2 Ã¢â‚¬â€ Runtime & Release Hardening
 
 The `0.1.2` release focused on preparing Aegisora for external consumption and strengthening the runtime governance boundary.
 

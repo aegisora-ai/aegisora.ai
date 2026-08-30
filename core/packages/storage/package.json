@@ -1,6 +1,6 @@
 {
     "name": "@aegisora/storage",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "description": "Persistence layer for Aegisora AI governance platform.",
     "license": "MIT",
     "main": "./dist/index.js",
