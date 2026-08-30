@@ -1,7 +1,9 @@
+/// <reference types="node" />
 import assert from "node:assert/strict";
 
 import { RuntimeContext } from "../src/context/runtime-context";
 import { EnforcementGate } from "../src/enforcement";
+import { Agent } from "../src/agent/core/agent";
 
 async function main() {
   console.log("");
@@ -22,10 +24,12 @@ async function main() {
   const context =
     new RuntimeContext();
 
-  context.agentRegistry.register({
-    id: "trace-115-r15-agent",
-    name: "trace-115-r15-agent",
-  });
+  context.agentRegistry.register(
+    new Agent({
+      id: "trace-115-r15-agent",
+      name: "trace-115-r15-agent",
+    }),
+  );
 
   const agent =
     context.agentRegistry.getById(
@@ -110,25 +114,31 @@ async function main() {
           allowed.decisionId,
       );
 
+  const initialEvidence =
+    context.evidenceStore.getById(
+      allowed.evidenceId!,
+    );
+
   assert.ok(initialTrace);
+  assert.ok(initialEvidence);
 
   assert.equal(
-    initialTrace?.canonical?.enforcementStatus,
+    initialTrace?.enforcementStatus,
     "not_executed",
   );
 
   assert.equal(
-    initialTrace?.canonical?.executionOutcome,
+    initialTrace?.executionOutcome,
     "not_attempted",
   );
 
   assert.equal(
-    initialTrace?.evidence?.enforcementStatus,
+    initialEvidence?.enforcementStatus,
     "not_executed",
   );
 
   assert.equal(
-    initialTrace?.evidence?.executionOutcome,
+    initialEvidence?.executionOutcome,
     "not_attempted",
   );
 
@@ -173,7 +183,13 @@ async function main() {
           allowed.decisionId,
       );
 
+  const successEvidence =
+    context.evidenceStore.getById(
+      allowed.evidenceId!,
+    );
+
   assert.ok(successTrace);
+  assert.ok(successEvidence);
 
   assert.equal(
     successTrace?.executionOutcome,
@@ -181,33 +197,28 @@ async function main() {
   );
 
   assert.equal(
-    successTrace?.canonical?.enforcementStatus,
+    successTrace?.enforcementStatus,
     "executed",
   );
 
   assert.equal(
-    successTrace?.canonical?.executionOutcome,
-    "succeeded",
-  );
-
-  assert.equal(
-    successTrace?.evidence?.enforcementStatus,
+    successEvidence?.enforcementStatus,
     "executed",
   );
 
   assert.equal(
-    successTrace?.evidence?.executionOutcome,
+    successEvidence?.executionOutcome,
     "succeeded",
   );
 
   assert.equal(
-    successTrace?.canonical?.metadata
+    successTrace?.metadata
       ?.executionComponent,
     "trace-115-r15",
   );
 
   assert.equal(
-    successTrace?.evidence?.metadata
+    successEvidence?.metadata
       ?.executionComponent,
     "trace-115-r15",
   );
@@ -277,25 +288,31 @@ async function main() {
           blocked.decisionId,
       );
 
+  const blockedEvidence =
+    context.evidenceStore.getById(
+      blocked.evidenceId!,
+    );
+
   assert.ok(blockedTrace);
+  assert.ok(blockedEvidence);
 
   assert.equal(
-    blockedTrace?.canonical?.enforcementStatus,
+    blockedTrace?.enforcementStatus,
     "prevented",
   );
 
   assert.equal(
-    blockedTrace?.canonical?.executionOutcome,
+    blockedTrace?.executionOutcome,
     "not_attempted",
   );
 
   assert.equal(
-    blockedTrace?.evidence?.enforcementStatus,
+    blockedEvidence?.enforcementStatus,
     "prevented",
   );
 
   assert.equal(
-    blockedTrace?.evidence?.executionOutcome,
+    blockedEvidence?.executionOutcome,
     "not_attempted",
   );
 
