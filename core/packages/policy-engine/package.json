@@ -1,6 +1,6 @@
 {
     "name": "@aegisora/policy-engine",
-    "version": "0.1.4",
+    "version": "1.6.0",
     "description": "Policy evaluation engine for Aegisora AI governance runtime.",
     "license": "MIT",
     "main": "./dist/index.js",

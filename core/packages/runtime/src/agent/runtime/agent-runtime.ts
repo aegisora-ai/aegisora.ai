@@ -92,7 +92,6 @@ export class AgentRuntime {
     this.selector,
     this.planner,
     this.context,
-    this.permissions,
     this.tools,
     this.toolExecutionToken,
     this.providerGateway,

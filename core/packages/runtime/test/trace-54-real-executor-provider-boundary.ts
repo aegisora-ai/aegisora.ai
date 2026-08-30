@@ -148,7 +148,6 @@ async function main() {
       selector,
       planner,
       context,
-      permissions,
       tools,
       toolExecutionToken,
       gateway

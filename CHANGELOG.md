@@ -10,6 +10,40 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ---
 
+## [1.6.0] - 2026-08-30
+
+### Security
+
+* Established `ToolRegistry` as the single canonical runtime tool authority.
+* Introduced scoped, single-use authorization receipts for governed tool execution.
+* Closed direct unauthorized `ToolRegistry` execution paths.
+* Strengthened provider governance ordering before provider and model resolution.
+* Removed legacy runtime authority implementations.
+
+### Runtime
+
+* Separated governance authority from `AgentExecutor`.
+* Hardened execution around canonical authorization capabilities.
+* Strengthened provider and model identity integrity across execution paths.
+* Preserved canonical decision and audit correlation.
+
+### Removed
+
+* `agent/agent.ts`
+* `agent/tool.ts`
+* `agent/executor.ts`
+
+### Validation
+
+* Runtime build passed.
+* Runtime typecheck passed.
+* 75/75 runtime tests passed.
+* Provider/model identity integrity traces passed.
+* Cross-provider resolution authority traces passed.
+* Protected agent execution boundary passed.
+* Direct tool bypass resistance passed.
+
+---
 ## [0.1.3] - 2026-08-26
 
 ### Security
@@ -75,7 +109,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## Release Notes
 
-### 0.1.2 — Runtime & Release Hardening
+### 0.1.2 â€” Runtime & Release Hardening
 
 The `0.1.2` release focused on preparing Aegisora for external consumption and strengthening the runtime governance boundary.
 

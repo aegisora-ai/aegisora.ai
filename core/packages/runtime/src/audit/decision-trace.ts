@@ -2,6 +2,21 @@ import type {
   EvidenceStore,
 } from "@aegisora/audit";
 
+export interface DecisionTraceProjection {
+  enforcementStatus:
+    | "not_executed"
+    | "executed"
+    | "prevented"
+    | "escalated";
+
+  executionOutcome:
+    | "not_attempted"
+    | "succeeded"
+    | "failed";
+
+  metadata?: Record<string, unknown>;
+}
+
 export interface DecisionTrace {
   id: string;
   agentId: string;
@@ -22,6 +37,9 @@ export interface DecisionTrace {
   executionId?: string;
   evidenceId?: string;
 
+  /*
+   * Backwards-compatible top-level lifecycle fields.
+   */
   enforcementStatus?:
     | "not_executed"
     | "executed"
@@ -32,6 +50,16 @@ export interface DecisionTrace {
     | "not_attempted"
     | "succeeded"
     | "failed";
+
+  /*
+   * Canonical lifecycle projection.
+   */
+  canonical?: DecisionTraceProjection;
+
+  /*
+   * Evidence lifecycle projection.
+   */
+  evidence?: DecisionTraceProjection;
 }
 
 export class DecisionTraceStore {
@@ -43,19 +71,66 @@ export class DecisionTraceStore {
   ) {}
 
   record(trace: DecisionTrace) {
+    const enforcementStatus =
+      trace.enforcementStatus ?? "not_executed";
+
+    const executionOutcome =
+      trace.executionOutcome ?? "not_attempted";
+
+    const metadata = trace.metadata
+      ? { ...trace.metadata }
+      : undefined;
+
     this.traces.push({
       ...trace,
-      metadata: trace.metadata
-        ? { ...trace.metadata }
-        : undefined,
+
+      enforcementStatus,
+      executionOutcome,
+
+      metadata,
+
+      canonical: {
+        enforcementStatus,
+        executionOutcome,
+        metadata: metadata
+          ? { ...metadata }
+          : undefined,
+      },
+
+      evidence: {
+        enforcementStatus,
+        executionOutcome,
+        metadata: metadata
+          ? { ...metadata }
+          : undefined,
+      },
     });
   }
 
   getAll() {
     return this.traces.map((trace) => ({
       ...trace,
+
       metadata: trace.metadata
         ? { ...trace.metadata }
+        : undefined,
+
+      canonical: trace.canonical
+        ? {
+            ...trace.canonical,
+            metadata: trace.canonical.metadata
+              ? { ...trace.canonical.metadata }
+              : undefined,
+          }
+        : undefined,
+
+      evidence: trace.evidence
+        ? {
+            ...trace.evidence,
+            metadata: trace.evidence.metadata
+              ? { ...trace.evidence.metadata }
+              : undefined,
+          }
         : undefined,
     }));
   }
@@ -94,15 +169,42 @@ export class DecisionTraceStore {
       return false;
     }
 
+    const executionOutcome =
+      update.executionOutcome ?? "not_attempted";
+
     trace.enforcementStatus =
       update.enforcementStatus;
 
     trace.executionOutcome =
-      update.executionOutcome;
+      executionOutcome;
 
     trace.metadata = {
       ...(trace.metadata ?? {}),
       ...(update.metadata ?? {}),
+    };
+
+    trace.canonical = {
+      enforcementStatus:
+        update.enforcementStatus,
+
+      executionOutcome,
+
+      metadata: {
+        ...(trace.canonical?.metadata ?? {}),
+        ...(update.metadata ?? {}),
+      },
+    };
+
+    trace.evidence = {
+      enforcementStatus:
+        update.enforcementStatus,
+
+      executionOutcome,
+
+      metadata: {
+        ...(trace.evidence?.metadata ?? {}),
+        ...(update.metadata ?? {}),
+      },
     };
 
     if (
@@ -119,8 +221,7 @@ export class DecisionTraceStore {
           ...evidence,
           enforcementStatus:
             update.enforcementStatus,
-          executionOutcome:
-            update.executionOutcome,
+          executionOutcome,
           metadata: {
             ...(evidence.metadata ?? {}),
             ...(update.metadata ?? {}),

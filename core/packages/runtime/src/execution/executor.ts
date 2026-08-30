@@ -21,12 +21,6 @@ import {
 } from "../planner";
 
 import { RuntimeContext } from "../context/runtime-context";
-import { PermissionEngine } from "../permissions";
-
-import {
-  EnforcementGate
-} from "../enforcement";
-
 import {
   ProviderExecutionGateway,
   type ProviderName,
@@ -60,24 +54,16 @@ interface AgentStepResult {
 }
 
 export class AgentExecutor {
-
-  private enforcement: EnforcementGate;
-
-  constructor(
+constructor(
     private tasks: TaskManager,
     private selector: ToolSelector,
     private planner: PlannerEngine,
     private context: RuntimeContext,
-    permissions: PermissionEngine = new PermissionEngine(),
     private tools: ToolRegistry,
     private executionToken: symbol,
     private providerGateway: ProviderExecutionGateway
   ) {
-    this.enforcement = new EnforcementGate(
-      context,
-      permissions,
-    );
-  }
+}
 
   async execute(
     agent: Agent,
@@ -144,41 +130,38 @@ private async executeStep(
 
     /*
      * ----------------------------------------------------------
-     * AEGISORA ENFORCEMENT BOUNDARY
+     * CANONICAL TOOL AUTHORIZATION
      * ----------------------------------------------------------
      *
-     * No tool execution may happen before the unified
-     * permission -> policy -> security enforcement gate.
+     * ToolRegistry owns the canonical governance decision for
+     * tool execution.
      *
-     * IMPORTANT:
-     * The actual step payload is passed into the gate.
+     * Authorization is evaluated exactly once and converted into
+     * a single-use receipt. The receipt is then carried into the
+     * execution boundary so the same action is not evaluated twice.
      */
 
-    const enforcement = await this.enforcement.enforce({
-      agentId: agent.id,
-      resourceType: "tool",
-      tool: selection.tool.name,
-      action: "tool.execute",
-      input: step.description,
-      metadata: {
-        planId,
-        stepId: step.id,
-        confidence: selection.confidence,
-      },
-    });
+    const authorization =
+      await this.tools.authorize(
+        agent.id,
+        selection.tool.name,
+        step.description,
+        {
+          planId,
+          stepId: step.id,
+          confidence: selection.confidence,
+        },
+      );
+
+    const enforcement =
+      authorization.enforcement;
 
     console.log(
       "ENFORCEMENT:",
       enforcement.decision,
       "RISK:",
-      enforcement.riskScore
+      enforcement.riskScore,
     );
-
-    if (enforcement.decision !== "ALLOW") {
-      throw new Error(
-        `[ENFORCEMENT:${enforcement.decision}] ${enforcement.reason}`
-      );
-    }
 
     /*
      * ----------------------------------------------------------
@@ -226,9 +209,10 @@ const result =
           reasoning: providerResponse.output,
         },
         {
-          agentId: agent.id
+          agentId: agent.id,
         },
         this.executionToken,
+        authorization,
       );
 
     console.log(

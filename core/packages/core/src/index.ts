@@ -17,3 +17,5 @@ export * from "./types/request";
 export * from "./types/response";
 
 export * from "./errors";
+
+export * from "./types/evidence";
