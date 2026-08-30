@@ -1,4 +1,4 @@
-export {
+﻿export {
 Agent,
 AgentRuntime,
 AgentManager
@@ -241,3 +241,7 @@ export * from "./governance";
 export * from "./providers";
 
 export * from "./policy";
+
+// DelegationAuthority is intentionally internal.
+// Delegation issuance/consumption must remain behind governed runtime boundaries.
+
