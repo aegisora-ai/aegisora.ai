@@ -1,0 +1,15 @@
+﻿{
+    "release":  "Aegisora 2.0.0 Governance",
+    "consumer":  "external-local-tarball-consumer",
+    "packages":  9,
+    "packageVersion":  "2.0.0",
+    "publicResolution":  "PASS",
+    "runtimeImport":  "PASS",
+    "sdkImport":  "PASS",
+    "supportingPackageImports":  "PASS",
+    "installedVersions":  "9/9 -\u003e 2.0.0",
+    "legacyAuthorityReachable":  false,
+    "toolRegistryCapability":  "PASS",
+    "npmAudit":  "PASS",
+    "generatedAt":  "2026-08-30T12:13:40.6269482Z"
+}

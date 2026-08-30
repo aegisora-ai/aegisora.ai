@@ -1,4 +1,4 @@
-import type { AgentRegistry } from "../agents";
+﻿import type { AgentRegistry } from "../agents";
 import type { EnforcementGate } from "../enforcement";
 import type { EnforcementResult } from "../enforcement/types";
 
@@ -184,6 +184,18 @@ export class CollaborationManager {
     if (!team.members.includes(actorId)) {
       throw new Error(
         `Agent ${actorId} is not a member of team ${task.teamId}`,
+      );
+    }
+
+    if (task.assignedAgent !== actorId) {
+      throw new Error(
+        `Agent ${actorId} is not authorized to complete task ${taskId}; task is assigned to ${task.assignedAgent}`,
+      );
+    }
+
+    if (task.status === "completed") {
+      throw new Error(
+        `Task ${taskId} is already completed.`,
       );
     }
 

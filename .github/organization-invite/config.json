@@ -1,0 +1,9 @@
+{
+  "organization": "aegisora-ai",
+  "dryRun": true,
+  "teams": {
+    "contributors": "contributors",
+    "security-researchers": "security-researchers",
+    "core-maintainers": "core-maintainers"
+  }
+}

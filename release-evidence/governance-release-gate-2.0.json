@@ -1,0 +1,82 @@
+﻿{
+    "release":  "Aegisora 2.0 Governance",
+    "generatedAt":  "2026-08-30T11:45:25.8581447Z",
+    "repository":  "aegisora-ai/aegisora",
+    "commit":  "99da0167dee363b96eb96019a1a17ebd8ec2bde5",
+    "branch":  "release/2.0-governance-platform",
+    "gates":  {
+                  "SingleCanonicalToolRegistry":  "PASS",
+                  "LegacyAuthorityAbsent":  "PASS",
+                  "ToolRegistrySecurityContract":  "PASS",
+                  "AgentExecutorAuthority":  "PASS",
+                  "ProviderGovernanceOrder":  "PASS",
+                  "CompiledArtifactIntegrity":  "PASS",
+                  "RUNTIME BUILD":  "PASS",
+                  "CORE BUILD":  "PASS",
+                  "AUDIT BUILD":  "PASS",
+                  "FULL RUNTIME TEST SUITE":  "PASS",
+                  "CriticalSecurityTraceMatrix":  "PASS",
+                  "RuntimeTypecheck":  "PASS",
+                  "GitDiffCheck":  "PASS",
+                  "PackageMetadata":  "PASS",
+                  "GitCommit":  "e24aee30d4e021e770b8d62158600a065c5a5323",
+                  "GitBranch":  "main",
+                  "Node":  "v24.13.0",
+                  "PNPM":  "11.20.0",
+                  "TypeScript":  "Version 5.9.3"
+              },
+    "criticalSecurityTraces":  [
+                                   {
+                                       "Trace":  "trace-54-real-executor-provider-boundary.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-55-real-executor-provider-block-boundary.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-79-provider-gateway-boundary.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-85-governance-gated-model-resolution.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-86-provider-identity-immutability.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-87-model-identity-immutability.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-89-post-governance-model-integrity.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-90-post-resolution-model-tampering.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-91-provider-model-cross-field-consistency.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-92-cross-provider-resolution-authority.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-93-protected-agent-boundary.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-73k-r11-direct-tool-bypass.ts",
+                                       "Result":  "PASS"
+                                   },
+                                   {
+                                       "Trace":  "trace-73k-r11-final-capability-gate.ts",
+                                       "Result":  "PASS"
+                                   }
+                               ]
+}

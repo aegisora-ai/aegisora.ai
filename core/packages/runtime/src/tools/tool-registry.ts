@@ -8,6 +8,10 @@ import {
   type EnforcementResult,
 } from "../enforcement";
 
+import {
+  DelegationAuthority,
+} from "../authorization/delegation-authority";
+
 const TOOL_AUTHORIZATION_MARKER =
   Symbol("aegisora.tool.authorization");
 
@@ -37,6 +41,14 @@ export class ToolRegistry {
 
   private readonly consumedAuthorizations =
     new Set<string>();
+
+  private delegationAuthority?: DelegationAuthority;
+
+  setDelegationAuthority(
+    authority: DelegationAuthority,
+  ) {
+    this.delegationAuthority = authority;
+  }
 
   setEnforcementGate(
     gate: EnforcementGate,
@@ -229,6 +241,76 @@ export class ToolRegistry {
     return tool.execute(
       input,
       context,
+    );
+  }
+
+  async executeDelegated(
+    name: string,
+    input: unknown,
+    context: ToolContext,
+    parentAgentId: string,
+    childAgentId: string,
+    delegationCapabilityId: string,
+    delegationResource?: string,
+  ): Promise<unknown> {
+    if (!this.delegationAuthority) {
+      throw new Error(
+        "[ENFORCEMENT:BLOCK] Delegation authority is not configured.",
+      );
+    }
+
+    if (context.agentId !== childAgentId) {
+      throw new Error(
+        "[ENFORCEMENT:BLOCK] Delegated child identity does not match execution context.",
+      );
+    }
+
+    const capability =
+      this.delegationAuthority.consume(
+        delegationCapabilityId,
+        parentAgentId,
+        childAgentId,
+        "tool.execute",
+        delegationResource ?? name,
+      );
+
+    if (
+      capability.childAgentId !==
+      context.agentId
+    ) {
+      throw new Error(
+        "[ENFORCEMENT:BLOCK] Delegated child identity mismatch.",
+      );
+    }
+
+    if (
+      capability.scope.tools &&
+      !capability.scope.tools.includes(name)
+    ) {
+      throw new Error(
+        "[ENFORCEMENT:BLOCK] Delegated capability does not authorize requested tool.",
+      );
+    }
+
+    const receipt =
+      await this.authorize(
+        context.agentId,
+        name,
+        input,
+        {
+          delegated: true,
+          parentAgentId,
+          childAgentId,
+          delegationCapabilityId,
+        },
+      );
+
+    return this.execute(
+      name,
+      input,
+      context,
+      this.#executionToken,
+      receipt,
     );
   }
 
