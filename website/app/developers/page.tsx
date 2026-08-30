@@ -1,91 +1,52 @@
 "use client";
 
-import React from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Terminal, Code2, Zap, PackageOpen } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Code2, GitBranch, Terminal } from "lucide-react";
 
 export default function DevelopersPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-      <main className="flex-1">
-        {/* Hero */}
-        <section className="relative pt-24 pb-20 overflo w-hidden b order-b b order-border">
-          <div className="absolute inset-0 bg-grid-slate opacity-10 dark:bg-grid-white pointer-events-none"></div>
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">Built for Developers</h1>
-              <p className="text-lg text-muted-foreground mb-10">
-                Integrate Aegisora into your existing AI stack in minutes. Native SDKs for TypeScript and Python with sub-5ms policy evaluation latency.
-              </p>
-              <div className="flex items-center gap-4">
-                <a href="/docs" className="bg-primary text-primary-foreground px-6 py-3 rounded-md text-sm font-bold shado w-md hover:bg-primary/90 transition-colors">
-                  Read the Docs
-                </a>
-                <a href="https://github.com/aegisora" className="bg-card border b order-border text-foreground px-6 py-3 rounded-md text-sm font-bold hover:bg-accent transition-colors flex items-center gap-2">
-                  <Terminal className="w-4 h-4" /> View Source
-                </a>
-              </div>
+    <main className="min-h-screen bg-[#FAFAFA]">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-[1240px] px-6 py-20 md:px-8 md:py-28">
+          <div className="max-w-4xl">
+            <div className="text-[11px] font-black uppercase tracking-[0.16em] text-[#2563EB]">Developers</div>
+            <h1 className="mt-4 text-[54px] font-black leading-[0.95] tracking-[-0.055em] md:text-[82px]">
+              Put a governance
+              <br />
+              boundary in your runtime.
+            </h1>
+            <p className="mt-7 max-w-2xl text-[19px] font-medium leading-8 text-slate-500">
+              Integrate Aegisora into the path where autonomous agents request tools, providers, APIs and other consequential actions.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/developers/quickstart" className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 text-[14px] font-black text-white">
+                Quickstart <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="https://github.com/aegisora-ai/aegisora" className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-[14px] font-black">
+                GitHub <GitBranch className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Code Snippet Section */}
-        <section className="py-24 bg-[#09090b]">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-6">Wrap your agents instantly.</h3>
-                <p className="text-slate-400 leading-relaxed mb-8">
-                  No complex infrastructure changes required. Simply import the Aegisora SDK and wrap your existing LLM client. We handle the policy evaluation, redaction, and audit logging seamlessly in the background.
-                </p>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-3 text-slate-300">
-                    <Zap className="w-5 h-5 text-blue-500" /> Adds &lt;5ms latency overhead
-                  </li>
-                  <li className="flex items-center gap-3 text-slate-300">
-                    <PackageOpen className="w-5 h-5 text-blue-500" /> Native OpenAI & Anthropic support
-                  </li>
-                </ul>
+      <section>
+        <div className="mx-auto max-w-[1240px] px-6 py-20 md:px-8">
+          <div className="grid gap-5 lg:grid-cols-3">
+            {[
+              [Terminal, "Runtime first", "Enforce at the action boundary rather than relying on post-hoc monitoring."],
+              [Code2, "Developer native", "Keep APIs, SDKs and contracts explicit so teams can build on the security model."],
+              [ArrowRight, "Open source", "Inspect, test, challenge and extend the runtime in public."],
+            ].map(([Icon, title, description]) => (
+              <div key={String(title)} className="aegis-panel p-7">
+                <Icon className="h-5 w-5 text-[#2563EB]" />
+                <h2 className="mt-6 text-[22px] font-black">{String(title)}</h2>
+                <p className="mt-3 text-[15px] font-medium leading-7 text-slate-500">{String(description)}</p>
               </div>
-
-              {/* Mock Code Block */}
-              <div className="bg-[#111113] border b order-slate-800 rounded-xl overflo w-hidden shado w-2xl">
-                <div className="flex items-center px-4 py-3 bg-[#18181b] b order-b b order-slate-800">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-slate-700"></div>
-                    <div className="w-3 h-3 rounded-full bg-slate-700"></div>
-                    <div className="w-3 h-3 rounded-full bg-slate-700"></div>
-                  </div>
-                  <div className="mx-auto text-xs text-slate-500 font-mono">agent.ts</div>
-                </div>
-                <div className="p-6 overflo w-x-auto">
-                  <pre className="text-sm font-mono text-slate-300">
-<code className="text-blue-400">import</code> {`{ Aegisora }`} <code className="text-blue-400">from</code> <code className="text-emerald-400">'@aegisora/node'</code>;
-<code className="text-blue-400">import</code> {`{ OpenAI }`} <code className="text-blue-400">from</code> <code className="text-emerald-400">'openai'</code>;{`\n\n`}
-<span className="text-slate-500">{`// 1. Initialize Aegisora client`}</span>{`\n`}
-<code className="text-blue-400">const</code> aegis = <code className="text-blue-400">new</code> Aegisora({`{`}
-  apiKey: process.env.AEGISORA_API_KEY,
-  enforcePolicies: <code className="text-amber-400">true</code>
-{`}`});{`\n\n`}
-<span className="text-slate-500">{`// 2. Wrap your LLM`}</span>{`\n`}
-<code className="text-blue-400">const</code> openai = aegis.wrap(<code className="text-blue-400">new</code> OpenAI());{`\n\n`}
-<span className="text-slate-500">{`// 3. Aegisora automatically intercepts and secures`}</span>{`\n`}
-<code className="text-blue-400">const</code> response = <code className="text-amber-400">await</code> openai.chat.completions.create({`{`}
-  model: <code className="text-emerald-400">'gpt-4'</code>,
-  messages: [{` role: `}<code className="text-emerald-400">'user'</code>{`, content: userInput `}]
-{`}`});
-                  </pre>
-                </div>
-              </div>
-
-            </div>
+            ))}
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

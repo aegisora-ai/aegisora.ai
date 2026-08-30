@@ -1,117 +1,41 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { ArrowLeft, Shield, Globe, Lock, CheckCircle, Mail, Building2, MessageSquare } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Building2, MessageSquare, ShieldCheck } from "lucide-react";
 
 export default function ContactPage() {
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
-
-  const { theme } = useTheme();
-return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0a0a0c] text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-100 dark:selection:bg-blue-900/50 flex flex-col md:flex-row">
-
-      {/* LEFT SIDE - Value Proposition */}
-      <div className="w-full md:w-5/12 lg:w-4/12 bg-white dark:bg-[#111113] b order-r b order-slate-200 dark:b order-white/10 p-8 md:p-12 flex flex-col justify-between">
-        <div>
-          <Link href="/" className="inline-flex items-center gap-2 text-[14px] font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors mb-12">
-            <ArrowLeft className="w-4 h-4" /> Back to home
-          </Link>
-          <img src={mounted && theme === 'dark' ? "/aegisora-logo-white.png" : "/aegisora-logo-blue.png"} alt="Aegisora" className="h-8 w-auto mb-8" />
-
-          <h1 className="text-[32px] md:text-[40px] font-bold tracking-tight leading-[1.1] mb-6">Talk to our security experts.</h1>
-          <p className="text-[16px] text-slate-600 dark:text-slate-400 mb-12">
-            Discover how Aegisora can help your engineering teams secure autonomous AI agents without slowing down your release cycle.
+  return (
+    <main className="min-h-screen bg-[#FAFAFA]">
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-[1000px] px-6 py-20 text-center md:px-8 md:py-28">
+          <div className="text-[11px] font-black uppercase tracking-[0.16em] text-[#2563EB]">Contact</div>
+          <h1 className="mt-4 text-[54px] font-black tracking-[-0.055em] md:text-[80px]">Bring Aegisora into the architecture review.</h1>
+          <p className="mx-auto mt-6 max-w-2xl text-[18px] font-medium leading-8 text-slate-500">
+            Talk to the team about runtime integration, enterprise governance, security research or design partnerships.
           </p>
+        </div>
+      </section>
 
-          <div className="space-y-6">
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center shrink-0"><Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" /></div>
-              <div>
-                <h3 className="font-bold text-[15px] mb-1">VPC & On-Premise</h3>
-                <p className="text-[14px] text-slate-500">Deploy our validation engine directly within your own secure infrastructure.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center shrink-0"><CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" /></div>
-              <div>
-                <h3 className="font-bold text-[15px] mb-1">Compliance Ready</h3>
-                <p className="text-[14px] text-slate-500">Meet strict SOC 2, HIPAA, and ISO 26262 requirements with cryptographic logs.</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center shrink-0"><Lock className="w-5 h-5 text-amber-600 dark:text-amber-400" /></div>
-              <div>
-                <h3 className="font-bold text-[15px] mb-1">SAML SSO & RBAC</h3>
-                <p className="text-[14px] text-slate-500">Manage hundreds of policies across global teams with Enterprise-grade access control.</p>
-              </div>
-            </div>
+      <section>
+        <div className="mx-auto max-w-[1000px] px-6 py-20 md:px-8">
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              [Building2, "Enterprise", "Architecture, deployment and governance discussions.", "/contact/business-inquiry"],
+              [MessageSquare, "Support", "Integration and developer questions.", "/contact/support"],
+              [ShieldCheck, "Security", "Security research and responsible disclosure.", "/security"],
+            ].map(([Icon, title, body, href]) => (
+              <Link href={String(href)} key={String(title)} className="aegis-panel p-7">
+                <Icon className="h-5 w-5 text-[#2563EB]" />
+                <h2 className="mt-6 text-[20px] font-black">{String(title)}</h2>
+                <p className="mt-3 text-[14px] font-medium leading-6 text-slate-500">{String(body)}</p>
+                <div className="mt-6 inline-flex items-center gap-2 text-[11px] font-black text-[#2563EB]">
+                  Continue <ArrowRight className="h-3.5 w-3.5" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
-
-        <div className="mt-12 text-[13px] text-slate-500">
-          Trusted by cybersecurity teams worldwide. <br/>
-          <a href="mailto:founders@aegisora.com" className="text-blue-600 hover:underline font-bold mt-2 inline-block">founders@aegisora.com</a>
-        </div>
-      </div>
-
-      {/* RIGHT SIDE - Form */}
-      <div className="flex-1 p-8 md:p-12 lg:p-20 flex items-center justify-center">
-        <div className="w-full max-w-[600px] bg-white dark:bg-[#111113] border b order-slate-200 dark:b order-white/10 rounded-2xl shado w-xl p-8 md:p-10">
-          <h2 className="text-[24px] font-bold mb-6">Contact Sales</h2>
-
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300">First Name</label>
-                <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="John" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300">Last Name</label>
-                <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Doe" />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2"><Mail className="w-4 h-4"/> Work Email</label>
-              <input type="email" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="john@company.com" />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2"><Building2 className="w-4 h-4"/> Company Name</label>
-              <input type="text" className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Acme Corp" />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300">Monthly LLM Executions (Volume)</label>
-              <select className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none">
-                <option>Just exploring</option>
-                <option>Under 100,000</option>
-                <option>100,000 - 1 Million</option>
-                <option>1 Million - 10 Million</option>
-                <option>10 Million+</option>
-              </select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2"><MessageSquare className="w-4 h-4"/> How can we help?</label>
-              <textarea rows={4} className="w-full bg-slate-50 dark:bg-[#1a1a1f] border b order-slate-200 dark:b order-slate-800 rounded-lg px-4 py-3 text-[14px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none" placeholder="Tell us about your AI use cases, security concerns, or deployment requirements..."></textarea>
-            </div>
-
-            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg text-[15px] transition-colors shado w-md">
-              Submit Request
-            </button>
-            <p className="text-[12px] text-slate-500 text-center mt-4">By submitting, you agree to our Terms of Service and Privacy Policy.</p>
-          </form>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

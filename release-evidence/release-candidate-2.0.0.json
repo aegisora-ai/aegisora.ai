@@ -1,0 +1,18 @@
+﻿{
+    "release":  "Aegisora 2.0.0 Governance",
+    "status":  "RELEASE_CANDIDATE",
+    "generatedAt":  "2026-08-30T11:53:23.0151846Z",
+    "branch":  "release/2.0-governance-platform",
+    "commit":  "99da0167dee363b96eb96019a1a17ebd8ec2bde5",
+    "packages":  9,
+    "packageVersion":  "2.0.0",
+    "runtimeTests":  "FULL WORKSPACE TEST PASSED",
+    "build":  "PASS",
+    "typecheck":  "PASS",
+    "dependencyMaterialization":  "PASS",
+    "packageMetadata":  "PASS",
+    "legacyAuthority":  "ABSENT",
+    "runtimeAuthority":  "CANONICAL",
+    "providerBoundary":  "GOVERNANCE-GATED",
+    "toolBoundary":  "SINGLE-USE CAPABILITY RECEIPT"
+}

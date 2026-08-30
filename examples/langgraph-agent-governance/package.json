@@ -1,6 +1,6 @@
 {
   "name": "@aegisora/example-langgraph-agent-governance",
-  "version": "0.1.2",
+  "version": "2.0.0",
   "private": true,
   "description": "Runnable LangGraph integration example for Aegisora SDK.",
   "license": "MIT",
