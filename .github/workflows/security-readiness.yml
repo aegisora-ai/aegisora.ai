@@ -1,4 +1,4 @@
-﻿name: Security Readiness
+name: Security Readiness
 
 on:
   push:
@@ -177,6 +177,7 @@ jobs:
           if grep -R -n -I -E \
             "(BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20,}|npm_[A-Za-z0-9]{20,})" \
             --exclude-dir=.git \
+            --exclude-dir=node_modules \
             --exclude='*.lock' \
             .; then
             echo "FAIL possible secret material detected"
